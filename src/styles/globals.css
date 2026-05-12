@@ -1,0 +1,31 @@
+/* Import Tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "./theme.css";
+/* Global body styles */
+body {
+
+  margin: 0;
+
+  padding: 0;
+
+  min-height: 100vh;
+
+  background-color: #f3f4f6;
+
+  font-family:
+    Inter,
+    system-ui,
+    sans-serif;
+}
+
+/* Remove default link styles */
+a {
+  text-decoration: none;
+}
+
+/* Better box sizing */
+* {
+  box-sizing: border-box;
+}
