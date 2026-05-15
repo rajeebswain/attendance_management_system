@@ -69,65 +69,74 @@ import {
     const { user } = useAuth();
   
   
-    // Load employee data
+    // // Load employee data
+    // useEffect(() => {
+  
+    //   async function loadData() {
+  
+    //     try {
+  
+    //       setLoading(true);
+  
+  
+    //       // Current employee
+    //       const employeeData =
+  
+    //         await getCurrentEmployee(
+  
+    //           user.id
+    //         );
+  
+    //       setEmployee(employeeData);
+  
+  
+    //       // Today's attendance
+    //       const attendanceData =
+  
+    //         await getTodayAttendance(
+  
+    //           employeeData.id
+    //         );
+  
+    //       setAttendance(attendanceData);
+  
+  
+    //       // Attendance history
+    //       const historyData =
+  
+    //         await getAttendanceHistory(
+  
+    //           employeeData.id
+    //         );
+  
+    //       setHistory(historyData);
+  
+    //     } catch (error) {
+  
+    //       alert(error.message);
+  
+    //     } finally {
+  
+    //       setLoading(false);
+    //     }
+    //   }
+  
+    //   if (user) {
+  
+    //     loadData();
+    //   }
+  
+    // }, [user]);
+  
     useEffect(() => {
-  
-      async function loadData() {
-  
-        try {
-  
-          setLoading(true);
-  
-  
-          // Current employee
-          const employeeData =
-  
-            await getCurrentEmployee(
-  
-              user.id
-            );
-  
-          setEmployee(employeeData);
-  
-  
-          // Today's attendance
-          const attendanceData =
-  
-            await getTodayAttendance(
-  
-              employeeData.id
-            );
-  
-          setAttendance(attendanceData);
-  
-  
-          // Attendance history
-          const historyData =
-  
-            await getAttendanceHistory(
-  
-              employeeData.id
-            );
-  
-          setHistory(historyData);
-  
-        } catch (error) {
-  
-          alert(error.message);
-  
-        } finally {
-  
-          setLoading(false);
-        }
-      }
-  
-      if (user) {
-  
-        loadData();
-      }
-  
-    }, [user]);
-  
+
+        console.log("PAGE LOADED");
+      
+        console.log("USER:", user);
+      
+        setLoading(false);
+      
+      }, [user]);
   
     // Handle check-in
     async function handleCheckIn() {
