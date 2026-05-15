@@ -1,7 +1,11 @@
-/* Import Tailwind layers
-@import "tailwindcss";
 @import "./theme.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Global body styles */
+
 body {
 
   margin: 0;
@@ -19,11 +23,13 @@ body {
 }
 
 /* Remove default link styles */
+
 a {
   text-decoration: none;
 }
 
 /* Better box sizing */
+
 * {
   box-sizing: border-box;
-} */
+}
