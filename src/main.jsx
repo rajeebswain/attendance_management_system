@@ -26,7 +26,7 @@ ReactDOM.createRoot(
 
       <AuthProvider>
 
-        <App />
+        <AppRoutes />
 
       </AuthProvider>
 
