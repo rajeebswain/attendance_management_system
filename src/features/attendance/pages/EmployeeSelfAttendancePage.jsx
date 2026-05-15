@@ -128,7 +128,7 @@ import {
   
     // }, [user]);
   
-    useEffect(() => {    remove
+    useEffect(() => {    
 
         console.log("PAGE LOADED");
       
