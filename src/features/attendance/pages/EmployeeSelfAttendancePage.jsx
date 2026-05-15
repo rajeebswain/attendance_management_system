@@ -127,16 +127,101 @@ import {
     //   }
   
     // }, [user]);
-  
-    useEffect(() => {    
 
-        console.log("PAGE LOADED");
+
+    useEffect(() => {
+
+        async function loadData() {
       
-        console.log("USER:", user);
+          try {
       
-        setLoading(false);
+            setLoading(true);
+      
+            console.log("USER:", user);
+      
+            // Current employee
+            const employeeData =
+      
+              await getCurrentEmployee(
+                user.id
+              );
+      
+            console.log(
+              "EMPLOYEE:",
+              employeeData
+            );
+      
+            if (!employeeData) {
+      
+              throw new Error(
+                "Employee not found"
+              );
+            }
+      
+            setEmployee(employeeData);
+      
+      
+            // Today's attendance
+            const attendanceData =
+      
+              await getTodayAttendance(
+                employeeData.id
+              );
+      
+            console.log(
+              "ATTENDANCE:",
+              attendanceData
+            );
+      
+            setAttendance(attendanceData);
+      
+      
+            // Attendance history
+            const historyData =
+      
+              await getAttendanceHistory(
+                employeeData.id
+              );
+      
+            console.log(
+              "HISTORY:",
+              historyData
+            );
+      
+            setHistory(historyData);
+      
+          } catch (error) {
+      
+            console.error(error);
+      
+            alert(error.message);
+      
+          } finally {
+      
+            console.log(
+              "LOADING COMPLETE"
+            );
+      
+            setLoading(false);
+          }
+        }
+      
+        if (user?.id) {
+      
+          loadData();
+        }
       
       }, [user]);
+  
+    // useEffect(() => {    
+
+    //     console.log("PAGE LOADED");
+      
+    //     console.log("USER:", user);
+      
+    //     setLoading(false);
+      
+    //   }, [user]);
 
   
     // Handle check-in
