@@ -22,7 +22,7 @@ import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 // Pages
 import DashboardPage from "../pages/DashboardPage";
 
-import employeesPage from "../pages/employeesPage";
+import employeesPage from "../pages/EmployeesPage";
 
 
 // Role Guard
