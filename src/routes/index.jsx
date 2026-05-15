@@ -105,6 +105,8 @@ import StudentsPage from "../pages/StudentsPage";
 // Role Guard
 import RoleGuard from "../features/auth/components/RoleGuard";
 
+// Attendance Page Route
+import AttendancePage from "../features/attendance/pages/AttendancePage";
 
 function AppRoutes() {
 
@@ -153,23 +155,27 @@ function AppRoutes() {
           element={
 
             <ProtectedRoute>
-
               <RoleGuard
                 allowedRoles={[
                   "admin",
                   "super_admin",
                 ]}
               >
-
                 <StudentsPage />
-
               </RoleGuard>
-
             </ProtectedRoute>
+            }
+          />
+        </Routes>
+
+        <Route
+          path="/attendance"
+          element={
+           <ProtectedRoute>
+              <AttendancePage />
+           </ProtectedRoute>
           }
         />
-
-      </Routes>
 
     </BrowserRouter>
   );

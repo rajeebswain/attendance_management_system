@@ -1,0 +1,96 @@
+// Centralized Supabase client
+import { supabase } from "../../../lib/supabase/client";
+
+
+// FETCH ALL EMPLOYEES
+export async function getEmployees() {
+
+  // Fetch employees with department data
+  const { data, error } = await supabase
+
+    .from("employees")
+
+    .select(`
+      *,
+      departments (
+        department_name
+      )
+    `)
+
+    .order("created_at", {
+      ascending: false,
+    });
+
+  // Handle fetch errors
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
+
+
+// CREATE EMPLOYEE
+export async function createEmployee(employeeData) {
+
+  const { data, error } = await supabase
+
+    .from("employees")
+
+    .insert([employeeData])
+
+    .select();
+
+  // Handle insert errors
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
+
+
+// UPDATE EMPLOYEE
+export async function updateEmployee(
+
+  employeeId,
+
+  employeeData
+
+) {
+
+  const { data, error } = await supabase
+
+    .from("employees")
+
+    .update(employeeData)
+
+    .eq("id", employeeId)
+
+    .select();
+
+  // Handle update errors
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
+
+
+// DELETE EMPLOYEE
+export async function deleteEmployee(employeeId) {
+
+  const { error } = await supabase
+
+    .from("employees")
+
+    .delete()
+
+    .eq("id", employeeId);
+
+  // Handle delete errors
+  if (error) {
+    throw error;
+  }
+}
