@@ -1,4 +1,4 @@
-/* Import Tailwind layers */
+/* Import Tailwind layers
 @import "tailwindcss";
 @import "./theme.css";
 /* Global body styles */
@@ -26,4 +26,4 @@ a {
 /* Better box sizing */
 * {
   box-sizing: border-box;
-}
+} */

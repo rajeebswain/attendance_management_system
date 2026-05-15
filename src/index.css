@@ -1,8 +1,3 @@
-@import "./theme.css";
-@import "tailwindcss";
-
-/* Global styles */
-
-body {
-
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
