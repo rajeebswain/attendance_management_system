@@ -69,74 +69,74 @@ import {
     const { user } = useAuth();
   
   
-    // Load employee data
-    useEffect(() => {
+    // // Load employee data
+    // useEffect(() => {
   
-      async function loadData() {
+    //   async function loadData() {
   
-        try {
+    //     try {
   
-          setLoading(true);
-  
-  
-          // Current employee
-          const employeeData =
-  
-            await getCurrentEmployee(
-  
-              user.id
-            );
-  
-          setEmployee(employeeData);
+    //       setLoading(true);
   
   
-          // Today's attendance
-          const attendanceData =
+    //       // Current employee
+    //       const employeeData =
   
-            await getTodayAttendance(
+    //         await getCurrentEmployee(
   
-              employeeData.id
-            );
+    //           user.id
+    //         );
   
-          setAttendance(attendanceData);
+    //       setEmployee(employeeData);
   
   
-          // Attendance history
-          const historyData =
+    //       // Today's attendance
+    //       const attendanceData =
   
-            await getAttendanceHistory(
+    //         await getTodayAttendance(
   
-              employeeData.id
-            );
+    //           employeeData.id
+    //         );
   
-          setHistory(historyData);
+    //       setAttendance(attendanceData);
   
-        } catch (error) {
   
-          alert(error.message);
+    //       // Attendance history
+    //       const historyData =
   
-        } finally {
+    //         await getAttendanceHistory(
   
-          setLoading(false);
-        }
-      }
+    //           employeeData.id
+    //         );
   
-      if (user) {
+    //       setHistory(historyData);
   
-        loadData();
-      }
+    //     } catch (error) {
   
-    }, [user]);
+    //       alert(error.message);
   
-    // useEffect(() => {    
+    //     } finally {
+  
+    //       setLoading(false);
+    //     }
+    //   }
+  
+    //   if (user) {
+  
+    //     loadData();
+    //   }
+  
+    // }, [user]);
+  
+    useEffect(() => {    
 
-    //     console.log("PAGE LOADED");
+        console.log("PAGE LOADED");
       
-    //     console.log("USER:", user);
+        console.log("USER:", user);
       
-    //     setLoading(false);
+        setLoading(false);
       
-    //   }, [user]);
+      }, [user]);
 
   
     // Handle check-in
