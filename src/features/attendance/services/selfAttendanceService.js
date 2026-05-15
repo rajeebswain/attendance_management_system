@@ -16,14 +16,10 @@ export async function getCurrentEmployee(
 
     .select(`
       *,
-      shifts (
+      shifts:shift_id(
         *
       )
     `)
-
-   
-
-
     .eq("user_id", userId)
 
     .maybeSingle();
