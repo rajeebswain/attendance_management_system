@@ -377,3 +377,8 @@ export async function getAttendanceHistory(
 
   return data;
 }
+
+
+console.log(employee);
+
+console.log(attendance);
