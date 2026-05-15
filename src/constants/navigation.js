@@ -8,8 +8,8 @@ export const SIDEBAR_LINKS = [
     },
   
     {
-      label: "Students",
-      path: "/students",
+      label: "Employees",
+      path: "/Employees",
     },
   
     {
