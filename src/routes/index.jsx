@@ -73,40 +73,115 @@
 // export default AppRoutes;
 
 
-import {
+// import {
 
-  BrowserRouter,
+//   BrowserRouter,
 
-  Routes,
+//   Routes,
 
-  Route,
+//   Route,
 
-  Navigate,
+//   Navigate,
 
-} from "react-router-dom";
-
-
-// Auth Pages
-import LoginPage from "../features/auth/pages/LoginPage";
-
-import SignupPage from "../features/auth/pages/SignupPage";
+// } from "react-router-dom";
 
 
-// Protected Route
-import ProtectedRoute from "../features/auth/components/ProtectedRoute";
+// // Auth Pages
+// import LoginPage from "../features/auth/pages/LoginPage";
+
+// import SignupPage from "../features/auth/pages/SignupPage";
 
 
-// Pages
-import DashboardPage from "../pages/DashboardPage";
-
-import StudentsPage from "../pages/StudentsPage";
+// // Protected Route
+// import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 
 
-// Role Guard
-import RoleGuard from "../features/auth/components/RoleGuard";
+// // Pages
+// import DashboardPage from "../pages/DashboardPage";
 
-// Attendance Page Route
-import AttendancePage from "../features/attendance/pages/AttendancePage";
+// import StudentsPage from "../pages/StudentsPage";
+
+
+// // Role Guard
+// import RoleGuard from "../features/auth/components/RoleGuard";
+
+// // Attendance Page Route
+// import AttendancePage from "../features/attendance/pages/AttendancePage";
+
+// function AppRoutes() {
+
+//   return (
+
+//     <BrowserRouter>
+
+//       <Routes>
+
+//         {/* Redirect root */}
+//         <Route
+//           path="/"
+//           element={<Navigate to="/dashboard" />}
+//         />
+
+
+//         {/* Public routes */}
+//         <Route
+//           path="/login"
+//           element={<LoginPage />}
+//         />
+
+//         <Route
+//           path="/signup"
+//           element={<SignupPage />}
+//         />
+
+
+//         {/* Protected dashboard */}
+//         <Route
+//           path="/dashboard"
+//           element={
+
+//             <ProtectedRoute>
+
+//               <DashboardPage />
+
+//             </ProtectedRoute>
+//           }
+//         />
+
+
+//         {/* Admin-only students page */}
+//         <Route
+//           path="/students"
+//           element={
+
+//             <ProtectedRoute>
+//               <RoleGuard
+//                 allowedRoles={[
+//                   "admin",
+//                   "super_admin",
+//                 ]}
+//               >
+//                 <StudentsPage />
+//               </RoleGuard>
+//             </ProtectedRoute>
+//             }
+//           />
+//         </Routes>
+
+//         <Route
+//           path="/attendance"
+//           element={
+//            <ProtectedRoute>
+//               <AttendancePage />
+//            </ProtectedRoute>
+//           }
+//         />
+
+//     </BrowserRouter>
+//   );
+// }
+
+// export default AppRoutes;
 
 function AppRoutes() {
 
@@ -122,7 +197,6 @@ function AppRoutes() {
           element={<Navigate to="/dashboard" />}
         />
 
-
         {/* Public routes */}
         <Route
           path="/login"
@@ -134,26 +208,20 @@ function AppRoutes() {
           element={<SignupPage />}
         />
 
-
         {/* Protected dashboard */}
         <Route
           path="/dashboard"
           element={
-
             <ProtectedRoute>
-
               <DashboardPage />
-
             </ProtectedRoute>
           }
         />
-
 
         {/* Admin-only students page */}
         <Route
           path="/students"
           element={
-
             <ProtectedRoute>
               <RoleGuard
                 allowedRoles={[
@@ -164,21 +232,21 @@ function AppRoutes() {
                 <StudentsPage />
               </RoleGuard>
             </ProtectedRoute>
-            }
-          />
-        </Routes>
+          }
+        />
 
+        {/* Attendance page */}
         <Route
           path="/attendance"
           element={
-           <ProtectedRoute>
+            <ProtectedRoute>
               <AttendancePage />
-           </ProtectedRoute>
+            </ProtectedRoute>
           }
         />
+
+      </Routes>
 
     </BrowserRouter>
   );
 }
-
-export default AppRoutes;
