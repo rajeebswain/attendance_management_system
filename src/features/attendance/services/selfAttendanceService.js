@@ -1,506 +1,381 @@
-// // Supabase client
-// import { supabase } from "../../../lib/supabase/client";
+// Supabase client
+import { supabase } from "../../../lib/supabase/client";
 
 
-// // FETCH CURRENT EMPLOYEE
-// export async function getCurrentEmployee(
+// FETCH CURRENT EMPLOYEE
+export async function getCurrentEmployee(
 
-//   userId
+  userId
 
-// ) {
+) {
 
-//   const { data, error } = await supabase
+  const { data, error } = await supabase
 
-//     .from("employees")
+    .from("employees")
 
-//     .select(`
-//       *,
-//       shifts (
-//         *
-//       )
-//     `)
+    .select(`
+      *,
+      shifts (
+        *
+      )
+    `)
 
-//     .eq("user_id", userId)
+    .eq("user_id", userId)
 
-//     .single();
+    .single();
 
-//   if (error) {
+  if (error) {
 
-//     throw error;
-//   }
+    throw error;
+  }
 
-//   return data;
-// }
+  return data;
+}
 
 
-// // CHECK TODAY ATTENDANCE
-// export async function getTodayAttendance(
+// CHECK TODAY ATTENDANCE
+export async function getTodayAttendance(
 
-//   employeeId
+  employeeId
 
-// ) {
+) {
 
-//   const today = new Date()
+  const today = new Date()
 
-//     .toISOString()
+    .toISOString()
 
-//     .split("T")[0];
+    .split("T")[0];
 
 
-//   const { data, error } = await supabase
+  const { data, error } = await supabase
 
-//     .from("attendance")
+    .from("attendance")
 
-//     .select("*")
+    .select("*")
 
-//     .eq("employee_id", employeeId)
+    .eq("employee_id", employeeId)
 
-//     .eq("attendance_date", today)
+    .eq("attendance_date", today)
 
-//     .maybeSingle();
+    .maybeSingle();
 
-//   if (error) {
+  if (error) {
 
-//     throw error;
-//   }
+    throw error;
+  }
 
-//   return data;
-// }
+  return data;
+}
 
 
-// // DETECT LATE STATUS
-// function detectAttendanceStatus(employee) {
+// DETECT LATE STATUS
+function detectAttendanceStatus(employee) {
 
-//   // Current time
-//   const now = new Date();
+  // Current time
+  const now = new Date();
 
 
-//   // Employee shift
-//   const shift = employee.shifts;
+  // Employee shift
+  const shift = employee.shifts;
 
 
-//   // Shift start extraction
-//   const [shiftHour, shiftMinute] =
+  // Shift start extraction
+  const [shiftHour, shiftMinute] =
 
-//     shift.start_time
+    shift.start_time
 
-//       .split(":")
-//       .map(Number);
+      .split(":")
+      .map(Number);
 
 
-//   // Create shift datetime
-//   const shiftStart = new Date();
+  // Create shift datetime
+  const shiftStart = new Date();
 
-//   shiftStart.setHours(
+  shiftStart.setHours(
 
-//     shiftHour,
+    shiftHour,
 
-//     shiftMinute,
+    shiftMinute,
 
-//     0
-//   );
+    0
+  );
 
 
-//   // Add grace period
-//   shiftStart.setMinutes(
+  // Add grace period
+  shiftStart.setMinutes(
 
-//     shiftStart.getMinutes() +
+    shiftStart.getMinutes() +
 
-//     shift.grace_minutes
-//   );
+    shift.grace_minutes
+  );
 
 
-//   // Default status
-//   let status = "present";
+  // Default status
+  let status = "present";
 
 
-//   // Late detection
-//   if (now > shiftStart) {
+  // Late detection
+  if (now > shiftStart) {
 
-//     status = "late";
-//   }
+    status = "late";
+  }
 
-//   return status;
-// }
+  return status;
+}
 
 
-// // DETECT NIGHT SHIFT
-// function isNightShift(shift) {
+// DETECT NIGHT SHIFT
+function isNightShift(shift) {
 
-//   return shift.end_time < shift.start_time;
-// }
+  return shift.end_time < shift.start_time;
+}
 
 
-// // SELF CHECK-IN
-// export async function selfCheckIn(
+// SELF CHECK-IN
+export async function selfCheckIn(
 
-//   employee
+  employee
 
-// ) {
+) {
 
-//   // Detect attendance status
-//   const status =
+  // Detect attendance status
+  const status =
 
-//     detectAttendanceStatus(employee);
+    detectAttendanceStatus(employee);
 
 
-//   // Current date
-//   const today = new Date()
+  // Current date
+  const today = new Date()
 
-//     .toISOString()
+    .toISOString()
 
-//     .split("T")[0];
+    .split("T")[0];
 
 
-//   // Auto current time
-//   const currentTime = new Date()
+  // Auto current time
+  const currentTime = new Date()
 
-//     .toLocaleTimeString(
+    .toLocaleTimeString(
 
-//       "en-GB",
+      "en-GB",
 
-//       {
+      {
 
-//         hour: "2-digit",
+        hour: "2-digit",
 
-//         minute: "2-digit",
+        minute: "2-digit",
 
-//         hour12: false,
-//       }
-//     );
-
-
-//   // Employee shift
-//   const shift = employee.shifts;
-
-
-//   // Shift start
-//   const [shiftHour, shiftMinute] =
-
-//     shift.start_time
-
-//       .split(":")
-//       .map(Number);
-
-
-//   const shiftStart = new Date();
-
-//   shiftStart.setHours(
-
-//     shiftHour,
-
-//     shiftMinute,
-
-//     0
-//   );
-
-
-//   // Allow only 1 hour early checkin
-//   const earlyWindow = new Date(
-
-//     shiftStart.getTime() -
-
-//     60 * 60 * 1000
-//   );
-
-
-//   // Prevent too early checkin
-//   if (new Date() < earlyWindow) {
-
-//     throw new Error(
-
-//       "Too early for check-in"
-//     );
-//   }
-
-
-//   const { data, error } = await supabase
-
-//     .from("attendance")
-
-//     .insert([{
-
-//       employee_id: employee.id,
-
-//       attendance_date: today,
-
-//       status,
-
-//       check_in: currentTime,
-//     }])
-
-//     .select();
-
-//   if (error) {
-
-//     throw error;
-//   }
-
-//   return data;
-// }
-
-
-// // SELF CHECK-OUT
-// export async function selfCheckOut(
-
-//   attendance,
-
-//   employee
-
-// ) {
-
-//   // Prevent double checkout
-//   if (attendance.check_out) {
-
-//     throw new Error(
-
-//       "Already checked out"
-//     );
-//   }
-
-
-//   // Current auto time
-//   const currentTime = new Date()
-
-//     .toLocaleTimeString(
-
-//       "en-GB",
-
-//       {
-
-//         hour: "2-digit",
-
-//         minute: "2-digit",
-
-//         hour12: false,
-//       }
-//     );
-
-
-//   // Overtime detection
-//   const shift = employee.shifts;
-
-
-//   const [endHour, endMinute] =
-
-//     shift.end_time
-
-//       .split(":")
-//       .map(Number);
-
-
-//   const shiftEnd = new Date();
-
-//   shiftEnd.setHours(
-
-//     endHour,
-
-//     endMinute,
-
-//     0
-//   );
-
-
-//   // Overtime threshold
-//   shiftEnd.setMinutes(
-
-//     shiftEnd.getMinutes() + 30
-//   );
-
-
-//   // Detect overtime
-//   const isOvertime =
-
-//     new Date() > shiftEnd;
-
-
-//   if (isOvertime) {
-
-//     console.log("Overtime detected");
-//   }
-
-
-//   const { data, error } = await supabase
-
-//     .from("attendance")
-
-//     .update({
-
-//       check_out: currentTime,
-//     })
-
-//     .eq("id", attendance.id)
-
-//     .select();
-
-//   if (error) {
-
-//     throw error;
-//   }
-
-//   return data;
-// }
-
-
-// // ATTENDANCE HISTORY
-// export async function getAttendanceHistory(
-
-//   employeeId
-
-// ) {
-
-//   const { data, error } = await supabase
-
-//     .from("attendance")
-
-//     .select(`
-//       *,
-//       employees (
-//         full_name,
-//         shifts (
-//           shift_name
-//         )
-//       )
-//     `)
-
-//     .eq("employee_id", employeeId)
-
-//     .order("attendance_date", {
-
-//       ascending: false,
-//     });
-
-//   if (error) {
-
-//     throw error;
-//   }
-
-//   return data;
-// }
-
-
-// console.log(employee);
-
-// console.log(attendance);
-
-
-
-import { useEffect, useState } from "react";
-
-import { useAuth } from "../../auth/context/AuthContext";
-
-import {
-
-  getCurrentEmployee,
-
-  getTodayAttendance,
-
-} from "../services/selfAttendanceService";
-
-
-function SelfAttendancePage() {
-
-  const { user } = useAuth();
-
-  const [employee, setEmployee] = useState(null);
-
-  const [attendance, setAttendance] = useState(null);
-
-  const [loading, setLoading] = useState(true);
-
-
-  useEffect(() => {
-
-    async function loadData() {
-
-      try {
-
-        // Fetch employee
-        const currentEmployee =
-
-          await getCurrentEmployee(user.id);
-
-        console.log(currentEmployee);
-
-        setEmployee(currentEmployee);
-
-
-        // Fetch attendance
-        const todayAttendance =
-
-          await getTodayAttendance(
-
-            currentEmployee.id
-          );
-
-        console.log(todayAttendance);
-
-        setAttendance(todayAttendance);
-
-      } catch (error) {
-
-        console.error(error);
-
-      } finally {
-
-        setLoading(false);
+        hour12: false,
       }
-    }
-
-    if (user) {
-
-      loadData();
-    }
-
-  }, [user]);
+    );
 
 
-  if (loading) {
+  // Employee shift
+  const shift = employee.shifts;
 
-    return <div>Loading...</div>;
+
+  // Shift start
+  const [shiftHour, shiftMinute] =
+
+    shift.start_time
+
+      .split(":")
+      .map(Number);
+
+
+  const shiftStart = new Date();
+
+  shiftStart.setHours(
+
+    shiftHour,
+
+    shiftMinute,
+
+    0
+  );
+
+
+  // Allow only 1 hour early checkin
+  const earlyWindow = new Date(
+
+    shiftStart.getTime() -
+
+    60 * 60 * 1000
+  );
+
+
+  // Prevent too early checkin
+  if (new Date() < earlyWindow) {
+
+    throw new Error(
+
+      "Too early for check-in"
+    );
   }
 
 
-  return (
+  const { data, error } = await supabase
 
-    <div className="p-10">
+    .from("attendance")
 
-      <h1 className="text-3xl font-bold mb-5">
+    .insert([{
 
-        Self Attendance
+      employee_id: employee.id,
 
-      </h1>
+      attendance_date: today,
 
-      <div className="space-y-3">
+      status,
 
-        <p>
+      check_in: currentTime,
+    }])
 
-          Employee:
+    .select();
 
-          {employee?.full_name}
+  if (error) {
 
-        </p>
+    throw error;
+  }
 
-        <p>
-
-          Shift:
-
-          {employee?.shifts?.shift_name}
-
-        </p>
-
-        <p>
-
-          Today Status:
-
-          {attendance?.status || "Not Marked"}
-
-        </p>
-
-      </div>
-
-    </div>
-  );
+  return data;
 }
 
-export default SelfAttendancePage;
+
+// SELF CHECK-OUT
+export async function selfCheckOut(
+
+  attendance,
+
+  employee
+
+) {
+
+  // Prevent double checkout
+  if (attendance.check_out) {
+
+    throw new Error(
+
+      "Already checked out"
+    );
+  }
+
+
+  // Current auto time
+  const currentTime = new Date()
+
+    .toLocaleTimeString(
+
+      "en-GB",
+
+      {
+
+        hour: "2-digit",
+
+        minute: "2-digit",
+
+        hour12: false,
+      }
+    );
+
+
+  // Overtime detection
+  const shift = employee.shifts;
+
+
+  const [endHour, endMinute] =
+
+    shift.end_time
+
+      .split(":")
+      .map(Number);
+
+
+  const shiftEnd = new Date();
+
+  shiftEnd.setHours(
+
+    endHour,
+
+    endMinute,
+
+    0
+  );
+
+
+  // Overtime threshold
+  shiftEnd.setMinutes(
+
+    shiftEnd.getMinutes() + 30
+  );
+
+
+  // Detect overtime
+  const isOvertime =
+
+    new Date() > shiftEnd;
+
+
+  if (isOvertime) {
+
+    console.log("Overtime detected");
+  }
+
+
+  const { data, error } = await supabase
+
+    .from("attendance")
+
+    .update({
+
+      check_out: currentTime,
+    })
+
+    .eq("id", attendance.id)
+
+    .select();
+
+  if (error) {
+
+    throw error;
+  }
+
+  return data;
+}
+
+
+// ATTENDANCE HISTORY
+export async function getAttendanceHistory(
+
+  employeeId
+
+) {
+
+  const { data, error } = await supabase
+
+    .from("attendance")
+
+    .select(`
+      *,
+      employees (
+        full_name,
+        shifts (
+          shift_name
+        )
+      )
+    `)
+
+    .eq("employee_id", employeeId)
+
+    .order("attendance_date", {
+
+      ascending: false,
+    });
+
+  if (error) {
+
+    throw error;
+  }
+
+  return data;
+}
+
+
