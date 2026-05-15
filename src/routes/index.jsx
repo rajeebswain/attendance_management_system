@@ -32,6 +32,8 @@ import RoleGuard from "../features/auth/components/RoleGuard";
 // Attendance Page
 import AttendancePage from "../features/attendance/pages/AttendancePage";
 
+// Self Attendance Page
+import EmployeeSelfAttendancePage from "../features/attendance/pages/EmployeeSelfAttendancePage";
 
 function AppRoutes() {
 
@@ -93,6 +95,14 @@ function AppRoutes() {
         }
       />
 
+      <Route
+        path="/self-attendance"
+        element={
+           <ProtectedRoute>
+            <EmployeeSelfAttendancePage />
+          </ProtectedRoute>
+         }
+      />
     </Routes>
   );
 }
