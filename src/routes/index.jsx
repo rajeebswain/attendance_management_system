@@ -183,70 +183,173 @@
 
 // export default AppRoutes;
 
+// function AppRoutes() {
+
+//   return (
+
+//     <BrowserRouter>
+
+//       <Routes>
+
+//         {/* Redirect root */}
+//         <Route
+//           path="/"
+//           element={<Navigate to="/dashboard" />}
+//         />
+
+//         {/* Public routes */}
+//         <Route
+//           path="/login"
+//           element={<LoginPage />}
+//         />
+
+//         <Route
+//           path="/signup"
+//           element={<SignupPage />}
+//         />
+
+//         {/* Protected dashboard */}
+//         <Route
+//           path="/dashboard"
+//           element={
+//             <ProtectedRoute>
+//               <DashboardPage />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         {/* Admin-only students page */}
+//         <Route
+//           path="/students"
+//           element={
+//             <ProtectedRoute>
+//               <RoleGuard
+//                 allowedRoles={[
+//                   "admin",
+//                   "super_admin",
+//                 ]}
+//               >
+//                 <StudentsPage />
+//               </RoleGuard>
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         {/* Attendance page */}
+//         <Route
+//           path="/attendance"
+//           element={
+//             <ProtectedRoute>
+//               <AttendancePage />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//       </Routes>
+
+//     </BrowserRouter>
+//   );
+// }
+
+
+
+import {
+
+  Routes,
+
+  Route,
+
+  Navigate,
+
+} from "react-router-dom";
+
+
+// Auth Pages
+import LoginPage from "../features/auth/pages/LoginPage";
+
+import SignupPage from "../features/auth/pages/SignupPage";
+
+
+// Protected Route
+import ProtectedRoute from "../features/auth/components/ProtectedRoute";
+
+
+// Pages
+import DashboardPage from "../pages/DashboardPage";
+
+import StudentsPage from "../pages/StudentsPage";
+
+
+// Role Guard
+import RoleGuard from "../features/auth/components/RoleGuard";
+
+
+// Attendance Page
+import AttendancePage from "../features/attendance/pages/AttendancePage";
+
+
 function AppRoutes() {
 
   return (
 
-    <BrowserRouter>
+    <Routes>
 
-      <Routes>
+      {/* Redirect root */}
+      <Route
+        path="/"
+        element={<Navigate to="/dashboard" />}
+      />
 
-        {/* Redirect root */}
-        <Route
-          path="/"
-          element={<Navigate to="/dashboard" />}
-        />
+      {/* Public routes */}
+      <Route
+        path="/login"
+        element={<LoginPage />}
+      />
 
-        {/* Public routes */}
-        <Route
-          path="/login"
-          element={<LoginPage />}
-        />
+      <Route
+        path="/signup"
+        element={<SignupPage />}
+      />
 
-        <Route
-          path="/signup"
-          element={<SignupPage />}
-        />
+      {/* Protected dashboard */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
 
-        {/* Protected dashboard */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <DashboardPage />
-            </ProtectedRoute>
-          }
-        />
+      {/* Admin-only students page */}
+      <Route
+        path="/students"
+        element={
+          <ProtectedRoute>
+            <RoleGuard
+              allowedRoles={[
+                "admin",
+                "super_admin",
+              ]}
+            >
+              <StudentsPage />
+            </RoleGuard>
+          </ProtectedRoute>
+        }
+      />
 
-        {/* Admin-only students page */}
-        <Route
-          path="/students"
-          element={
-            <ProtectedRoute>
-              <RoleGuard
-                allowedRoles={[
-                  "admin",
-                  "super_admin",
-                ]}
-              >
-                <StudentsPage />
-              </RoleGuard>
-            </ProtectedRoute>
-          }
-        />
+      {/* Attendance page */}
+      <Route
+        path="/attendance"
+        element={
+          <ProtectedRoute>
+            <AttendancePage />
+          </ProtectedRoute>
+        }
+      />
 
-        {/* Attendance page */}
-        <Route
-          path="/attendance"
-          element={
-            <ProtectedRoute>
-              <AttendancePage />
-            </ProtectedRoute>
-          }
-        />
-
-      </Routes>
-
-    </BrowserRouter>
+    </Routes>
   );
 }
+
+export default AppRoutes;
