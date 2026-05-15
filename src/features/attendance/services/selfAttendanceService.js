@@ -14,14 +14,14 @@ export async function getCurrentEmployee(
 
     .from("employees")
 
-    // .select(`
-    //   *,
-    //   shifts (
-    //     *
-    //   )
-    // `)
-    
-    .select("*")
+    .select(`
+      *,
+      shifts (
+        *
+      )
+    `)
+
+   
 
 
     .eq("user_id", userId)
