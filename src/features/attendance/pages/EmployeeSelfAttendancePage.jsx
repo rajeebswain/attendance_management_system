@@ -128,13 +128,54 @@ import {
   
     // }, [user]);
   
-    useEffect(() => {
+    // useEffect(() => {    remove
 
-        console.log("PAGE LOADED");
+    //     console.log("PAGE LOADED");
       
-        console.log("USER:", user);
+    //     console.log("USER:", user);
       
-        setLoading(false);
+    //     setLoading(false);
+      
+    //   }, [user]);
+
+
+      useEffect(() => {
+
+        async function loadData() {
+      
+          try {
+      
+            console.log("START");
+      
+            const employeeData =
+      
+              await getCurrentEmployee(
+      
+                user.id
+              );
+      
+            console.log(
+      
+              "EMPLOYEE:",
+              employeeData
+            );
+      
+            setEmployee(employeeData);
+      
+          } catch (error) {
+      
+            console.error(error);
+      
+          } finally {
+      
+            setLoading(false);
+          }
+        }
+      
+        if (user) {
+      
+          loadData();
+        }
       
       }, [user]);
   
