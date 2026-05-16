@@ -14,11 +14,7 @@ import {
 
 } from "./features/auth/context/AuthContext";
 
-import {
 
-  testEmployeeQuery,
-
-} from "../services/selfAttendanceService";
 
 ReactDOM.createRoot(
 
