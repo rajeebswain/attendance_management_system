@@ -3,30 +3,92 @@ import { supabase }
   from "../../../lib/supabase/client";
 
 
+// // TEST EMPLOYEE QUERY
+// export async function testEmployeeQuery() {
+
+// const { data, error } = await supabase
+
+//   .from("employees")
+
+//   .select(`
+//     *,
+//     shifts (
+//       shift_name,
+//       start_time,
+//       end_time,
+//       grace_minutes
+//     )
+//   `);
+//   if (error) {
+
+//     throw error;
+//   }
+
+//   return data;
+// }
+
+
 // TEST EMPLOYEE QUERY
 export async function testEmployeeQuery() {
 
-const { data, error } = await supabase
+  // Get employees
+  const { data, error } = await supabase
 
-  .from("employees")
+    .from("employees")
 
-  .select(`
-    *,
-    shifts (
-      shift_name,
-      start_time,
-      end_time,
-      grace_minutes
-    )
-  `);
+    .select("*");
+
+
   if (error) {
 
     throw error;
   }
 
-  return data;
-}
 
+  // No employee
+  if (!data?.length) {
+
+    return [];
+  }
+
+
+  // First employee
+  const employee = data[0];
+
+
+  // Load shift separately
+  if (employee.shift_id) {
+
+    const {
+
+      data: shiftData,
+
+      error: shiftError,
+
+    } = await supabase
+
+      .from("shifts")
+
+      .select("*")
+
+      .eq("id", employee.shift_id)
+
+      .maybeSingle();
+
+
+    if (shiftError) {
+
+      throw shiftError;
+    }
+
+
+    // Attach shift manually
+    employee.shifts = shiftData;
+  }
+
+
+  return [employee];
+}
 
 // GET TODAY ATTENDANCE
 export async function getTodayAttendance(
