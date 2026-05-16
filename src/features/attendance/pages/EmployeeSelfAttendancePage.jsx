@@ -264,16 +264,27 @@ function EmployeeSelfAttendancePage() {
         console.log("START");
   
   
+        // const result = await testEmployeeQuery();
+  
+        // console.log("RESULT:", result);
+  
+  
+        // // if (result?.length > 0) {
+  
+        // //   setEmployee(result[0]);
+        // // }
+        // console.log("RESULT:", result);
+
+        // setEmployee(result[0]);
         const result = await testEmployeeQuery();
-  
-        console.log("RESULT:", result);
-  
-  
-        // if (result?.length > 0) {
-  
-        //   setEmployee(result[0]);
-        // }
-        console.log("RESULT:", result);
+
+        console.log("FULL RESULT:", result);
+
+        console.log("TYPE:", typeof result);
+
+        console.log("IS ARRAY:", Array.isArray(result));
+
+        console.log("FIRST ITEM:", result?.[0]);
 
         setEmployee(result[0]);
   
