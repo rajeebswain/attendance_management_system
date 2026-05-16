@@ -94,6 +94,22 @@ function EmployeeSelfAttendancePage() {
 
           attendanceData
         );
+        // Attendance history
+        const historyData =
+
+          await getAttendanceHistory(
+
+            result[0].id
+          );
+
+        console.log(
+
+          "HISTORY:",
+
+          historyData
+        );
+
+        setHistory(historyData);
 
       } catch (error) {
 
@@ -104,22 +120,6 @@ function EmployeeSelfAttendancePage() {
         setLoading(false);
       }
     }
-    // Attendance history
-    const historyData =
-
-      await getAttendanceHistory(
-
-        result[0].id
-      );
-
-    console.log(
-
-      "HISTORY:",
-
-      historyData
-    );
-
-    setHistory(historyData);
     loadData();
 
   }, []);
@@ -424,121 +424,121 @@ function EmployeeSelfAttendancePage() {
 
       </div>
 
-    </DashboardLayout>
-  );
-}
-
-<div
-  className="
+      <div
+        className="
     mt-8
     bg-white
     p-6
     rounded-lg
   "
->
+      >
 
-  <h2
-    className="
+        <h2
+          className="
       text-xl
       font-bold
       mb-4
     "
-  >
+        >
 
-    Attendance History
+          Attendance History
 
-  </h2>
+        </h2>
 
 
-  <div className="overflow-x-auto">
+        <div className="overflow-x-auto">
 
-    <table className="w-full">
+          <table className="w-full">
 
-      <thead>
+            <thead>
 
-        <tr
-          className="
+              <tr
+                className="
             border-b
             text-left
           "
-        >
+              >
 
-          <th className="p-2">
+                <th className="p-2">
 
-            Date
+                  Date
 
-          </th>
+                </th>
 
-          <th className="p-2">
+                <th className="p-2">
 
-            Status
+                  Status
 
-          </th>
+                </th>
 
-          <th className="p-2">
+                <th className="p-2">
 
-            Check-In
+                  Check-In
 
-          </th>
+                </th>
 
-          <th className="p-2">
+                <th className="p-2">
 
-            Check-Out
+                  Check-Out
 
-          </th>
+                </th>
 
-        </tr>
+              </tr>
 
-      </thead>
+            </thead>
 
 
-      <tbody>
+            <tbody>
 
-        {history.map((item) => (
+              {history.map((item) => (
 
-          <tr
-            key={item.id}
-            className="border-b"
-          >
+                <tr
+                  key={item.id}
+                  className="border-b"
+                >
 
-            <td className="p-2">
+                  <td className="p-2">
 
-              {item.attendance_date}
+                    {item.attendance_date}
 
-            </td>
+                  </td>
 
-            <td className="p-2">
+                  <td className="p-2">
 
-              {item.status}
+                    {item.status}
 
-            </td>
+                  </td>
 
-            <td className="p-2">
+                  <td className="p-2">
 
-              {item.check_in}
+                    {item.check_in}
 
-            </td>
+                  </td>
 
-            <td className="p-2">
+                  <td className="p-2">
 
-              {
+                    {
 
-                item.check_out
+                      item.check_out
 
-                || "Pending"
-              }
+                      || "Pending"
+                    }
 
-            </td>
+                  </td>
 
-          </tr>
-        ))}
+                </tr>
+              ))}
 
-      </tbody>
+            </tbody>
 
-    </table>
+          </table>
 
-  </div>
+        </div>
 
-</div>
+      </div>
+
+    </DashboardLayout>
+  );
+}
 
 export default EmployeeSelfAttendancePage;
