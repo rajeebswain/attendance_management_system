@@ -156,6 +156,43 @@ const filteredAttendance =
       && matchesDate
     );
   });
+
+  // Present employees
+const totalPresent =
+
+attendance.filter((item) =>
+
+  item.status === "present"
+
+  || item.status === "late"
+).length;
+
+
+// Late employees
+const totalLate =
+
+attendance.filter((item) =>
+
+  item.status === "late"
+).length;
+
+
+// Completed attendance
+const completedAttendance =
+
+attendance.filter((item) =>
+
+  item.check_out
+).length;
+
+
+// Active employees
+const activeEmployees =
+
+attendance.filter((item) =>
+
+  !item.check_out
+).length;
   return (
 
     <DashboardLayout>
@@ -173,6 +210,162 @@ const filteredAttendance =
           Admin Attendance Dashboard
 
         </h1>
+
+        {/* Statistics cards */}
+<div
+  className="
+    grid
+    grid-cols-1
+    md:grid-cols-4
+    gap-4
+    mb-6
+  "
+>
+
+  {/* Present */}
+  <div
+    className="
+      bg-white
+      rounded-lg
+      p-4
+      shadow
+    "
+  >
+
+    <h2
+      className="
+        text-gray-500
+        text-sm
+      "
+    >
+
+      Present Employees
+
+    </h2>
+
+    <p
+      className="
+        text-3xl
+        font-bold
+        mt-2
+      "
+    >
+
+      {totalPresent}
+
+    </p>
+
+  </div>
+
+
+  {/* Late */}
+  <div
+    className="
+      bg-white
+      rounded-lg
+      p-4
+      shadow
+    "
+  >
+
+    <h2
+      className="
+        text-gray-500
+        text-sm
+      "
+    >
+
+      Late Employees
+
+    </h2>
+
+    <p
+      className="
+        text-3xl
+        font-bold
+        mt-2
+      "
+    >
+
+      {totalLate}
+
+    </p>
+
+  </div>
+
+
+  {/* Completed */}
+  <div
+    className="
+      bg-white
+      rounded-lg
+      p-4
+      shadow
+    "
+  >
+
+    <h2
+      className="
+        text-gray-500
+        text-sm
+      "
+    >
+
+      Completed Attendance
+
+    </h2>
+
+    <p
+      className="
+        text-3xl
+        font-bold
+        mt-2
+      "
+    >
+
+      {completedAttendance}
+
+    </p>
+
+  </div>
+
+
+  {/* Active */}
+  <div
+    className="
+      bg-white
+      rounded-lg
+      p-4
+      shadow
+    "
+  >
+
+    <h2
+      className="
+        text-gray-500
+        text-sm
+      "
+    >
+
+      Active Employees
+
+    </h2>
+
+    <p
+      className="
+        text-3xl
+        font-bold
+        mt-2
+      "
+    >
+
+      {activeEmployees}
+
+    </p>
+
+  </div>
+
+</div>
         {/* Filters */}
 <div
   className="
