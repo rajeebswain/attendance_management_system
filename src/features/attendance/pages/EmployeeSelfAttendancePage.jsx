@@ -1,50 +1,50 @@
-import DashboardLayout
+// import DashboardLayout
 
-from "../../../components/layout/DashboardLayout";
+// from "../../../components/layout/DashboardLayout";
 
 
-function EmployeeSelfAttendancePage() {
+// function EmployeeSelfAttendancePage() {
 
-  return (
+//   return (
 
-    <DashboardLayout>
+//     <DashboardLayout>
 
-      <div className="space-y-6">
+//       <div className="space-y-6">
 
-        <div
-          className="
-            bg-white
-            p-6
-            rounded-lg
-          "
-        >
+//         <div
+//           className="
+//             bg-white
+//             p-6
+//             rounded-lg
+//           "
+//         >
 
-          <h1
-            className="
-              text-2xl
-              font-bold
-            "
-          >
+//           <h1
+//             className="
+//               text-2xl
+//               font-bold
+//             "
+//           >
 
-            Employee Self Attendance
+//             Employee Self Attendance
 
-          </h1>
+//           </h1>
 
-          <p className="mt-2">
+//           <p className="mt-2">
 
-            Basic page working.
+//             Basic page working.
 
-          </p>
+//           </p>
 
-        </div>
+//         </div>
 
-      </div>
+//       </div>
 
-    </DashboardLayout>
-  );
-}
+//     </DashboardLayout>
+//   );
+// }
 
-export default EmployeeSelfAttendancePage;
+// export default EmployeeSelfAttendancePage;
 
 
 // import {
@@ -192,3 +192,108 @@ export default EmployeeSelfAttendancePage;
 // }
 
 // export default EmployeeSelfAttendancePage;
+
+
+
+import {
+
+  useEffect,
+
+  useState,
+
+} from "react";
+
+
+import DashboardLayout
+
+from "../../../components/layout/DashboardLayout";
+
+
+import {
+
+  useAuth,
+
+} from "../../auth/context/AuthContext";
+
+
+function EmployeeSelfAttendancePage() {
+
+  // Loading state
+  const [loading, setLoading] = useState(true);
+
+
+  // Current auth user
+  const { user } = useAuth();
+
+
+  // Employee state
+  const [employee, setEmployee] = useState(null);
+
+
+  useEffect(() => {
+
+    console.log("PAGE LOADED");
+
+    console.log("USER:", user);
+
+
+    // Fake employee data
+    setEmployee({
+
+      full_name: "Test Employee",
+
+      employee_code: "EMP001",
+    });
+
+
+    setLoading(false);
+
+  }, [user]);
+
+
+  // Loading UI
+  if (loading) {
+
+    return <div>Loading...</div>;
+  }
+
+
+  return (
+
+    <DashboardLayout>
+
+      <div className="p-6">
+
+        <h1 className="text-2xl font-bold">
+
+          Employee Self Attendance
+
+        </h1>
+
+
+        <p className="mt-4">
+
+          Employee Name:
+          {" "}
+
+          {employee?.full_name}
+
+        </p>
+
+
+        <p>
+
+          Employee Code:
+          {" "}
+
+          {employee?.employee_code}
+
+        </p>
+
+      </div>
+
+    </DashboardLayout>
+  );
+}
+
+export default EmployeeSelfAttendancePage;
