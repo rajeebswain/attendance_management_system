@@ -37,7 +37,86 @@ export async function getAllAttendance() {
     throw error;
   }
 
+// GET ABSENT EMPLOYEES
+export async function getAbsentEmployees() {
 
+    // Today's date
+    const today = new Date()
+  
+      .toISOString()
+  
+      .split("T")[0];
+  
+  
+    // Get all employees
+    const {
+  
+      data: employees,
+  
+      error: employeeError,
+  
+    } = await supabase
+  
+      .from("employees")
+  
+      .select(`
+        *,
+        shifts (
+          shift_name
+        )
+      `);
+  
+  
+    if (employeeError) {
+  
+      throw employeeError;
+    }
+  
+  
+    // Get today's attendance
+    const {
+  
+      data: attendance,
+  
+      error: attendanceError,
+  
+    } = await supabase
+  
+      .from("attendance")
+  
+      .select("employee_id")
+  
+      .eq("attendance_date", today);
+  
+  
+    if (attendanceError) {
+  
+      throw attendanceError;
+    }
+  
+  
+    // Attendance employee IDs
+    const attendanceIds =
+  
+      attendance.map((item) =>
+  
+        item.employee_id
+      );
+  
+  
+    // Find absent employees
+    const absentEmployees =
+  
+      employees.filter((employee) =>
+  
+        !attendanceIds.includes(
+          employee.id
+        )
+      );
+  
+  
+    return absentEmployees;
+  }
   // Format data
   const formattedData =
 

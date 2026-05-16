@@ -4,7 +4,13 @@ import DashboardLayout
 
   from "../../../components/layout/DashboardLayout";
 
-import { getAllAttendance } from "../services/adminAttendanceService";
+  import {
+
+    getAllAttendance,
+  
+    getAbsentEmployees,
+  
+  } from "../services/adminAttendanceService";e";
 
 
 export default function AdminAttendancePage() {
@@ -15,6 +21,15 @@ export default function AdminAttendancePage() {
     setAttendance]
 
     = useState([]);
+
+    // Absent employees
+const [absentEmployees,
+
+    setAbsentEmployees]
+    
+    = useState([]);
+
+
 // Search employee
 const [search,
 
@@ -73,6 +88,22 @@ const [search,
       console.log(data);
 
       setAttendance(data);
+      // Load absent employees
+const absentData =
+
+await getAbsentEmployees();
+
+console.log(
+
+"ABSENT:",
+
+absentData
+);
+
+setAbsentEmployees(
+
+absentData
+);
 
     } catch (error) {
 
@@ -143,8 +174,10 @@ const filteredAttendance =
           === dateFilter
 
         : true;
+// Total absent
+const totalAbsent =
 
-
+  absentEmployees.length;
     return (
 
       matchesSearch
@@ -176,6 +209,40 @@ attendance.filter((item) =>
   item.status === "late"
 ).length;
 
+{/* Absent */}
+<div
+  className="
+    bg-white
+    rounded-lg
+    p-4
+    shadow
+  "
+>
+
+  <h2
+    className="
+      text-gray-500
+      text-sm
+    "
+  >
+
+    Absent Employees
+
+  </h2>
+
+  <p
+    className="
+      text-3xl
+      font-bold
+      mt-2
+    "
+  >
+
+    {totalAbsent}
+
+  </p>
+
+</div>
 
 // Completed attendance
 const completedAttendance =
@@ -646,6 +713,90 @@ attendance.filter((item) =>
 
         </div>
 
+{/* Absent employees */}
+<div
+  className="
+    bg-white
+    rounded-lg
+    p-6
+    mt-6
+  "
+>
+
+  <h2
+    className="
+      text-xl
+      font-bold
+      mb-4
+    "
+  >
+
+    Absent Employees
+
+  </h2>
+
+
+  <table className="w-full">
+
+    <thead>
+
+      <tr
+        className="
+          border-b
+          text-left
+        "
+      >
+
+        <th className="p-2">
+
+          Employee
+
+        </th>
+
+        <th className="p-2">
+
+          Shift
+
+        </th>
+
+      </tr>
+
+    </thead>
+
+
+    <tbody>
+
+      {absentEmployees.map((employee) => (
+
+        <tr
+          key={employee.id}
+          className="border-b"
+        >
+
+          <td className="p-2">
+
+            {employee.full_name}
+
+          </td>
+
+          <td className="p-2">
+
+            {
+
+              employee.shifts
+                ?.shift_name
+            }
+
+          </td>
+
+        </tr>
+      ))}
+
+    </tbody>
+
+  </table>
+
+</div>
       </div>
 
     </DashboardLayout>
