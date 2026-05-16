@@ -36,7 +36,14 @@ export async function testEmployeeQuery() {
 
     .from("employees")
 
-    .select("*");
+    // .select("*");
+    .select(`
+  id,
+  employee_code,
+  full_name,
+  email,
+  shift_id
+`)
 
 
   if (error) {
