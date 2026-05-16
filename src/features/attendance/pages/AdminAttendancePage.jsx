@@ -10,7 +10,7 @@ import DashboardLayout
   
     getAbsentEmployees,
   
-  } from "../services/adminAttendanceService";e";
+  } from "../services/adminAttendanceService";
 
 
 export default function AdminAttendancePage() {
@@ -174,10 +174,7 @@ const filteredAttendance =
           === dateFilter
 
         : true;
-// Total absent
-const totalAbsent =
 
-  absentEmployees.length;
     return (
 
       matchesSearch
@@ -189,6 +186,10 @@ const totalAbsent =
       && matchesDate
     );
   });
+  // Total absent
+const totalAbsent =
+
+absentEmployees.length;
 
   // Present employees
 const totalPresent =
@@ -209,40 +210,40 @@ attendance.filter((item) =>
   item.status === "late"
 ).length;
 
-{/* Absent */}
-<div
-  className="
-    bg-white
-    rounded-lg
-    p-4
-    shadow
-  "
->
+// {/* Absent */}
+// <div
+//   className="
+//     bg-white
+//     rounded-lg
+//     p-4
+//     shadow
+//   "
+// >
 
-  <h2
-    className="
-      text-gray-500
-      text-sm
-    "
-  >
+//   <h2
+//     className="
+//       text-gray-500
+//       text-sm
+//     "
+//   >
 
-    Absent Employees
+//     Absent Employees
 
-  </h2>
+//   </h2>
 
-  <p
-    className="
-      text-3xl
-      font-bold
-      mt-2
-    "
-  >
+//   <p
+//     className="
+//       text-3xl
+//       font-bold
+//       mt-2
+//     "
+//   >
 
-    {totalAbsent}
+//     {totalAbsent}
 
-  </p>
+//   </p>
 
-</div>
+// </div>
 
 // Completed attendance
 const completedAttendance =
