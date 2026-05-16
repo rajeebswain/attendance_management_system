@@ -3,31 +3,6 @@ import { supabase }
   from "../../../lib/supabase/client";
 
 
-// // TEST EMPLOYEE QUERY
-// export async function testEmployeeQuery() {
-
-// const { data, error } = await supabase
-
-//   .from("employees")
-
-//   .select(`
-//     *,
-//     shifts (
-//       shift_name,
-//       start_time,
-//       end_time,
-//       grace_minutes
-//     )
-//   `);
-//   if (error) {
-
-//     throw error;
-//   }
-
-//   return data;
-// }
-
-
 // TEST EMPLOYEE QUERY
 export async function testEmployeeQuery() {
 
