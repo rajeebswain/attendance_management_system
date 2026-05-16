@@ -177,7 +177,7 @@ function EmployeeSelfAttendancePage() {
 
         await checkInEmployee(
 
-          employee.id
+          employee
         );
 
       console.log(result);

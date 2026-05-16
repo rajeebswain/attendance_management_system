@@ -6,17 +6,6 @@ import { supabase }
 // TEST EMPLOYEE QUERY
 export async function testEmployeeQuery() {
 
-//   const { data, error } = await supabase
-
-//     .from("employees")
-
-//     // .select("*");
-//     .select(`
-//   *,
-//   shifts:shift_id (
-//     *
-//   )
-// `)
 const { data, error } = await supabase
 
   .from("employees")
@@ -72,11 +61,88 @@ export async function getTodayAttendance(
   return data;
 }
 
+// DETECT ATTENDANCE STATUS
+function detectAttendanceStatus(
+
+  employee
+
+) {
+
+  // Current time
+  const now = new Date();
+
+
+  // Employee shift
+  const shift = employee.shifts;
+
+
+  // Safety check
+  if (!shift) {
+
+    return "present";
+  }
+
+
+  // Extract shift start time
+  const [hour, minute] =
+
+    shift.start_time
+
+      .split(":")
+      .map(Number);
+
+
+  // Shift start object
+  const shiftStart = new Date();
+
+  shiftStart.setHours(
+
+    hour,
+
+    minute,
+
+    0
+  );
+
+
+  // Add grace period
+  shiftStart.setMinutes(
+
+    shiftStart.getMinutes()
+
+    + shift.grace_minutes
+  );
+
+
+  console.log(
+
+    "CURRENT TIME:",
+
+    now
+  );
+
+  console.log(
+
+    "LATE AFTER:",
+
+    shiftStart
+  );
+
+
+  // Compare
+  if (now > shiftStart) {
+
+    return "late";
+  }
+
+
+  return "present";
+}
 
 // BASIC CHECK-IN
 export async function checkInEmployee(
 
-  employeeId
+  employee
 
 ) {
 
@@ -111,13 +177,18 @@ export async function checkInEmployee(
 
     .insert([{
 
-      employee_id: employeeId,
+      employee_id: employee.Id,
 
       attendance_date: today,
 
       check_in: currentTime,
 
-      status: "present",
+      // status: "present",
+      status:
+
+  detectAttendanceStatus(
+    employee
+  )
     }])
 
     .select();
