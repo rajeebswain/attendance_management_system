@@ -120,6 +120,13 @@ function EmployeeSelfAttendancePage() {
         setLoading(false);
       }
     }
+
+    console.log(
+
+      "EMPLOYEE FULL:",
+    
+      result[0]
+    );
     loadData();
 
   }, []);
