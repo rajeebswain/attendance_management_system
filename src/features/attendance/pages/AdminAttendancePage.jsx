@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import DashboardLayout
 
-from "../../../layouts/DashboardLayout";
+  from "../../../components/layout/DashboardLayout";
 
 import { getAllAttendance } from "../services/adminAttendanceService";
 
