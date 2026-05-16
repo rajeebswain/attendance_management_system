@@ -219,6 +219,8 @@ import {
 
   testEmployeeQuery,
 
+  checkInEmployee,
+
 } from "../services/selfAttendanceService";
 
 function EmployeeSelfAttendancePage() {
@@ -233,27 +235,8 @@ function EmployeeSelfAttendancePage() {
 
   // Employee state
   const [employee, setEmployee] = useState(null);
-
-
-  // useEffect(() => {
-
-  //   console.log("PAGE LOADED");
-
-  //   console.log("USER:", user);
-
-
-  //   // Fake employee data
-  //   setEmployee({
-
-  //     full_name: "Test Employee",
-
-  //     employee_code: "EMP001",
-  //   });
-
-
-  //   setLoading(false);
-
-  // }, [user]);
+  // Check-in loading
+  const [checkingIn, setCheckingIn] = useState(false);
 
   useEffect(() => {
 
@@ -263,20 +246,7 @@ function EmployeeSelfAttendancePage() {
   
         console.log("START");
   
-  
-        // const result = await testEmployeeQuery();
-  
-        // console.log("RESULT:", result);
-  
-  
-        // // if (result?.length > 0) {
-  
-        // //   setEmployee(result[0]);
-        // // }
-        // console.log("RESULT:", result);
-
-        // setEmployee(result[0]);
-        const result = await testEmployeeQuery();
+          const result = await testEmployeeQuery();
 
         console.log("FULL RESULT:", result);
 
@@ -308,6 +278,44 @@ function EmployeeSelfAttendancePage() {
     return <div>Loading...</div>;
   }
 
+  // Handle check-in
+async function handleCheckIn() {
+
+  try {
+
+    setCheckingIn(true);
+
+    console.log(
+
+      "CHECK IN START"
+    );
+
+
+    const result =
+
+      await checkInEmployee(
+
+        employee.id
+      );
+
+    console.log(result);
+
+    alert(
+
+      "Check-in successful"
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(error.message);
+
+  } finally {
+
+    setCheckingIn(false);
+  }
+}
 
   return (
 
@@ -340,6 +348,29 @@ function EmployeeSelfAttendancePage() {
           {employee?.employee_code}
 
         </p>
+           <button
+
+            onClick={handleCheckIn}
+
+            disabled={checkingIn}
+
+            className="
+              mt-4
+              bg-blue-600
+              text-white
+              px-4
+              py-2
+              rounded
+            "
+          >
+
+            {checkingIn
+
+              ? "Checking In..."
+
+              : "Check In"}
+
+          </button>
 
       </div>
 

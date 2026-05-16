@@ -1,60 +1,3 @@
-// import { supabase }
-
-// from "../../../lib/supabase/client";
-
-
-// // FETCH CURRENT EMPLOYEE
-// export async function getCurrentEmployee(
-
-//   userId
-
-// ) {
-
-//   const { data, error } = await supabase
-
-//     .from("employees")
-
-//     .select("*")
-
-//     .eq("user_id", userId)
-
-//     .maybeSingle();
-
-//   if (error) {
-
-//     throw error;
-//   }
-
-//   return data;
-// }
-
-
-// import { supabase }
-
-// from "../../../lib/supabase/client";
-
-
-// export async function testEmployeeQuery() {
-
-//   console.log("START QUERY");
-
-
-//   const { data, error } = await supabase
-
-//     .from("employees")
-
-//     .select("*");
-
-
-//   console.log("DATA:", data);
-
-//   console.log("ERROR:", error);
-
-
-//   return data;
-// }
-
-
 import { supabase }
 
 from "../../../lib/supabase/client";
@@ -69,6 +12,65 @@ export async function testEmployeeQuery() {
 
     .select("*");
 
+
+  if (error) {
+
+    throw error;
+  }
+
+  return data;
+}
+
+// BASIC CHECK-IN
+export async function checkInEmployee(
+
+  employeeId
+
+) {
+
+  // Current date
+  const today = new Date()
+
+    .toISOString()
+
+    .split("T")[0];
+
+
+  // Current time
+  const currentTime = new Date()
+
+    .toLocaleTimeString(
+
+      "en-GB",
+
+      {
+
+        hour: "2-digit",
+
+        minute: "2-digit",
+
+        hour12: false,
+      }
+    );
+
+
+  // Insert attendance
+  const { data, error } = await supabase
+
+    .from("attendance")
+
+    .insert([{
+
+      employee_id: employeeId,
+
+      attendance_date: today,
+
+      check_in: currentTime,
+
+      status: "present",
+    }])
+
+    .select();
 
   if (error) {
 
