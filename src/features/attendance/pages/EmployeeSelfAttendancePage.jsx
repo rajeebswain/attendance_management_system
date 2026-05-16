@@ -28,6 +28,8 @@ import {
 
   checkOutEmployee,
 
+  getAttendanceHistory,
+
 } from "../services/selfAttendanceService";
 
 function EmployeeSelfAttendancePage() {
@@ -45,6 +47,9 @@ function EmployeeSelfAttendancePage() {
 
   // Today's attendance
   const [todayAttendance, setTodayAttendance] = useState(null);
+
+  // Attendance history
+  const [history, setHistory] = useState([]);
 
   // Check-in loading
   const [checkingIn, setCheckingIn] = useState(false);
@@ -99,7 +104,22 @@ function EmployeeSelfAttendancePage() {
         setLoading(false);
       }
     }
+    // Attendance history
+    const historyData =
 
+      await getAttendanceHistory(
+
+        result[0].id
+      );
+
+    console.log(
+
+      "HISTORY:",
+
+      historyData
+    );
+
+    setHistory(historyData);
     loadData();
 
   }, []);
@@ -108,52 +128,34 @@ function EmployeeSelfAttendancePage() {
   if (loading) {
 
     return (
-  
+
       <div>
-  
+
         Loading...
-  
+
         <br />
-  
+
         Employee:
         {" "}
-  
+
         {employee?.full_name}
-  
+
         <br />
-  
+
         Attendance:
         {" "}
-  
+
         {
-  
+
           JSON.stringify(
-  
+
             todayAttendance
           )
         }
-  
+
       </div>
     );
   }
-  // if (loading) {
-
-  //   return <div>Loading...</div>;
-  // }
-
-  // Handle check-in
-
-  // Prevent duplicate check-in
-  // if (todayAttendance) {
-
-  //   alert(
-
-  //     "You already checked in today"
-  //   );
-
-  //   return;
-  // }
-
   async function handleCheckIn() {
 
     try {
@@ -176,6 +178,12 @@ function EmployeeSelfAttendancePage() {
       console.log(result);
 
       setTodayAttendance(result[0]);
+      setHistory((prev) => [
+
+        result[0],
+
+        ...prev,
+      ]);
 
       alert(
 
@@ -230,8 +238,19 @@ function EmployeeSelfAttendancePage() {
 
 
       setTodayAttendance(
+        setHistory((prev) =>
 
-        result[0]
+          prev.map((item) =>
+
+            item.id === result[0].id
+
+              ? result[0]
+
+              : item
+          )
+        );
+
+      result[0]
       );
 
 
@@ -408,5 +427,118 @@ function EmployeeSelfAttendancePage() {
     </DashboardLayout>
   );
 }
+
+<div
+  className="
+    mt-8
+    bg-white
+    p-6
+    rounded-lg
+  "
+>
+
+  <h2
+    className="
+      text-xl
+      font-bold
+      mb-4
+    "
+  >
+
+    Attendance History
+
+  </h2>
+
+
+  <div className="overflow-x-auto">
+
+    <table className="w-full">
+
+      <thead>
+
+        <tr
+          className="
+            border-b
+            text-left
+          "
+        >
+
+          <th className="p-2">
+
+            Date
+
+          </th>
+
+          <th className="p-2">
+
+            Status
+
+          </th>
+
+          <th className="p-2">
+
+            Check-In
+
+          </th>
+
+          <th className="p-2">
+
+            Check-Out
+
+          </th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        {history.map((item) => (
+
+          <tr
+            key={item.id}
+            className="border-b"
+          >
+
+            <td className="p-2">
+
+              {item.attendance_date}
+
+            </td>
+
+            <td className="p-2">
+
+              {item.status}
+
+            </td>
+
+            <td className="p-2">
+
+              {item.check_in}
+
+            </td>
+
+            <td className="p-2">
+
+              {
+
+                item.check_out
+
+                || "Pending"
+              }
+
+            </td>
+
+          </tr>
+        ))}
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
 
 export default EmployeeSelfAttendancePage;

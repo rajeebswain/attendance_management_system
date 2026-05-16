@@ -275,3 +275,31 @@ export async function checkOutEmployee(
 
   return data;
 }
+
+// ATTENDANCE HISTORY
+export async function getAttendanceHistory(
+
+  employeeId
+
+) {
+
+  const { data, error } = await supabase
+
+    .from("attendance")
+
+    .select("*")
+
+    .eq("employee_id", employeeId)
+
+    .order("attendance_date", {
+
+      ascending: false,
+    });
+
+  if (error) {
+
+    throw error;
+  }
+
+  return data;
+}
