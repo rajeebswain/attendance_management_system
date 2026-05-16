@@ -227,3 +227,51 @@ export async function checkInEmployee(
 
   return data;
 }
+
+
+// CHECK OUT EMPLOYEE
+export async function checkOutEmployee(
+
+  attendanceId
+
+) {
+
+  // Current time
+  const currentTime = new Date()
+
+    .toLocaleTimeString(
+
+      "en-GB",
+
+      {
+
+        hour: "2-digit",
+
+        minute: "2-digit",
+
+        hour12: false,
+      }
+    );
+
+
+  // Update attendance
+  const { data, error } = await supabase
+
+    .from("attendance")
+
+    .update({
+
+      check_out: currentTime,
+    })
+
+    .eq("id", attendanceId)
+
+    .select();
+
+  if (error) {
+
+    throw error;
+  }
+
+  return data;
+}

@@ -26,6 +26,8 @@ import {
 
   getTodayAttendance,
 
+  checkOutEmployee,
+
 } from "../services/selfAttendanceService";
 
 function EmployeeSelfAttendancePage() {
@@ -46,6 +48,9 @@ function EmployeeSelfAttendancePage() {
 
   // Check-in loading
   const [checkingIn, setCheckingIn] = useState(false);
+
+  // Check-out loading
+  const [checkingOut, setCheckingOut] = useState(false);
 
   useEffect(() => {
 
@@ -158,6 +163,63 @@ function EmployeeSelfAttendancePage() {
     }
   }
 
+  // Handle check-out
+  async function handleCheckOut() {
+
+    try {
+
+      // Prevent duplicate checkout
+      if (
+
+        todayAttendance?.check_out
+
+      ) {
+
+        alert(
+
+          "Already checked out"
+        );
+
+        return;
+      }
+
+
+      setCheckingOut(true);
+
+
+      const result =
+
+        await checkOutEmployee(
+
+          todayAttendance.id
+        );
+
+
+      console.log(result);
+
+
+      setTodayAttendance(
+
+        result[0]
+      );
+
+
+      alert(
+
+        "Check-out successful"
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(error.message);
+
+    } finally {
+
+      setCheckingOut(false);
+    }
+  }
   return (
 
     <DashboardLayout>
@@ -189,7 +251,7 @@ function EmployeeSelfAttendancePage() {
           {employee?.employee_code}
 
         </p>
-        <button
+        {/* <button
 
           onClick={handleCheckIn}
 
@@ -221,7 +283,127 @@ function EmployeeSelfAttendancePage() {
 
               : "Check In"}
 
-        </button>
+        </button> */}
+        <div className="mt-4">
+
+          {/* Not checked in */}
+          {!todayAttendance && (
+
+            <button
+
+              onClick={handleCheckIn}
+
+              disabled={checkingIn}
+
+              className="
+      bg-blue-600
+      text-white
+      px-4
+      py-2
+      rounded
+    "
+            >
+
+              {checkingIn
+
+                ? "Checking In..."
+
+                : "Check In"}
+
+            </button>
+          )}
+
+
+          {/* Checked in but not checked out */}
+          {todayAttendance &&
+
+            !todayAttendance.check_out && (
+
+              <button
+
+                onClick={handleCheckOut}
+
+                disabled={checkingOut}
+
+                className="
+      bg-red-600
+      text-white
+      px-4
+      py-2
+      rounded
+    "
+              >
+
+                {checkingOut
+
+                  ? "Checking Out..."
+
+                  : "Check Out"}
+
+              </button>
+            )}
+
+
+          {/* Already checked out */}
+          {todayAttendance?.check_out && (
+
+            <button
+
+              disabled
+
+              className="
+      bg-gray-500
+      text-white
+      px-4
+      py-2
+      rounded
+    "
+            >
+
+              Attendance Completed
+
+            </button>
+          )}
+
+        </div>
+        {todayAttendance && (
+
+          <div className="mt-4 space-y-2">
+
+            <p>
+
+              Status:
+              {" "}
+
+              {todayAttendance.status}
+
+            </p>
+
+            <p>
+
+              Check-In:
+              {" "}
+
+              {todayAttendance.check_in}
+
+            </p>
+
+            <p>
+
+              Check-Out:
+              {" "}
+
+              {
+
+                todayAttendance.check_out
+
+                || "Pending"
+              }
+
+            </p>
+
+          </div>
+        )}
 
       </div>
 
