@@ -107,21 +107,52 @@ function EmployeeSelfAttendancePage() {
   // Loading UI
   if (loading) {
 
-    return <div>Loading...</div>;
+    return (
+  
+      <div>
+  
+        Loading...
+  
+        <br />
+  
+        Employee:
+        {" "}
+  
+        {employee?.full_name}
+  
+        <br />
+  
+        Attendance:
+        {" "}
+  
+        {
+  
+          JSON.stringify(
+  
+            todayAttendance
+          )
+        }
+  
+      </div>
+    );
   }
+  // if (loading) {
+
+  //   return <div>Loading...</div>;
+  // }
 
   // Handle check-in
 
   // Prevent duplicate check-in
-  if (todayAttendance) {
+  // if (todayAttendance) {
 
-    alert(
+  //   alert(
 
-      "You already checked in today"
-    );
+  //     "You already checked in today"
+  //   );
 
-    return;
-  }
+  //   return;
+  // }
 
   async function handleCheckIn() {
 
@@ -251,39 +282,6 @@ function EmployeeSelfAttendancePage() {
           {employee?.employee_code}
 
         </p>
-        {/* <button
-
-          onClick={handleCheckIn}
-
-          disabled={
-
-            checkingIn ||
-
-            todayAttendance
-          }
-
-          className="
-  mt-4
-  bg-blue-600
-  text-white
-  px-4
-  py-2
-  rounded
-  disabled:bg-gray-400
-"
-        >
-
-          {todayAttendance
-
-            ? "Already Checked In"
-
-            : checkingIn
-
-              ? "Checking In..."
-
-              : "Check In"}
-
-        </button> */}
         <div className="mt-4">
 
           {/* Not checked in */}
