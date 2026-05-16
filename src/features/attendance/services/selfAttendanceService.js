@@ -29,15 +29,39 @@
 // }
 
 
+// import { supabase }
+
+// from "../../../lib/supabase/client";
+
+
+// export async function testEmployeeQuery() {
+
+//   console.log("START QUERY");
+
+
+//   const { data, error } = await supabase
+
+//     .from("employees")
+
+//     .select("*");
+
+
+//   console.log("DATA:", data);
+
+//   console.log("ERROR:", error);
+
+
+//   return data;
+// }
+
+
 import { supabase }
 
 from "../../../lib/supabase/client";
 
 
+// TEST EMPLOYEE QUERY
 export async function testEmployeeQuery() {
-
-  console.log("START QUERY");
-
 
   const { data, error } = await supabase
 
@@ -46,10 +70,10 @@ export async function testEmployeeQuery() {
     .select("*");
 
 
-  console.log("DATA:", data);
+  if (error) {
 
-  console.log("ERROR:", error);
-
+    throw error;
+  }
 
   return data;
 }

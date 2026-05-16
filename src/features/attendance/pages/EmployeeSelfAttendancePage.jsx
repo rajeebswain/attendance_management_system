@@ -269,10 +269,13 @@ function EmployeeSelfAttendancePage() {
         console.log("RESULT:", result);
   
   
-        if (result?.length > 0) {
+        // if (result?.length > 0) {
   
-          setEmployee(result[0]);
-        }
+        //   setEmployee(result[0]);
+        // }
+        console.log("RESULT:", result);
+
+        setEmployee(result[0]);
   
       } catch (error) {
   
