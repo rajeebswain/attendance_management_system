@@ -15,7 +15,36 @@ export default function AdminAttendancePage() {
     setAttendance]
 
     = useState([]);
+// Search employee
+const [search,
 
+    setSearch]
+    
+    = useState("");
+    
+    
+    // Shift filter
+    const [shiftFilter,
+    
+    setShiftFilter]
+    
+    = useState("");
+    
+    
+    // Status filter
+    const [statusFilter,
+    
+    setStatusFilter]
+    
+    = useState("");
+    
+    
+    // Date filter
+    const [dateFilter,
+    
+    setDateFilter]
+    
+    = useState("");
 
   // Loading state
   const [loading,
@@ -62,7 +91,71 @@ export default function AdminAttendancePage() {
     return <div>Loading...</div>;
   }
 
+// Filter attendance
+const filteredAttendance =
 
+  attendance.filter((item) => {
+
+    // Employee search
+    const matchesSearch =
+
+      item.employee_name
+
+        ?.toLowerCase()
+
+        .includes(
+
+          search.toLowerCase()
+        );
+
+
+    // Shift filter
+    const matchesShift =
+
+      shiftFilter
+
+        ? item.shift_name
+
+          === shiftFilter
+
+        : true;
+
+
+    // Status filter
+    const matchesStatus =
+
+      statusFilter
+
+        ? item.status
+
+          === statusFilter
+
+        : true;
+
+
+    // Date filter
+    const matchesDate =
+
+      dateFilter
+
+        ? item.attendance_date
+
+          === dateFilter
+
+        : true;
+
+
+    return (
+
+      matchesSearch
+
+      && matchesShift
+
+      && matchesStatus
+
+      && matchesDate
+    );
+  });
   return (
 
     <DashboardLayout>
@@ -80,7 +173,156 @@ export default function AdminAttendancePage() {
           Admin Attendance Dashboard
 
         </h1>
+        {/* Filters */}
+<div
+  className="
+    bg-white
+    p-4
+    rounded-lg
+    mb-6
+    grid
+    grid-cols-1
+    md:grid-cols-4
+    gap-4
+  "
+>
 
+  {/* Search */}
+  <input
+
+    type="text"
+
+    placeholder="Search Employee"
+
+    value={search}
+
+    onChange={(e) =>
+
+      setSearch(e.target.value)
+    }
+
+    className="
+      border
+      p-2
+      rounded
+    "
+  />
+
+
+  {/* Shift filter */}
+  <select
+
+    value={shiftFilter}
+
+    onChange={(e) =>
+
+      setShiftFilter(
+        e.target.value
+      )
+    }
+
+    className="
+      border
+      p-2
+      rounded
+    "
+  >
+
+    <option value="">
+
+      All Shifts
+
+    </option>
+
+    <option value="Morning Shift">
+
+      Morning Shift
+
+    </option>
+
+    <option value="Evening Shift">
+
+      Evening Shift
+
+    </option>
+
+    <option value="Night Shift">
+
+      Night Shift
+
+    </option>
+
+    <option value="General Shift">
+
+      General Shift
+
+    </option>
+
+  </select>
+
+
+  {/* Status filter */}
+  <select
+
+    value={statusFilter}
+
+    onChange={(e) =>
+
+      setStatusFilter(
+        e.target.value
+      )
+    }
+
+    className="
+      border
+      p-2
+      rounded
+    "
+  >
+
+    <option value="">
+
+      All Status
+
+    </option>
+
+    <option value="present">
+
+      Present
+
+    </option>
+
+    <option value="late">
+
+      Late
+
+    </option>
+
+  </select>
+
+
+  {/* Date filter */}
+  <input
+
+    type="date"
+
+    value={dateFilter}
+
+    onChange={(e) =>
+
+      setDateFilter(
+        e.target.value
+      )
+    }
+
+    className="
+      border
+      p-2
+      rounded
+    "
+  />
+
+</div>
 
         {/* Attendance table */}
         <div
@@ -145,7 +387,7 @@ export default function AdminAttendancePage() {
 
             <tbody>
 
-              {attendance.map((item) => (
+              {filteredAttendance.map((item) => (
 
                 <tr
                   key={item.id}
