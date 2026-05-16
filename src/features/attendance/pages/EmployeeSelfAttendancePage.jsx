@@ -67,6 +67,11 @@ function EmployeeSelfAttendancePage() {
 
         const result = await testEmployeeQuery();
 
+        console.log(
+          "EMPLOYEE FULL:",
+          result[0]
+        );
+
         console.log("FULL RESULT:", result);
 
         console.log("TYPE:", typeof result);
@@ -120,13 +125,6 @@ function EmployeeSelfAttendancePage() {
         setLoading(false);
       }
     }
-
-    console.log(
-
-      "EMPLOYEE FULL:",
-    
-      result[0]
-    );
     loadData();
 
   }, []);
