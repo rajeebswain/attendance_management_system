@@ -1,6 +1,6 @@
 import { supabase }
 
-from "../../../lib/supabase/client";
+  from "../../../lib/supabase/client";
 
 
 // TEST EMPLOYEE QUERY
@@ -13,7 +13,7 @@ export async function testEmployeeQuery() {
     // .select("*");
     .select(`
   *,
-  shifts (
+  shifts:shift_id (
     *
   )
 `)
