@@ -46,6 +46,11 @@ function Sidebar() {
           </Link>
 
         ))}
+        <Link to="/admin-attendance">
+
+Admin Attendance
+
+</Link>
 
       </nav>
 

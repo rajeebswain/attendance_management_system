@@ -103,6 +103,15 @@ function AppRoutes() {
           </ProtectedRoute>
          }
       />
+      <Route
+
+path="/admin-attendance"
+
+element={
+
+  <AdminAttendancePage />
+}
+/>
     </Routes>
   );
 }
