@@ -1,16 +1,8 @@
-import { useEffect, useState }
+import { useEffect, useState } from "react";
 
-from "react";
+import DashboardLayout from "../../../layouts/DashboardLayout";
 
-import DashboardLayout
-
-from "../../../layouts/DashboardLayout";
-
-import {
-
-  getAllAttendance,
-
-} from "../services/adminAttendanceService";
+import { getAllAttendance } from "../services/adminAttendanceService";
 
 
 export default function AdminAttendancePage() {
