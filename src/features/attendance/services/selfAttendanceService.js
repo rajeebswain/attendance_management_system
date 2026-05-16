@@ -6,18 +6,30 @@ import { supabase }
 // TEST EMPLOYEE QUERY
 export async function testEmployeeQuery() {
 
-  const { data, error } = await supabase
+//   const { data, error } = await supabase
 
-    .from("employees")
+//     .from("employees")
 
-    // .select("*");
-    .select(`
-  *,
-  shifts:shift_id (
-    *
-  )
-`)
+//     // .select("*");
+//     .select(`
+//   *,
+//   shifts:shift_id (
+//     *
+//   )
+// `)
+const { data, error } = await supabase
 
+  .from("employees")
+
+  .select(`
+    *,
+    shifts (
+      shift_name,
+      start_time,
+      end_time,
+      grace_minutes
+    )
+  `);
   if (error) {
 
     throw error;
