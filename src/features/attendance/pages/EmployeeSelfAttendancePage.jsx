@@ -236,20 +236,6 @@ function EmployeeSelfAttendancePage() {
 
       console.log(result);
 
-
-      // setTodayAttendance(
-      //   setHistory((prev) =>
-
-      //     prev.map((item) =>
-
-      //       item.id === result[0].id
-
-      //         ? result[0]
-
-      //         : item
-      //     )
-      //   );
-
       setTodayAttendance(result[0]);
 
       setHistory((prev) =>
@@ -311,6 +297,14 @@ function EmployeeSelfAttendancePage() {
           {" "}
 
           {employee?.employee_code}
+
+        </p>
+        <p>
+
+          Shift:
+          {" "}
+
+          {employee?.shifts?.shift_name}
 
         </p>
         <div className="mt-4">
