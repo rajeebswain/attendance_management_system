@@ -237,21 +237,33 @@ function EmployeeSelfAttendancePage() {
       console.log(result);
 
 
-      setTodayAttendance(
-        setHistory((prev) =>
+      // setTodayAttendance(
+      //   setHistory((prev) =>
 
-          prev.map((item) =>
+      //     prev.map((item) =>
 
-            item.id === result[0].id
+      //       item.id === result[0].id
 
-              ? result[0]
+      //         ? result[0]
 
-              : item
-          )
-        );
+      //         : item
+      //     )
+      //   );
 
-      result[0]
+      setTodayAttendance(result[0]);
+
+      setHistory((prev) =>
+
+        prev.map((item) =>
+
+          item.id === result[0].id
+
+            ? result[0]
+
+            : item
+        )
       );
+
 
 
       alert(
