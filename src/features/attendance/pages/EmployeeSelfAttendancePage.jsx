@@ -230,27 +230,59 @@ function EmployeeSelfAttendancePage() {
   const [employee, setEmployee] = useState(null);
 
 
+  // useEffect(() => {
+
+  //   console.log("PAGE LOADED");
+
+  //   console.log("USER:", user);
+
+
+  //   // Fake employee data
+  //   setEmployee({
+
+  //     full_name: "Test Employee",
+
+  //     employee_code: "EMP001",
+  //   });
+
+
+  //   setLoading(false);
+
+  // }, [user]);
+
   useEffect(() => {
 
-    console.log("PAGE LOADED");
-
-    console.log("USER:", user);
-
-
-    // Fake employee data
-    setEmployee({
-
-      full_name: "Test Employee",
-
-      employee_code: "EMP001",
-    });
-
-
-    setLoading(false);
-
-  }, [user]);
-
-
+    async function loadData() {
+  
+      try {
+  
+        console.log("START");
+  
+  
+        const result = await testEmployeeQuery();
+  
+        console.log("RESULT:", result);
+  
+  
+        if (result?.length > 0) {
+  
+          setEmployee(result[0]);
+        }
+  
+      } catch (error) {
+  
+        console.error(error);
+  
+      } finally {
+  
+        setLoading(false);
+      }
+    }
+  
+    loadData();
+  
+  }, []);
+  
   // Loading UI
   if (loading) {
 
