@@ -81,7 +81,19 @@ export async function testEmployeeQuery() {
       .eq("id", employee.shift_id)
 
       .maybeSingle();
+      console.log(
 
+        "SHIFT DATA:",
+      
+        shiftData
+      );
+      
+      console.log(
+      
+        "SHIFT ERROR:",
+      
+        shiftError
+      );
 
     if (shiftError) {
 
