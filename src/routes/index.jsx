@@ -22,7 +22,7 @@ import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 // Pages
 import DashboardPage from "../pages/DashboardPage";
 
-import employeesPage from "../pages/EmployeesPage";
+import EmployeesPage from "../pages/EmployeesPage";
 
 
 // Role Guard
@@ -34,6 +34,8 @@ import AttendancePage from "../features/attendance/pages/AttendancePage";
 
 // Self Attendance Page
 import EmployeeSelfAttendancePage from "../features/attendance/pages/EmployeeSelfAttendancePage";
+
+import AdminAttendancePage from "../features/attendance/pages/AdminAttendancePage";
 
 function AppRoutes() {
 
@@ -79,7 +81,7 @@ function AppRoutes() {
                 "super_admin",
               ]}
             >
-              <employeesPage />
+              <EmployeesPage />
             </RoleGuard>
           </ProtectedRoute>
         }
