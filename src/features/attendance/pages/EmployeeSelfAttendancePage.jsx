@@ -1,200 +1,3 @@
-// import DashboardLayout
-
-// from "../../../components/layout/DashboardLayout";
-
-
-// function EmployeeSelfAttendancePage() {
-
-//   return (
-
-//     <DashboardLayout>
-
-//       <div className="space-y-6">
-
-//         <div
-//           className="
-//             bg-white
-//             p-6
-//             rounded-lg
-//           "
-//         >
-
-//           <h1
-//             className="
-//               text-2xl
-//               font-bold
-//             "
-//           >
-
-//             Employee Self Attendance
-
-//           </h1>
-
-//           <p className="mt-2">
-
-//             Basic page working.
-
-//           </p>
-
-//         </div>
-
-//       </div>
-
-//     </DashboardLayout>
-//   );
-// }
-
-// export default EmployeeSelfAttendancePage;
-
-
-// import {
-
-//   useEffect,
-
-//   useState,
-
-// } from "react";
-
-
-// import DashboardLayout
-
-// from "../../../components/layout/DashboardLayout";
-
-
-// import {
-
-//   useAuth,
-
-// } from "../../auth/context/AuthContext";
-
-
-// import {
-
-//   getCurrentEmployee,
-
-// } from "../services/selfAttendanceService";
-
-
-// function EmployeeSelfAttendancePage() {
-
-//   // Employee state
-//   const [employee, setEmployee] = useState(null);
-
-
-//   // Loading state
-//   const [loading, setLoading] = useState(true);
-
-
-//   // Current auth user
-//   const { user } = useAuth();
-
-
-//   // Load employee
-//   useEffect(() => {
-
-//     async function loadEmployee() {
-
-//       try {
-
-//         console.log("USER:", user);
-
-//         const employeeData =
-
-//           await getCurrentEmployee(
-
-//             user.id
-//           );
-
-//         console.log(
-
-//           "EMPLOYEE:",
-//           employeeData
-//         );
-
-//         setEmployee(employeeData);
-
-//       } catch (error) {
-
-//         console.error(error);
-
-//       } finally {
-
-//         setLoading(false);
-//       }
-//     }
-
-//     if (user) {
-
-//       loadEmployee();
-//     }
-
-//   }, [user]);
-
-
-//   // Loading UI
-//   if (loading) {
-
-//     return <div>Loading...</div>;
-//   }
-
-
-//   return (
-
-//     <DashboardLayout>
-
-//       <div className="space-y-6">
-
-//         <div
-//           className="
-//             bg-white
-//             p-6
-//             rounded-lg
-//           "
-//         >
-
-//           <h1
-//             className="
-//               text-2xl
-//               font-bold
-//             "
-//           >
-
-//             Employee Self Attendance
-
-//           </h1>
-
-
-//           <p className="mt-4">
-
-//             Employee Name:
-//             {" "}
-
-//             {employee?.full_name}
-
-//           </p>
-
-
-//           <p>
-
-//             Employee Code:
-//             {" "}
-
-//             {employee?.employee_code}
-
-//           </p>
-
-//         </div>
-
-//       </div>
-
-//     </DashboardLayout>
-//   );
-// }
-
-// export default EmployeeSelfAttendancePage;
-
-
-
 import {
 
   useEffect,
@@ -206,7 +9,7 @@ import {
 
 import DashboardLayout
 
-from "../../../components/layout/DashboardLayout";
+  from "../../../components/layout/DashboardLayout";
 
 
 import {
@@ -220,6 +23,8 @@ import {
   testEmployeeQuery,
 
   checkInEmployee,
+
+  getTodayAttendance,
 
 } from "../services/selfAttendanceService";
 
@@ -235,18 +40,22 @@ function EmployeeSelfAttendancePage() {
 
   // Employee state
   const [employee, setEmployee] = useState(null);
+
+  // Today's attendance
+  const [todayAttendance, setTodayAttendance] = useState(null);
+
   // Check-in loading
   const [checkingIn, setCheckingIn] = useState(false);
 
   useEffect(() => {
 
     async function loadData() {
-  
+
       try {
-  
+
         console.log("START");
-  
-          const result = await testEmployeeQuery();
+
+        const result = await testEmployeeQuery();
 
         console.log("FULL RESULT:", result);
 
@@ -257,19 +66,37 @@ function EmployeeSelfAttendancePage() {
         console.log("FIRST ITEM:", result?.[0]);
 
         setEmployee(result[0]);
-  
+
+        const attendanceData =
+
+          await getTodayAttendance(
+
+            result[0].id
+          );
+
+        console.log(
+
+          "TODAY ATTENDANCE:",
+
+          attendanceData
+        );
+        setTodayAttendance(
+
+          attendanceData
+        );
+
       } catch (error) {
-  
+
         console.error(error);
-  
+
       } finally {
-  
+
         setLoading(false);
       }
     }
-  
+
     loadData();
-  
+
   }, []);
 
   // Loading UI
@@ -279,43 +106,57 @@ function EmployeeSelfAttendancePage() {
   }
 
   // Handle check-in
-async function handleCheckIn() {
 
-  try {
-
-    setCheckingIn(true);
-
-    console.log(
-
-      "CHECK IN START"
-    );
-
-
-    const result =
-
-      await checkInEmployee(
-
-        employee.id
-      );
-
-    console.log(result);
+  // Prevent duplicate check-in
+  if (todayAttendance) {
 
     alert(
 
-      "Check-in successful"
+      "You already checked in today"
     );
 
-  } catch (error) {
-
-    console.error(error);
-
-    alert(error.message);
-
-  } finally {
-
-    setCheckingIn(false);
+    return;
   }
-}
+
+  async function handleCheckIn() {
+
+    try {
+
+      setCheckingIn(true);
+
+      console.log(
+
+        "CHECK IN START"
+      );
+
+
+      const result =
+
+        await checkInEmployee(
+
+          employee.id
+        );
+
+      console.log(result);
+
+      setTodayAttendance(result[0]);
+
+      alert(
+
+        "Check-in successful"
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(error.message);
+
+    } finally {
+
+      setCheckingIn(false);
+    }
+  }
 
   return (
 
@@ -348,29 +189,39 @@ async function handleCheckIn() {
           {employee?.employee_code}
 
         </p>
-           <button
+        <button
 
-            onClick={handleCheckIn}
+          onClick={handleCheckIn}
 
-            disabled={checkingIn}
+          disabled={
 
-            className="
-              mt-4
-              bg-blue-600
-              text-white
-              px-4
-              py-2
-              rounded
-            "
-          >
+            checkingIn ||
 
-            {checkingIn
+            todayAttendance
+          }
+
+          className="
+  mt-4
+  bg-blue-600
+  text-white
+  px-4
+  py-2
+  rounded
+  disabled:bg-gray-400
+"
+        >
+
+          {todayAttendance
+
+            ? "Already Checked In"
+
+            : checkingIn
 
               ? "Checking In..."
 
               : "Check In"}
 
-          </button>
+        </button>
 
       </div>
 

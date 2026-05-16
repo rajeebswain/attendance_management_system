@@ -53,7 +53,40 @@ export async function checkInEmployee(
       }
     );
 
+  // GET TODAY ATTENDANCE
+export async function getTodayAttendance(
 
+  employeeId
+
+) {
+
+  // Current date
+  const today = new Date()
+
+    .toISOString()
+
+    .split("T")[0];
+
+
+  const { data, error } = await supabase
+
+    .from("attendance")
+
+    .select("*")
+
+    .eq("employee_id", employeeId)
+
+    .eq("attendance_date", today)
+
+    .maybeSingle();
+
+  if (error) {
+
+    throw error;
+  }
+
+  return data;
+}
   // Insert attendance
   const { data, error } = await supabase
 
