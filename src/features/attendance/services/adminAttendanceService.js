@@ -403,3 +403,81 @@ export function calculateAttendancePercentage(
 
   return percentage.toFixed(2);
 }
+
+
+// MONTHLY SUMMARY
+export function generateMonthlySummary(
+
+  attendanceRecords,
+
+  holidays
+) {
+
+  const summary = {};
+
+
+  attendanceRecords.forEach(
+
+    (record) => {
+
+      const employee =
+
+        record.employee_name;
+
+
+      // Create employee summary
+      if (!summary[employee]) {
+
+        summary[employee] = {
+
+          employee_name: employee,
+
+          present: 0,
+
+          late: 0,
+
+          absent: 0,
+
+          overtime: 0,
+        };
+      }
+
+
+      // Present
+      if (
+
+        record.status === "present"
+      ) {
+
+        summary[employee].present++;
+      }
+
+
+      // Late
+      if (
+
+        record.status === "late"
+      ) {
+
+        summary[employee].late++;
+      }
+
+
+      // Overtime
+      const overtimeData =
+
+        calculateOvertime(record);
+
+
+      summary[employee].overtime +=
+
+        Number(
+
+          overtimeData.overtimeHours
+        );
+    }
+  );
+
+
+  return Object.values(summary);
+}
