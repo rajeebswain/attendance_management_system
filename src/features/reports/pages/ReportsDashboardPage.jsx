@@ -1,9 +1,38 @@
+import { useEffect, useState }
+
+from "react";
+
+
+import {
+
+  getReportsData
+
+} from "../services/reportsService";
+
+
 import DashboardLayout
 
   from "../../../components/layout/DashboardLayout";
 
 
 export default function ReportsDashboardPage() {
+    const [reports, setReports] = useState([]);
+    useEffect(() => {
+
+        loadReports();
+      
+      }, []);
+      async function loadReports() {
+
+        const data = await getReportsData();
+      
+        console.log("REPORT DATA:", data);
+      
+        setReports(data);
+      }
+
+
+
 
   return (
 
@@ -207,8 +236,13 @@ export default function ReportsDashboardPage() {
 
           <p className="text-gray-500">
 
-            Reports and analytics
-            will appear here.
+            {/* Reports and analytics will appear here. */}
+
+            <pre>
+
+  {JSON.stringify(reports, null, 2)}
+
+</pre>
 
           </p>
 
