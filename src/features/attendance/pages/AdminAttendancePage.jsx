@@ -265,6 +265,37 @@ async function saveAttendanceUpdate() {
     alert(error.message);
   }
 }
+
+// Open edit modal
+function openEditModal(item) {
+
+  console.log(
+
+    "EDIT ITEM:",
+
+    item
+  );
+
+  // Store selected attendance
+  setSelectedAttendance(item);
+
+
+  // Set edit values
+  setEditCheckIn(
+
+    item.check_in || ""
+  );
+
+  setEditCheckOut(
+
+    item.check_out || ""
+  );
+
+  setEditStatus(
+
+    item.status || ""
+  );
+}
     return (
 
       matchesSearch
