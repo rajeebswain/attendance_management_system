@@ -18,9 +18,14 @@ export async function getReportsData() {
 
     .select(`
       *,
-      employees (
+    //   employees (
+    //     full_name,
+    //     department,
+    //     shift_name
+    //   )
+
+    employees (
         full_name,
-        department,
         shift_name
       )
     `);
