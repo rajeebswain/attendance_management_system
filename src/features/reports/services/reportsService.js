@@ -12,23 +12,35 @@ from "../../../lib/supabase/client";
 
 export async function getReportsData() {
 
-  const { data, error } = await supabase
+//   const { data, error } = await supabase
 
-    .from("attendance")
+//     .from("attendance")
 
-    .select(`
-      *,
-    //   employees (
-    //     full_name,
-    //     department,
-    //     shift_name
-    //   )
+//     .select(`
+//       *,
+//     //   employees (
+//     //     full_name,
+//     //     department,
+//     //     shift_name
+//     //   )
 
+//     employees (
+//         full_name,
+//         shift_name
+//       )
+//     `);
+
+const { data, error } = await supabase
+
+  .from("attendance")
+
+  .select(`
+    *,
     employees (
-        full_name,
-        shift_name
-      )
-    `);
+      full_name,
+      shift_name
+    )
+  `);
 
   if (error) {
 
