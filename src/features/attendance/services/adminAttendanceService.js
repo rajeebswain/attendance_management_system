@@ -444,9 +444,17 @@ export function generateMonthlySummary(
 
 
       // Present
+      // if (
+
+      //   record.status === "present"
+      // )
       if (
 
         record.status === "present"
+      
+        ||
+      
+        record.status === "late"
       ) {
 
         summary[employee].present++;
