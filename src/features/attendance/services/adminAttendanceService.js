@@ -179,7 +179,29 @@ export function calculateOvertime(
       overtimeHours: 0,
     };
   }
+// GET HOLIDAYS
+export async function getHolidays() {
 
+  const { data, error } = await supabase
+
+    .from("holidays")
+
+    .select("*")
+
+    .order(
+
+      "holiday_date",
+
+      { ascending: true }
+    );
+
+  if (error) {
+
+    throw error;
+  }
+
+  return data;
+}
 
   // Convert check-in
   const checkIn = new Date(

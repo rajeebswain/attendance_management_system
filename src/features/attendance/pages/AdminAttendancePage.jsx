@@ -5,6 +5,7 @@ import DashboardLayout
   from "../../../components/layout/DashboardLayout";
 
 
+
   import {
 
     getAllAttendance,
@@ -14,6 +15,8 @@ import DashboardLayout
     updateAttendance,
   
     calculateOvertime,
+  
+    getHolidays,
   
   } from "../services/adminAttendanceService";
 
@@ -25,6 +28,13 @@ export default function AdminAttendancePage() {
     setAttendance]
 
     = useState([]);
+
+    // Holidays
+const [holidays,
+
+  setHolidays]
+  
+  = useState([]);
 // Edit modal
 const [selectedAttendance,
 
@@ -117,6 +127,23 @@ const [search,
       console.log(data);
 
       setAttendance(data);
+
+      // Load holidays
+const holidayData =
+
+await getHolidays();
+
+console.log(
+
+"HOLIDAYS:",
+
+holidayData
+);
+
+setHolidays(
+
+holidayData
+);
       // Load absent employees
 const absentData =
 
@@ -1102,6 +1129,87 @@ attendance.filter((item) =>
 
 </div>
       </div>
+
+      {/* Holidays */}
+<div
+  className="
+    bg-white
+    rounded-lg
+    p-6
+    mt-6
+  "
+>
+
+  <h2
+    className="
+      text-xl
+      font-bold
+      mb-4
+    "
+  >
+
+    Company Holidays
+
+  </h2>
+
+
+  <table className="w-full">
+
+    <thead>
+
+      <tr
+        className="
+          border-b
+          text-left
+        "
+      >
+
+        <th className="p-2">
+
+          Holiday
+
+        </th>
+
+        <th className="p-2">
+
+          Date
+
+        </th>
+
+      </tr>
+
+    </thead>
+
+
+    <tbody>
+
+      {holidays.map((holiday) => (
+
+        <tr
+          key={holiday.id}
+          className="border-b"
+        >
+
+          <td className="p-2">
+
+            {holiday.holiday_name}
+
+          </td>
+
+          <td className="p-2">
+
+            {holiday.holiday_date}
+
+          </td>
+
+        </tr>
+      ))}
+
+    </tbody>
+
+  </table>
+
+</div>
 {/* Edit modal */}
 {selectedAttendance && (
 
