@@ -16,6 +16,8 @@ import DashboardLayout
     getHolidays,
   
     isWeeklyOff,
+
+    isHoliday,
   
   } from "../services/adminAttendanceService";
 
@@ -343,10 +345,61 @@ const filteredAttendance =
       && matchesDate
     );
   });
+
+  // Filter valid absents
+const validAbsentEmployees =
+
+absentEmployees.filter(
+
+  (employee) => {
+
+    // Today's date
+    const todayDate =
+
+      new Date()
+
+      .toISOString()
+
+      .split("T")[0];
+
+
+    // Weekly off
+    const weeklyOff =
+
+      isWeeklyOff(
+
+        todayDate
+      );
+
+
+    // Holiday
+    const holidayCheck =
+
+      isHoliday(
+
+        holidays,
+
+        todayDate
+      );
+
+
+    // Exclude holidays/off
+    return (
+
+      !weeklyOff
+
+      && !holidayCheck
+    );
+  }
+);
   // Total absent
+// const totalAbsent =
+
+// absentEmployees.length;
+
 const totalAbsent =
 
-absentEmployees.length;
+validAbsentEmployees.length;
 
   // Present employees
 const totalPresent =
@@ -1062,7 +1115,7 @@ attendance.filter((item) =>
 
     <tbody>
 
-      {absentEmployees.map((employee) => (
+      {validAbsentEmployees.map((employee) => (
 
         <tr
           key={employee.id}

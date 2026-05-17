@@ -274,3 +274,20 @@ export function isWeeklyOff(date) {
   // Weekly off
   return day === 0;
 }
+
+// CHECK HOLIDAY
+export function isHoliday(
+
+  holidays,
+
+  date
+) {
+
+  return holidays.some(
+
+    (holiday) =>
+
+      holiday.holiday_date
+      === date
+  );
+}
