@@ -255,3 +255,22 @@ export async function getHolidays() {
 
   return data;
 }
+
+// CHECK WEEKLY OFF
+export function isWeeklyOff(date) {
+
+  // Convert to date
+  const currentDate =
+
+    new Date(date);
+
+
+  // Sunday = 0
+  const day =
+
+    currentDate.getDay();
+
+
+  // Weekly off
+  return day === 0;
+}

@@ -3,9 +3,6 @@ import { useEffect, useState } from "react";
 import DashboardLayout
 
   from "../../../components/layout/DashboardLayout";
-
-
-
   import {
 
     getAllAttendance,
@@ -17,6 +14,8 @@ import DashboardLayout
     calculateOvertime,
   
     getHolidays,
+  
+    isWeeklyOff,
   
   } from "../services/adminAttendanceService";
 
@@ -386,6 +385,17 @@ function selectedAttendance(item) {
     item.status || ""
   );
 }
+// Today's date
+const today =
+
+  new Date();
+
+
+// Is Sunday?
+const todayWeeklyOff =
+
+  isWeeklyOff(today);
+
     return (
 
       matchesSearch
@@ -1419,3 +1429,24 @@ attendance.filter((item) =>
     </DashboardLayout>
   );
 }
+
+{/* Weekly off status */}
+{todayWeeklyOff && (
+
+  <div
+    className="
+      bg-yellow-100
+      border
+      border-yellow-400
+      text-yellow-800
+      p-4
+      rounded-lg
+      mb-6
+    "
+  >
+
+    Today is Weekly Off
+    (Sunday)
+
+  </div>
+)}
