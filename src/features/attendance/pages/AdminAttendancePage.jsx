@@ -812,13 +812,14 @@ attendance.filter((item) =>
 
             </thead>
 
-
+{/* 
             <tbody>
 
               {filteredAttendance.map((item) => (
                   const overtimeData =
 
                   calculateOvertime(item);
+                  
                 <tr
                   key={item.id}
                   className="border-b"
@@ -917,7 +918,100 @@ attendance.filter((item) =>
                 </tr>
               ))}
 
-            </tbody>
+            </tbody> */}
+
+<tbody>
+
+  {filteredAttendance.map((item) => {
+
+    const overtimeData =
+
+      calculateOvertime(item);
+
+    return (
+
+      <tr
+        key={item.id}
+        className="border-b"
+      >
+
+        <td className="p-2">
+
+          {item.employee_name}
+
+        </td>
+
+        <td className="p-2">
+
+          {item.shift_name}
+
+        </td>
+
+        <td className="p-2">
+
+          {item.attendance_date}
+
+        </td>
+
+        <td className="p-2">
+
+          {item.status}
+
+        </td>
+
+        <td className="p-2">
+
+          {item.check_in}
+
+        </td>
+
+        <td className="p-2">
+
+          {item.check_out || "Pending"}
+
+        </td>
+
+        <td className="p-2">
+
+          {overtimeData.workedHours} hrs
+
+        </td>
+
+        <td className="p-2">
+
+          {overtimeData.overtimeHours} hrs
+
+        </td>
+
+        <td className="p-2">
+
+          <button
+
+            onClick={() =>
+
+              openEditModal(item)
+            }
+
+            className="
+              bg-blue-600
+              text-white
+              px-3
+              py-1
+              rounded
+            "
+          >
+
+            Edit
+
+          </button>
+
+        </td>
+
+      </tr>
+    );
+  })}
+
+</tbody>
 
           </table>
 
