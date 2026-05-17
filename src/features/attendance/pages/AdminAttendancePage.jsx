@@ -105,7 +105,16 @@ const [search,
     setLoading]
 
     = useState(true);
+// Today's date
+const today =
 
+  new Date();
+
+
+// Weekly off check
+const todayWeeklyOff =
+
+  isWeeklyOff(today);
 
   // Load attendance
   useEffect(() => {
@@ -239,16 +248,6 @@ async function saveAttendanceUpdate() {
   }
 }
 
-// Today's date
-const today =
-
-  new Date();
-
-
-// Weekly off check
-const todayWeeklyOff =
-
-  isWeeklyOff(today);
 // Filter attendance
 const filteredAttendance =
 
@@ -332,8 +331,6 @@ const filteredAttendance =
 //     item.status || ""
 //   );
 // }
-
-
 
     return (
 
