@@ -203,7 +203,7 @@ const filteredAttendance =
         : true;
 
     // Open edit modal
-function openEditModal(item) {
+function selectedAttendance(item) {
 
   setSelectedAttendance(item);
 
@@ -267,7 +267,7 @@ async function saveAttendanceUpdate() {
 }
 
 // Open edit modal
-function openEditModal(item) {
+function selectedAttendance(item) {
 
   console.log(
 
@@ -803,7 +803,7 @@ attendance.filter((item) =>
 
     onClick={() =>
 
-      openEditModal(item)
+      selectedAttendance(item)
     }
 
     className="
