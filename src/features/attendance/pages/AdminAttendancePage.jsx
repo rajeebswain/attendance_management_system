@@ -254,25 +254,25 @@ export default function AdminAttendancePage() {
   const todayWeeklyOff =
 
     isWeeklyOff(today);
-// Attendance percentage
-const attendancePercentage =
+  // Attendance percentage
+  const attendancePercentage =
 
-  calculateAttendancePercentage(
+    calculateAttendancePercentage(
 
-    attendance,
+      attendance,
 
-    holidays
-  );
+      holidays
+    );
 
   // Monthly summary
-const monthlySummary =
+  const monthlySummary =
 
-generateMonthlySummary(
+    generateMonthlySummary(
 
-  attendance,
+      attendance,
 
-  holidays
-);
+      holidays
+    );
 
   // Filter attendance
   const filteredAttendance =
@@ -663,38 +663,38 @@ generateMonthlySummary(
             </div> */}
           </div>
           <div
-              className="
+            className="
     bg-white
     p-4
     rounded-lg
     shadow
   "
-            >
+          >
 
-              <h3
-                className="
+            <h3
+              className="
       text-sm
       text-gray-500
     "
-              >
+            >
 
-                Attendance %
+              Attendance %
 
-              </h3>
+            </h3>
 
-              <p
-                className="
+            <p
+              className="
       text-3xl
       font-bold
       mt-2
     "
-              >
+            >
 
-                {attendancePercentage}%
+              {attendancePercentage}%
 
-              </p>
+            </p>
 
-            </div>
+          </div>
         </div>
         {/* Filters */}
         <div
@@ -705,7 +705,7 @@ generateMonthlySummary(
     mb-6
     grid
     grid-cols-1
-    md:grid-cols-4
+    md:grid-cols-5
     gap-4
   "
         >
@@ -1182,6 +1182,27 @@ generateMonthlySummary(
 
             <tbody>
 
+              {validAbsentEmployees.length === 0 && (
+
+                <tr>
+
+                  <td
+                    colSpan="2"
+                    className="
+      p-4
+      text-center
+      text-gray-500
+    "
+                  >
+
+                    No absent employees
+
+                  </td>
+
+                </tr>
+
+              )}
+
               {validAbsentEmployees.map((employee) => (
 
                 <tr
@@ -1267,7 +1288,26 @@ generateMonthlySummary(
 
 
           <tbody>
+            {holidays.length === 0 && (
 
+              <tr>
+
+                <td
+                  colSpan="2"
+                  className="
+      p-4
+      text-center
+      text-gray-500
+    "
+                >
+
+                  No holidays added
+
+                </td>
+
+              </tr>
+
+            )}
             {holidays.map((holiday) => (
 
               <tr
@@ -1296,146 +1336,146 @@ generateMonthlySummary(
 
       </div>
 
-{/* Monthly Summary */}
-<div
-  className="
+      {/* Monthly Summary */}
+      <div
+        className="
     bg-white
     p-4
     rounded-lg
     shadow
     mt-6
   "
->
+      >
 
-  <h2
-    className="
+        <h2
+          className="
       text-xl
       font-bold
       mb-4
     "
-  >
+        >
 
-    Monthly Attendance Summary
+          Monthly Attendance Summary
 
-  </h2>
+        </h2>
 
-  <div
-    className="
+        <div
+          className="
       overflow-x-auto
     "
-  >
+        >
 
-    <table
-      className="
+          <table
+            className="
         w-full
         border-collapse
       "
-    >
+          >
 
-      <thead>
+            <thead>
 
-        <tr
-          className="
+              <tr
+                className="
             border-b
           "
-        >
+              >
 
-          <th
-            className="
+                <th
+                  className="
               text-left
               p-2
             "
-          >
+                >
 
-            Employee
+                  Employee
 
-          </th>
+                </th>
 
-          <th
-            className="
+                <th
+                  className="
               text-left
               p-2
             "
-          >
+                >
 
-            Present
+                  Present
 
-          </th>
+                </th>
 
-          <th
-            className="
+                <th
+                  className="
               text-left
               p-2
             "
-          >
+                >
 
-            Late
+                  Late
 
-          </th>
+                </th>
 
-          <th
-            className="
+                <th
+                  className="
               text-left
               p-2
             "
-          >
+                >
 
-            OT Hours
+                  OT Hours
 
-          </th>
+                </th>
 
-        </tr>
+              </tr>
 
-      </thead>
+            </thead>
 
-      <tbody>
+            <tbody>
 
-        {monthlySummary.map(
+              {monthlySummary.map(
 
-          (item, index) => (
+                (item, index) => (
 
-            <tr
-              key={index}
-              className="
+                  <tr
+                    key={index}
+                    className="
                 border-b
               "
-            >
+                  >
 
-              <td className="p-2">
+                    <td className="p-2">
 
-                {item.employee_name}
+                      {item.employee_name}
 
-              </td>
+                    </td>
 
-              <td className="p-2">
+                    <td className="p-2">
 
-                {item.present}
+                      {item.present}
 
-              </td>
+                    </td>
 
-              <td className="p-2">
+                    <td className="p-2">
 
-                {item.late}
+                      {item.late}
 
-              </td>
+                    </td>
 
-              <td className="p-2">
+                    <td className="p-2">
 
-                {item.overtime.toFixed(2)} hrs
+                      {item.overtime.toFixed(2)} hrs
 
-              </td>
+                    </td>
 
-            </tr>
-          )
-        )}
+                  </tr>
+                )
+              )}
 
-      </tbody>
+            </tbody>
 
-    </table>
+          </table>
 
-  </div>
+        </div>
 
-</div>
+      </div>
 
 
       {/* Edit modal */}
@@ -1647,24 +1687,3 @@ generateMonthlySummary(
     </DashboardLayout>
   );
 }
-
-// {/* Weekly off status */}
-// {todayWeeklyOff && (
-
-//   <div
-//     className="
-//       bg-yellow-100
-//       border
-//       border-yellow-400
-//       text-yellow-800
-//       p-4
-//       rounded-lg
-//       mb-6
-//     "
-//   >
-
-//     Today is Weekly Off
-//     (Sunday)
-
-//   </div>
-// )}
