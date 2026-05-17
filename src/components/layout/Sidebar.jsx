@@ -49,7 +49,7 @@ function Sidebar() {
 
         ))}
 
- {/* Report Menu */}
+        {/* Report Menu */}
         <Link
           to="/reports"
           className="

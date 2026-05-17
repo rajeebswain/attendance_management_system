@@ -17,6 +17,63 @@ import DashboardLayout
 
 export default function ReportsDashboardPage() {
     const [reports, setReports] = useState([]);
+
+    const totalReports = reports.length;
+
+    const lateReports = reports.filter(
+    
+      (item) => item.status === "late"
+    
+    ).length;
+    
+    const totalOTHours = reports.reduce(
+    
+      (total, item) => {
+    
+        const checkIn = item.check_in;
+        const checkOut = item.check_out;
+    
+        if (!checkIn || !checkOut) return total;
+    
+        const start = new Date(`2000-01-01 ${checkIn}`);
+        const end = new Date(`2000-01-01 ${checkOut}`);
+    
+        const diffHours =
+    
+          (end - start) / 1000 / 60 / 60;
+    
+        const overtime = diffHours - 8;
+    
+        return overtime > 0
+    
+          ? total + overtime
+    
+          : total;
+      },
+    
+      0
+    
+    );
+    
+    const attendanceRate = totalReports
+    
+      ? (
+          ((totalReports - lateReports) /
+    
+            totalReports) *
+    
+          100
+        ).toFixed(2)
+    
+      : 0;
+    
+    const activeEmployees = reports.filter(
+    
+      (item) => item.check_in && !item.check_out
+    
+    ).length;
+
+
     useEffect(() => {
 
         loadReports();
@@ -94,7 +151,7 @@ export default function ReportsDashboardPage() {
               "
             >
 
-              0%
+              {attendanceRate}%
 
             </p>
 
@@ -130,7 +187,7 @@ export default function ReportsDashboardPage() {
               "
             >
 
-              0%
+{lateReports}
 
             </p>
 
@@ -166,7 +223,7 @@ export default function ReportsDashboardPage() {
               "
             >
 
-              0
+{totalOTHours.toFixed(2)}
 
             </p>
 
@@ -202,7 +259,7 @@ export default function ReportsDashboardPage() {
               "
             >
 
-              0
+{activeEmployees}
 
             </p>
 
@@ -236,15 +293,9 @@ export default function ReportsDashboardPage() {
 
           <p className="text-gray-500">
 
-            {/* Reports and analytics will appear here. */}
+Real reports data connected successfully.
 
-            <pre>
-
-  {JSON.stringify(reports, null, 2)}
-
-</pre>
-
-          </p>
+</p>
 
         </div>
 
