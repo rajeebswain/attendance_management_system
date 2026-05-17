@@ -219,3 +219,6 @@ export default function ReportsDashboardPage() {
     </DashboardLayout>
   );
 }
+
+
+export default ReportsDashboardPage;

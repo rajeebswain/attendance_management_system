@@ -37,6 +37,8 @@ import EmployeeSelfAttendancePage from "../features/attendance/pages/EmployeeSel
 
 import AdminAttendancePage from "../features/attendance/pages/AdminAttendancePage";
 
+import ReportsDashboardPage from "../features/reports/pages/ReportsDashboardPage";
+
 function AppRoutes() {
 
   return (
