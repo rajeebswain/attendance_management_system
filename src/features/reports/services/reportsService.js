@@ -1,6 +1,6 @@
 import { supabase }
 
-from "../../../lib/supabase";
+from "../../../lib/supabase/client";
 
 
 
