@@ -18,6 +18,8 @@ import DashboardLayout
     isWeeklyOff,
 
     isHoliday,
+
+    calculateAttendancePercentage,
   
   } from "../services/adminAttendanceService";
 
@@ -303,37 +305,15 @@ const filteredAttendance =
 
         : true;
 
-// // Open edit modal
-// function selectedAttendance(item) {
+// Attendance percentage
+const attendancePercentage =
 
-//   console.log(
+  calculateAttendancePercentage(
 
-//     "EDIT ITEM:",
+    attendance,
 
-//     item
-//   );
-
-//   // Store selected attendance
-//   setSelectedAttendance(item);
-
-
-//   // Set edit values
-//   setEditCheckIn(
-
-//     item.check_in || ""
-//   );
-
-//   setEditCheckOut(
-
-//     item.check_out || ""
-//   );
-
-//   setEditStatus(
-
-//     item.status || ""
-//   );
-// }
-
+    holidays
+  );
     return (
 
       matchesSearch
@@ -474,6 +454,39 @@ attendance.filter((item) =>
 
 </div>
 )}
+<div
+  className="
+    bg-white
+    p-4
+    rounded-lg
+    shadow
+  "
+>
+
+  <h3
+    className="
+      text-sm
+      text-gray-500
+    "
+  >
+
+    Attendance %
+
+  </h3>
+
+  <p
+    className="
+      text-3xl
+      font-bold
+      mt-2
+    "
+  >
+
+    {attendancePercentage}%
+
+  </p>
+
+</div>
         {/* Statistics cards */}
 <div
   className="

@@ -291,3 +291,115 @@ export function isHoliday(
       === date
   );
 }
+
+// CALCULATE ATTENDANCE %
+export function calculateAttendancePercentage(
+
+  attendanceRecords,
+
+  holidays
+) {
+
+  // No attendance
+  if (
+
+    attendanceRecords.length === 0
+  ) {
+
+    return "0";
+  }
+
+
+  // Present days
+  const presentDays =
+
+    attendanceRecords.filter(
+
+      (record) =>
+
+        record.status === "present"
+
+        ||
+
+        record.status === "late"
+    ).length;
+
+
+  // Total working days
+  let workingDays = 0;
+
+
+  // Track processed dates
+  const processedDates = [];
+
+
+  attendanceRecords.forEach(
+
+    (record) => {
+
+      const date =
+
+        record.attendance_date;
+
+
+      // Skip duplicate
+      if (
+
+        processedDates.includes(date)
+      ) {
+
+        return;
+      }
+
+
+      processedDates.push(date);
+
+
+      // Weekly off
+      const weeklyOff =
+
+        isWeeklyOff(date);
+
+
+      // Holiday
+      const holidayCheck =
+
+        isHoliday(
+
+          holidays,
+
+          date
+        );
+
+
+      // Count working day
+      if (
+
+        !weeklyOff
+
+        && !holidayCheck
+      ) {
+
+        workingDays++;
+      }
+    }
+  );
+
+
+  // Prevent divide by zero
+  if (workingDays === 0) {
+
+    return "0";
+  }
+
+
+  // Calculate percentage
+  const percentage =
+
+    (presentDays / workingDays)
+
+    * 100;
+
+
+  return percentage.toFixed(2);
+}
