@@ -1295,6 +1295,149 @@ generateMonthlySummary(
         </table>
 
       </div>
+
+{/* Monthly Summary */}
+<div
+  className="
+    bg-white
+    p-4
+    rounded-lg
+    shadow
+    mt-6
+  "
+>
+
+  <h2
+    className="
+      text-xl
+      font-bold
+      mb-4
+    "
+  >
+
+    Monthly Attendance Summary
+
+  </h2>
+
+  <div
+    className="
+      overflow-x-auto
+    "
+  >
+
+    <table
+      className="
+        w-full
+        border-collapse
+      "
+    >
+
+      <thead>
+
+        <tr
+          className="
+            border-b
+          "
+        >
+
+          <th
+            className="
+              text-left
+              p-2
+            "
+          >
+
+            Employee
+
+          </th>
+
+          <th
+            className="
+              text-left
+              p-2
+            "
+          >
+
+            Present
+
+          </th>
+
+          <th
+            className="
+              text-left
+              p-2
+            "
+          >
+
+            Late
+
+          </th>
+
+          <th
+            className="
+              text-left
+              p-2
+            "
+          >
+
+            OT Hours
+
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        {monthlySummary.map(
+
+          (item, index) => (
+
+            <tr
+              key={index}
+              className="
+                border-b
+              "
+            >
+
+              <td className="p-2">
+
+                {item.employee_name}
+
+              </td>
+
+              <td className="p-2">
+
+                {item.present}
+
+              </td>
+
+              <td className="p-2">
+
+                {item.late}
+
+              </td>
+
+              <td className="p-2">
+
+                {item.overtime.toFixed(2)} hrs
+
+              </td>
+
+            </tr>
+          )
+        )}
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
       {/* Edit modal */}
       {selectedAttendance && (
 
