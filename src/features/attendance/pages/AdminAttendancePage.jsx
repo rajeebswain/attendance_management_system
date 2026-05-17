@@ -617,7 +617,41 @@ const attendancePercentage =
               {activeEmployees}
 
             </p>
-            <div
+            {/* <div
+              className="
+    bg-white
+    p-4
+    rounded-lg
+    shadow
+  "
+            >
+
+              <h3
+                className="
+      text-sm
+      text-gray-500
+    "
+              >
+
+                Attendance %
+
+              </h3>
+
+              <p
+                className="
+      text-3xl
+      font-bold
+      mt-2
+    "
+              >
+
+                {attendancePercentage}%
+
+              </p>
+
+            </div> */}
+          </div>
+          <div
               className="
     bg-white
     p-4
@@ -650,8 +684,6 @@ const attendancePercentage =
               </p>
 
             </div>
-          </div>
-
         </div>
         {/* Filters */}
         <div
