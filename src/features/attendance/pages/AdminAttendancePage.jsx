@@ -148,7 +148,68 @@ absentData
 
     return <div>Loading...</div>;
   }
+// Open edit modal
+function openEditModal(item) {
 
+  console.log(
+    "EDIT ITEM:",
+    item
+  );
+
+  setSelectedAttendance(item);
+
+  setEditCheckIn(
+    item.check_in || ""
+  );
+
+  setEditCheckOut(
+    item.check_out || ""
+  );
+
+  setEditStatus(
+    item.status || ""
+  );
+}
+
+
+// Save attendance update
+async function saveAttendanceUpdate() {
+
+  try {
+
+    const updatedData = {
+
+      check_in: editCheckIn,
+
+      check_out: editCheckOut,
+
+      status: editStatus,
+    };
+
+
+    await updateAttendance(
+
+      selectedAttendance.id,
+
+      updatedData
+    );
+
+
+    await loadAttendance();
+
+    setSelectedAttendance(null);
+
+    alert(
+      "Attendance updated"
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(error.message);
+  }
+}
 // Filter attendance
 const filteredAttendance =
 
@@ -202,69 +263,69 @@ const filteredAttendance =
 
         : true;
 
-    // Open edit modal
-function selectedAttendance(item) {
+//     // Open edit modal
+// function selectedAttendance(item) {
 
-  setSelectedAttendance(item);
+//   setSelectedAttendance(item);
 
-  setEditCheckIn(
+//   setEditCheckIn(
 
-    item.check_in || ""
-  );
+//     item.check_in || ""
+//   );
 
-  setEditCheckOut(
+//   setEditCheckOut(
 
-    item.check_out || ""
-  );
+//     item.check_out || ""
+//   );
 
-  setEditStatus(
+//   setEditStatus(
 
-    item.status || ""
-  );
-}
-// Save attendance update
-async function saveAttendanceUpdate() {
+//     item.status || ""
+//   );
+// }
+// // Save attendance update
+// async function saveAttendanceUpdate() {
 
-  try {
+//   try {
 
-    const updatedData = {
+//     const updatedData = {
 
-      check_in: editCheckIn,
+//       check_in: editCheckIn,
 
-      check_out: editCheckOut,
+//       check_out: editCheckOut,
 
-      status: editStatus,
-    };
-
-
-    await updateAttendance(
-
-      selectedAttendance.id,
-
-      updatedData
-    );
+//       status: editStatus,
+//     };
 
 
-    // Reload data
-    await loadAttendance();
+//     await updateAttendance(
+
+//       selectedAttendance.id,
+
+//       updatedData
+//     );
 
 
-    // Close modal
-    setSelectedAttendance(null);
+//     // Reload data
+//     await loadAttendance();
 
 
-    alert(
+//     // Close modal
+//     setSelectedAttendance(null);
 
-      "Attendance updated"
-    );
 
-  } catch (error) {
+//     alert(
 
-    console.error(error);
+//       "Attendance updated"
+//     );
 
-    alert(error.message);
-  }
-}
+//   } catch (error) {
+
+//     console.error(error);
+
+//     alert(error.message);
+//   }
+// }
 
 // Open edit modal
 function selectedAttendance(item) {
@@ -803,7 +864,7 @@ attendance.filter((item) =>
 
     onClick={() =>
 
-      selectedAttendance(item)
+      openEditModal(item)
     }
 
     className="
