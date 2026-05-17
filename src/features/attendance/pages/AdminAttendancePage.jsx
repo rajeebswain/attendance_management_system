@@ -10,6 +10,8 @@ import DashboardLayout
   
     getAbsentEmployees,
   
+    updateAttendance,
+  
   } from "../services/adminAttendanceService";
 
 
@@ -21,7 +23,32 @@ export default function AdminAttendancePage() {
     setAttendance]
 
     = useState([]);
+// Edit modal
+const [selectedAttendance,
 
+  setSelectedAttendance]
+  
+  = useState(null);
+  
+  
+  // Edit form
+  const [editCheckIn,
+  
+  setEditCheckIn]
+  
+  = useState("");
+  
+  const [editCheckOut,
+  
+  setEditCheckOut]
+  
+  = useState("");
+  
+  const [editStatus,
+  
+  setEditStatus]
+  
+  = useState("");
     // Absent employees
 const [absentEmployees,
 
@@ -175,6 +202,69 @@ const filteredAttendance =
 
         : true;
 
+    // Open edit modal
+function openEditModal(item) {
+
+  setSelectedAttendance(item);
+
+  setEditCheckIn(
+
+    item.check_in || ""
+  );
+
+  setEditCheckOut(
+
+    item.check_out || ""
+  );
+
+  setEditStatus(
+
+    item.status || ""
+  );
+}
+// Save attendance update
+async function saveAttendanceUpdate() {
+
+  try {
+
+    const updatedData = {
+
+      check_in: editCheckIn,
+
+      check_out: editCheckOut,
+
+      status: editStatus,
+    };
+
+
+    await updateAttendance(
+
+      selectedAttendance.id,
+
+      updatedData
+    );
+
+
+    // Reload data
+    await loadAttendance();
+
+
+    // Close modal
+    setSelectedAttendance(null);
+
+
+    alert(
+
+      "Attendance updated"
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(error.message);
+  }
+}
     return (
 
       matchesSearch
@@ -210,40 +300,6 @@ attendance.filter((item) =>
   item.status === "late"
 ).length;
 
-// {/* Absent */}
-// <div
-//   className="
-//     bg-white
-//     rounded-lg
-//     p-4
-//     shadow
-//   "
-// >
-
-//   <h2
-//     className="
-//       text-gray-500
-//       text-sm
-//     "
-//   >
-
-//     Absent Employees
-
-//   </h2>
-
-//   <p
-//     className="
-//       text-3xl
-//       font-bold
-//       mt-2
-//     "
-//   >
-
-//     {totalAbsent}
-
-//   </p>
-
-// </div>
 
 // Completed attendance
 const completedAttendance =
@@ -641,6 +697,12 @@ attendance.filter((item) =>
 
                 </th>
 
+                <th className="p-2">
+
+  Action
+
+</th>
+
               </tr>
 
             </thead>
@@ -704,6 +766,29 @@ attendance.filter((item) =>
                     }
 
                   </td>
+                  <td className="p-2">
+
+  <button
+
+    onClick={() =>
+
+      openEditModal(item)
+    }
+
+    className="
+      bg-blue-600
+      text-white
+      px-3
+      py-1
+      rounded
+    "
+  >
+
+    Edit
+
+  </button>
+
+</td>
 
                 </tr>
               ))}
@@ -799,7 +884,212 @@ attendance.filter((item) =>
 
 </div>
       </div>
+{/* Edit modal */}
+{selectedAttendance && (
 
+<div
+  className="
+    fixed
+    inset-0
+    bg-black/50
+    flex
+    items-center
+    justify-center
+  "
+>
+
+  <div
+    className="
+      bg-white
+      p-6
+      rounded-lg
+      w-full
+      max-w-md
+    "
+  >
+
+    <h2
+      className="
+        text-xl
+        font-bold
+        mb-4
+      "
+    >
+
+      Edit Attendance
+
+    </h2>
+
+
+    {/* Check-in */}
+    <div className="mb-4">
+
+      <label>
+
+        Check-In
+
+      </label>
+
+      <input
+
+        type="time"
+
+        value={editCheckIn}
+
+        onChange={(e) =>
+
+          setEditCheckIn(
+            e.target.value
+          )
+        }
+
+        className="
+          border
+          p-2
+          w-full
+          rounded
+        "
+      />
+
+    </div>
+
+
+    {/* Check-out */}
+    <div className="mb-4">
+
+      <label>
+
+        Check-Out
+
+      </label>
+
+      <input
+
+        type="time"
+
+        value={editCheckOut}
+
+        onChange={(e) =>
+
+          setEditCheckOut(
+            e.target.value
+          )
+        }
+
+        className="
+          border
+          p-2
+          w-full
+          rounded
+        "
+      />
+
+    </div>
+
+
+    {/* Status */}
+    <div className="mb-4">
+
+      <label>
+
+        Status
+
+      </label>
+
+      <select
+
+        value={editStatus}
+
+        onChange={(e) =>
+
+          setEditStatus(
+            e.target.value
+          )
+        }
+
+        className="
+          border
+          p-2
+          w-full
+          rounded
+        "
+      >
+
+        <option value="present">
+
+          Present
+
+        </option>
+
+        <option value="late">
+
+          Late
+
+        </option>
+
+        <option value="absent">
+
+          Absent
+
+        </option>
+
+      </select>
+
+    </div>
+
+
+    {/* Actions */}
+    <div
+      className="
+        flex
+        gap-4
+      "
+    >
+
+      <button
+
+        onClick={saveAttendanceUpdate}
+
+        className="
+          bg-blue-600
+          text-white
+          px-4
+          py-2
+          rounded
+        "
+      >
+
+        Save
+
+      </button>
+
+
+      <button
+
+        onClick={() =>
+
+          setSelectedAttendance(null)
+        }
+
+        className="
+          bg-gray-500
+          text-white
+          px-4
+          py-2
+          rounded
+        "
+      >
+
+        Cancel
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+)}
     </DashboardLayout>
   );
 }
