@@ -401,7 +401,26 @@ attendance.filter((item) =>
           Admin Attendance Dashboard
 
         </h1>
+{/* Weekly off status */}
+{todayWeeklyOff && (
 
+<div
+  className="
+    bg-yellow-100
+    border
+    border-yellow-400
+    text-yellow-800
+    p-4
+    rounded-lg
+    mb-6
+  "
+>
+
+  Today is Weekly Off
+  (Sunday)
+
+</div>
+)}
         {/* Statistics cards */}
 <div
   className="
@@ -1366,23 +1385,23 @@ attendance.filter((item) =>
   );
 }
 
-{/* Weekly off status */}
-{todayWeeklyOff && (
+// {/* Weekly off status */}
+// {todayWeeklyOff && (
 
-  <div
-    className="
-      bg-yellow-100
-      border
-      border-yellow-400
-      text-yellow-800
-      p-4
-      rounded-lg
-      mb-6
-    "
-  >
+//   <div
+//     className="
+//       bg-yellow-100
+//       border
+//       border-yellow-400
+//       text-yellow-800
+//       p-4
+//       rounded-lg
+//       mb-6
+//     "
+//   >
 
-    Today is Weekly Off
-    (Sunday)
+//     Today is Weekly Off
+//     (Sunday)
 
-  </div>
-)}
+//   </div>
+// )}
