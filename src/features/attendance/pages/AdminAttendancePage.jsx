@@ -4,6 +4,7 @@ import DashboardLayout
 
   from "../../../components/layout/DashboardLayout";
 
+
   import {
 
     getAllAttendance,
@@ -12,8 +13,9 @@ import DashboardLayout
   
     updateAttendance,
   
+    calculateOvertime,
+  
   } from "../services/adminAttendanceService";
-
 
 export default function AdminAttendancePage() {
 
@@ -788,6 +790,17 @@ attendance.filter((item) =>
                   Check-Out
 
                 </th>
+                <th className="p-2">
+
+  Worked Hours
+
+</th>
+
+<th className="p-2">
+
+  Overtime
+
+</th>
 
                 <th className="p-2">
 
@@ -803,7 +816,9 @@ attendance.filter((item) =>
             <tbody>
 
               {filteredAttendance.map((item) => (
+                  const overtimeData =
 
+                  calculateOvertime(item);
                 <tr
                   key={item.id}
                   className="border-b"
@@ -858,6 +873,23 @@ attendance.filter((item) =>
                     }
 
                   </td>
+                  <td className="p-2">
+
+  {
+
+    overtimeData.workedHours
+  } hrs
+
+</td>
+
+<td className="p-2">
+
+  {
+
+    overtimeData.overtimeHours
+  } hrs
+
+</td>
                   <td className="p-2">
 
   <button

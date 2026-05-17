@@ -157,3 +157,78 @@ export async function updateAttendance(
 
   return data;
 }
+
+// CALCULATE OVERTIME
+export function calculateOvertime(
+
+  attendance
+) {
+
+  // Missing checkout
+  if (
+
+    !attendance.check_in
+
+    || !attendance.check_out
+  ) {
+
+    return {
+
+      workedHours: 0,
+
+      overtimeHours: 0,
+    };
+  }
+
+
+  // Convert check-in
+  const checkIn = new Date(
+
+    `1970-01-01T${attendance.check_in}`
+  );
+
+
+  // Convert check-out
+  const checkOut = new Date(
+
+    `1970-01-01T${attendance.check_out}`
+  );
+
+
+  // Worked milliseconds
+  const workedMs =
+
+    checkOut - checkIn;
+
+
+  // Convert to hours
+  const workedHours =
+
+    workedMs / (1000 * 60 * 60);
+
+
+  // Default shift hours
+  const shiftHours = 8;
+
+
+  // Overtime
+  const overtimeHours =
+
+    workedHours > shiftHours
+
+      ? workedHours - shiftHours
+
+      : 0;
+
+
+  return {
+
+    workedHours:
+
+      workedHours.toFixed(2),
+
+    overtimeHours:
+
+      overtimeHours.toFixed(2),
+  };
+}
