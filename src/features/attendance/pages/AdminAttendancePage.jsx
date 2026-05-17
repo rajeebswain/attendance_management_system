@@ -21,6 +21,8 @@ import {
 
   calculateAttendancePercentage,
 
+  generateMonthlySummary,
+
 } from "../services/adminAttendanceService";
 
 export default function AdminAttendancePage() {
@@ -262,6 +264,15 @@ const attendancePercentage =
     holidays
   );
 
+  // Monthly summary
+const monthlySummary =
+
+generateMonthlySummary(
+
+  attendance,
+
+  holidays
+);
 
   // Filter attendance
   const filteredAttendance =
