@@ -45,12 +45,30 @@ function Sidebar() {
             {item.label}
           </Link>
 
+
+
         ))}
+
+ {/* Report Menu */}
+        <Link
+          to="/reports"
+          className="
+    block
+    px-4
+    py-2
+    rounded
+    hover:bg-gray-100
+  "
+        >
+
+          Reports & Analytics
+
+        </Link>
         <Link to="/admin-attendance">
 
-Admin Attendance
+          Admin Attendance
 
-</Link>
+        </Link>
 
       </nav>
 

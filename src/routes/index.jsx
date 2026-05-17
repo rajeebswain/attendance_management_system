@@ -100,20 +100,30 @@ function AppRoutes() {
       <Route
         path="/self-attendance"
         element={
-           <ProtectedRoute>
+          <ProtectedRoute>
             <EmployeeSelfAttendancePage />
           </ProtectedRoute>
-         }
+        }
       />
       <Route
 
-path="/admin-attendance"
+        path="/admin-attendance"
 
-element={
+        element={
 
-  <AdminAttendancePage />
-}
-/>
+          <AdminAttendancePage />
+        }
+      />
+
+      <Route
+
+        path="/reports"
+
+        element={
+
+          <ReportsDashboardPage />
+        }
+      />
     </Routes>
   );
 }
