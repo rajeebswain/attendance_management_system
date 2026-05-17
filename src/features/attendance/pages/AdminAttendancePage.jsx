@@ -3,25 +3,25 @@ import { useEffect, useState } from "react";
 import DashboardLayout
 
   from "../../../components/layout/DashboardLayout";
-  import {
+import {
 
-    getAllAttendance,
-  
-    getAbsentEmployees,
-  
-    updateAttendance,
-  
-    calculateOvertime,
-  
-    getHolidays,
-  
-    isWeeklyOff,
+  getAllAttendance,
 
-    isHoliday,
+  getAbsentEmployees,
 
-    calculateAttendancePercentage,
-  
-  } from "../services/adminAttendanceService";
+  updateAttendance,
+
+  calculateOvertime,
+
+  getHolidays,
+
+  isWeeklyOff,
+
+  isHoliday,
+
+  calculateAttendancePercentage,
+
+} from "../services/adminAttendanceService";
 
 export default function AdminAttendancePage() {
 
@@ -32,75 +32,75 @@ export default function AdminAttendancePage() {
 
     = useState([]);
 
-    // Holidays
-const [holidays,
+  // Holidays
+  const [holidays,
 
-  setHolidays]
-  
-  = useState([]);
-// Edit modal
-const [selectedAttendance,
+    setHolidays]
 
-  setSelectedAttendance]
-  
-  = useState(null);
-  
-  
+    = useState([]);
+  // Edit modal
+  const [selectedAttendance,
+
+    setSelectedAttendance]
+
+    = useState(null);
+
+
   // Edit form
   const [editCheckIn,
-  
-  setEditCheckIn]
-  
-  = useState("");
-  
+
+    setEditCheckIn]
+
+    = useState("");
+
   const [editCheckOut,
-  
-  setEditCheckOut]
-  
-  = useState("");
-  
+
+    setEditCheckOut]
+
+    = useState("");
+
   const [editStatus,
-  
-  setEditStatus]
-  
-  = useState("");
-    // Absent employees
-const [absentEmployees,
+
+    setEditStatus]
+
+    = useState("");
+  // Absent employees
+  const [absentEmployees,
 
     setAbsentEmployees]
-    
+
     = useState([]);
 
 
-// Search employee
-const [search,
+  // Search employee
+  const [search,
 
     setSearch]
-    
+
     = useState("");
-    
-    
-    // Shift filter
-    const [shiftFilter,
-    
+
+
+  // Shift filter
+  const [shiftFilter,
+
     setShiftFilter]
-    
+
     = useState("");
-    
-    
-    // Status filter
-    const [statusFilter,
-    
+
+
+  // Status filter
+  const [statusFilter,
+
     setStatusFilter]
-    
+
     = useState("");
-    
-    
-    // Date filter
-    const [dateFilter,
-    
+
+
+  // Date filter
+  const [dateFilter,
+
     setDateFilter]
-    
+
     = useState("");
 
   // Loading state
@@ -132,37 +132,37 @@ const [search,
       setAttendance(data);
 
       // Load holidays
-const holidayData =
+      const holidayData =
 
-await getHolidays();
+        await getHolidays();
 
-console.log(
+      console.log(
 
-"HOLIDAYS:",
+        "HOLIDAYS:",
 
-holidayData
-);
+        holidayData
+      );
 
-setHolidays(
+      setHolidays(
 
-holidayData
-);
+        holidayData
+      );
       // Load absent employees
-const absentData =
+      const absentData =
 
-await getAbsentEmployees();
+        await getAbsentEmployees();
 
-console.log(
+      console.log(
 
-"ABSENT:",
+        "ABSENT:",
 
-absentData
-);
+        absentData
+      );
 
-setAbsentEmployees(
+      setAbsentEmployees(
 
-absentData
-);
+        absentData
+      );
 
     } catch (error) {
 
@@ -180,131 +180,78 @@ absentData
 
     return <div>Loading...</div>;
   }
-// Open edit modal
-function openEditModal(item) {
+  // Open edit modal
+  function openEditModal(item) {
 
-  console.log(
-    "EDIT ITEM:",
-    item
-  );
-
-  setSelectedAttendance(item);
-
-  setEditCheckIn(
-    item.check_in || ""
-  );
-
-  setEditCheckOut(
-    item.check_out || ""
-  );
-
-  setEditStatus(
-    item.status || ""
-  );
-}
-
-
-// Save attendance update
-async function saveAttendanceUpdate() {
-
-  try {
-
-    const updatedData = {
-
-      check_in: editCheckIn,
-
-      check_out: editCheckOut,
-
-      status: editStatus,
-    };
-
-
-    await updateAttendance(
-
-      selectedAttendance.id,
-
-      updatedData
+    console.log(
+      "EDIT ITEM:",
+      item
     );
 
+    setSelectedAttendance(item);
 
-    await loadAttendance();
-
-    setSelectedAttendance(null);
-
-    alert(
-      "Attendance updated"
+    setEditCheckIn(
+      item.check_in || ""
     );
 
-  } catch (error) {
+    setEditCheckOut(
+      item.check_out || ""
+    );
 
-    console.error(error);
-
-    alert(error.message);
+    setEditStatus(
+      item.status || ""
+    );
   }
-}
-// Today's date
-const today =
-
-  new Date();
 
 
-// Weekly off check
-const todayWeeklyOff =
+  // Save attendance update
+  async function saveAttendanceUpdate() {
 
-  isWeeklyOff(today);
-// Filter attendance
-const filteredAttendance =
+    try {
 
-  attendance.filter((item) => {
+      const updatedData = {
 
-    // Employee search
-    const matchesSearch =
+        check_in: editCheckIn,
 
-      item.employee_name
+        check_out: editCheckOut,
 
-        ?.toLowerCase()
-
-        .includes(
-
-          search.toLowerCase()
-        );
+        status: editStatus,
+      };
 
 
-    // Shift filter
-    const matchesShift =
+      await updateAttendance(
 
-      shiftFilter
+        selectedAttendance.id,
 
-        ? item.shift_name
-
-          === shiftFilter
-
-        : true;
+        updatedData
+      );
 
 
-    // Status filter
-    const matchesStatus =
+      await loadAttendance();
 
-      statusFilter
+      setSelectedAttendance(null);
 
-        ? item.status
+      alert(
+        "Attendance updated"
+      );
 
-          === statusFilter
+    } catch (error) {
 
-        : true;
+      console.error(error);
+
+      alert(error.message);
+    }
+  }
+  // Today's date
+  const today =
+
+    new Date();
 
 
-    // Date filter
-    const matchesDate =
+  // Weekly off check
+  const todayWeeklyOff =
 
-      dateFilter
-
-        ? item.attendance_date
-
-          === dateFilter
-
-        : true;
-
+    isWeeklyOff(today);
 // Attendance percentage
 const attendancePercentage =
 
@@ -314,109 +261,173 @@ const attendancePercentage =
 
     holidays
   );
-    return (
 
-      matchesSearch
 
-      && matchesShift
+  // Filter attendance
+  const filteredAttendance =
 
-      && matchesStatus
+    attendance.filter((item) => {
 
-      && matchesDate
-    );
-  });
+      // Employee search
+      const matchesSearch =
+
+        item.employee_name
+
+          ?.toLowerCase()
+
+          .includes(
+
+            search.toLowerCase()
+          );
+
+
+      // Shift filter
+      const matchesShift =
+
+        shiftFilter
+
+          ? item.shift_name
+
+          === shiftFilter
+
+          : true;
+
+
+      // Status filter
+      const matchesStatus =
+
+        statusFilter
+
+          ? item.status
+
+          === statusFilter
+
+          : true;
+
+
+      // Date filter
+      const matchesDate =
+
+        dateFilter
+
+          ? item.attendance_date
+
+          === dateFilter
+
+          : true;
+
+      // Attendance percentage
+      const attendancePercentage =
+
+        calculateAttendancePercentage(
+
+          attendance,
+
+          holidays
+        );
+      return (
+
+        matchesSearch
+
+        && matchesShift
+
+        && matchesStatus
+
+        && matchesDate
+      );
+    });
 
   // Filter valid absents
-const validAbsentEmployees =
+  const validAbsentEmployees =
 
-absentEmployees.filter(
+    absentEmployees.filter(
 
-  (employee) => {
+      (employee) => {
 
-    // Today's date
-    const todayDate =
+        // Today's date
+        const todayDate =
 
-      new Date()
+          new Date()
 
-      .toISOString()
+            .toISOString()
 
-      .split("T")[0];
-
-
-    // Weekly off
-    const weeklyOff =
-
-      isWeeklyOff(
-
-        todayDate
-      );
+            .split("T")[0];
 
 
-    // Holiday
-    const holidayCheck =
+        // Weekly off
+        const weeklyOff =
 
-      isHoliday(
+          isWeeklyOff(
 
-        holidays,
-
-        todayDate
-      );
+            todayDate
+          );
 
 
-    // Exclude holidays/off
-    return (
+        // Holiday
+        const holidayCheck =
 
-      !weeklyOff
+          isHoliday(
 
-      && !holidayCheck
+            holidays,
+
+            todayDate
+          );
+
+
+        // Exclude holidays/off
+        return (
+
+          !weeklyOff
+
+          && !holidayCheck
+        );
+      }
     );
-  }
-);
   // Total absent
-// const totalAbsent =
+  // const totalAbsent =
 
-// absentEmployees.length;
+  // absentEmployees.length;
 
-const totalAbsent =
+  const totalAbsent =
 
-validAbsentEmployees.length;
+    validAbsentEmployees.length;
 
   // Present employees
-const totalPresent =
+  const totalPresent =
 
-attendance.filter((item) =>
+    attendance.filter((item) =>
 
-  item.status === "present"
+      item.status === "present"
 
-  || item.status === "late"
-).length;
-
-
-// Late employees
-const totalLate =
-
-attendance.filter((item) =>
-
-  item.status === "late"
-).length;
+      || item.status === "late"
+    ).length;
 
 
-// Completed attendance
-const completedAttendance =
+  // Late employees
+  const totalLate =
 
-attendance.filter((item) =>
+    attendance.filter((item) =>
 
-  item.check_out
-).length;
+      item.status === "late"
+    ).length;
 
 
-// Active employees
-const activeEmployees =
+  // Completed attendance
+  const completedAttendance =
 
-attendance.filter((item) =>
+    attendance.filter((item) =>
 
-  !item.check_out
-).length;
+      item.check_out
+    ).length;
+
+
+  // Active employees
+  const activeEmployees =
+
+    attendance.filter((item) =>
+
+      !item.check_out
+    ).length;
   return (
 
     <DashboardLayout>
@@ -434,11 +445,11 @@ attendance.filter((item) =>
           Admin Attendance Dashboard
 
         </h1>
-{/* Weekly off status */}
-{todayWeeklyOff && (
+        {/* Weekly off status */}
+        {todayWeeklyOff && (
 
-<div
-  className="
+          <div
+            className="
     bg-yellow-100
     border
     border-yellow-400
@@ -447,203 +458,204 @@ attendance.filter((item) =>
     rounded-lg
     mb-6
   "
->
+          >
 
-  Today is Weekly Off
-  (Sunday)
+            Today is Weekly Off
+            (Sunday)
 
-</div>
-)}
+          </div>
+        )}
+
         {/* Statistics cards */}
-<div
-  className="
+        <div
+          className="
     grid
     grid-cols-1
     md:grid-cols-4
     gap-4
     mb-6
   "
->
+        >
 
-  {/* Present */}
-  <div
-    className="
+          {/* Present */}
+          <div
+            className="
       bg-white
       rounded-lg
       p-4
       shadow
     "
-  >
+          >
 
-    <h2
-      className="
+            <h2
+              className="
         text-gray-500
         text-sm
       "
-    >
+            >
 
-      Present Employees
+              Present Employees
 
-    </h2>
+            </h2>
 
-    <p
-      className="
+            <p
+              className="
         text-3xl
         font-bold
         mt-2
       "
-    >
+            >
 
-      {totalPresent}
+              {totalPresent}
 
-    </p>
+            </p>
 
-  </div>
+          </div>
 
 
-  {/* Late */}
-  <div
-    className="
+          {/* Late */}
+          <div
+            className="
       bg-white
       rounded-lg
       p-4
       shadow
     "
-  >
+          >
 
-    <h2
-      className="
+            <h2
+              className="
         text-gray-500
         text-sm
       "
-    >
+            >
 
-      Late Employees
+              Late Employees
 
-    </h2>
+            </h2>
 
-    <p
-      className="
+            <p
+              className="
         text-3xl
         font-bold
         mt-2
       "
-    >
+            >
 
-      {totalLate}
+              {totalLate}
 
-    </p>
+            </p>
 
-  </div>
+          </div>
 
 
-  {/* Completed */}
-  <div
-    className="
+          {/* Completed */}
+          <div
+            className="
       bg-white
       rounded-lg
       p-4
       shadow
     "
-  >
+          >
 
-    <h2
-      className="
+            <h2
+              className="
         text-gray-500
         text-sm
       "
-    >
+            >
 
-      Completed Attendance
+              Completed Attendance
 
-    </h2>
+            </h2>
 
-    <p
-      className="
+            <p
+              className="
         text-3xl
         font-bold
         mt-2
       "
-    >
+            >
 
-      {completedAttendance}
+              {completedAttendance}
 
-    </p>
+            </p>
 
-  </div>
+          </div>
 
 
-  {/* Active */}
-  <div
-    className="
+          {/* Active */}
+          <div
+            className="
       bg-white
       rounded-lg
       p-4
       shadow
     "
-  >
+          >
 
-    <h2
-      className="
+            <h2
+              className="
         text-gray-500
         text-sm
       "
-    >
+            >
 
-      Active Employees
+              Active Employees
 
-    </h2>
+            </h2>
 
-    <p
-      className="
+            <p
+              className="
         text-3xl
         font-bold
         mt-2
       "
-    >
+            >
 
-      {activeEmployees}
+              {activeEmployees}
 
-    </p>
-    <div
-  className="
+            </p>
+            <div
+              className="
     bg-white
     p-4
     rounded-lg
     shadow
   "
->
+            >
 
-  <h3
-    className="
+              <h3
+                className="
       text-sm
       text-gray-500
     "
-  >
+              >
 
-    Attendance %
+                Attendance %
 
-  </h3>
+              </h3>
 
-  <p
-    className="
+              <p
+                className="
       text-3xl
       font-bold
       mt-2
     "
-  >
+              >
 
-    {attendancePercentage}%
+                {attendancePercentage}%
 
-  </p>
+              </p>
 
-</div>
-  </div>
+            </div>
+          </div>
 
-</div>
+        </div>
         {/* Filters */}
-<div
-  className="
+        <div
+          className="
     bg-white
     p-4
     rounded-lg
@@ -653,144 +665,144 @@ attendance.filter((item) =>
     md:grid-cols-4
     gap-4
   "
->
+        >
 
-  {/* Search */}
-  <input
+          {/* Search */}
+          <input
 
-    type="text"
+            type="text"
 
-    placeholder="Search Employee"
+            placeholder="Search Employee"
 
-    value={search}
+            value={search}
 
-    onChange={(e) =>
+            onChange={(e) =>
 
-      setSearch(e.target.value)
-    }
+              setSearch(e.target.value)
+            }
 
-    className="
+            className="
       border
       p-2
       rounded
     "
-  />
+          />
 
 
-  {/* Shift filter */}
-  <select
+          {/* Shift filter */}
+          <select
 
-    value={shiftFilter}
+            value={shiftFilter}
 
-    onChange={(e) =>
+            onChange={(e) =>
 
-      setShiftFilter(
-        e.target.value
-      )
-    }
+              setShiftFilter(
+                e.target.value
+              )
+            }
 
-    className="
+            className="
       border
       p-2
       rounded
     "
-  >
+          >
 
-    <option value="">
+            <option value="">
 
-      All Shifts
+              All Shifts
 
-    </option>
+            </option>
 
-    <option value="Morning Shift">
+            <option value="Morning Shift">
 
-      Morning Shift
+              Morning Shift
 
-    </option>
+            </option>
 
-    <option value="Evening Shift">
+            <option value="Evening Shift">
 
-      Evening Shift
+              Evening Shift
 
-    </option>
+            </option>
 
-    <option value="Night Shift">
+            <option value="Night Shift">
 
-      Night Shift
+              Night Shift
 
-    </option>
+            </option>
 
-    <option value="General Shift">
+            <option value="General Shift">
 
-      General Shift
+              General Shift
 
-    </option>
+            </option>
 
-  </select>
+          </select>
 
 
-  {/* Status filter */}
-  <select
+          {/* Status filter */}
+          <select
 
-    value={statusFilter}
+            value={statusFilter}
 
-    onChange={(e) =>
+            onChange={(e) =>
 
-      setStatusFilter(
-        e.target.value
-      )
-    }
+              setStatusFilter(
+                e.target.value
+              )
+            }
 
-    className="
+            className="
       border
       p-2
       rounded
     "
-  >
+          >
 
-    <option value="">
+            <option value="">
 
-      All Status
+              All Status
 
-    </option>
+            </option>
 
-    <option value="present">
+            <option value="present">
 
-      Present
+              Present
 
-    </option>
+            </option>
 
-    <option value="late">
+            <option value="late">
 
-      Late
+              Late
 
-    </option>
+            </option>
 
-  </select>
+          </select>
 
 
-  {/* Date filter */}
-  <input
+          {/* Date filter */}
+          <input
 
-    type="date"
+            type="date"
 
-    value={dateFilter}
+            value={dateFilter}
 
-    onChange={(e) =>
+            onChange={(e) =>
 
-      setDateFilter(
-        e.target.value
-      )
-    }
+              setDateFilter(
+                e.target.value
+              )
+            }
 
-    className="
+            className="
       border
       p-2
       rounded
     "
-  />
+          />
 
-</div>
+        </div>
 
         {/* Attendance table */}
         <div
@@ -849,27 +861,27 @@ attendance.filter((item) =>
                 </th>
                 <th className="p-2">
 
-  Worked Hours
+                  Worked Hours
 
-</th>
-
-<th className="p-2">
-
-  Overtime
-
-</th>
+                </th>
 
                 <th className="p-2">
 
-  Action
+                  Overtime
 
-</th>
+                </th>
+
+                <th className="p-2">
+
+                  Action
+
+                </th>
 
               </tr>
 
             </thead>
 
-{/* 
+            {/* 
             <tbody>
 
               {filteredAttendance.map((item) => (
@@ -977,274 +989,274 @@ attendance.filter((item) =>
 
             </tbody> */}
 
-<tbody>
+            <tbody>
 
-  {filteredAttendance.map((item) => {
+              {filteredAttendance.map((item) => {
 
-    const overtimeData =
+                const overtimeData =
 
-      calculateOvertime(item);
+                  calculateOvertime(item);
 
-    return (
+                return (
 
-      <tr
-        key={item.id}
-        className="border-b"
-      >
+                  <tr
+                    key={item.id}
+                    className="border-b"
+                  >
 
-        <td className="p-2">
+                    <td className="p-2">
 
-          {item.employee_name}
+                      {item.employee_name}
 
-        </td>
+                    </td>
 
-        <td className="p-2">
+                    <td className="p-2">
 
-          {item.shift_name}
+                      {item.shift_name}
 
-        </td>
+                    </td>
 
-        <td className="p-2">
+                    <td className="p-2">
 
-          {item.attendance_date}
+                      {item.attendance_date}
 
-        </td>
+                    </td>
 
-        <td className="p-2">
+                    <td className="p-2">
 
-          {item.status}
+                      {item.status}
 
-        </td>
+                    </td>
 
-        <td className="p-2">
+                    <td className="p-2">
 
-          {item.check_in}
+                      {item.check_in}
 
-        </td>
+                    </td>
 
-        <td className="p-2">
+                    <td className="p-2">
 
-          {item.check_out || "Pending"}
+                      {item.check_out || "Pending"}
 
-        </td>
+                    </td>
 
-        <td className="p-2">
+                    <td className="p-2">
 
-          {overtimeData.workedHours} hrs
+                      {overtimeData.workedHours} hrs
 
-        </td>
+                    </td>
 
-        <td className="p-2">
+                    <td className="p-2">
 
-          {overtimeData.overtimeHours} hrs
+                      {overtimeData.overtimeHours} hrs
 
-        </td>
+                    </td>
 
-        <td className="p-2">
+                    <td className="p-2">
 
-          <button
+                      <button
 
-            onClick={() =>
+                        onClick={() =>
 
-              openEditModal(item)
-            }
+                          openEditModal(item)
+                        }
 
-            className="
+                        className="
               bg-blue-600
               text-white
               px-3
               py-1
               rounded
             "
-          >
+                      >
 
-            Edit
+                        Edit
 
-          </button>
+                      </button>
 
-        </td>
+                    </td>
 
-      </tr>
-    );
-  })}
+                  </tr>
+                );
+              })}
 
-</tbody>
+            </tbody>
 
           </table>
 
         </div>
 
-{/* Absent employees */}
-<div
-  className="
+        {/* Absent employees */}
+        <div
+          className="
     bg-white
     rounded-lg
     p-6
     mt-6
   "
->
+        >
 
-  <h2
-    className="
+          <h2
+            className="
       text-xl
       font-bold
       mb-4
     "
-  >
+          >
 
-    Absent Employees
+            Absent Employees
 
-  </h2>
+          </h2>
 
 
-  <table className="w-full">
+          <table className="w-full">
 
-    <thead>
+            <thead>
 
-      <tr
-        className="
+              <tr
+                className="
           border-b
           text-left
         "
-      >
+              >
 
-        <th className="p-2">
+                <th className="p-2">
 
-          Employee
+                  Employee
 
-        </th>
+                </th>
 
-        <th className="p-2">
+                <th className="p-2">
 
-          Shift
+                  Shift
 
-        </th>
+                </th>
 
-      </tr>
+              </tr>
 
-    </thead>
+            </thead>
 
 
-    <tbody>
+            <tbody>
 
-      {validAbsentEmployees.map((employee) => (
+              {validAbsentEmployees.map((employee) => (
 
-        <tr
-          key={employee.id}
-          className="border-b"
-        >
+                <tr
+                  key={employee.id}
+                  className="border-b"
+                >
 
-          <td className="p-2">
+                  <td className="p-2">
 
-            {employee.full_name}
+                    {employee.full_name}
 
-          </td>
+                  </td>
 
-          <td className="p-2">
+                  <td className="p-2">
 
-            {
+                    {
 
-              employee.shifts
-                ?.shift_name
-            }
+                      employee.shifts
+                        ?.shift_name
+                    }
 
-          </td>
+                  </td>
 
-        </tr>
-      ))}
+                </tr>
+              ))}
 
-    </tbody>
+            </tbody>
 
-  </table>
+          </table>
 
-</div>
+        </div>
       </div>
 
       {/* Holidays */}
-<div
-  className="
+      <div
+        className="
     bg-white
     rounded-lg
     p-6
     mt-6
   "
->
+      >
 
-  <h2
-    className="
+        <h2
+          className="
       text-xl
       font-bold
       mb-4
     "
-  >
+        >
 
-    Company Holidays
+          Company Holidays
 
-  </h2>
+        </h2>
 
 
-  <table className="w-full">
+        <table className="w-full">
 
-    <thead>
+          <thead>
 
-      <tr
-        className="
+            <tr
+              className="
           border-b
           text-left
         "
-      >
+            >
 
-        <th className="p-2">
+              <th className="p-2">
 
-          Holiday
+                Holiday
 
-        </th>
+              </th>
 
-        <th className="p-2">
+              <th className="p-2">
 
-          Date
+                Date
 
-        </th>
+              </th>
 
-      </tr>
+            </tr>
 
-    </thead>
+          </thead>
 
 
-    <tbody>
+          <tbody>
 
-      {holidays.map((holiday) => (
+            {holidays.map((holiday) => (
 
-        <tr
-          key={holiday.id}
-          className="border-b"
-        >
+              <tr
+                key={holiday.id}
+                className="border-b"
+              >
 
-          <td className="p-2">
+                <td className="p-2">
 
-            {holiday.holiday_name}
+                  {holiday.holiday_name}
 
-          </td>
+                </td>
 
-          <td className="p-2">
+                <td className="p-2">
 
-            {holiday.holiday_date}
+                  {holiday.holiday_date}
 
-          </td>
+                </td>
 
-        </tr>
-      ))}
+              </tr>
+            ))}
 
-    </tbody>
+          </tbody>
 
-  </table>
+        </table>
 
-</div>
-{/* Edit modal */}
-{selectedAttendance && (
+      </div>
+      {/* Edit modal */}
+      {selectedAttendance && (
 
-<div
-  className="
+        <div
+          className="
     fixed
     inset-0
     bg-black/50
@@ -1252,200 +1264,200 @@ attendance.filter((item) =>
     items-center
     justify-center
   "
->
+        >
 
-  <div
-    className="
+          <div
+            className="
       bg-white
       p-6
       rounded-lg
       w-full
       max-w-md
     "
-  >
+          >
 
-    <h2
-      className="
+            <h2
+              className="
         text-xl
         font-bold
         mb-4
       "
-    >
+            >
 
-      Edit Attendance
+              Edit Attendance
 
-    </h2>
+            </h2>
 
 
-    {/* Check-in */}
-    <div className="mb-4">
+            {/* Check-in */}
+            <div className="mb-4">
 
-      <label>
+              <label>
 
-        Check-In
+                Check-In
 
-      </label>
+              </label>
 
-      <input
+              <input
 
-        type="time"
+                type="time"
 
-        value={editCheckIn}
+                value={editCheckIn}
 
-        onChange={(e) =>
+                onChange={(e) =>
 
-          setEditCheckIn(
-            e.target.value
-          )
-        }
+                  setEditCheckIn(
+                    e.target.value
+                  )
+                }
 
-        className="
+                className="
           border
           p-2
           w-full
           rounded
         "
-      />
+              />
 
-    </div>
+            </div>
 
 
-    {/* Check-out */}
-    <div className="mb-4">
+            {/* Check-out */}
+            <div className="mb-4">
 
-      <label>
+              <label>
 
-        Check-Out
+                Check-Out
 
-      </label>
+              </label>
 
-      <input
+              <input
 
-        type="time"
+                type="time"
 
-        value={editCheckOut}
+                value={editCheckOut}
 
-        onChange={(e) =>
+                onChange={(e) =>
 
-          setEditCheckOut(
-            e.target.value
-          )
-        }
+                  setEditCheckOut(
+                    e.target.value
+                  )
+                }
 
-        className="
+                className="
           border
           p-2
           w-full
           rounded
         "
-      />
+              />
 
-    </div>
+            </div>
 
 
-    {/* Status */}
-    <div className="mb-4">
+            {/* Status */}
+            <div className="mb-4">
 
-      <label>
+              <label>
 
-        Status
+                Status
 
-      </label>
+              </label>
 
-      <select
+              <select
 
-        value={editStatus}
+                value={editStatus}
 
-        onChange={(e) =>
+                onChange={(e) =>
 
-          setEditStatus(
-            e.target.value
-          )
-        }
+                  setEditStatus(
+                    e.target.value
+                  )
+                }
 
-        className="
+                className="
           border
           p-2
           w-full
           rounded
         "
-      >
+              >
 
-        <option value="present">
+                <option value="present">
 
-          Present
+                  Present
 
-        </option>
+                </option>
 
-        <option value="late">
+                <option value="late">
 
-          Late
+                  Late
 
-        </option>
+                </option>
 
-        <option value="absent">
+                <option value="absent">
 
-          Absent
+                  Absent
 
-        </option>
+                </option>
 
-      </select>
+              </select>
 
-    </div>
+            </div>
 
 
-    {/* Actions */}
-    <div
-      className="
+            {/* Actions */}
+            <div
+              className="
         flex
         gap-4
       "
-    >
+            >
 
-      <button
+              <button
 
-        onClick={saveAttendanceUpdate}
+                onClick={saveAttendanceUpdate}
 
-        className="
+                className="
           bg-blue-600
           text-white
           px-4
           py-2
           rounded
         "
-      >
+              >
 
-        Save
+                Save
 
-      </button>
+              </button>
 
 
-      <button
+              <button
 
-        onClick={() =>
+                onClick={() =>
 
-          setSelectedAttendance(null)
-        }
+                  setSelectedAttendance(null)
+                }
 
-        className="
+                className="
           bg-gray-500
           text-white
           px-4
           py-2
           rounded
         "
-      >
+              >
 
-        Cancel
+                Cancel
 
-      </button>
+              </button>
 
-    </div>
+            </div>
 
-  </div>
+          </div>
 
-</div>
-)}
+        </div>
+      )}
     </DashboardLayout>
   );
 }
