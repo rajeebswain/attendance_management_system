@@ -238,6 +238,17 @@ async function saveAttendanceUpdate() {
     alert(error.message);
   }
 }
+
+// Today's date
+const today =
+
+  new Date();
+
+
+// Weekly off check
+const todayWeeklyOff =
+
+  isWeeklyOff(today);
 // Filter attendance
 const filteredAttendance =
 
@@ -291,11 +302,21 @@ const filteredAttendance =
 
         : true;
 
-//     // Open edit modal
+// // Open edit modal
 // function selectedAttendance(item) {
 
+//   console.log(
+
+//     "EDIT ITEM:",
+
+//     item
+//   );
+
+//   // Store selected attendance
 //   setSelectedAttendance(item);
 
+
+//   // Set edit values
 //   setEditCheckIn(
 
 //     item.check_in || ""
@@ -311,90 +332,8 @@ const filteredAttendance =
 //     item.status || ""
 //   );
 // }
-// // Save attendance update
-// async function saveAttendanceUpdate() {
-
-//   try {
-
-//     const updatedData = {
-
-//       check_in: editCheckIn,
-
-//       check_out: editCheckOut,
-
-//       status: editStatus,
-//     };
 
 
-//     await updateAttendance(
-
-//       selectedAttendance.id,
-
-//       updatedData
-//     );
-
-
-//     // Reload data
-//     await loadAttendance();
-
-
-//     // Close modal
-//     setSelectedAttendance(null);
-
-
-//     alert(
-
-//       "Attendance updated"
-//     );
-
-//   } catch (error) {
-
-//     console.error(error);
-
-//     alert(error.message);
-//   }
-// }
-
-// Open edit modal
-function selectedAttendance(item) {
-
-  console.log(
-
-    "EDIT ITEM:",
-
-    item
-  );
-
-  // Store selected attendance
-  setSelectedAttendance(item);
-
-
-  // Set edit values
-  setEditCheckIn(
-
-    item.check_in || ""
-  );
-
-  setEditCheckOut(
-
-    item.check_out || ""
-  );
-
-  setEditStatus(
-
-    item.status || ""
-  );
-}
-// Today's date
-const today =
-
-  new Date();
-
-
-// Is Sunday?
-const todayWeeklyOff =
-
-  isWeeklyOff(today);
 
     return (
 
