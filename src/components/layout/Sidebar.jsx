@@ -50,20 +50,33 @@ function Sidebar() {
         ))}
 
         {/* Report Menu */}
-        <Link
-          to="/reports"
-          className="
+
+
+        {
+
+          isAdmin(
+
+            "admin"
+
+          ) && (
+            <Link
+              to="/reports"
+              className="
     block
     px-4
     py-2
     rounded
     hover:bg-gray-100
   "
-        >
+            >
 
-          Reports & Analytics
+              Reports & Analytics
 
-        </Link>
+            </Link>
+
+          )
+        }
+
         <Link to="/admin-attendance">
 
           Admin Attendance

@@ -2,6 +2,12 @@
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 
+import {
+
+  isAdmin
+
+} from "../../utils/roleUtils";
+
 function DashboardLayout({ children }) {
 
   return (
