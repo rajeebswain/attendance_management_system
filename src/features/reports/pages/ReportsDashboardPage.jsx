@@ -2,6 +2,33 @@ import { useEffect, useState }
 
   from "react";
 
+import {
+
+  PieChart,
+
+  Pie,
+
+  Cell,
+
+  Tooltip,
+
+  ResponsiveContainer,
+
+  BarChart,
+
+  Bar,
+
+  XAxis,
+
+  YAxis,
+
+  CartesianGrid,
+
+  Legend
+
+} from "recharts";
+
+
 
 import {
 
@@ -362,6 +389,59 @@ export default function ReportsDashboardPage() {
 
     );
   };
+
+
+  const attendanceChartData = [
+
+    {
+
+      name: "Present",
+
+      value:
+
+        filteredReports.filter(
+
+          (item) =>
+
+            item.status === "present"
+
+        ).length
+
+    },
+
+    {
+
+      name: "Late",
+
+      value:
+
+        filteredReports.filter(
+
+          (item) =>
+
+            item.status === "late"
+
+        ).length
+
+    },
+
+    {
+
+      name: "Absent",
+
+      value:
+
+        filteredReports.filter(
+
+          (item) =>
+
+            item.status === "absent"
+
+        ).length
+
+    }
+
+  ];
 
 
   useEffect(() => {
@@ -820,6 +900,91 @@ export default function ReportsDashboardPage() {
           </p>
 
         </div>
+
+
+        {/* Attendance Analytics Chart */}
+
+        <div
+          className="
+    bg-white
+    p-6
+    rounded-lg
+    shadow
+    mb-6
+  "
+        >
+
+          <h2
+            className="
+      text-xl
+      font-bold
+      mb-4
+    "
+          >
+
+            Attendance Analytics
+
+          </h2>
+
+          <div
+            className="
+      w-full
+      h-80
+    "
+          >
+
+            <ResponsiveContainer>
+
+              <PieChart>
+
+                <Pie
+                  data={attendanceChartData}
+                  dataKey="value"
+                  nameKey="name"
+                  outerRadius={120}
+                  label
+                >
+
+                  {
+
+                    attendanceChartData.map(
+
+                      (_, index) => (
+
+                        <Cell
+                          key={index}
+                          fill={
+                            [
+
+                              "#22c55e",
+
+                              "#f59e0b",
+
+                              "#ef4444"
+
+                            ][index]
+                          }
+                        />
+                      )
+                    )
+                  }
+
+                </Pie>
+
+                <Tooltip />
+
+                <Legend />
+
+              </PieChart>
+
+            </ResponsiveContainer>
+
+          </div>
+
+        </div>
+
+
+
 
         {/* Monthly Summary */}
 
