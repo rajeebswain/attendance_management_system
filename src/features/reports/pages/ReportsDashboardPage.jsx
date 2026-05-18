@@ -19,7 +19,9 @@ import DashboardLayout
 
 import { CSVLink } from "react-csv";
 
+import jsPDF from "jspdf";
 
+import autoTable from "jspdf-autotable";
 
 export default function ReportsDashboardPage() {
   const [reports, setReports] = useState([]);
@@ -255,6 +257,8 @@ export default function ReportsDashboardPage() {
     }
   });
 
+
+  //CSV
   const csvData = filteredReports.map(
 
     (item) => ({
@@ -288,7 +292,76 @@ export default function ReportsDashboardPage() {
     })
   );
 
+  // PDF 
+  const exportPDF = () => {
 
+    const doc = new jsPDF();
+
+
+
+    doc.text(
+
+      "Attendance Report",
+
+      14,
+
+      15
+
+    );
+
+
+
+    autoTable(doc, {
+
+      startY: 25,
+
+      head: [[
+
+        "Employee",
+
+        "Status",
+
+        "Date",
+
+        "Check In",
+
+        "Check Out",
+
+        "OT Hours"
+
+      ]],
+
+      body: filteredReports.map(
+
+        (item) => [
+
+          item.employees?.full_name ||
+
+          "Unknown Employee",
+
+          item.status,
+
+          item.attendance_date,
+
+          item.check_in,
+
+          item.check_out,
+
+          calculateOvertime(item)
+
+        ]
+      )
+
+    });
+
+
+
+    doc.save(
+
+      "attendance-report.pdf"
+
+    );
+  };
 
 
   useEffect(() => {
@@ -723,6 +796,22 @@ export default function ReportsDashboardPage() {
 
           </CSVLink>
 
+
+          <button
+            onClick={exportPDF}
+            className="
+    bg-red-600
+    text-white
+    px-4
+    py-2
+    rounded-lg
+    ml-4
+  "
+          >
+
+            Export PDF
+
+          </button>
 
           <p className="text-gray-500">
 
