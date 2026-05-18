@@ -18,15 +18,110 @@ import DashboardLayout
 export default function ReportsDashboardPage() {
   const [reports, setReports] = useState([]);
 
-  const totalReports = reports.length;
+  const [searchEmployee, setSearchEmployee] =
 
-  const lateReports = reports.filter(
+  useState("");
+
+const [statusFilter, setStatusFilter] =
+
+  useState("");
+
+const [monthFilter, setMonthFilter] =
+
+  useState("");
+
+const [dateFilter, setDateFilter] =
+
+  useState("");
+
+  const filteredReports = reports.filter(
+
+    (item) => {
+  
+      const employeeName =
+  
+        item.employees?.full_name
+  
+          ?.toLowerCase() || "";
+  
+  
+  
+      // Employee search
+      const matchesEmployee =
+  
+        employeeName.includes(
+  
+          searchEmployee.toLowerCase()
+  
+        );
+  
+  
+  
+      // Status filter
+      const matchesStatus =
+  
+        statusFilter
+  
+          ? item.status === statusFilter
+  
+          : true;
+  
+  
+  
+      // Month filter
+      const matchesMonth =
+  
+        monthFilter
+  
+          ? item.attendance_date?.startsWith(
+  
+              monthFilter
+  
+            )
+  
+          : true;
+  
+  
+  
+      // Date filter
+      const matchesDate =
+  
+        dateFilter
+  
+          ? item.attendance_date ===
+  
+            dateFilter
+  
+          : true;
+  
+  
+  
+      return (
+  
+        matchesEmployee &&
+  
+        matchesStatus &&
+  
+        matchesMonth &&
+  
+        matchesDate
+  
+      );
+    }
+  );
+  
+  // const totalReports = reports.length;
+  const totalReports = filteredReports.length;
+
+  // const lateReports = reports.filter(
+    const lateReports = filteredReports.filter(
 
     (item) => item.status === "late"
 
   ).length;
 
-  const totalOTHours = reports.reduce(
+  // const totalOTHours = reports.reduce(
+    const totalOTHours = filteredReports.reduce(
 
     (total, item) => {
 
@@ -67,7 +162,8 @@ export default function ReportsDashboardPage() {
 
     : 0;
 
-  const activeEmployees = reports.filter(
+  // const activeEmployees = reports.filter(
+    const activeEmployees = filteredReports.filter(
 
     (item) => item.check_in && !item.check_out
 
@@ -75,7 +171,8 @@ export default function ReportsDashboardPage() {
 
   const employeeSummary = {};
 
-  reports.forEach((item) => {
+  // reports.forEach((item) => {
+    filteredReports.forEach((item) => {
 
     const employeeName =
 
