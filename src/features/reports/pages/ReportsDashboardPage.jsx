@@ -539,11 +539,29 @@ export default function ReportsDashboardPage() {
               )
             }
             className="
+    border
+    rounded-lg
+    p-2
+  "
+          />
+
+          {/* <input
+            type="month"
+            value={monthFilter}
+            onChange={(e) =>
+
+              setMonthFilter(
+
+                e.target.value
+
+              )
+            }
+            className="
       border
       rounded-lg
       p-2
     "
-          />
+          /> */}
 
           {/* <select
             value={monthFilter}
