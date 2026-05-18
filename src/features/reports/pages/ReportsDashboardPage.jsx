@@ -43,12 +43,23 @@ import DashboardLayout
 
   from "../../../components/layout/DashboardLayout";
 
+// Importing the CSV
 
 import { CSVLink } from "react-csv";
+
+// Importing the PDF
 
 import jsPDF from "jspdf";
 
 import autoTable from "jspdf-autotable";
+
+// Importing the Excel
+
+import * as XLSX from "xlsx";
+
+import { saveAs } from "file-saver";
+
+
 
 export default function ReportsDashboardPage() {
   const [reports, setReports] = useState([]);
@@ -389,6 +400,119 @@ export default function ReportsDashboardPage() {
 
     );
   };
+
+  // Excel 
+
+  const exportExcel = () => {
+
+    const excelData = filteredReports.map(
+
+      (item) => ({
+
+        Employee:
+
+          item.employees?.full_name ||
+
+          "Unknown Employee",
+
+        Status:
+
+          item.status,
+
+        Date:
+
+          item.attendance_date,
+
+        CheckIn:
+
+          item.check_in,
+
+        CheckOut:
+
+          item.check_out,
+
+        OTHours:
+
+          calculateOvertime(item)
+
+      })
+    );
+
+
+
+    const worksheet =
+
+      XLSX.utils.json_to_sheet(
+
+        excelData
+
+      );
+
+
+
+    const workbook =
+
+      XLSX.utils.book_new();
+
+
+
+    XLSX.utils.book_append_sheet(
+
+      workbook,
+
+      worksheet,
+
+      "Attendance Report"
+
+    );
+
+
+
+    const excelBuffer =
+
+      XLSX.write(
+
+        workbook,
+
+        {
+
+          bookType: "xlsx",
+
+          type: "array"
+
+        }
+
+      );
+
+
+
+    const fileData =
+
+      new Blob(
+
+        [excelBuffer],
+
+        {
+
+          type:
+
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+        }
+
+      );
+
+
+
+    saveAs(
+
+      fileData,
+
+      "attendance-report.xlsx"
+
+    );
+  };
+
 
 
   const attendanceChartData = [
@@ -858,6 +982,8 @@ export default function ReportsDashboardPage() {
 
           </h2>
 
+
+// CSV
           <CSVLink
             data={csvData}
             filename="attendance-report.csv"
@@ -875,7 +1001,7 @@ export default function ReportsDashboardPage() {
             Export CSV
 
           </CSVLink>
-
+// PDF
 
           <button
             onClick={exportPDF}
@@ -892,6 +1018,24 @@ export default function ReportsDashboardPage() {
             Export PDF
 
           </button>
+
+// Excel
+          <button
+            onClick={exportExcel}
+            className="
+    bg-green-600
+    text-white
+    px-4
+    py-2
+    rounded-lg
+    ml-4
+  "
+          >
+
+            Export Excel
+
+          </button>
+
 
           <p className="text-gray-500">
 
