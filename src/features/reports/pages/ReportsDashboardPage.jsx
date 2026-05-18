@@ -527,7 +527,7 @@ export default function ReportsDashboardPage() {
 
           {/* Month Filter */}
 
-          <input
+          {/* <input
             type="month"
             value={monthFilter}
             onChange={(e) =>
@@ -543,7 +543,62 @@ export default function ReportsDashboardPage() {
       rounded-lg
       p-2
     "
-          />
+          /> */}
+
+          <select
+            value={monthFilter}
+            onChange={(e) =>
+
+              setMonthFilter(
+
+                e.target.value
+
+              )
+            }
+            className="
+    border
+    rounded-lg
+    p-2
+  "
+          >
+
+            <option value="">
+
+              All Months
+
+            </option>
+
+            <option value="2026-01">
+
+              January 2026
+
+            </option>
+
+            <option value="2026-02">
+
+              February 2026
+
+            </option>
+
+            <option value="2026-03">
+
+              March 2026
+
+            </option>
+
+            <option value="2026-04">
+
+              April 2026
+
+            </option>
+
+            <option value="2026-05">
+
+              May 2026
+
+            </option>
+
+          </select>
 
 
           {/* Date Filter */}
