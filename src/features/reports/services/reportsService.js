@@ -22,7 +22,8 @@ const { data, error } = await supabase
     *,
     employees (
       full_name,
-      shift_name
+      shift_name,
+      department
     )
   `);
 

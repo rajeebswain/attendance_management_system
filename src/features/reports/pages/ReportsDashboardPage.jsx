@@ -567,6 +567,59 @@ export default function ReportsDashboardPage() {
 
   ];
 
+    {/*Department Summary*/}
+  const departmentData = {};
+
+
+
+  filteredReports.forEach(
+  
+    (item) => {
+  
+      const department =
+  
+        item.employees?.department ||
+  
+        "Unknown";
+  
+  
+  
+      if (
+  
+        !departmentData[department]
+  
+      ) {
+  
+        departmentData[department] = 0;
+      }
+  
+  
+  
+      departmentData[department] += 1;
+    }
+  );
+  
+  
+  
+  const departmentChartData =
+  
+    Object.keys(
+  
+      departmentData
+  
+    ).map(
+  
+      (department) => ({
+  
+        department,
+  
+        total:
+  
+          departmentData[department]
+  
+      })
+    );
+
 
   useEffect(() => {
 
@@ -1138,6 +1191,73 @@ export default function ReportsDashboardPage() {
         </div>
 
 
+
+{/* Department Analytics */}
+
+<div
+  className="
+    bg-white
+    p-6
+    rounded-lg
+    shadow
+    mb-6
+  "
+>
+
+  <h2
+    className="
+      text-xl
+      font-bold
+      mb-4
+    "
+  >
+
+    Department Analytics
+
+  </h2>
+
+  <div
+    style={{
+      width: "100%",
+      height: "400px"
+    }}
+  >
+
+    <ResponsiveContainer
+      width="100%"
+      height={400}
+    >
+
+      <BarChart
+        data={departmentChartData}
+      >
+
+        <CartesianGrid
+          strokeDasharray="3 3"
+        />
+
+        <XAxis
+          dataKey="department"
+        />
+
+        <YAxis />
+
+        <Tooltip />
+
+        <Legend />
+
+        <Bar
+          dataKey="total"
+          fill="#3b82f6"
+        />
+
+      </BarChart>
+
+    </ResponsiveContainer>
+
+  </div>
+
+</div>
 
 
         {/* Monthly Summary */}
