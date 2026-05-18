@@ -20,108 +20,108 @@ export default function ReportsDashboardPage() {
 
   const [searchEmployee, setSearchEmployee] =
 
-  useState("");
+    useState("");
 
-const [statusFilter, setStatusFilter] =
+  const [statusFilter, setStatusFilter] =
 
-  useState("");
+    useState("");
 
-const [monthFilter, setMonthFilter] =
+  const [monthFilter, setMonthFilter] =
 
-  useState("");
+    useState("");
 
-const [dateFilter, setDateFilter] =
+  const [dateFilter, setDateFilter] =
 
-  useState("");
+    useState("");
 
   const filteredReports = reports.filter(
 
     (item) => {
-  
+
       const employeeName =
-  
+
         item.employees?.full_name
-  
+
           ?.toLowerCase() || "";
-  
-  
-  
+
+
+
       // Employee search
       const matchesEmployee =
-  
+
         employeeName.includes(
-  
+
           searchEmployee.toLowerCase()
-  
+
         );
-  
-  
-  
+
+
+
       // Status filter
       const matchesStatus =
-  
+
         statusFilter
-  
+
           ? item.status === statusFilter
-  
+
           : true;
-  
-  
-  
+
+
+
       // Month filter
       const matchesMonth =
-  
+
         monthFilter
-  
+
           ? item.attendance_date?.startsWith(
-  
-              monthFilter
-  
-            )
-  
+
+            monthFilter
+
+          )
+
           : true;
-  
-  
-  
+
+
+
       // Date filter
       const matchesDate =
-  
+
         dateFilter
-  
+
           ? item.attendance_date ===
-  
-            dateFilter
-  
+
+          dateFilter
+
           : true;
-  
-  
-  
+
+
+
       return (
-  
+
         matchesEmployee &&
-  
+
         matchesStatus &&
-  
+
         matchesMonth &&
-  
+
         matchesDate
-  
+
       );
     }
   );
-  
+
   // const totalReports = reports.length;
   const totalReports = filteredReports.length;
 
   // const lateReports = reports.filter(
-    const lateReports = filteredReports.filter(
+  const lateReports = filteredReports.filter(
 
     (item) => item.status === "late"
 
   ).length;
 
   // const totalOTHours = reports.reduce(
-    const totalOTHours = filteredReports.reduce(
+  const totalOTHours = filteredReports.reduce(
 
     (total, item) => {
 
@@ -163,7 +163,7 @@ const [dateFilter, setDateFilter] =
     : 0;
 
   // const activeEmployees = reports.filter(
-    const activeEmployees = filteredReports.filter(
+  const activeEmployees = filteredReports.filter(
 
     (item) => item.check_in && !item.check_out
 
@@ -172,7 +172,7 @@ const [dateFilter, setDateFilter] =
   const employeeSummary = {};
 
   // reports.forEach((item) => {
-    filteredReports.forEach((item) => {
+  filteredReports.forEach((item) => {
 
     const employeeName =
 
@@ -441,7 +441,132 @@ const [dateFilter, setDateFilter] =
 
         </div>
 
+        {/* Filters */}
 
+        <div
+          className="
+    bg-white
+    p-4
+    rounded-lg
+    shadow
+    mb-6
+    grid
+    grid-cols-1
+    md:grid-cols-4
+    gap-4
+  "
+        >
+
+          {/* Employee Search */}
+
+          <input
+            type="text"
+            placeholder="Search Employee"
+            value={searchEmployee}
+            onChange={(e) =>
+
+              setSearchEmployee(
+
+                e.target.value
+
+              )
+            }
+            className="
+      border
+      rounded-lg
+      p-2
+    "
+          />
+
+
+          {/* Status Filter */}
+
+          <select
+            value={statusFilter}
+            onChange={(e) =>
+
+              setStatusFilter(
+
+                e.target.value
+
+              )
+            }
+            className="
+      border
+      rounded-lg
+      p-2
+    "
+          >
+
+            <option value="">
+
+              All Status
+
+            </option>
+
+            <option value="present">
+
+              Present
+
+            </option>
+
+            <option value="late">
+
+              Late
+
+            </option>
+
+            <option value="absent">
+
+              Absent
+
+            </option>
+
+          </select>
+
+
+          {/* Month Filter */}
+
+          <input
+            type="month"
+            value={monthFilter}
+            onChange={(e) =>
+
+              setMonthFilter(
+
+                e.target.value
+
+              )
+            }
+            className="
+      border
+      rounded-lg
+      p-2
+    "
+          />
+
+
+          {/* Date Filter */}
+
+          <input
+            type="date"
+            value={dateFilter}
+            onChange={(e) =>
+
+              setDateFilter(
+
+                e.target.value
+
+              )
+            }
+            className="
+      border
+      rounded-lg
+      p-2
+    "
+          />
+
+        </div>
         {/* Reports section */}
         <div
           className="
