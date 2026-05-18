@@ -39,9 +39,3 @@ export const isAdmin = (
   
     return userRole === "employee";
   };
-
-  console.log(
-
-    isAdmin("admin")
-  
-  );
