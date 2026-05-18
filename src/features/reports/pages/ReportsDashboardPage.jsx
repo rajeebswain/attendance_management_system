@@ -15,6 +15,8 @@ import DashboardLayout
   from "../../../components/layout/DashboardLayout";
 
 
+import { CSVLink } from "react-csv";
+
 export default function ReportsDashboardPage() {
   const [reports, setReports] = useState([]);
 
@@ -248,6 +250,43 @@ export default function ReportsDashboardPage() {
       }
     }
   });
+
+  const csvData = filteredReports.map(
+
+    (item) => ({
+
+      Employee:
+
+        item.employees?.full_name ||
+
+        "Unknown Employee",
+
+      Status:
+
+        item.status,
+
+      Date:
+
+        item.attendance_date,
+
+      CheckIn:
+
+        item.check_in,
+
+      CheckOut:
+
+        item.check_out,
+
+      OTHours:
+
+        calculateOvertime(item)
+
+    })
+  );
+
+
+
+
   useEffect(() => {
 
     loadReports();
@@ -661,6 +700,24 @@ export default function ReportsDashboardPage() {
             Reports Dashboard
 
           </h2>
+
+          <CSVLink
+            data={csvData}
+            filename="attendance-report.csv"
+            className="
+    inline-block
+    bg-blue-600
+    text-white
+    px-4
+    py-2
+    rounded-lg
+    mb-4
+  "
+          >
+
+            Export CSV
+
+          </CSVLink>
 
 
           <p className="text-gray-500">

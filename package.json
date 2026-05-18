@@ -19,6 +19,7 @@
     "jspdf-autotable": "^5.0.7",
     "papaparse": "^5.5.3",
     "react": "^19.2.6",
+    "react-csv": "^2.2.2",
     "react-dom": "^19.2.6",
     "react-hook-form": "^7.75.0",
     "react-hot-toast": "^2.6.0",
