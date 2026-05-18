@@ -1,6 +1,6 @@
 import { useEffect, useState }
 
-from "react";
+  from "react";
 
 
 import {
@@ -16,77 +16,154 @@ import DashboardLayout
 
 
 export default function ReportsDashboardPage() {
-    const [reports, setReports] = useState([]);
+  const [reports, setReports] = useState([]);
 
-    const totalReports = reports.length;
+  const totalReports = reports.length;
 
-    const lateReports = reports.filter(
-    
-      (item) => item.status === "late"
-    
-    ).length;
-    
-    const totalOTHours = reports.reduce(
-    
-      (total, item) => {
-    
-        const checkIn = item.check_in;
-        const checkOut = item.check_out;
-    
-        if (!checkIn || !checkOut) return total;
-    
-        const start = new Date(`2000-01-01 ${checkIn}`);
-        const end = new Date(`2000-01-01 ${checkOut}`);
-    
-        const diffHours =
-    
-          (end - start) / 1000 / 60 / 60;
-    
-        const overtime = diffHours - 8;
-    
-        return overtime > 0
-    
-          ? total + overtime
-    
-          : total;
-      },
-    
-      0
-    
-    );
-    
-    const attendanceRate = totalReports
-    
-      ? (
-          ((totalReports - lateReports) /
-    
-            totalReports) *
-    
-          100
-        ).toFixed(2)
-    
-      : 0;
-    
-    const activeEmployees = reports.filter(
-    
-      (item) => item.check_in && !item.check_out
-    
-    ).length;
+  const lateReports = reports.filter(
+
+    (item) => item.status === "late"
+
+  ).length;
+
+  const totalOTHours = reports.reduce(
+
+    (total, item) => {
+
+      const checkIn = item.check_in;
+      const checkOut = item.check_out;
+
+      if (!checkIn || !checkOut) return total;
+
+      const start = new Date(`2000-01-01 ${checkIn}`);
+      const end = new Date(`2000-01-01 ${checkOut}`);
+
+      const diffHours =
+
+        (end - start) / 1000 / 60 / 60;
+
+      const overtime = diffHours - 8;
+
+      return overtime > 0
+
+        ? total + overtime
+
+        : total;
+    },
+
+    0
+
+  );
+
+  const attendanceRate = totalReports
+
+    ? (
+      ((totalReports - lateReports) /
+
+        totalReports) *
+
+      100
+    ).toFixed(2)
+
+    : 0;
+
+  const activeEmployees = reports.filter(
+
+    (item) => item.check_in && !item.check_out
+
+  ).length;
+
+  const employeeSummary = {};
+
+  reports.forEach((item) => {
+
+    const employeeName =
+
+      item.employees?.full_name ||
+
+      "Unknown Employee";
 
 
-    useEffect(() => {
 
-        loadReports();
-      
-      }, []);
-      async function loadReports() {
+    if (!employeeSummary[employeeName]) {
 
-        const data = await getReportsData();
-      
-        console.log("REPORT DATA:", data);
-      
-        setReports(data);
+      employeeSummary[employeeName] = {
+
+        present: 0,
+
+        late: 0,
+
+        overtime: 0,
+      };
+    }
+
+
+
+    // Present count
+    if (item.status === "present") {
+
+      employeeSummary[employeeName]
+
+        .present += 1;
+    }
+
+
+
+    // Late count
+    if (item.status === "late") {
+
+      employeeSummary[employeeName]
+
+        .late += 1;
+    }
+
+
+
+    // Overtime
+    const checkIn = item.check_in;
+    const checkOut = item.check_out;
+
+    if (checkIn && checkOut) {
+
+      const start = new Date(
+
+        `2000-01-01 ${checkIn}`
+
+      );
+
+      const end = new Date(
+
+        `2000-01-01 ${checkOut}`
+
+      );
+
+      const diffHours =
+
+        (end - start) / 1000 / 60 / 60;
+
+      const overtime = diffHours - 8;
+
+      if (overtime > 0) {
+
+        employeeSummary[employeeName]
+
+          .overtime += overtime;
       }
+    }
+  });
+  useEffect(() => {
+
+    loadReports();
+
+  }, []);
+  async function loadReports() {
+
+    const data = await getReportsData();
+
+    console.log("REPORT DATA:", data);
+
+    setReports(data);
+  }
 
 
 
@@ -187,7 +264,7 @@ export default function ReportsDashboardPage() {
               "
             >
 
-{lateReports}
+              {lateReports}
 
             </p>
 
@@ -223,7 +300,7 @@ export default function ReportsDashboardPage() {
               "
             >
 
-{totalOTHours.toFixed(2)}
+              {totalOTHours.toFixed(2)}
 
             </p>
 
@@ -259,7 +336,7 @@ export default function ReportsDashboardPage() {
               "
             >
 
-{activeEmployees}
+              {activeEmployees}
 
             </p>
 
@@ -293,9 +370,131 @@ export default function ReportsDashboardPage() {
 
           <p className="text-gray-500">
 
-Real reports data connected successfully.
+            Real reports data connected successfully.
 
-</p>
+          </p>
+
+        </div>
+
+        {/* Monthly Summary */}
+
+        <div
+          className="
+    bg-white
+    rounded-lg
+    p-6
+    shadow
+    mt-6
+  "
+        >
+
+          <h2
+            className="
+      text-xl
+      font-bold
+      mb-4
+    "
+          >
+
+            Monthly Employee Summary
+
+          </h2>
+
+
+          <table className="w-full">
+
+            <thead>
+
+              <tr
+                className="
+          border-b
+        "
+              >
+
+                <th className="text-left p-2">
+
+                  Employee
+
+                </th>
+
+                <th className="text-left p-2">
+
+                  Present
+
+                </th>
+
+                <th className="text-left p-2">
+
+                  Late
+
+                </th>
+
+                <th className="text-left p-2">
+
+                  OT Hours
+
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              {
+
+                Object.entries(
+
+                  employeeSummary
+
+                ).map(
+
+                  ([name, summary]) => (
+
+                    <tr
+                      key={name}
+                      className="
+                border-b
+              "
+                    >
+
+                      <td className="p-2">
+
+                        {name}
+
+                      </td>
+
+                      <td className="p-2">
+
+                        {summary.present}
+
+                      </td>
+
+                      <td className="p-2">
+
+                        {summary.late}
+
+                      </td>
+
+                      <td className="p-2">
+
+                        {
+
+                          summary.overtime.toFixed(2)
+
+                        } hrs
+
+                      </td>
+
+                    </tr>
+                  )
+                )
+              }
+
+            </tbody>
+
+          </table>
 
         </div>
 
