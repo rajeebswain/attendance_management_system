@@ -527,7 +527,7 @@ export default function ReportsDashboardPage() {
 
           {/* Month Filter */}
 
-          {/* <input
+          <input
             type="month"
             value={monthFilter}
             onChange={(e) =>
@@ -543,9 +543,9 @@ export default function ReportsDashboardPage() {
       rounded-lg
       p-2
     "
-          /> */}
+          />
 
-          <select
+          {/* <select
             value={monthFilter}
             onChange={(e) =>
 
@@ -598,7 +598,7 @@ export default function ReportsDashboardPage() {
 
             </option>
 
-          </select>
+          </select> */}
 
 
           {/* Date Filter */}
