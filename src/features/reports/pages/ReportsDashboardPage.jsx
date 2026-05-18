@@ -926,14 +926,25 @@ export default function ReportsDashboardPage() {
 
           </h2>
 
-          <div
+          {/* <div
             className="
       w-full
       h-80
     "
+          > */}
+
+          <div
+            className="
+    w-full
+    h-[400px]
+  "
           >
 
-            <ResponsiveContainer>
+            {/* <ResponsiveContainer> */}
+            <ResponsiveContainer
+              width="100%"
+              height="100%"
+            >
 
               <PieChart>
 
