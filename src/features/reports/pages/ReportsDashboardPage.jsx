@@ -934,18 +934,17 @@ export default function ReportsDashboardPage() {
           > */}
 
           <div
-            className="
-    w-full
-    h-[400px]
-  "
+            style={{
+              width: "100%",
+              height: "400px"
+            }}
           >
 
             {/* <ResponsiveContainer> */}
             <ResponsiveContainer
               width="100%"
-              height="100%"
+              height={400}
             >
-
               <PieChart>
 
                 <Pie
