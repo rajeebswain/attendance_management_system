@@ -41,6 +41,7 @@ function EmployeeForm({
   const [loading, setLoading] = useState(false);
 
 
+  const [rotationEnabled, setRotationEnabled] = useState(false);
   // Handle form submit
   async function handleSubmit(event) {
 
@@ -50,21 +51,7 @@ function EmployeeForm({
 
       setLoading(true);
 
-      // Create employee
-      // await createEmployee({
-
-      //   employee_code: employeeCode,
-
-      //   full_name: fullName,
-
-      //   email,
-
-      //   designation,
-
-      //   shift_id: shiftName,
-      // });
-
-      await createEmployee({
+        await createEmployee({
 
         employee_code: employeeCode,
         
@@ -74,7 +61,9 @@ function EmployeeForm({
         
         designation,
         
-        shift_id: shiftId
+        shift_id: shiftId,
+
+        rotation_enabled: rotationEnabled
         
         });
 
@@ -189,6 +178,28 @@ e.target.value
 className="border p-2 rounded w-full"
 
 >
+
+<label>
+
+<input
+
+type="checkbox"
+
+onChange={(e)=>
+
+setRotationEnabled(
+
+e.target.checked
+
+)
+
+}
+
+/>
+
+Enable Rotation
+
+</label>
 
           <option value="">
 
