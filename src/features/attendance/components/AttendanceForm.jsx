@@ -20,6 +20,8 @@ import {
 
   getEmployees,
 
+  getHolidays
+
 } from "../services/attendanceService";
 
 
@@ -57,6 +59,11 @@ function AttendanceForm({
         const data = await getEmployees();
 
         setEmployees(data);
+        const holidayData = await getHolidays();
+
+        setHolidays(
+
+          holidayData);
 
       } catch (error) {
 
@@ -124,36 +131,36 @@ function AttendanceForm({
           :
 
           0;
+      const today =
 
+        new Date()
+
+          .toISOString()
+
+          .split("T")[0];
+
+      const isHoliday =
+
+        holidays.some(
+
+          holiday =>
+
+            holiday.holiday_date === today
+
+        );
+
+      if (isHoliday) {
+
+        alert(
+
+          "Today is holiday. Attendance disabled."
+
+        );
+
+        return;
+
+      }
       /*Create Attendance*/
-
-      /* await createAttendance({
- 
-         employee_id: employeeId,
- 
-         attendance_date: new Date(),
- 
-         status:
- 
-           checkIn >
- 
-             employees.find(
- 
-               (emp) =>
- 
-                 emp.id === employeeId
- 
-             )?.shifts?.start_time
- 
-             ? "late"
- 
-             : status,
- 
-         check_in: checkIn,
- 
-         check_out: checkOut,
- 
-       }); */
 
       await createAttendance({
 
