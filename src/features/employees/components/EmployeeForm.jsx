@@ -61,7 +61,7 @@ function EmployeeForm({
 
         designation,
 
-        shift_name: shiftName,
+        shift_id: shiftName,
       });
 
       // Clear form after success
@@ -173,7 +173,7 @@ function EmployeeForm({
 
                   key={shift.id}
 
-                  value={shift.shift_name}
+                  value={shift.id}
 
                 >
 
@@ -189,7 +189,7 @@ function EmployeeForm({
 
         </select>
         {/* <Input
-          placeholder="Shift Name"
+          placeholder="Shift Name"<EmployeesTable />
           value={shiftName}
           onChange={(e) =>
             setShiftName(e.target.value)
