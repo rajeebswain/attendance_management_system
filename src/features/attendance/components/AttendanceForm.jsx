@@ -191,7 +191,7 @@ function AttendanceForm({
 
         );
 
-      if (isHoliday) {
+  /*if (isHoliday) {
 
         alert(
 
@@ -201,7 +201,18 @@ function AttendanceForm({
 
         return;
 
-      }
+      } */
+    
+      /*Holiday Block*/
+      if(isHoliday){
+
+        alert(
+        
+        "Today is a holiday. Attendance will be marked as Holiday Working Day."
+        
+        );
+        
+        }
       /*Create Attendance*/
 
       await createAttendance({
