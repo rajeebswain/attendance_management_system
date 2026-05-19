@@ -87,6 +87,100 @@ import {
       }
     );
   
+    /*Create late-checking function.*/
+
+    function calculateAttendanceStatus(
+
+      employee,
+      
+      checkInTime
+      
+      ){
+      
+      if(
+      
+      !employee.shifts
+      
+      )
+      
+      return "Present";
+      
+      
+      const shiftStart =
+      
+      employee.shifts.start_time;
+      
+      
+      const graceMinutes =
+      
+      employee.shifts.grace_minutes || 0;
+      
+      
+      // Convert time values
+      const shiftDate = new Date();
+      
+      const checkDate = new Date();
+      
+      
+      const [
+      
+      hour,
+      
+      minute
+      
+      ] = shiftStart.split(":");
+      
+      
+      shiftDate.setHours(
+      
+      parseInt(hour),
+      
+      parseInt(minute)+graceMinutes,
+      
+      0
+      
+      );
+      
+      
+      // User checkin
+      const [
+      
+      checkHour,
+      
+      checkMinute
+      
+      ]
+      
+      =
+      
+      checkInTime.split(":");
+      
+      
+      checkDate.setHours(
+      
+      parseInt(checkHour),
+      
+      parseInt(checkMinute),
+      
+      0
+      
+      );
+      
+      
+      if(
+      
+      checkDate > shiftDate
+      
+      ){
+      
+      return "Late";
+      
+      }
+      
+      
+      return "Present";
+      
+      }
   
     return (
   

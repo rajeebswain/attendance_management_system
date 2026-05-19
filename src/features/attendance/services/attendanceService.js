@@ -61,20 +61,57 @@ export async function createAttendance(
 
 // FETCH EMPLOYEES
 // Used in attendance dropdown
+// export async function getEmployees() {
+
+//   const { data, error } = await supabase
+
+//     .from("employees")
+
+//     .select("*")
+
+//     .order("full_name");
+
+//   if (error) {
+
+//     throw error;
+//   }
+
+//   return data;
+// }
+
 export async function getEmployees() {
 
   const { data, error } = await supabase
 
     .from("employees")
 
-    .select("*")
+    .select(`
+  
+  id,
+  employee_code,
+  full_name,
+  email,
+  designation,
+  shift_id,
+  
+  shifts(
+  id,
+  shift_name,
+  start_time,
+  end_time,
+  grace_minutes
+  )
+  
+  `)
 
     .order("full_name");
 
   if (error) {
 
     throw error;
+
   }
 
   return data;
+
 }
