@@ -3,116 +3,175 @@ import { useState } from "react";
 import Card from "../../../components/ui/Card";
 import Button from "../../../components/ui/Button";
 
+import {
+
+    createLeave
+
+}
+
+    from "../services/leaveService";
+
 function LeaveForm() {
 
-const [leaveType,setLeaveType]=useState("");
+    const [leaveType, setLeaveType] = useState("");
 
-const [startDate,setStartDate]=useState("");
+    const [startDate, setStartDate] = useState("");
 
-const [endDate,setEndDate]=useState("");
+    const [endDate, setEndDate] = useState("");
 
-const [reason,setReason]=useState("");
+    const [reason, setReason] = useState("");
 
-function handleSubmit(e){
+   /* function handleSubmit(e) {
 
-e.preventDefault();
+        e.preventDefault();
 
-console.log({
+        console.log({
 
-leaveType,
-startDate,
-endDate,
-reason
+            leaveType,
+            startDate,
+            endDate,
+            reason
 
-});
+        });
 
-alert("Leave request submitted");
+        alert("Leave request submitted");
 
-}
+    } */
 
-return(
 
-<Card>
+    async function handleSubmit(e){
 
-<h2 className="text-2xl font-bold mb-4">
+        e.preventDefault();
+        
+        try{
+        
+        await createLeave({
+        
+        employee_id:"TEMP_EMPLOYEE_ID",
+        
+        leave_type:leaveType,
+        
+        start_date:startDate,
+        
+        end_date:endDate,
+        
+        reason,
+        
+        status:"pending"
+        
+        });
+        
+        alert(
+        
+        "Leave request submitted"
+        
+        );
+        
+        setLeaveType("");
+        
+        setStartDate("");
+        
+        setEndDate("");
+        
+        setReason("");
+        
+        }
+        
+        catch(error){
+        
+        alert(
+        
+        error.message
+        
+        );
+        
+        }
+        
+        }
 
-Apply Leave
+    return (
 
-</h2>
+        <Card>
 
-<form
-onSubmit={handleSubmit}
-className="space-y-4"
->
+            <h2 className="text-2xl font-bold mb-4">
 
-<select
-value={leaveType}
-onChange={(e)=>
-setLeaveType(e.target.value)
-}
-className="w-full border rounded p-3"
->
+                Apply Leave
 
-<option value="">
-Select Leave Type
-</option>
+            </h2>
 
-<option value="casual">
-Casual Leave
-</option>
+            <form
+                onSubmit={handleSubmit}
+                className="space-y-4"
+            >
 
-<option value="sick">
-Sick Leave
-</option>
+                <select
+                    value={leaveType}
+                    onChange={(e) =>
+                        setLeaveType(e.target.value)
+                    }
+                    className="w-full border rounded p-3"
+                >
 
-<option value="earned">
-Earned Leave
-</option>
+                    <option value="">
+                        Select Leave Type
+                    </option>
 
-<option value="emergency">
-Emergency Leave
-</option>
+                    <option value="casual">
+                        Casual Leave
+                    </option>
 
-</select>
+                    <option value="sick">
+                        Sick Leave
+                    </option>
 
-<input
-type="date"
-value={startDate}
-onChange={(e)=>
-setStartDate(e.target.value)
-}
-className="w-full border rounded p-3"
-/>
+                    <option value="earned">
+                        Earned Leave
+                    </option>
 
-<input
-type="date"
-value={endDate}
-onChange={(e)=>
-setEndDate(e.target.value)
-}
-className="w-full border rounded p-3"
-/>
+                    <option value="emergency">
+                        Emergency Leave
+                    </option>
 
-<textarea
-placeholder="Reason"
-value={reason}
-onChange={(e)=>
-setReason(e.target.value)
-}
-className="w-full border rounded p-3"
-/>
+                </select>
 
-<Button type="submit">
+                <input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) =>
+                        setStartDate(e.target.value)
+                    }
+                    className="w-full border rounded p-3"
+                />
 
-Apply Leave
+                <input
+                    type="date"
+                    value={endDate}
+                    onChange={(e) =>
+                        setEndDate(e.target.value)
+                    }
+                    className="w-full border rounded p-3"
+                />
 
-</Button>
+                <textarea
+                    placeholder="Reason"
+                    value={reason}
+                    onChange={(e) =>
+                        setReason(e.target.value)
+                    }
+                    className="w-full border rounded p-3"
+                />
 
-</form>
+                <Button type="submit">
 
-</Card>
+                    Apply Leave
 
-);
+                </Button>
+
+            </form>
+
+        </Card>
+
+    );
 
 }
 
