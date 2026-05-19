@@ -107,7 +107,7 @@ function LeaveManagementPage() {
 
                             </div>
 
-                            <button
+                            {/* <button
 
                                 onClick={async () => {
 
@@ -158,17 +158,88 @@ function LeaveManagementPage() {
 
                                 Reject
 
-                            </button>
+                            </button> * /}
 
-                        </div>
+                        < div className = "flex gap-3 mt-3" >
+
+<button
+
+className="
+bg-green-600
+text-white
+px-4
+py-2
+rounded
+hover:bg-green-700
+"
+
+onClick={async()=>{
+
+await updateLeaveStatus(
+
+leave.id,
+
+"approved",
+
+leave
+
+);
+
+loadLeaves();
+
+}}
+
+>
+
+Approve
+
+</button>
+
+<button
+
+className="
+bg-red-600
+text-white
+px-4
+py-2
+rounded
+hover:bg-red-700
+"
+
+onClick={async()=>{
+
+await updateLeaveStatus(
+
+leave.id,
+
+"rejected",
+
+leave
+
+);
+
+loadLeaves();
+
+}}
+
+>
+
+Reject
+
+</button>
+
+</div>
+
+
+                        </div >
 
                     )
 
                 )
 
-            }
+}
 
-        </DashboardLayout>
+        </DashboardLayout >
 
     );
 
