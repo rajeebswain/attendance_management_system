@@ -28,8 +28,10 @@ import SignupPage from "../features/auth/pages/SignupPage";
 // Pages
 import DashboardPage from "../pages/DashboardPage";
 
-import EmployeesPage from "../pages/EmployeesPage";
+// import EmployeesPage from "../pages/EmployeesPage";
 
+import EmployeesPage
+from "../features/employees/pages/EmployeesPage";
 
 // Role Guard
 import RoleGuard from "../features/auth/components/RoleGuard";
