@@ -1,3 +1,9 @@
+const loggedInUser = {
+
+  role: "admin"
+
+};
+
 import {
 
   Routes,
@@ -38,6 +44,10 @@ import EmployeeSelfAttendancePage from "../features/attendance/pages/EmployeeSel
 import AdminAttendancePage from "../features/attendance/pages/AdminAttendancePage";
 
 import ReportsDashboardPage from "../features/reports/pages/ReportsDashboardPage";
+
+import ProtectedRoute from "../components/auth/ProtectedRoute";
+
+import { ROLES } from "../constants/roles";
 
 function AppRoutes() {
 
@@ -117,7 +127,7 @@ function AppRoutes() {
         }
       />
 
-      <Route
+      {/* <Route
 
         path="/reports"
 
@@ -125,7 +135,39 @@ function AppRoutes() {
 
           <ReportsDashboardPage />
         }
-      />
+      /> */}
+
+<Route
+
+path="/reports"
+
+element={
+
+  <ProtectedRoute
+
+    allowedRoles={[
+
+      ROLES.ADMIN,
+
+      ROLES.HR
+
+    ]}
+
+    userRole={
+
+      loggedInUser.role
+
+    }
+
+  >
+
+    <ReportsDashboardPage />
+
+  </ProtectedRoute>
+
+}
+
+/>
     </Routes>
   );
 }
