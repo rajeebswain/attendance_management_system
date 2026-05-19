@@ -107,17 +107,10 @@ function LeaveManagementPage() {
 
                             </div>
 
-                            {/* <button
+                            {/*<button
 
                                 onClick={async () => {
 
-                                    /*await updateLeaveStatus(
-
-                                        leave.id,
-
-                                        "approved"
-
-                                    );*/
                                     await updateLeaveStatus(
 
                                         leave.id,
@@ -158,13 +151,15 @@ function LeaveManagementPage() {
 
                                 Reject
 
-                            </button> * /}
+                            </button>*/}
 
-                        < div className = "flex gap-3 mt-3" >
 
-<button
 
-className="
+                            <div className="flex gap-3 mt-3">
+
+                                <button
+
+                                    className="
 bg-green-600
 text-white
 px-4
@@ -173,31 +168,31 @@ rounded
 hover:bg-green-700
 "
 
-onClick={async()=>{
+                                    onClick={async () => {
 
-await updateLeaveStatus(
+                                        await updateLeaveStatus(
 
-leave.id,
+                                            leave.id,
 
-"approved",
+                                            "approved",
 
-leave
+                                            leave
 
-);
+                                        );
 
-loadLeaves();
+                                        loadLeaves();
 
-}}
+                                    }}
 
->
+                                >
 
-Approve
+                                    Approve
 
-</button>
+                                </button>
 
-<button
+                                <button
 
-className="
+                                    className="
 bg-red-600
 text-white
 px-4
@@ -206,40 +201,40 @@ rounded
 hover:bg-red-700
 "
 
-onClick={async()=>{
+                                    onClick={async () => {
 
-await updateLeaveStatus(
+                                        await updateLeaveStatus(
 
-leave.id,
+                                            leave.id,
 
-"rejected",
+                                            "rejected",
 
-leave
+                                            leave
 
-);
+                                        );
 
-loadLeaves();
+                                        loadLeaves();
 
-}}
+                                    }}
 
->
+                                >
 
-Reject
+                                    Reject
 
-</button>
+                                </button>
 
-</div>
+                            </div>
 
 
-                        </div >
+                        </div>
 
                     )
 
                 )
 
-}
+            }
 
-        </DashboardLayout >
+        </DashboardLayout>
 
     );
 
