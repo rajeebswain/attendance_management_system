@@ -132,10 +132,21 @@ async function loadShifts() {
   
         <div className="space-y-6">
   
-          <EmployeeForm
+          {/* <EmployeeForm
             onEmployeeCreated={fetchEmployees}
             shifts={shifts}
-          />
+          /> */}
+
+<div className="bg-red-500 p-4">
+
+TEST EMPLOYEE FORM
+
+</div>
+
+<EmployeeForm
+  onEmployeeCreated={fetchEmployees}
+  shifts={shifts}
+/>
   
           {loading ? (
   
