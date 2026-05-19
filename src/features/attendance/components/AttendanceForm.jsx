@@ -211,9 +211,36 @@ function AttendanceForm({
 
     } catch (error) {
 
-      alert(error.message);
+      if (
 
-    } finally {
+        error.message.includes(
+
+          "unique_employee_attendance"
+
+        )
+
+      ) {
+
+        alert(
+
+          "Attendance already marked for today"
+
+        );
+
+      }
+
+      else {
+
+        alert(
+
+          error.message
+
+        );
+
+      }
+
+    }
+    finally {
 
       setLoading(false);
     }
