@@ -188,13 +188,13 @@ function EmployeeForm({
           }
 
         </select>
-        <Input
+        {/* <Input
           placeholder="Shift Name"
           value={shiftName}
           onChange={(e) =>
             setShiftName(e.target.value)
           }
-        />
+        /> */}
 
         <Button type="submit">
 
