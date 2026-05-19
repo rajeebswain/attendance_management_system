@@ -1,14 +1,54 @@
+// import { Navigate }
+
+//   from "react-router-dom";
+
+
+
+// const ProtectedRoute = ({
+
+//   children,
+
+//   allowedRoles,
+
+//   userRole
+
+// }) => {
+
+//   if (
+
+//     !allowedRoles.includes(
+
+//       userRole
+
+//     )
+
+//   ) {
+
+//     return (
+
+//       <Navigate to="/" />
+//     );
+//   }
+
+
+
+//   return children;
+// };
+
+
+
+// export default ProtectedRoute;
+
+
 import { Navigate }
 
-  from "react-router-dom";
-
-
+from "react-router-dom";
 
 const ProtectedRoute = ({
 
   children,
 
-  allowedRoles,
+  allowedRoles = [],
 
   userRole
 
@@ -26,15 +66,17 @@ const ProtectedRoute = ({
 
     return (
 
-      <Navigate to="/" />
+      <Navigate
+
+        to="/attendance"
+
+      />
+
     );
+
   }
-
-
 
   return children;
 };
-
-
 
 export default ProtectedRoute;
