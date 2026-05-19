@@ -111,11 +111,20 @@ function LeaveManagementPage() {
 
                                 onClick={async () => {
 
-                                    await updateLeaveStatus(
+                                    /*await updateLeaveStatus(
 
                                         leave.id,
 
                                         "approved"
+
+                                    );*/
+                                    await updateLeaveStatus(
+
+                                        leave.id,
+
+                                        "approved",
+
+                                        leave
 
                                     );
 
