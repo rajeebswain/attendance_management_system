@@ -1,169 +1,158 @@
 import {
 
-    useEffect,
-  
-    useState,
-  
-  } from "react";
-  
-  
-  // Layout wrapper
-  import DashboardLayout from "../../../components/layout/DashboardLayout";
-  
-  
-  // Employee components
-  import EmployeeForm from "../components/EmployeeForm";
-  
-  import EmployeesTable from "../components/EmployeesTable";
-  
-  
-  // Employee services
-  import {
-  
-    getEmployees,
-  
-    deleteEmployee,
-  
-  } from "../services/employeeService";
-  
-  
+  useEffect,
 
-  import {
+  useState,
 
-    getShifts
-    
-    }
-    
-    from "../services/employeeService";
+} from "react";
 
 
-  function EmployeesPage() {
-  
-    // Employee list state
-    const [employees, setEmployees] = useState([]);
-  
-  
-    // Loading state
-    const [loading, setLoading] = useState(true);
-  
-  
-    // Shift list state
-const [
+// Layout wrapper
+import DashboardLayout from "../../../components/layout/DashboardLayout";
 
-  shifts,
-  
-  setShifts
-  
-  ] = useState([]);
 
-    // Fetch employee list
-    async function fetchEmployees() {
-  
-      try {
-  
-        setLoading(true);
-  
-        const data = await getEmployees();
-  
-        setEmployees(data);
-  
-      } catch (error) {
-  
-        alert(error.message);
-  
-      } finally {
-  
-        setLoading(false);
-      }
-    }
-  
-/* Load shifts from database */
-async function loadShifts() {
+// Employee components
+import EmployeeForm from "../components/EmployeeForm";
 
-  try {
+import EmployeesTable from "../components/EmployeesTable";
 
-    const data =
 
-    await getShifts();
+// Employee services
+import {
 
-    setShifts(data);
+  getEmployees,
 
-  }
+  deleteEmployee,
 
-  catch(error){
+} from "../services/employeeService";
 
-    console.log(error);
 
-  }
+
+import {
+
+  getShifts
 
 }
-  
-    // Delete employee
-    async function handleDelete(employeeId) {
-  
-      try {
-  
-        await deleteEmployee(employeeId);
-  
-        fetchEmployees();
-  
-      } catch (error) {
-  
-        alert(error.message);
-      }
+
+  from "../services/employeeService";
+
+
+function EmployeesPage() {
+
+  // Employee list state
+  const [employees, setEmployees] = useState([]);
+
+
+  // Loading state
+  const [loading, setLoading] = useState(true);
+
+
+  // Shift list state
+  const [
+
+    shifts,
+
+    setShifts
+
+  ] = useState([]);
+
+  // Fetch employee list
+  async function fetchEmployees() {
+
+    try {
+
+      setLoading(true);
+
+      const data = await getEmployees();
+
+      setEmployees(data);
+
+    } catch (error) {
+
+      alert(error.message);
+
+    } finally {
+
+      setLoading(false);
     }
-  
-  
-    // Load employees initially
-    useEffect(() => {
-  
+  }
+
+  /* Load shifts from database */
+  async function loadShifts() {
+
+    try {
+
+      const data =
+
+        await getShifts();
+
+      setShifts(data);
+
+    }
+
+    catch (error) {
+
+      console.log(error);
+
+    }
+
+  }
+
+  // Delete employee
+  async function handleDelete(employeeId) {
+
+    try {
+
+      await deleteEmployee(employeeId);
+
       fetchEmployees();
 
-      loadShifts();
+    } catch (error) {
 
-      
-  
-    }, []);
-  
-  
-    return (
-  
-      <DashboardLayout>
-  
-        <div className="space-y-6">
-  
-          {/* <EmployeeForm
-            onEmployeeCreated={fetchEmployees}
-            shifts={shifts}
-          /> */}
-
-<div className="bg-red-500 p-4">
-
-TEST EMPLOYEE FORM
-
-</div>
-
-<EmployeeForm
-  onEmployeeCreated={fetchEmployees}
-  shifts={shifts}
-/>
-  
-          {loading ? (
-  
-            <div>Loading employees...</div>
-  
-          ) : (
-  
-            <EmployeesTable
-              employees={employees}
-              onDelete={handleDelete}
-            />
-          )}
-  
-        </div>
-  
-      </DashboardLayout>
-    );
+      alert(error.message);
+    }
   }
-  
-  export default EmployeesPage;
+
+
+  // Load employees initially
+  useEffect(() => {
+
+    fetchEmployees();
+
+    loadShifts();
+
+
+
+  }, []);
+
+
+  return (
+
+    <DashboardLayout>
+
+      <div className="space-y-6">
+
+        <EmployeeForm
+          onEmployeeCreated={fetchEmployees}
+          shifts={shifts}
+        />
+
+        {loading ? (
+
+          <div>Loading employees...</div>
+
+        ) : (
+
+          <EmployeesTable
+            employees={employees}
+            onDelete={handleDelete}
+          />
+        )}
+
+      </div>
+
+    </DashboardLayout>
+  );
+}
+
+export default EmployeesPage;
