@@ -50,7 +50,7 @@ function AttendanceForm({
 
 
   // Fetch employees on component load
-  useEffect(() => {
+  /*useEffect(() => {
 
     async function loadEmployees() {
 
@@ -72,8 +72,48 @@ function AttendanceForm({
     }
 
     loadEmployees();
+    
+  }, []);*/
 
-  }, []);
+  useEffect(() => {
+
+    async function loadData() {
+    
+    try {
+    
+    const employeeData =
+    
+    await getEmployees();
+    
+    setEmployees(
+    
+    employeeData
+    
+    );
+    
+    const holidayData =
+    
+    await getHolidays();
+    
+    setHolidays(
+    
+    holidayData
+    
+    );
+    
+    }
+    
+    catch(error){
+    
+    console.log(error);
+    
+    }
+    
+    }
+    
+    loadData();
+    
+    }, []);
 
 
   // Handle attendance form submit
