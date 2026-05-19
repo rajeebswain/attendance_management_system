@@ -50,7 +50,7 @@ function AttendanceForm({
 
   //Setting the holidayes
   const [holidays, setHolidays] = useState([]);
-  
+
   // Fetch employees on component load
   /*useEffect(() => {
 
@@ -80,48 +80,82 @@ function AttendanceForm({
   useEffect(() => {
 
     async function loadData() {
-    
-    try {
-    
-    const employeeData =
-    
-    await getEmployees();
-    
-    setEmployees(
-    
-    employeeData
-    
-    );
-    
-    const holidayData =
-    
-    await getHolidays();
-    
-    setHolidays(
-    
-    holidayData
-    
-    );
-    
+
+      try {
+
+        const employeeData =
+
+          await getEmployees();
+
+        setEmployees(
+
+          employeeData
+
+        );
+
+        const holidayData =
+
+          await getHolidays();
+
+        setHolidays(
+
+          holidayData
+
+        );
+
+      }
+
+      catch (error) {
+
+        console.log(error);
+
+      }
+
     }
-    
-    catch(error){
-    
-    console.log(error);
-    
-    }
-    
-    }
-    
+
     loadData();
-    
-    }, []);
+
+  }, []);
 
 
   // Handle attendance form submit
   async function handleSubmit(event) {
 
+    /*Adding Attendace for unassigned employee */
+
     event.preventDefault();
+
+    const selectedEmployee =
+
+      employees.find(
+
+        (emp) =>
+
+          emp.id === employeeId
+
+      );
+
+    /* if(!selectedEmployee?.shifts){
+     
+     alert(
+     
+     "No shift assigned to this employee"
+     
+     );
+     
+     return;
+     
+     } */
+
+    if (!selectedEmployee?.shifts) {
+
+      alert(
+
+        "No shift assigned. Manual attendance mode enabled."
+
+      );
+
+    }
 
     try {
 
@@ -191,29 +225,29 @@ function AttendanceForm({
 
         );
 
-  /*if (isHoliday) {
-
-        alert(
-
-          "Today is holiday. Attendance disabled."
-
-        );
-
-        return;
-
-      } */
+      /*if (isHoliday) {
     
+            alert(
+    
+              "Today is holiday. Attendance disabled."
+    
+            );
+    
+            return;
+    
+          } */
+
       /*Holiday Block*/
-      if(isHoliday){
+      if (isHoliday) {
 
         alert(
-        
-        "Today is a holiday. Attendance will be marked as Holiday Working Day."
-        
+
+          "Today is a holiday. Attendance will be marked as Holiday Working Day."
+
         );
-        
-        }
-        
+
+      }
+
       /*Create Attendance*/
 
       await createAttendance({
