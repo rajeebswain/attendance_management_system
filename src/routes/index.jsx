@@ -51,6 +51,8 @@ import ProtectedRoute from "../components/auth/ProtectedRoute";
 
 import LeaveForm from "../features/leaves/components/LeaveForm";
 
+import LeaveManagementPage from "../features/leaves/pages/LeaveManagementPage";
+
 import { ROLES } from "../constants/roles";
 
 function AppRoutes() {
@@ -213,6 +215,25 @@ userRole={loggedInUser.role}
 }
 />
 
+<Route
+path="/leave-management"
+element={
+<ProtectedRoute
+
+allowedRoles={[
+"admin",
+"super_admin"
+]}
+
+userRole={loggedInUser.role}
+
+>
+
+<LeaveManagementPage />
+
+</ProtectedRoute>
+}
+/>
     </Routes>
   );
 }
