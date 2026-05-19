@@ -78,47 +78,122 @@ function AttendanceForm({
 
       setLoading(true);
 
-      // Create attendance record
-      // await createAttendance({
+      /* Calculate work hours */
 
-      //   employee_id: employeeId,
+      const checkInDate =
 
-      //   attendance_date: new Date(),
+        new Date(
 
-      //   status,
+          `2000-01-01 ${checkIn}`
 
-      //   check_in: checkIn,
+        );
 
-      //   check_out: checkOut,
-      // });
+      const checkOutDate =
+
+        new Date(
+
+          `2000-01-01 ${checkOut}`
+
+        );
+
+      const workedHours =
+
+        (
+
+          checkOutDate -
+
+          checkInDate
+
+        )
+
+        /
+
+        (1000 * 60 * 60);
+
+
+      /* Overtime after shift rule */
+
+      const overtimeHours =
+
+        workedHours > 8
+
+          ?
+
+          workedHours - 8
+
+          :
+
+          0;
+
+      /*Create Attendance*/
+
+      /* await createAttendance({
+ 
+         employee_id: employeeId,
+ 
+         attendance_date: new Date(),
+ 
+         status:
+ 
+           checkIn >
+ 
+             employees.find(
+ 
+               (emp) =>
+ 
+                 emp.id === employeeId
+ 
+             )?.shifts?.start_time
+ 
+             ? "late"
+ 
+             : status,
+ 
+         check_in: checkIn,
+ 
+         check_out: checkOut,
+ 
+       }); */
 
       await createAttendance({
 
         employee_id: employeeId,
-        
+
         attendance_date: new Date(),
-        
+
         status:
-        
-        checkIn >
-        
-        employees.find(
-        
-        (emp)=>
-        
-        emp.id===employeeId
-        
-        )?.shifts?.start_time
-        
-        ? "late"
-        
-        : status,
-        
+
+          checkIn >
+
+            employees.find(
+
+              (emp) =>
+
+                emp.id === employeeId
+
+            )?.shifts?.start_time
+
+            ?
+
+            "late"
+
+            :
+
+            status,
+
         check_in: checkIn,
-        
+
         check_out: checkOut,
-        
-        });
+
+        worked_hours:
+
+          workedHours,
+
+        overtime_hours:
+
+          overtimeHours
+
+      });
 
       // Reset form
       setEmployeeId("");
