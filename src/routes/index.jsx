@@ -100,14 +100,31 @@ function AppRoutes() {
       />
 
       {/* Attendance page */}
-      <Route
+      {/* <Route
         path="/attendance"
         element={
           <ProtectedRoute>
             <AttendancePage />
           </ProtectedRoute>
         }
-      />
+      /> */}
+
+<Route
+path="/attendance"
+element={
+   <ProtectedRoute
+      allowedRoles={[
+         "admin",
+         "manager",
+         "employee",
+         "super_admin"
+      ]}
+      userRole={loggedInUser.role}
+   >
+      <AttendancePage />
+   </ProtectedRoute>
+}
+/>
 
       <Route
         path="/self-attendance"
@@ -126,16 +143,6 @@ function AppRoutes() {
           <AdminAttendancePage />
         }
       />
-
-      {/* <Route
-
-        path="/reports"
-
-        element={
-
-          <ReportsDashboardPage />
-        }
-      /> */}
 
 <Route
 
