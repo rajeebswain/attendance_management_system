@@ -34,8 +34,8 @@ function EmployeeForm({
 
   const [designation, setDesignation] = useState("");
 
-  const [shiftName, setShiftName] = useState("");
-
+  // const [shiftName, setShiftName] = useState("");
+  const [shiftId, setShiftId] = useState("");
 
   // Loading state
   const [loading, setLoading] = useState(false);
@@ -51,18 +51,32 @@ function EmployeeForm({
       setLoading(true);
 
       // Create employee
+      // await createEmployee({
+
+      //   employee_code: employeeCode,
+
+      //   full_name: fullName,
+
+      //   email,
+
+      //   designation,
+
+      //   shift_id: shiftName,
+      // });
+
       await createEmployee({
 
         employee_code: employeeCode,
-
+        
         full_name: fullName,
-
+        
         email,
-
+        
         designation,
-
-        shift_id: shiftName,
-      });
+        
+        shift_id: shiftId
+        
+        });
 
       // Clear form after success
       setEmployeeCode("");
@@ -73,7 +87,8 @@ function EmployeeForm({
 
       setDesignation("");
 
-      setShiftName("");
+      // setShiftName("");
+      setShiftId("");
 
       // Refresh employee list
       onEmployeeCreated();
@@ -139,7 +154,7 @@ function EmployeeForm({
             setDesignation(e.target.value)
           }
         />
-        <select
+        {/* <select
 
           value={shiftName}
 
@@ -155,7 +170,25 @@ function EmployeeForm({
 
           className="border p-2 rounded w-full"
 
-        >
+        > */}
+
+<select
+
+value={shiftId}
+
+onChange={(e)=>
+
+setShiftId(
+
+e.target.value
+
+)
+
+}
+
+className="border p-2 rounded w-full"
+
+>
 
           <option value="">
 
