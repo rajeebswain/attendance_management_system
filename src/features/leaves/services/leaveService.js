@@ -119,13 +119,59 @@ export async function updateLeaveStatus(
 
     /* Create attendance if approved */
 
+    /* if (
+ 
+         status === "approved"
+ 
+     ) {
+ 
+         const { error: attendanceError }
+ 
+             =
+ 
+             await supabase
+ 
+                 .from("attendance")
+ 
+                 .insert([{
+ 
+                     employee_id:
+ 
+                         leaveData.employee_id,
+ 
+                     attendance_date:
+ 
+                         leaveData.start_date,
+ 
+                     status:
+ 
+                         "leave"
+ 
+                 }]);
+ 
+ 
+         if (attendanceError) {
+ 
+             console.log(
+ 
+                 attendanceError
+ 
+             );
+ 
+         }
+ 
+     } */
     if (
-
         status === "approved"
-
     ) {
 
-        const { error: attendanceError }
+        /* Check if attendance already exists */
+
+        const {
+
+            data: existingAttendance
+
+        }
 
             =
 
@@ -133,35 +179,52 @@ export async function updateLeaveStatus(
 
                 .from("attendance")
 
+                .select("id")
+
+                .eq(
+
+                    "employee_id",
+
+                    leaveData.employee_id
+
+                )
+
+                .eq(
+
+                    "attendance_date",
+
+                    leaveData.start_date
+
+                )
+
+                .single();
+
+
+        /* Create only if none exists */
+
+        if (
+
+            !existingAttendance
+
+        ) {
+
+            await supabase
+
+                .from("attendance")
+
                 .insert([{
 
-                    employee_id:
+                    employee_id: leaveData.employee_id,
 
-                        leaveData.employee_id,
+                    attendance_date: leaveData.start_date,
 
-                    attendance_date:
-
-                        leaveData.start_date,
-
-                    status:
-
-                        "leave"
+                    status: "leave"
 
                 }]);
-
-
-        if (attendanceError) {
-
-            console.log(
-
-                attendanceError
-
-            );
 
         }
 
     }
-
 }
 
 
