@@ -21,6 +21,8 @@ function EmployeeForm({
 
   onEmployeeCreated,
 
+  shifts
+
 }) {
 
   // Form state
@@ -137,7 +139,55 @@ function EmployeeForm({
             setDesignation(e.target.value)
           }
         />
+        <select
 
+          value={shiftName}
+
+          onChange={(e) =>
+
+            setShiftName(
+
+              e.target.value
+
+            )
+
+          }
+
+          className="border p-2 rounded w-full"
+
+        >
+
+          <option value="">
+
+            Select Shift
+
+          </option>
+
+          {
+
+            shifts?.map(
+
+              (shift) => (
+
+                <option
+
+                  key={shift.id}
+
+                  value={shift.shift_name}
+
+                >
+
+                  {shift.shift_name}
+
+                </option>
+
+              )
+
+            )
+
+          }
+
+        </select>
         <Input
           placeholder="Shift Name"
           value={shiftName}

@@ -94,3 +94,18 @@ export async function deleteEmployee(employeeId) {
     throw error;
   }
 }
+
+{/*Fetch all shifts from Supabase.*/}
+export const getShifts = async () => {
+
+  const { data, error } = await supabase
+  
+  .from("shifts")
+  
+  .select("*");
+  
+  if (error) throw error;
+  
+  return data;
+  
+  };

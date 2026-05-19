@@ -27,6 +27,16 @@ import {
   } from "../services/employeeService";
   
   
+
+  import {
+
+    getShifts
+    
+    }
+    
+    from "../services/employeeService";
+
+
   function EmployeesPage() {
   
     // Employee list state
@@ -37,6 +47,15 @@ import {
     const [loading, setLoading] = useState(true);
   
   
+    // Shift list state
+const [
+
+  shifts,
+  
+  setShifts
+  
+  ] = useState([]);
+
     // Fetch employee list
     async function fetchEmployees() {
   
@@ -58,6 +77,26 @@ import {
       }
     }
   
+/* Load shifts from database */
+async function loadShifts() {
+
+  try {
+
+    const data =
+
+    await getShifts();
+
+    setShifts(data);
+
+  }
+
+  catch(error){
+
+    console.log(error);
+
+  }
+
+}
   
     // Delete employee
     async function handleDelete(employeeId) {
@@ -79,6 +118,10 @@ import {
     useEffect(() => {
   
       fetchEmployees();
+
+      loadShifts();
+
+      
   
     }, []);
   
@@ -91,6 +134,7 @@ import {
   
           <EmployeeForm
             onEmployeeCreated={fetchEmployees}
+            shifts={shifts}
           />
   
           {loading ? (
