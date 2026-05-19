@@ -83,7 +83,7 @@ function AppRoutes() {
       />
 
       {/* Admin-only employees page */}
-      <Route
+      {/* <Route
         path="/employees"
         element={
           <ProtectedRoute>
@@ -97,7 +97,31 @@ function AppRoutes() {
             </RoleGuard>
           </ProtectedRoute>
         }
-      />
+      /> */}
+
+<Route
+path="/employees"
+element={
+
+<ProtectedRoute
+
+allowedRoles={[
+
+"admin",
+"super_admin"
+
+]}
+
+userRole={loggedInUser.role}
+
+>
+
+<EmployeesPage />
+
+</ProtectedRoute>
+
+}
+/>
 
       {/* Attendance page */}
       {/* <Route
