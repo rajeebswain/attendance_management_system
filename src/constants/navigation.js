@@ -9,7 +9,7 @@ export const SIDEBAR_LINKS = [
   
     {
       label: "Employees",
-      path: "/Employees",
+      path: "/employees",
     },
   
     {
