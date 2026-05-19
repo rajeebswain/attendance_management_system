@@ -48,7 +48,9 @@ function AttendanceForm({
   // Loading state
   const [loading, setLoading] = useState(false);
 
-
+  //Setting the holidayes
+  const [holidays, setHolidays] = useState([]);
+  
   // Fetch employees on component load
   /*useEffect(() => {
 
