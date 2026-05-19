@@ -1,6 +1,6 @@
 const loggedInUser = {
 
-  role: "employee"
+  role: "admin"
 
 };
 
