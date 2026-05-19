@@ -177,14 +177,42 @@ element={
 
 />
 
-<Route
+{/* <Route
 path="/leave"
 element={
 <ProtectedRoute>
 <LeaveForm />
 </ProtectedRoute>
 }
+/>  */}
+
+<Route
+path="/leave"
+element={
+<ProtectedRoute
+
+allowedRoles={[
+
+"admin",
+
+"employee",
+
+"manager",
+
+"super_admin"
+
+]}
+
+userRole={loggedInUser.role}
+
+>
+
+<LeaveForm />
+
+</ProtectedRoute>
+}
 />
+
     </Routes>
   );
 }
