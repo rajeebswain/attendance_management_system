@@ -87,100 +87,100 @@ import {
       }
     );
   
-    /*Create late-checking function.*/
+    // /*Create late-checking function.*/
 
-    function calculateAttendanceStatus(
+    // function calculateAttendanceStatus(
 
-      employee,
+    //   employee,
       
-      checkInTime
+    //   checkInTime
       
-      ){
+    //   ){
       
-      if(
+    //   if(
       
-      !employee.shifts
+    //   !employee.shifts
       
-      )
+    //   )
       
-      return "Present";
-      
-      
-      const shiftStart =
-      
-      employee.shifts.start_time;
+    //   return "Present";
       
       
-      const graceMinutes =
+    //   const shiftStart =
       
-      employee.shifts.grace_minutes || 0;
-      
-      
-      // Convert time values
-      const shiftDate = new Date();
-      
-      const checkDate = new Date();
+    //   employee.shifts.start_time;
       
       
-      const [
+    //   const graceMinutes =
       
-      hour,
-      
-      minute
-      
-      ] = shiftStart.split(":");
+    //   employee.shifts.grace_minutes || 0;
       
       
-      shiftDate.setHours(
+    //   // Convert time values
+    //   const shiftDate = new Date();
       
-      parseInt(hour),
-      
-      parseInt(minute)+graceMinutes,
-      
-      0
-      
-      );
+    //   const checkDate = new Date();
       
       
-      // User checkin
-      const [
+    //   const [
       
-      checkHour,
+    //   hour,
       
-      checkMinute
+    //   minute
       
-      ]
-      
-      =
-      
-      checkInTime.split(":");
+    //   ] = shiftStart.split(":");
       
       
-      checkDate.setHours(
+    //   shiftDate.setHours(
       
-      parseInt(checkHour),
+    //   parseInt(hour),
       
-      parseInt(checkMinute),
+    //   parseInt(minute)+graceMinutes,
       
-      0
+    //   0
       
-      );
-      
-      
-      if(
-      
-      checkDate > shiftDate
-      
-      ){
-      
-      return "Late";
-      
-      }
+    //   );
       
       
-      return "Present";
+    //   // User checkin
+    //   const [
       
-      }
+    //   checkHour,
+      
+    //   checkMinute
+      
+    //   ]
+      
+    //   =
+      
+    //   checkInTime.split(":");
+      
+      
+    //   checkDate.setHours(
+      
+    //   parseInt(checkHour),
+      
+    //   parseInt(checkMinute),
+      
+    //   0
+      
+    //   );
+      
+      
+    //   if(
+      
+    //   checkDate > shiftDate
+      
+    //   ){
+      
+    //   return "Late";
+      
+    //   }
+      
+      
+    //   return "Present";
+      
+    //   }
   
     return (
   
