@@ -22,7 +22,7 @@ import SignupPage from "../features/auth/pages/SignupPage";
 
 
 // Protected Route
-import ProtectedRoute from "../features/auth/components/ProtectedRoute";
+// import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 
 
 // Pages
