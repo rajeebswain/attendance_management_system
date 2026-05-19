@@ -49,6 +49,8 @@ import ReportsDashboardPage from "../features/reports/pages/ReportsDashboardPage
 
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 
+import LeaveForm from "../features/leaves/components/LeaveForm";
+
 import { ROLES } from "../constants/roles";
 
 function AppRoutes() {
@@ -83,24 +85,6 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-
-      {/* Admin-only employees page */}
-      {/* <Route
-        path="/employees"
-        element={
-          <ProtectedRoute>
-            <RoleGuard
-              allowedRoles={[
-                "admin",
-                "super_admin",
-              ]}
-            >
-              <EmployeesPage />
-            </RoleGuard>
-          </ProtectedRoute>
-        }
-      /> */}
-
 <Route
 path="/employees"
 element={
@@ -125,15 +109,6 @@ userRole={loggedInUser.role}
 }
 />
 
-      {/* Attendance page */}
-      {/* <Route
-        path="/attendance"
-        element={
-          <ProtectedRoute>
-            <AttendancePage />
-          </ProtectedRoute>
-        }
-      /> */}
 
 <Route
 path="/attendance"
@@ -200,6 +175,15 @@ element={
 
 }
 
+/>
+
+<Route
+path="/leave"
+element={
+<ProtectedRoute>
+<LeaveForm />
+</ProtectedRoute>
+}
 />
     </Routes>
   );
