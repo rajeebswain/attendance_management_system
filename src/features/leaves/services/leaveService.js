@@ -161,70 +161,74 @@ export async function updateLeaveStatus(
          }
  
      } */
-    if (
-        status === "approved"
-    ) {
-
-        /* Check if attendance already exists */
+     if(status==="approved"){
 
         const {
-
-            data: existingAttendance
-
+        
+        data: existingAttendance,
+        
+        error
+        
+        }
+        
+        =
+        
+        await supabase
+        
+        .from("attendance")
+        
+        .select("id")
+        
+        .eq(
+        
+        "employee_id",
+        
+        leaveData.employee_id
+        
+        )
+        
+        .eq(
+        
+        "attendance_date",
+        
+        leaveData.start_date
+        
+        );
+        
+        
+        /* Create attendance only if none exists */
+        
+        if(
+        
+        !existingAttendance ||
+        
+        existingAttendance.length===0
+        
+        ){
+        
+        await supabase
+        
+        .from("attendance")
+        
+        .insert([{
+        
+        employee_id:
+        
+        leaveData.employee_id,
+        
+        attendance_date:
+        
+        leaveData.start_date,
+        
+        status:"leave"
+        
+        }]);
+        
+        }
+        
         }
 
-            =
-
-            await supabase
-
-                .from("attendance")
-
-                .select("id")
-
-                .eq(
-
-                    "employee_id",
-
-                    leaveData.employee_id
-
-                )
-
-                .eq(
-
-                    "attendance_date",
-
-                    leaveData.start_date
-
-                )
-
-                .single();
-
-
-        /* Create only if none exists */
-
-        if (
-
-            !existingAttendance
-
-        ) {
-
-            await supabase
-
-                .from("attendance")
-
-                .insert([{
-
-                    employee_id: leaveData.employee_id,
-
-                    attendance_date: leaveData.start_date,
-
-                    status: "leave"
-
-                }]);
-
-        }
-
-    }
+     
 }
 
 
