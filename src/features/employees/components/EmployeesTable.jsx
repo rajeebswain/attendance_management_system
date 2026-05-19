@@ -81,13 +81,33 @@ function EmployeesTable({
 
               <td className="p-4">
 
-                <Button
+                {/* <Button
                   variant="danger"
                   onClick={() =>
                     onDelete(employee.id)
                   }
                 >
                   Delete
+                </Button> */}
+
+                <Button
+                  onClick={() => {
+
+                    const confirmDelete = window.confirm(
+                      "Are you sure you want to delete this employee?"
+                    );
+
+                    if (confirmDelete) {
+
+                      onDelete(employee.id);
+
+                    }
+
+                  }}
+                >
+
+                  Delete
+
                 </Button>
 
               </td>
