@@ -106,7 +106,7 @@ function AttendanceForm({
 
   }
 
-  {/*Checkout Handle Function*/ }
+  // Checkout Handle Function
 
   function handleCheckOut() {
 
@@ -181,7 +181,7 @@ function AttendanceForm({
     );
 
 
-    {/*Over Time Calculation*/ }
+    // Over Time Calculation
     const overtime =
 
       hours > 8
@@ -253,7 +253,7 @@ function AttendanceForm({
   }, []);
 
 
-  {/*Calculate Attendance Function*/ }
+  // Calculate Attendance Function
 
   function calculateAttendanceStatus(
 
@@ -329,63 +329,63 @@ function AttendanceForm({
 
   }
 
-  {/*Request Function*/ }
+  // Request Function
 
-  // async function handleCorrectionRequest() {
+  async function handleCorrectionRequest() {
 
-  //   const userReason =
+    const userReason =
 
-  //     window.prompt(
+      window.prompt(
 
-  //       "Enter correction reason"
+        "Enter correction reason"
 
-  //     );
-
-
-  //   if (
-
-  //     !userReason) {
-
-  //     return;
-
-  //   }
+      );
 
 
-  //   try {
+    if (
 
-  //     await createCorrectionRequest({
+      !userReason) {
 
-  //       /*attendance_id:
+      return;
 
-  //     attendanceRecord?.id,*/
-
-  //       employee_id:
-
-  //         employeeId,
-
-  //       reason:
-
-  //         userReason
-
-  //     });
+    }
 
 
-  //     alert(
+    try {
 
-  //       "Correction request submitted"
+      await createCorrectionRequest({
 
-  //     );
+        /*attendance_id:
 
-  //   }
+      attendanceRecord?.id,*/
 
-  //   catch (error) {
+        employee_id:
 
-  //     console.log(error);
+          employeeId,
 
-  //     alert(error.message);
+        reason:
 
-  //   }
-  // }
+          userReason
+
+      });
+
+
+      alert(
+
+        "Correction request submitted"
+
+      );
+
+    }
+
+    catch (error) {
+
+      console.log(error);
+
+      alert(error.message);
+
+    }
+  }
 
 
   // Handle attendance form submit
