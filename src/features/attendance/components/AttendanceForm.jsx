@@ -556,7 +556,7 @@ Worked: ${hours.toFixed(2)} hrs`
       setLoading(false);
     }
 
-
+  }
     return (
 
       <Card>
