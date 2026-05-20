@@ -48,7 +48,7 @@ function AttendanceForm({
 
   const [checkOutTime, setCheckOutTime] = useState(null);
 
-  const [workedHours,setWorkedHours] = useState(0);
+  const [workedHours, setWorkedHours] = useState(0);
 
 
   // Loading state
@@ -68,140 +68,88 @@ function AttendanceForm({
 
   }
 
-{/*Checkout Handle Function*/}
+  {/*Checkout Handle Function*/ }
 
-function handleCheckOut(){
+  function handleCheckOut() {
 
-  if(
-  
-  !checkInTime
-  
-  ){
-  
-  alert(
-  
-  "Please check in first"
-  
-  );
-  
-  return;
-  
-  }
-  
-  
-  const now = new Date();
-  
-  
-  const workedMilliseconds =
-  
-  now -
-  
-  new Date(
-  
-  checkInTime
-  
-  );
-  
-  
-  const hours =
-  
-  workedMilliseconds /
-  
-  (1000*60*60);
-  
-  
-  if(
-  
-  hours < 8
-  
-  ){
-  
-  const confirmCheckout=
-  
-  window.confirm(
-  
-  `Employee worked only ${hours.toFixed(2)} hours. Continue?`
-  
-  );
-  
-  
-  if(
-  
-  !confirmCheckout){
-  
-  return;
-  
-  }
-  
-  }
-  
-  
-  setWorkedHours(
-  
-  hours.toFixed(2)
-  
-  );
-  
-  
-  setCheckOutTime(
-  
-  now
-  
-  );
-  
-  }
+    if (
+
+      !checkInTime
+
+    ) {
+
+      alert(
+
+        "Please check in first"
+
+      );
+
+      return;
+
+    }
 
 
+    const now = new Date();
 
-  {/*
-  function handleCheckOut(){
 
-    if(
-    !checkInTime
-    ){
-    
-    alert(
-    "Please check in first"
+    const workedMilliseconds =
+
+      now -
+
+      new Date(
+
+        checkInTime
+
+      );
+
+
+    const hours =
+
+      workedMilliseconds /
+
+      (1000 * 60 * 60);
+
+
+    if (
+
+      hours < 8
+
+    ) {
+
+      const confirmCheckout =
+
+        window.confirm(
+
+          `Employee worked only ${hours.toFixed(2)} hours. Continue?`
+
+        );
+
+
+      if (
+
+        !confirmCheckout) {
+
+        return;
+
+      }
+
+    }
+
+
+    setWorkedHours(
+
+      hours.toFixed(2)
+
     );
-    
-    return;
-    
-    }
-    
-    const now =
-    new Date();
-    
-    const workedHours =
-    (
-    now -
-    new Date(checkInTime)
-    )
-    /
-    (1000*60*60);
-    
-    if(
-    workedHours < 8
-    ){
-    
-    const confirmCheckout =
-    window.confirm(
-    `Employee worked only ${workedHours.toFixed(2)} hours. Continue checkout?`
+
+
+    setCheckOutTime(
+
+      now
+
     );
-    
-    if(
-    !confirmCheckout
-    ){
-    return;
-    }
-    
-    }
-    
-    setCheckOutTime(now);
-    
-    }
 
-  */}
-
+  }
 
 
   useEffect(() => {
@@ -406,30 +354,6 @@ function handleCheckOut(){
 
   // Handle attendance form submit
   async function handleSubmit(event) {
-
-    {/*Automati cTime and Date Capture Function*/ }
-
-    {/*function handleCheckIn() {
-
-      setCheckInTime(
-
-        new Date()
-
-      );
-
-    }
-
-
-    function handleCheckOut() {
-
-      setCheckOutTime(
-
-        new Date()
-
-      );
-
-    } */}
-
 
     /*Adding Attendace for unassigned employee */
 
@@ -856,23 +780,23 @@ p-3
 
         )}
 
-{workedHours>0 && (
+        {workedHours > 0 && (
 
-<div className="mt-2">
+          <div className="mt-2">
 
-Worked Hours:
+            Worked Hours:
 
-{
+            {
 
-workedHours
+              workedHours
 
-}
+            }
 
-hrs
+            hrs
 
-</div>
+          </div>
 
-)}
+        )}
 
 
         <Button type="submit">
