@@ -420,23 +420,23 @@ function AttendanceForm({
 
       setLoading(true);
 
-      /* Calculate work hours */
+      // /* Calculate work hours */
 
-      {/*  const checkInDate =
+      // {/*  const checkInDate =
 
-        new Date(
+      //   new Date(
 
-          `2000-01-01 ${checkIn}`
+      //     `2000-01-01 ${checkIn}`
 
-        );
+      //   );
 
-      const checkOutDate =
+      // const checkOutDate =
 
-        new Date(
+      //   new Date(
 
-          `2000-01-01 ${checkOut}`
+      //     `2000-01-01 ${checkOut}`
 
-        );*/}
+      //   );*/}
 
       const checkInDate =
         new Date(checkInTime);
@@ -753,7 +753,7 @@ p-3
 
             Check In
 
-           </Button>
+          </Button>
 
           <Button
 
@@ -784,7 +784,7 @@ p-3
         </div>
 
 
-        {/* Show captured times */}
+         {/* Show captured times */}
 
         {checkInTime && (
 
@@ -871,21 +871,17 @@ p-3
 
         </Button> */}
 
-{/* <button
-type="submit"
-className="px-4 py-2 bg-blue-600 text-white rounded"
->
+        <button
+          type="submit"
+          className="px-4 py-2 bg-blue-600 text-white rounded"
+        >
 
-{loading
-? "Saving..."
-: "Mark Attendance"}
+          {loading
+            ? "Saving..."
+            : "Mark Attendance"}
 
-</button> */}
+        </button>
 
-<Button
-type="submit"
->
-</Button>
 
       </form>
 
