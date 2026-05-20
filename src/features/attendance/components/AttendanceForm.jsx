@@ -443,6 +443,8 @@ function AttendanceForm({
       setCheckIn("");
 
       setCheckOut("");
+      
+      setEarlyReason("");
 
       // Refresh attendance list
       onAttendanceCreated();
