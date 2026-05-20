@@ -23,7 +23,7 @@ function AttendanceTable({
           <tr>
 
             <th className="p-4 text-left">
-              Employee
+              Employees
             </th>
 
             <th className="p-4 text-left">
@@ -44,6 +44,14 @@ function AttendanceTable({
 
             <th className="p-4 text-left">
               Check Out
+            </th>
+
+            <th className="p-4 text-left">
+            Worked Hours
+            </th>
+
+            <th className="p-4 text-left">
+            Overtime
             </th>
 
           </tr>
@@ -85,19 +93,7 @@ function AttendanceTable({
 
               </td>
 
-              {/* <td className="p-4">
-  
-                  {record.check_in}
-  
-                </td>
-  
-                <td className="p-4">
-  
-                  {record.check_out}
-  
-                </td> */}
-
-              <td>
+                      <td>
 
                 {record.check_in_datetime
                   ? new Date(
@@ -117,6 +113,19 @@ function AttendanceTable({
                   : "-"}
 
               </td>
+
+              <td className="p-4">
+
+{record.worked_hours || 0} hrs
+
+</td>
+
+
+<td className="p-4">
+
+{record.overtime_hours || 0} hrs
+
+</td>
 
             </tr>
 
