@@ -534,6 +534,20 @@ Worked: ${hours.toFixed(2)} hrs`
 
       alert("Attendance marked successfully");
 
+
+      setCheckInTime(null);
+
+      setCheckOutTime(null);
+
+      setWorkedHours(0);
+
+      setOvertimeHours(0);
+
+      setEmployeeId("");
+
+      setStatus("present");
+
+
     } catch (error) {
 
       if (
@@ -709,7 +723,7 @@ p-3
 
             onClick={handleCheckIn}
 
-            disabled={!!checkInTime}
+            disabled={!!checkInTime && !checkOutTime}
 
           >
 
@@ -816,6 +830,11 @@ p-3
         <Button
           type="submit"
           className="px-4 py-2 bg-blue-600 text-white rounded"
+          disabled={
+            !checkInTime ||
+            !checkOutTime ||
+            loading
+          }
         >
 
           {loading
