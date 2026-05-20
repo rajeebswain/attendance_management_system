@@ -54,6 +54,12 @@ function AttendanceTable({
               Overtime
             </th>
 
+            <th className="p-4 text-left">
+
+              Actions
+
+            </th>
+
           </tr>
 
         </thead>
@@ -111,33 +117,6 @@ function AttendanceTable({
 
               </td>
 
-              {/* 
-              <td>
-
-                {record.check_out_datetime
-                  ? new Date(
-                    record.check_out_datetime
-                  ).toLocaleTimeString()
-                  : "-"}
-
-              </td> */}
-
-              {/* <td className="p-4">
-
-                {Number(
-                  record.worked_hours || 0
-                ).toFixed(2)} hrs
-
-              </td>
-
-              <td className="p-4">
-
-                {Number(
-                  record.overtime_hours || 0
-                ).toFixed(2)} hrs
-
-              </td> */}
-
               <td className="p-4">
 
                 {record.check_out_datetime
@@ -178,6 +157,28 @@ function AttendanceTable({
                 )
                   .toISOString()
                   .slice(11, 19)}
+
+              </td>
+
+              <td className="p-4">
+
+                <Button
+
+                  onClick={() =>
+
+                    handleCorrectionRequest(
+
+                      record
+
+                    )
+
+                  }
+
+                >
+
+                  Request Correction
+
+                </Button>
 
               </td>
 

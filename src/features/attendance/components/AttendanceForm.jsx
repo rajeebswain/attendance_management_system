@@ -24,6 +24,16 @@ import {
 
 } from "../services/attendanceService";
 
+import {
+
+  createCorrectionRequest
+
+}
+
+  from
+
+  "../attendancecorrection/services/correctionService";
+
 
 function AttendanceForm({
 
@@ -58,6 +68,31 @@ function AttendanceForm({
 
   //Setting the holidayes
   const [holidays, setHolidays] = useState([]);
+
+  const [
+
+    selectedAttendance,
+
+    setSelectedAttendance
+
+  ]
+
+    =
+
+    useState(null);
+
+
+  const [
+
+    reason,
+
+    setReason
+
+  ]
+
+    =
+
+    useState("");
 
 
   function handleCheckIn() {
@@ -162,7 +197,7 @@ function AttendanceForm({
     setOvertimeHours(
 
       Number(
-      overtime.toFixed(2)
+        overtime.toFixed(2)
       )
 
     );
@@ -293,87 +328,63 @@ function AttendanceForm({
 
   }
 
+  {/*Request Function*/ }
 
-  {/*
-  function calculateAttendanceStatus(
+  async function handleCorrectionRequest() {
 
-    employee,
-    
-    checkInTime
-    
-    ){
-    
-    if(
-    
-    !employee?.shifts ||
-    
-    !checkInTime
-    
-    ){
-    
-    return status;
-    
+    const userReason =
+
+      window.prompt(
+
+        "Enter correction reason"
+
+      );
+
+
+    if (
+
+      !userReason) {
+
+      return;
+
     }
-    
-    
-    const shiftStart =
-    
-    employee.shifts.start_time;
-    
-    
-    const graceMinutes =
-    
-    employee.shifts.grace_minutes || 0;
-    
-    
-    const shiftDate =
-    
-    new Date();
-    
-    
-    const [
-    
-    hour,
-    
-    minute
-    
-    ]
-    
-    =
-    
-    shiftStart.split(":");
-    
-    
-    shiftDate.setHours(
-    
-    parseInt(hour),
-    
-    parseInt(minute)+graceMinutes,
-    
-    0
-    
-    );
-    
-    
-    if(
-    
-    new Date(checkInTime)
-    
-    >
-    
-    shiftDate
-    
-    ){
-    
-    return "late";
-    
+
+
+    try {
+
+      await createCorrectionRequest({
+
+        attendance_id:
+
+          attendanceRecord?.id,
+
+        employee_id:
+
+          employeeId,
+
+        reason:
+
+          userReason
+
+      });
+
+
+      alert(
+
+        "Correction request submitted"
+
+      );
+
     }
-    
-    
-    return "present";
-    
+
+    catch (error) {
+
+      console.log(error);
+
+      alert(error.message);
+
     }
-  */}
+  }
 
 
   // Handle attendance form submit
@@ -755,6 +766,19 @@ p-3
           >
 
             Check Out
+
+          </Button>
+
+
+          <Button
+
+            type="button"
+
+            onClick={handleCorrectionRequest}
+
+          >
+
+            Request Correction
 
           </Button>
 
