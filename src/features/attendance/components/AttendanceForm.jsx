@@ -25,15 +25,15 @@ import {
 
 } from "../services/attendanceService";
 
-import {
+// import {
 
-  createCorrectionRequest
+//   createCorrectionRequest
 
-}
+// }
 
-  from
+//   from
 
-  "../../attendance-correction/services/correctionService";
+//   "../../attendance-correction/services/correctionService";
 
 
 function AttendanceForm({
@@ -331,61 +331,61 @@ function AttendanceForm({
 
   // Request Function
 
-  async function handleCorrectionRequest() {
+  // async function handleCorrectionRequest() {
 
-    const userReason =
+  //   const userReason =
 
-      window.prompt(
+  //     window.prompt(
 
-        "Enter correction reason"
+  //       "Enter correction reason"
 
-      );
-
-
-    if (
-
-      !userReason) {
-
-      return;
-
-    }
+  //     );
 
 
-    try {
+  //   if (
 
-      await createCorrectionRequest({
+  //     !userReason) {
 
-        /*attendance_id:
+  //     return;
 
-      attendanceRecord?.id,*/
-
-        employee_id:
-
-          employeeId,
-
-        reason:
-
-          userReason
-
-      });
+  //   }
 
 
-      alert(
+  //   try {
 
-        "Correction request submitted"
+  //     await createCorrectionRequest({
 
-      );
+  //       /*attendance_id:
 
-    }
+  //     attendanceRecord?.id,*/
 
-    catch (error) {
+  //       employee_id:
 
-      console.log(error);
+  //         employeeId,
 
-      alert(error.message);
+  //       reason:
 
-    }
-  }
+  //         userReason
+
+  //     });
+
+
+  //     alert(
+
+  //       "Correction request submitted"
+
+  //     );
+
+  //   }
+
+  //   catch (error) {
+
+  //     console.log(error);
+
+  //     alert(error.message);
+
+  //   }
+  // }
 
 
   // Handle attendance form submit
@@ -738,19 +738,7 @@ p-3
 
           </Button>
 
-          <Button
-
-            type="button"
-
-            onClick={handleCorrectionRequest}
-
-          >
-
-            Request Correction
-
-          </Button>
-
-        </div>
+          </div>
 
 
          {/* Show captured times */}
