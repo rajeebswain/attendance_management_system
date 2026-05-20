@@ -329,64 +329,6 @@ function AttendanceForm({
 
   }
 
-  // Request Function
-
-  // async function handleCorrectionRequest() {
-
-  //   const userReason =
-
-  //     window.prompt(
-
-  //       "Enter correction reason"
-
-  //     );
-
-
-  //   if (
-
-  //     !userReason) {
-
-  //     return;
-
-  //   }
-
-
-  //   try {
-
-  //     await createCorrectionRequest({
-
-  //       /*attendance_id:
-
-  //     attendanceRecord?.id,*/
-
-  //       employee_id:
-
-  //         employeeId,
-
-  //       reason:
-
-  //         userReason
-
-  //     });
-
-
-  //     alert(
-
-  //       "Correction request submitted"
-
-  //     );
-
-  //   }
-
-  //   catch (error) {
-
-  //     console.log(error);
-
-  //     alert(error.message);
-
-  //   }
-  // }
-
 
   // Handle attendance form submit
   async function handleSubmit(event) {
