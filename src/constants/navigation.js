@@ -28,7 +28,7 @@ export const SIDEBAR_LINKS = [
     },
 
     {
-      label:"Reports",
-      path:"/reports"
+      label:"Reports  & Analytics",
+      path:"/analytics"
       },
   ];
