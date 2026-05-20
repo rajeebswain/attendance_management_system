@@ -47,11 +47,11 @@ function AttendanceTable({
             </th>
 
             <th className="p-4 text-left">
-            Worked Hours
+              Worked Hours
             </th>
 
             <th className="p-4 text-left">
-            Overtime
+              Overtime
             </th>
 
           </tr>
@@ -93,7 +93,7 @@ function AttendanceTable({
 
               </td>
 
-                      <td>
+              <td>
 
                 {record.check_in_datetime
                   ? new Date(
@@ -116,16 +116,24 @@ function AttendanceTable({
 
               <td className="p-4">
 
-{record.worked_hours || 0} hrs
+                {record.worked_hours || 0} hrs
 
-</td>
+              </td>
 
 
-<td className="p-4">
+              {/* <td className="p-4">
 
-{record.overtime_hours || 0} hrs
+                {record.overtime_hours || 0} hrs
 
-</td>
+              </td> */}
+
+              <td className="p-4">
+
+                {Number(
+                  record.overtime_hours || 0
+                ).toFixed(2)} hrs
+
+              </td>
 
             </tr>
 
