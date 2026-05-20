@@ -89,15 +89,15 @@ function AttendanceTable({
 
               </td>
 
-              <td className="p-4 capitalize">
+              {/* <td className="p-4 capitalize">
 
                 {record.status}
 
-              </td>
+              </td> */}
 
-              {/* <td className="p-4">
+              <td className="p-4">
 
-                <span className={`
+<span className={`
 
 px-2
 py-1
@@ -105,28 +105,26 @@ rounded
 text-white
 capitalize
 
-${record.status === "present"
+${
+record.status==="present"
+? "bg-green-500"
 
-                    ? "bg-green-500"
+:record.status==="late"
+? "bg-yellow-500"
 
-                    : record.status === "late"
+:record.status==="leave"
+? "bg-blue-500"
 
-                      ? "bg-yellow-500"
-
-                      : record.status === "leave"
-
-                        ? "bg-blue-500"
-
-                        : "bg-red-500"
-                  }
+:"bg-red-500"
+}
 
 `}>
 
-                  {record.status}
+{record.status}
 
-                </span>
+</span>
 
-              </td> */}
+</td>
 
               <td>
 
