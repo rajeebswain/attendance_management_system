@@ -8,9 +8,12 @@ import {
 
 
 // Reusable UI components
-import Button from "../../../components/ui/Button";
+// import Button from "../../../components/ui/Button";
 
-import Card from "../../../components/ui/Card";
+// import Card from "../../../components/ui/Card";
+
+import Button from "../../components/ui/Button";
+import Card from "../../components/ui/Card";
 
 
 // Attendance services
@@ -761,7 +764,7 @@ className="px-4 py-2 bg-blue-600 text-white rounded"
 >
 Check In
 </button>
-          <Button
+          {/* <Button
 
             type="button"
 
@@ -773,9 +776,16 @@ Check In
 
             Check Out
 
-          </Button>
+          </Button> */}
 
-
+<button
+type="button"
+onClick={handleCheckOut}
+disabled={!checkInTime}
+className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+>
+Check Out
+</button>
           {/* <Button
 
             type="button"
@@ -870,13 +880,24 @@ Check In
         )}
 
 
-        <Button type="submit">
+        {/* <Button type="submit">
 
           {loading
             ? "Saving..."
             : "Mark Attendance"}
 
-        </Button>
+        </Button> */}
+
+<button
+type="submit"
+className="px-4 py-2 bg-blue-600 text-white rounded"
+>
+
+{loading
+? "Saving..."
+: "Mark Attendance"}
+
+</button>
 
       </form>
 
