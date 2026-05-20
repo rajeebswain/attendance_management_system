@@ -79,6 +79,10 @@ mb-4
               Overtime
             </th>
 
+            <th className="p-4 text-left">
+              Reason
+            </th>
+
 
           </tr>
 
@@ -205,18 +209,6 @@ ${record.status === "present"
 
                   </td>
 
-                  {/* <td className="p-4">
-
-                {new Date(
-                  Number(record.worked_hours || 0)
-                  * 60 * 60 * 1000
-                )
-                  .toISOString()
-                  .slice(11, 19)}
-
-              </td> */}
-
-
                   <td className="p-4">
 
                     {record.worked_hours
@@ -232,17 +224,6 @@ ${record.status === "present"
 
                   </td>
 
-                  {/* <td className="p-4">
-
-                {new Date(
-                  Number(record.overtime_hours || 0)
-                  * 60 * 60 * 1000
-                )
-                  .toISOString()
-                  .slice(11, 19)}
-
-              </td> */}
-
                   <td className="p-4">
 
                     {record.overtime_hours
@@ -255,6 +236,12 @@ ${record.status === "present"
                         .slice(11, 19)
 
                       : "00:00:00"}
+
+                  </td>
+
+                  <td className="p-4">
+
+                    {record.early_checkout_reason || "-"}
 
                   </td>
 
