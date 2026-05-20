@@ -1,6 +1,6 @@
 import { supabase }
 
-from "../../lib/supabase/client";
+from "../../../lib/supabase/client";
 
 
 export async function createCorrectionRequest(
