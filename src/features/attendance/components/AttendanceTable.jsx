@@ -113,19 +113,28 @@ function AttendanceTable({
                   : "-"}
 
               </td>
-
+              {/* 
               <td className="p-4">
 
                 {record.worked_hours || 0} hrs
 
               </td>
+            
 
+              <td className="p-4">
 
-              {/* <td className="p-4">
-
-                {record.overtime_hours || 0} hrs
+                {Number(
+                  record.overtime_hours || 0
+                ).toFixed(2)} hrs
 
               </td> */}
+              <td className="p-4">
+
+                {Number(
+                  record.worked_hours || 0
+                ).toFixed(2)} hrs
+
+              </td>
 
               <td className="p-4">
 

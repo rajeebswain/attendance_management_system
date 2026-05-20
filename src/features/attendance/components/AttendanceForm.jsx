@@ -161,7 +161,9 @@ function AttendanceForm({
 
     setOvertimeHours(
 
+      Number(
       overtime.toFixed(2)
+      )
 
     );
 
