@@ -419,25 +419,6 @@ function AttendanceForm({
     try {
 
       setLoading(true);
-
-      // /* Calculate work hours */
-
-      // {/*  const checkInDate =
-
-      //   new Date(
-
-      //     `2000-01-01 ${checkIn}`
-
-      //   );
-
-      // const checkOutDate =
-
-      //   new Date(
-
-      //     `2000-01-01 ${checkOut}`
-
-      //   );*/}
-
       const checkInDate =
         new Date(checkInTime);
 
@@ -616,19 +597,7 @@ function AttendanceForm({
       >
 
         {/* Employee selection */}
-        {/* <select
-            value={employeeId}
-            onChange={(e) =>
-              setEmployeeId(e.target.value)
-            }
-            className="
-              w-full
-              border
-              rounded
-              p-3
-            "
-          > */}
-
+       
         <select
           value={employeeId}
 
@@ -862,14 +831,6 @@ p-3
 
         )}
 
-
-        {/* <Button type="submit">
-
-          {loading
-            ? "Saving..."
-            : "Mark Attendance"}
-
-        </Button> */}
 
         <button
           type="submit"
