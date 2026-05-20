@@ -32,7 +32,7 @@ import {
 
   from
 
-  "../attendancecorrection/services/correctionService";
+  "../../attendancecorrection/services/correctionService";
 
 
 function AttendanceForm({
