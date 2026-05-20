@@ -73,7 +73,7 @@ function AttendanceForm({
   //Setting the holidayes
   const [holidays, setHolidays] = useState([]);
 
-  const [search, setSearch] = useState("");
+ 
 
   function handleCheckIn() {
 
