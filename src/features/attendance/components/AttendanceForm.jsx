@@ -7,17 +7,17 @@ import {
 } from "react";
 
 // Time & Date format
-function formatDuration(hours){
+function formatDuration(hours) {
 
-  const h=Math.floor(hours);
-  
-  const m=Math.floor(
-  (hours-h)*60
+  const h = Math.floor(hours);
+
+  const m = Math.floor(
+    (hours - h) * 60
   );
-  
+
   return `${h} hr ${m} min`;
-  
-  }
+
+}
 
 
 // Reusable UI components
@@ -514,265 +514,264 @@ async function handleSubmit(event) {
 
     setLoading(false);
   }
-}
 
 
-return (
+  return (
 
-  <Card>
+    <Card>
 
-    <h2 className="text-2xl font-bold mb-4">
+      <h2 className="text-2xl font-bold mb-4">
 
-      Mark Attendance
+        Mark Attendance
 
-    </h2>
+      </h2>
 
 
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-4"
-    >
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4"
+      >
 
-      {/* Employee selection */}
+        {/* Employee selection */}
 
-      <select
-        value={employeeId}
+        <select
+          value={employeeId}
 
-        onChange={(e) => {
+          onChange={(e) => {
 
-          const selectedId =
+            const selectedId =
 
-            e.target.value;
+              e.target.value;
 
-          setEmployeeId(
+            setEmployeeId(
 
-            selectedId
-
-          );
-
-          const employee =
-
-            employees.find(
-
-              (emp) =>
-
-                emp.id === selectedId
+              selectedId
 
             );
 
-          if (
+            const employee =
 
-            employee?.shifts
+              employees.find(
 
-          ) {
+                (emp) =>
 
-            setCheckIn(
+                  emp.id === selectedId
 
-              employee.shifts.start_time.slice(0, 5)
+              );
 
-            );
+            if (
 
-            setCheckOut(
+              employee?.shifts
 
-              employee.shifts.end_time.slice(0, 5)
+            ) {
 
-            );
+              setCheckIn(
 
-          }
+                employee.shifts.start_time.slice(0, 5)
 
-        }}
+              );
 
-        className="
+              setCheckOut(
+
+                employee.shifts.end_time.slice(0, 5)
+
+              );
+
+            }
+
+          }}
+
+          className="
 w-full
 border
 rounded
 p-3
 "
-      >
+        >
 
-        <option value="">
-          Select Employee
-        </option>
-
-        {employees.map((employee) => (
-
-          <option
-            key={employee.id}
-            value={employee.id}
-          >
-
-            {employee.full_name}
-
+          <option value="">
+            Select Employee
           </option>
 
-        ))}
+          {employees.map((employee) => (
 
-      </select>
+            <option
+              key={employee.id}
+              value={employee.id}
+            >
+
+              {employee.full_name}
+
+            </option>
+
+          ))}
+
+        </select>
 
 
-      {/* Attendance status */}
-      <select
-        value={status}
-        onChange={(e) =>
-          setStatus(e.target.value)
-        }
-        className="
+        {/* Attendance status */}
+        <select
+          value={status}
+          onChange={(e) =>
+            setStatus(e.target.value)
+          }
+          className="
               w-full
               border
               rounded
               p-3
             "
-      >
-
-        <option value="present">
-          Present
-        </option>
-
-        <option value="absent">
-          Absent
-        </option>
-
-        <option value="late">
-          Late
-        </option>
-
-        <option value="leave">
-          Leave
-        </option>
-
-      </select>
-
-
-      {/* Check In / Check Out */}
-
-      <div className="flex gap-4">
-
-        <Button
-
-          type="button"
-
-          onClick={handleCheckIn}
-
-          disabled={!!checkInTime}
-
         >
 
-          Check In
+          <option value="present">
+            Present
+          </option>
 
-        </Button>
+          <option value="absent">
+            Absent
+          </option>
 
-        <Button
+          <option value="late">
+            Late
+          </option>
 
-          type="button"
+          <option value="leave">
+            Leave
+          </option>
 
-          onClick={handleCheckOut}
-
-          disabled={!checkInTime || !!checkOutTime}
-
-        >
-
-          Check Out
-
-        </Button>
-
-      </div>
+        </select>
 
 
-      {/* Show captured times */}
+        {/* Check In / Check Out */}
 
-      {checkInTime && (
+        <div className="flex gap-4">
 
-        <p className="text-sm">
+          <Button
 
-          Checked In:
+            type="button"
 
-          {
+            onClick={handleCheckIn}
 
-            new Date(
+            disabled={!!checkInTime}
 
-              checkInTime
+          >
 
-            ).toLocaleTimeString()
+            Check In
 
-          }
+          </Button>
 
-        </p>
+          <Button
 
-      )}
+            type="button"
 
+            onClick={handleCheckOut}
 
-      {checkOutTime && (
+            disabled={!checkInTime || !!checkOutTime}
 
-        <p className="text-sm">
+          >
 
-          Checked Out:
+            Check Out
 
-          {
-
-            new Date(
-
-              checkOutTime
-
-            ).toLocaleTimeString()
-
-          }
-
-        </p>
-
-      )}
-
-      {workedHours > 0 && (
-
-        <div className="mt-2">
-
-          Worked Hours:
-          {overtimeHours > 0 && (
-
-            <div className="mt-2">
-
-              Overtime:
-
-              {
-
-                overtimeHours
-
-              }
-
-              hrs
-
-            </div>
-
-          )}
-
-          {
-
-            workedHours
-
-          }
-
-          hrs
+          </Button>
 
         </div>
 
-      )}
+
+        {/* Show captured times */}
+
+        {checkInTime && (
+
+          <p className="text-sm">
+
+            Checked In:
+
+            {
+
+              new Date(
+
+                checkInTime
+
+              ).toLocaleTimeString()
+
+            }
+
+          </p>
+
+        )}
 
 
-      <Button
-        type="submit"
-        className="px-4 py-2 bg-blue-600 text-white rounded"
-      >
+        {checkOutTime && (
 
-        {loading
-          ? "Saving..."
-          : "Mark Attendance"}
+          <p className="text-sm">
 
-      </Button>
+            Checked Out:
+
+            {
+
+              new Date(
+
+                checkOutTime
+
+              ).toLocaleTimeString()
+
+            }
+
+          </p>
+
+        )}
+
+        {workedHours > 0 && (
+
+          <div className="mt-2">
+
+            Worked Hours:
+            {overtimeHours > 0 && (
+
+              <div className="mt-2">
+
+                Overtime:
+
+                {
+
+                  overtimeHours
+
+                }
+
+                hrs
+
+              </div>
+
+            )}
+
+            {
+
+              workedHours
+
+            }
+
+            hrs
+
+          </div>
+
+        )}
 
 
-    </form>
+        <Button
+          type="submit"
+          className="px-4 py-2 bg-blue-600 text-white rounded"
+        >
 
-  </Card>
-);
+          {loading
+            ? "Saving..."
+            : "Mark Attendance"}
+
+        </Button>
+
+
+      </form>
+
+    </Card>
+  );
 }
 
 export default AttendanceForm;
