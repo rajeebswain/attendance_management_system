@@ -743,7 +743,7 @@ p-3
 
         <div className="flex gap-4">
 
-          {/* <Button
+          <Button
 
             type="button"
 
@@ -755,7 +755,7 @@ p-3
 
             Check In
 
-          </Button> */}
+          </Button>
 
 <button
 type="button"
