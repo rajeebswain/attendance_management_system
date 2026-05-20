@@ -84,113 +84,7 @@ function AttendanceForm({
 
   }
 
-  //   // Checkout Handle Function
-
-  //   function handleCheckOut() {
-
-  //     if (
-
-  //       !checkInTime
-
-  //     ) {
-
-  //       alert(
-
-  //         "Please check in first"
-
-  //       );
-
-  //       return;
-
-  //     }
-
-
-  //     const now = new Date();
-
-
-  //     const workedMilliseconds =
-
-  //       now -
-
-  //       new Date(
-
-  //         checkInTime
-
-  //       );
-
-
-  //     const hours =
-
-  //       workedMilliseconds /
-
-  //       (1000 * 60 * 60);
-
-  //     if (hours < 8) {
-
-  //       alert(
-
-  //         `Checkout not allowed.
-
-  //     Minimum work hours: 8 hrs
-
-  //     Worked: ${hours.toFixed(2)} hrs`
-
-  //       );
-
-  //       return;
-
-  //     }
-
-
-  //     if (
-
-  //       !confirmCheckout) {
-
-  //       return;
-
-  //     }
-
-  //   }
-
-
-  //   setWorkedHours(
-
-  //     hours.toFixed(2)
-
-  //   );
-
-
-  //   // Over Time Calculation
-  //   const overtime =
-
-  //     hours > 8
-
-  //       ?
-
-  //       hours - 8
-
-  //       :
-
-  //       0;
-
-
-  //   setOvertimeHours(
-
-  //     Number(
-  //       overtime.toFixed(2)
-  //     )
-
-  //   );
-
-  //   setCheckOutTime(
-
-  //     now
-
-  //   );
-
-  // }
-
-
+  // Checkout Handle Function
 
   function handleCheckOut() {
 
@@ -212,21 +106,35 @@ function AttendanceForm({
       workedMilliseconds /
       (1000 * 60 * 60);
 
+    //     if (hours < 8) {
+
+    //       alert(
+
+    //         `Checkout not allowed.
+
+    // Minimum work hours: 8 hrs
+
+    // Worked: ${hours.toFixed(2)} hrs`
+
+    //       );
+
+    //       return;
+    //     }
+
+
     if (hours < 8) {
 
-      alert(
-
-        `Checkout not allowed.
-
-Minimum work hours: 8 hrs
-
-Worked: ${hours.toFixed(2)} hrs`
-
+      const reason = prompt(
+        "Early checkout reason:"
       );
 
-      return;
-    }
+      if (!reason) return;
 
+      setStatus("pending");
+
+      setEarlyReason(reason);
+
+    }
     setWorkedHours(
       Number(hours.toFixed(2))
     );
