@@ -56,28 +56,28 @@ function AttendanceForm({
 
   //Setting the holidayes
   const [holidays, setHolidays] = useState([]);
-  
-    
-    function handleCheckIn(){
-    
+
+
+  function handleCheckIn() {
+
     setCheckInTime(
-    
-    new Date()
-    
+
+      new Date()
+
     );
-    
-    }
-    
-    
-    function handleCheckOut(){
-    
+
+  }
+
+
+  function handleCheckOut() {
+
     setCheckOutTime(
-    
-    new Date()
-    
+
+      new Date()
+
     );
-    
-    }
+
+  }
 
 
   // Fetch employees on component load
@@ -346,48 +346,48 @@ function AttendanceForm({
       await createAttendance({
 
         employee_id: employeeId,
-        
+
         attendance_date:
-        
-        new Date()
-        
-        .toISOString()
-        
-        .split("T")[0],
-        
+
+          new Date()
+
+            .toISOString()
+
+            .split("T")[0],
+
         status:
-        
-        calculateAttendanceStatus(
-        
-        employees.find(
-        
-        (emp)=>
-        
-        emp.id===employeeId
-        
-        ),
-        
-        checkInTime
-        
-        ),
-        
+
+          calculateAttendanceStatus(
+
+            employees.find(
+
+              (emp) =>
+
+                emp.id === employeeId
+
+            ),
+
+            checkInTime
+
+          ),
+
         check_in_datetime:
-        
-        checkInTime,
-        
+
+          checkInTime,
+
         check_out_datetime:
-        
-        checkOutTime,
-        
+
+          checkOutTime,
+
         worked_hours:
-        
-        workedHours,
-        
+
+          workedHours,
+
         overtime_hours:
-        
-        overtimeHours
-        
-        });
+
+          overtimeHours
+
+      });
 
       // Reset form
       setEmployeeId("");
@@ -612,7 +612,7 @@ p-3
 
         {/*Check-in time*/}
 
-        <div className="flex gap-4">
+        {/* <div className="flex gap-4">
 
           <Button
 
@@ -624,11 +624,11 @@ p-3
 
             Check In
 
-          </Button>
+          </Button> */}
 
-          {/* Check-out time*/}
+        {/* Check-out time*/}
 
-          <Button
+        {/* <Button
 
             type="button"
 
@@ -640,9 +640,86 @@ p-3
 
           </Button>
 
+        </div> */}
+
+        {/* Check In / Check Out */}
+
+        <div className="flex gap-4">
+
+          <Button
+
+            type="button"
+
+            onClick={handleCheckIn}
+
+            disabled={checkInTime}
+
+          >
+
+            Check In
+
+          </Button>
+
+
+          <Button
+
+            type="button"
+
+            onClick={handleCheckOut}
+
+            disabled={!checkInTime}
+
+          >
+
+            Check Out
+
+          </Button>
+
         </div>
 
 
+        {/* Show captured times */}
+
+        {checkInTime && (
+
+          <p className="text-sm">
+
+            Checked In:
+
+            {
+
+              new Date(
+
+                checkInTime
+
+              ).toLocaleTimeString()
+
+            }
+
+          </p>
+
+        )}
+
+
+        {checkOutTime && (
+
+          <p className="text-sm">
+
+            Checked Out:
+
+            {
+
+              new Date(
+
+                checkOutTime
+
+              ).toLocaleTimeString()
+
+            }
+
+          </p>
+
+        )}
 
 
         <Button type="submit">
