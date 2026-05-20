@@ -85,7 +85,7 @@ function AttendanceTable({
   
                 </td>
   
-                <td className="p-4">
+                {/* <td className="p-4">
   
                   {record.check_in}
   
@@ -95,7 +95,28 @@ function AttendanceTable({
   
                   {record.check_out}
   
-                </td>
+                </td> */}
+
+<td>
+
+{record.check_in_datetime
+? new Date(
+record.check_in_datetime
+).toLocaleTimeString()
+: "-"}
+
+</td>
+
+
+<td>
+
+{record.check_out_datetime
+? new Date(
+record.check_out_datetime
+).toLocaleTimeString()
+: "-"}
+
+</td>
   
               </tr>
   
