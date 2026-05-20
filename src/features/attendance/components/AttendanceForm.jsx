@@ -56,6 +56,29 @@ function AttendanceForm({
 
   //Setting the holidayes
   const [holidays, setHolidays] = useState([]);
+  
+    
+    function handleCheckIn(){
+    
+    setCheckInTime(
+    
+    new Date()
+    
+    );
+    
+    }
+    
+    
+    function handleCheckOut(){
+    
+    setCheckOutTime(
+    
+    new Date()
+    
+    );
+    
+    }
+
 
   // Fetch employees on component load
   /*useEffect(() => {
