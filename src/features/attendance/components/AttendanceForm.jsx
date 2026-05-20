@@ -73,6 +73,8 @@ function AttendanceForm({
   //Setting the holidayes
   const [holidays, setHolidays] = useState([]);
 
+  const [earlyReason, setEarlyReason] = useState("");
+
 
   function handleCheckIn() {
 
@@ -106,35 +108,36 @@ function AttendanceForm({
       workedMilliseconds /
       (1000 * 60 * 60);
 
-    //     if (hours < 8) {
+    //    if (hours < 8) {
 
-    //       alert(
+    //   const reason = prompt(
+    //     "Early checkout reason:"
+    //   );
 
-    //         `Checkout not allowed.
+    //   if (!reason) return;
 
-    // Minimum work hours: 8 hrs
+    //   setStatus("pending");
 
-    // Worked: ${hours.toFixed(2)} hrs`
+    //   setEarlyReason(reason);
 
-    //       );
+    // }
 
-    //       return;
-    //     }
-
-
-    if (hours < 8) {
+    if(hours < 8){
 
       const reason = prompt(
-        "Early checkout reason:"
+      "Early checkout reason:"
       );
-
-      if (!reason) return;
-
-      setStatus("pending");
-
+      
+      if(!reason) return;
+      
       setEarlyReason(reason);
-
-    }
+      
+      setCheckOutTime(new Date());
+      
+      return;
+      }
+      
+      setCheckOutTime(new Date());
     setWorkedHours(
       Number(hours.toFixed(2))
     );
