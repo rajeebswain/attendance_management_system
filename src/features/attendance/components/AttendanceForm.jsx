@@ -69,7 +69,7 @@ function AttendanceForm({
   }
 
 
-  function handleCheckOut() {
+  {/*function handleCheckOut() {
 
     setCheckOutTime(
 
@@ -77,34 +77,54 @@ function AttendanceForm({
 
     );
 
-  }
+  } */}
+  function handleCheckOut(){
 
-
-  // Fetch employees on component load
-  /*useEffect(() => {
-
-    async function loadEmployees() {
-
-      try {
-
-        const data = await getEmployees();
-
-        setEmployees(data);
-        const holidayData = await getHolidays();
-
-        setHolidays(
-
-          holidayData);
-
-      } catch (error) {
-
-        alert(error.message);
-      }
+    if(
+    !checkInTime
+    ){
+    
+    alert(
+    "Please check in first"
+    );
+    
+    return;
+    
+    }
+    
+    const now =
+    new Date();
+    
+    const workedHours =
+    (
+    now -
+    new Date(checkInTime)
+    )
+    /
+    (1000*60*60);
+    
+    if(
+    workedHours < 8
+    ){
+    
+    const confirmCheckout =
+    window.confirm(
+    `Employee worked only ${workedHours.toFixed(2)} hours. Continue checkout?`
+    );
+    
+    if(
+    !confirmCheckout
+    ){
+    return;
+    }
+    
+    }
+    
+    setCheckOutTime(now);
+    
     }
 
-    loadEmployees();
-    
-  }, []);*/
+
 
   useEffect(() => {
 
@@ -147,12 +167,171 @@ function AttendanceForm({
   }, []);
 
 
+  {/*Calculate Attendance Function*/ }
+
+  function calculateAttendanceStatus(
+
+    employee,
+
+    checkInTime
+
+  ) {
+
+    if (
+
+      !employee?.shifts ||
+
+      !checkInTime
+
+    )
+
+      return status;
+
+
+    const shiftStart =
+
+      employee.shifts.start_time;
+
+
+    const graceMinutes =
+
+      employee.shifts.grace_minutes || 0;
+
+
+    const shiftDate = new Date();
+
+    const [
+
+      hour,
+
+      minute
+
+    ]
+
+      =
+
+      shiftStart.split(":");
+
+
+    shiftDate.setHours(
+
+      parseInt(hour),
+
+      parseInt(minute) + graceMinutes,
+
+      0
+
+    );
+
+
+    if (
+
+      new Date(checkInTime)
+
+      >
+
+      shiftDate
+
+    ) {
+
+      return "late";
+
+    }
+
+
+    return "present";
+
+  }
+
+
+  {/*
+  function calculateAttendanceStatus(
+
+    employee,
+    
+    checkInTime
+    
+    ){
+    
+    if(
+    
+    !employee?.shifts ||
+    
+    !checkInTime
+    
+    ){
+    
+    return status;
+    
+    }
+    
+    
+    const shiftStart =
+    
+    employee.shifts.start_time;
+    
+    
+    const graceMinutes =
+    
+    employee.shifts.grace_minutes || 0;
+    
+    
+    const shiftDate =
+    
+    new Date();
+    
+    
+    const [
+    
+    hour,
+    
+    minute
+    
+    ]
+    
+    =
+    
+    shiftStart.split(":");
+    
+    
+    shiftDate.setHours(
+    
+    parseInt(hour),
+    
+    parseInt(minute)+graceMinutes,
+    
+    0
+    
+    );
+    
+    
+    if(
+    
+    new Date(checkInTime)
+    
+    >
+    
+    shiftDate
+    
+    ){
+    
+    return "late";
+    
+    }
+    
+    
+    return "present";
+    
+    }
+  */}
+
+
   // Handle attendance form submit
   async function handleSubmit(event) {
 
     {/*Automati cTime and Date Capture Function*/ }
 
-    function handleCheckIn() {
+    {/*function handleCheckIn() {
 
       setCheckInTime(
 
@@ -171,7 +350,7 @@ function AttendanceForm({
 
       );
 
-    }
+    } */}
 
 
     /*Adding Attendace for unassigned employee */
@@ -188,17 +367,6 @@ function AttendanceForm({
 
       );
 
-    /* if(!selectedEmployee?.shifts){
-     
-     alert(
-     
-     "No shift assigned to this employee"
-     
-     );
-     
-     return;
-     
-     } */
 
     if (!selectedEmployee?.shifts) {
 
@@ -216,7 +384,7 @@ function AttendanceForm({
 
       /* Calculate work hours */
 
-      const checkInDate =
+      {/*  const checkInDate =
 
         new Date(
 
@@ -230,7 +398,13 @@ function AttendanceForm({
 
           `2000-01-01 ${checkOut}`
 
-        );
+        );*/}
+
+      const checkInDate =
+        new Date(checkInTime);
+
+      const checkOutDate =
+        new Date(checkOutTime);
 
       const workedHours =
 
@@ -278,18 +452,6 @@ function AttendanceForm({
 
         );
 
-      /*if (isHoliday) {
-    
-            alert(
-    
-              "Today is holiday. Attendance disabled."
-    
-            );
-    
-            return;
-    
-          } */
-
       /*Holiday Block*/
       if (isHoliday) {
 
@@ -300,48 +462,6 @@ function AttendanceForm({
         );
 
       }
-
-      /*Create Attendance*/
-
-      // await createAttendance({
-
-      //   employee_id: employeeId,
-
-      //   attendance_date: new Date(),
-
-      //   status:
-
-      //     checkIn >
-
-      //       employees.find(
-
-      //         (emp) =>
-
-      //           emp.id === employeeId
-
-      //       )?.shifts?.start_time
-
-      //       ?
-
-      //       "late"
-
-      //       :
-
-      //       status,
-
-      //   check_in: checkIn,
-
-      //   check_out: checkOut,
-
-      //   worked_hours:
-
-      //     workedHours,
-
-      //   overtime_hours:
-
-      //     overtimeHours
-
-      // });
 
       await createAttendance({
 
@@ -579,69 +699,6 @@ p-3
         </select>
 
 
-        {/*Check-in time*/}
-        {/* <input
-          type="time"
-          value={checkIn}
-          onChange={(e) =>
-            setCheckIn(e.target.value)
-          }
-          className="
-              w-full
-              border
-              rounded
-              p-3
-            "
-        />  */}
-
-
-        {/* Check-out time*/}
-        {/* <input
-          type="time"
-          value={checkOut}
-          onChange={(e) =>
-            setCheckOut(e.target.value)
-          }
-          className="
-              w-full
-              border
-              rounded
-              p-3
-            "
-        />  */}
-
-        {/*Check-in time*/}
-
-        {/* <div className="flex gap-4">
-
-          <Button
-
-            type="button"
-
-            onClick={handleCheckIn}
-
-          >
-
-            Check In
-
-          </Button> */}
-
-        {/* Check-out time*/}
-
-        {/* <Button
-
-            type="button"
-
-            onClick={handleCheckOut}
-
-          >
-
-            Check Out
-
-          </Button>
-
-        </div> */}
-
         {/* Check In / Check Out */}
 
         <div className="flex gap-4">
@@ -652,7 +709,7 @@ p-3
 
             onClick={handleCheckIn}
 
-            disabled={checkInTime}
+            disabled={!!checkInTime}
 
           >
 
