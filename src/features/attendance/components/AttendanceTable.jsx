@@ -98,7 +98,15 @@ function AttendanceTable({
                 {record.check_in_datetime
                   ? new Date(
                     record.check_in_datetime
-                  ).toLocaleTimeString()
+                  ).toLocaleTimeString(
+                    'en-GB',
+                    {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      second: '2-digit',
+                      hour12: false
+                    }
+                  )
                   : "-"}
 
               </td>
@@ -113,22 +121,8 @@ function AttendanceTable({
                   : "-"}
 
               </td>
-              {/* 
-              <td className="p-4">
 
-                {record.worked_hours || 0} hrs
-
-              </td>
-            
-
-              <td className="p-4">
-
-                {Number(
-                  record.overtime_hours || 0
-                ).toFixed(2)} hrs
-
-              </td> */}
-              <td className="p-4">
+              {/* <td className="p-4">
 
                 {Number(
                   record.worked_hours || 0
@@ -141,6 +135,26 @@ function AttendanceTable({
                 {Number(
                   record.overtime_hours || 0
                 ).toFixed(2)} hrs
+
+              </td> */}
+
+              <td className="p-4">
+
+                {record.check_out_datetime
+
+                  ? new Date(
+                    record.check_out_datetime
+                  ).toLocaleTimeString(
+                    'en-GB',
+                    {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      second: '2-digit',
+                      hour12: false
+                    }
+                  )
+
+                  : "-"}
 
               </td>
 
