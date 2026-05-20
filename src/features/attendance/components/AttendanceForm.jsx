@@ -50,6 +50,8 @@ function AttendanceForm({
 
   const [workedHours, setWorkedHours] = useState(0);
 
+  const [overtimeHours, setOvertimeHours] = useState(0);
+
 
   // Loading state
   const [loading, setLoading] = useState(false);
@@ -142,6 +144,26 @@ function AttendanceForm({
 
     );
 
+
+    {/*Over Time Calculation*/ }
+    const overtime =
+
+      hours > 8
+
+        ?
+
+        hours - 8
+
+        :
+
+        0;
+
+
+    setOvertimeHours(
+
+      overtime.toFixed(2)
+
+    );
 
     setCheckOutTime(
 
@@ -785,6 +807,23 @@ p-3
           <div className="mt-2">
 
             Worked Hours:
+            {overtimeHours > 0 && (
+
+              <div className="mt-2">
+
+                Overtime:
+
+                {
+
+                  overtimeHours
+
+                }
+
+                hrs
+
+              </div>
+
+            )}
 
             {
 
