@@ -8,19 +8,6 @@ function AttendanceTable({
 
     <div className="overflow-x-auto">
 
-<input
-type="text"
-placeholder="Search employee..."
-value={search}
-onChange={(e)=>setSearch(e.target.value)}
-className="
-w-full
-border
-rounded
-p-3
-mb-4
-"
-/>
 
       <table
         className="
@@ -77,21 +64,7 @@ mb-4
         {/* Table body */}
         <tbody>
 
-          {/* {records.map((record) => ( */}
-
-          {records
-
-.filter((record)=>
-
-record.employees?.full_name
-?.toLowerCase()
-.includes(
-search.toLowerCase()
-)
-
-)
-
-.map((record)=>(
+          {records.map((record) => (
 
             <tr
               key={record.id}
