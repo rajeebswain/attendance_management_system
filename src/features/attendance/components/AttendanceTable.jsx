@@ -13,7 +13,6 @@ function AttendanceTable({
 
     <div className="overflow-x-auto">
 
-
 <input
 type="text"
 placeholder="Search employee..."
@@ -29,6 +28,7 @@ p-3
 mb-4
 "
 />
+
 
 
       <table
@@ -88,22 +88,22 @@ mb-4
 
           {
           
-          // records.map
+          // records.map(
+            
           records
-.filter(record=>
-
-record.employees?.full_name
-?.toLowerCase()
-.includes(
-search.toLowerCase()
-)
-
-)
-
-.map(
+          .filter(record=>
           
+          record.employees?.full_name
+          ?.toLowerCase()
+          .includes(
+          search.toLowerCase()
+          )
           
-          ((record) => (
+          )
+          
+              .map(
+            
+            (record) => (
 
             <tr
               key={record.id}
