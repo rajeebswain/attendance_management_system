@@ -427,7 +427,11 @@ function AttendanceForm({
 
         overtime_hours:
 
-          overtimeHours
+          overtimeHours,
+
+        early_checkout_reason: 
+          
+          earlyReason
 
       });
 
