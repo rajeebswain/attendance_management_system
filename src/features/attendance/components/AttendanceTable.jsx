@@ -111,7 +111,7 @@ function AttendanceTable({
 
               </td>
 
-
+              {/* 
               <td>
 
                 {record.check_out_datetime
@@ -120,7 +120,7 @@ function AttendanceTable({
                   ).toLocaleTimeString()
                   : "-"}
 
-              </td>
+              </td> */}
 
               {/* <td className="p-4">
 
@@ -155,6 +155,29 @@ function AttendanceTable({
                   )
 
                   : "-"}
+
+              </td>
+
+              <td className="p-4">
+
+                {new Date(
+                  Number(record.worked_hours || 0)
+                  * 60 * 60 * 1000
+                )
+                  .toISOString()
+                  .slice(11, 19)}
+
+              </td>
+
+
+              <td className="p-4">
+
+                {new Date(
+                  Number(record.overtime_hours || 0)
+                  * 60 * 60 * 1000
+                )
+                  .toISOString()
+                  .slice(11, 19)}
 
               </td>
 
