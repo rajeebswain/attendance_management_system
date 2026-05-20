@@ -60,7 +60,7 @@ function AttendanceForm({
   //Setting the holidayes
   const [holidays, setHolidays] = useState([]);
 
-   function handleCheckIn() {
+  function handleCheckIn() {
 
     setCheckInTime(
 
@@ -112,636 +112,652 @@ function AttendanceForm({
       (1000 * 60 * 60);
 
 
-    if (
+    // if (
 
-      hours < 8
+    //   hours < 8
 
-    ) {
+    // ) {
 
-      const confirmCheckout =
+    //   const confirmCheckout =
 
-        window.confirm(
+    //     window.confirm(
 
-          `Employee worked only ${hours.toFixed(2)} hours. Continue?`
+    //       `Employee worked only ${hours.toFixed(2)} hours. Continue?`
 
-        );
+    //     );
 
+    if (hours < 8) {
 
-      if (
+      alert(
 
-        !confirmCheckout) {
+        `Checkout not allowed.
+    
+    Minimum work hours: 8 hrs
+    
+    Worked: ${hours.toFixed(2)} hrs`
 
-        return;
+      );
 
-      }
+      return;
 
     }
 
 
-    setWorkedHours(
+    if (
 
-      hours.toFixed(2)
+      !confirmCheckout) {
+
+      return;
+
+    }
+
+  }
+
+
+  setWorkedHours(
+
+    hours.toFixed(2)
+
+  );
+
+
+  // Over Time Calculation
+  const overtime =
+
+    hours > 8
+
+      ?
+
+      hours - 8
+
+      :
+
+      0;
+
+
+  setOvertimeHours(
+
+    Number(
+      overtime.toFixed(2)
+    )
+
+  );
+
+  setCheckOutTime(
+
+    now
+
+  );
+
+}
+
+
+useEffect(() => {
+
+  async function loadData() {
+
+    try {
+
+      const employeeData =
+
+        await getEmployees();
+
+      setEmployees(
+
+        employeeData
+
+      );
+
+      const holidayData =
+
+        await getHolidays();
+
+      setHolidays(
+
+        holidayData
+
+      );
+
+    }
+
+    catch (error) {
+
+      console.log(error);
+
+    }
+
+  }
+
+  loadData();
+
+}, []);
+
+
+// Calculate Attendance Function
+
+function calculateAttendanceStatus(
+
+  employee,
+
+  checkInTime
+
+) {
+
+  if (
+
+    !employee?.shifts ||
+
+    !checkInTime
+
+  )
+
+    return status;
+
+
+  const shiftStart =
+
+    employee.shifts.start_time;
+
+
+  const graceMinutes =
+
+    employee.shifts.grace_minutes || 0;
+
+
+  const shiftDate = new Date();
+
+  const [
+
+    hour,
+
+    minute
+
+  ]
+
+    =
+
+    shiftStart.split(":");
+
+
+  shiftDate.setHours(
+
+    parseInt(hour),
+
+    parseInt(minute) + graceMinutes,
+
+    0
+
+  );
+
+
+  if (
+
+    new Date(checkInTime)
+
+    >
+
+    shiftDate
+
+  ) {
+
+    return "late";
+
+  }
+
+
+  return "present";
+
+}
+
+
+// Handle attendance form submit
+async function handleSubmit(event) {
+
+  /*Adding Attendace for unassigned employee */
+
+  event.preventDefault();
+
+  const selectedEmployee =
+
+    employees.find(
+
+      (emp) =>
+
+        emp.id === employeeId
 
     );
 
 
-    // Over Time Calculation
-    const overtime =
+  if (!selectedEmployee?.shifts) {
 
-      hours > 8
+    alert(
+
+      "No shift assigned. Manual attendance mode enabled."
+
+    );
+
+  }
+
+  try {
+
+    setLoading(true);
+    const checkInDate =
+      new Date(checkInTime);
+
+    const checkOutDate =
+      new Date(checkOutTime);
+
+    const workedHours =
+
+      (
+
+        checkOutDate -
+
+        checkInDate
+
+      )
+
+      /
+
+      (1000 * 60 * 60);
+
+
+    /* Overtime after shift rule */
+
+    const overtimeHours =
+
+      workedHours > 8
 
         ?
 
-        hours - 8
+        workedHours - 8
 
         :
 
         0;
+    const today =
 
+      new Date()
 
-    setOvertimeHours(
+        .toISOString()
 
-      Number(
-        overtime.toFixed(2)
-      )
+        .split("T")[0];
 
-    );
+    const isHoliday =
 
-    setCheckOutTime(
+      holidays.some(
 
-      now
+        holiday =>
 
-    );
-
-  }
-
-
-  useEffect(() => {
-
-    async function loadData() {
-
-      try {
-
-        const employeeData =
-
-          await getEmployees();
-
-        setEmployees(
-
-          employeeData
-
-        );
-
-        const holidayData =
-
-          await getHolidays();
-
-        setHolidays(
-
-          holidayData
-
-        );
-
-      }
-
-      catch (error) {
-
-        console.log(error);
-
-      }
-
-    }
-
-    loadData();
-
-  }, []);
-
-
-  // Calculate Attendance Function
-
-  function calculateAttendanceStatus(
-
-    employee,
-
-    checkInTime
-
-  ) {
-
-    if (
-
-      !employee?.shifts ||
-
-      !checkInTime
-
-    )
-
-      return status;
-
-
-    const shiftStart =
-
-      employee.shifts.start_time;
-
-
-    const graceMinutes =
-
-      employee.shifts.grace_minutes || 0;
-
-
-    const shiftDate = new Date();
-
-    const [
-
-      hour,
-
-      minute
-
-    ]
-
-      =
-
-      shiftStart.split(":");
-
-
-    shiftDate.setHours(
-
-      parseInt(hour),
-
-      parseInt(minute) + graceMinutes,
-
-      0
-
-    );
-
-
-    if (
-
-      new Date(checkInTime)
-
-      >
-
-      shiftDate
-
-    ) {
-
-      return "late";
-
-    }
-
-
-    return "present";
-
-  }
-
-
-  // Handle attendance form submit
-  async function handleSubmit(event) {
-
-    /*Adding Attendace for unassigned employee */
-
-    event.preventDefault();
-
-    const selectedEmployee =
-
-      employees.find(
-
-        (emp) =>
-
-          emp.id === employeeId
+          holiday.holiday_date === today
 
       );
 
-
-    if (!selectedEmployee?.shifts) {
+    /*Holiday Block*/
+    if (isHoliday) {
 
       alert(
 
-        "No shift assigned. Manual attendance mode enabled."
+        "Today is a holiday. Attendance will be marked as Holiday Working Day."
 
       );
 
     }
 
-    try {
+    await createAttendance({
 
-      setLoading(true);
-      const checkInDate =
-        new Date(checkInTime);
+      employee_id: employeeId,
 
-      const checkOutDate =
-        new Date(checkOutTime);
-
-      const workedHours =
-
-        (
-
-          checkOutDate -
-
-          checkInDate
-
-        )
-
-        /
-
-        (1000 * 60 * 60);
-
-
-      /* Overtime after shift rule */
-
-      const overtimeHours =
-
-        workedHours > 8
-
-          ?
-
-          workedHours - 8
-
-          :
-
-          0;
-      const today =
+      attendance_date:
 
         new Date()
 
           .toISOString()
 
-          .split("T")[0];
+          .split("T")[0],
 
-      const isHoliday =
+      status:
 
-        holidays.some(
+        calculateAttendanceStatus(
 
-          holiday =>
+          employees.find(
 
-            holiday.holiday_date === today
+            (emp) =>
 
-        );
+              emp.id === employeeId
 
-      /*Holiday Block*/
-      if (isHoliday) {
+          ),
 
-        alert(
+          checkInTime
 
-          "Today is a holiday. Attendance will be marked as Holiday Working Day."
+        ),
 
-        );
+      check_in_datetime:
 
-      }
+        checkInTime,
 
-      await createAttendance({
+      check_out_datetime:
 
-        employee_id: employeeId,
+        checkOutTime,
 
-        attendance_date:
+      worked_hours:
 
-          new Date()
+        workedHours,
 
-            .toISOString()
+      overtime_hours:
 
-            .split("T")[0],
+        overtimeHours
 
-        status:
+    });
 
-          calculateAttendanceStatus(
+    // Reset form
+    setEmployeeId("");
+
+    setStatus("present");
+
+    setCheckIn("");
+
+    setCheckOut("");
+
+    // Refresh attendance list
+    onAttendanceCreated();
+
+    alert("Attendance marked successfully");
+
+  } catch (error) {
+
+    if (
+
+      error.message.includes(
+
+        "unique_employee_attendance"
+
+      )
+
+    ) {
+
+      alert(
+
+        "Attendance already marked for today"
+
+      );
+
+    }
+
+    else {
+
+      alert(
+
+        error.message
+
+      );
+
+    }
+
+  }
+  finally {
+
+    setLoading(false);
+  }
+}
+
+
+return (
+
+  <Card>
+
+    <h2 className="text-2xl font-bold mb-4">
+
+      Mark Attendance
+
+    </h2>
+
+
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4"
+    >
+
+      {/* Employee selection */}
+
+      <select
+        value={employeeId}
+
+        onChange={(e) => {
+
+          const selectedId =
+
+            e.target.value;
+
+          setEmployeeId(
+
+            selectedId
+
+          );
+
+          const employee =
 
             employees.find(
 
               (emp) =>
 
-                emp.id === employeeId
-
-            ),
-
-            checkInTime
-
-          ),
-
-        check_in_datetime:
-
-          checkInTime,
-
-        check_out_datetime:
-
-          checkOutTime,
-
-        worked_hours:
-
-          workedHours,
-
-        overtime_hours:
-
-          overtimeHours
-
-      });
-
-      // Reset form
-      setEmployeeId("");
-
-      setStatus("present");
-
-      setCheckIn("");
-
-      setCheckOut("");
-
-      // Refresh attendance list
-      onAttendanceCreated();
-
-      alert("Attendance marked successfully");
-
-    } catch (error) {
-
-      if (
-
-        error.message.includes(
-
-          "unique_employee_attendance"
-
-        )
-
-      ) {
-
-        alert(
-
-          "Attendance already marked for today"
-
-        );
-
-      }
-
-      else {
-
-        alert(
-
-          error.message
-
-        );
-
-      }
-
-    }
-    finally {
-
-      setLoading(false);
-    }
-  }
-
-
-  return (
-
-    <Card>
-
-      <h2 className="text-2xl font-bold mb-4">
-
-        Mark Attendance
-
-      </h2>
-
-
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4"
-      >
-
-        {/* Employee selection */}
-       
-        <select
-          value={employeeId}
-
-          onChange={(e) => {
-
-            const selectedId =
-
-              e.target.value;
-
-            setEmployeeId(
-
-              selectedId
+                emp.id === selectedId
 
             );
 
-            const employee =
+          if (
 
-              employees.find(
+            employee?.shifts
 
-                (emp) =>
+          ) {
 
-                  emp.id === selectedId
+            setCheckIn(
 
-              );
+              employee.shifts.start_time.slice(0, 5)
 
-            if (
+            );
 
-              employee?.shifts
+            setCheckOut(
 
-            ) {
+              employee.shifts.end_time.slice(0, 5)
 
-              setCheckIn(
+            );
 
-                employee.shifts.start_time.slice(0, 5)
+          }
 
-              );
+        }}
 
-              setCheckOut(
-
-                employee.shifts.end_time.slice(0, 5)
-
-              );
-
-            }
-
-          }}
-
-          className="
+        className="
 w-full
 border
 rounded
 p-3
 "
-        >
+      >
 
-          <option value="">
-            Select Employee
+        <option value="">
+          Select Employee
+        </option>
+
+        {employees.map((employee) => (
+
+          <option
+            key={employee.id}
+            value={employee.id}
+          >
+
+            {employee.full_name}
+
           </option>
 
-          {employees.map((employee) => (
+        ))}
 
-            <option
-              key={employee.id}
-              value={employee.id}
-            >
-
-              {employee.full_name}
-
-            </option>
-
-          ))}
-
-        </select>
+      </select>
 
 
-        {/* Attendance status */}
-        <select
-          value={status}
-          onChange={(e) =>
-            setStatus(e.target.value)
-          }
-          className="
+      {/* Attendance status */}
+      <select
+        value={status}
+        onChange={(e) =>
+          setStatus(e.target.value)
+        }
+        className="
               w-full
               border
               rounded
               p-3
             "
-        >
+      >
 
-          <option value="present">
-            Present
-          </option>
+        <option value="present">
+          Present
+        </option>
 
-          <option value="absent">
-            Absent
-          </option>
+        <option value="absent">
+          Absent
+        </option>
 
-          <option value="late">
-            Late
-          </option>
+        <option value="late">
+          Late
+        </option>
 
-          <option value="leave">
-            Leave
-          </option>
+        <option value="leave">
+          Leave
+        </option>
 
-        </select>
+      </select>
 
 
-        {/* Check In / Check Out */}
+      {/* Check In / Check Out */}
 
-        <div className="flex gap-4">
-
-          <Button
-
-            type="button"
-
-            onClick={handleCheckIn}
-
-            disabled={!!checkInTime}
-
-          >
-
-            Check In
-
-          </Button>
-
-          <Button
-
-            type="button"
-
-            onClick={handleCheckOut}
-
-            disabled={!checkInTime}
-
-          >
-
-            Check Out
-
-          </Button>
-
-          </div>
-
-
-         {/* Show captured times */}
-
-        {checkInTime && (
-
-          <p className="text-sm">
-
-            Checked In:
-
-            {
-
-              new Date(
-
-                checkInTime
-
-              ).toLocaleTimeString()
-
-            }
-
-          </p>
-
-        )}
-
-
-        {checkOutTime && (
-
-          <p className="text-sm">
-
-            Checked Out:
-
-            {
-
-              new Date(
-
-                checkOutTime
-
-              ).toLocaleTimeString()
-
-            }
-
-          </p>
-
-        )}
-
-        {workedHours > 0 && (
-
-          <div className="mt-2">
-
-            Worked Hours:
-            {overtimeHours > 0 && (
-
-              <div className="mt-2">
-
-                Overtime:
-
-                {
-
-                  overtimeHours
-
-                }
-
-                hrs
-
-              </div>
-
-            )}
-
-            {
-
-              workedHours
-
-            }
-
-            hrs
-
-          </div>
-
-        )}
-
+      <div className="flex gap-4">
 
         <Button
-          type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded"
+
+          type="button"
+
+          onClick={handleCheckIn}
+
+          disabled={!!checkInTime}
+
         >
 
-          {loading
-            ? "Saving..."
-            : "Mark Attendance"}
+          Check In
 
         </Button>
 
+        <Button
 
-      </form>
+          type="button"
 
-    </Card>
-  );
+          onClick={handleCheckOut}
+
+          disabled={!checkInTime || !!checkOutTime}
+
+        >
+
+          Check Out
+
+        </Button>
+
+      </div>
+
+
+      {/* Show captured times */}
+
+      {checkInTime && (
+
+        <p className="text-sm">
+
+          Checked In:
+
+          {
+
+            new Date(
+
+              checkInTime
+
+            ).toLocaleTimeString()
+
+          }
+
+        </p>
+
+      )}
+
+
+      {checkOutTime && (
+
+        <p className="text-sm">
+
+          Checked Out:
+
+          {
+
+            new Date(
+
+              checkOutTime
+
+            ).toLocaleTimeString()
+
+          }
+
+        </p>
+
+      )}
+
+      {workedHours > 0 && (
+
+        <div className="mt-2">
+
+          Worked Hours:
+          {overtimeHours > 0 && (
+
+            <div className="mt-2">
+
+              Overtime:
+
+              {
+
+                overtimeHours
+
+              }
+
+              hrs
+
+            </div>
+
+          )}
+
+          {
+
+            workedHours
+
+          }
+
+          hrs
+
+        </div>
+
+      )}
+
+
+      <Button
+        type="submit"
+        className="px-4 py-2 bg-blue-600 text-white rounded"
+      >
+
+        {loading
+          ? "Saving..."
+          : "Mark Attendance"}
+
+      </Button>
+
+
+    </form>
+
+  </Card>
+);
 }
 
 export default AttendanceForm;
