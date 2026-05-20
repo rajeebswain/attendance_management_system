@@ -54,12 +54,7 @@ function AttendanceTable({
               Overtime
             </th>
 
-            <th className="p-4 text-left">
-
-              Actions
-
-            </th>
-
+           
           </tr>
 
         </thead>
@@ -157,28 +152,6 @@ function AttendanceTable({
                 )
                   .toISOString()
                   .slice(11, 19)}
-
-              </td>
-
-              <td className="p-4">
-
-                <Button
-
-                  onClick={() =>
-
-                    handleCorrectionRequest(
-
-                      record
-
-                    )
-
-                  }
-
-                >
-
-                  Request Correction
-
-                </Button>
 
               </td>
 

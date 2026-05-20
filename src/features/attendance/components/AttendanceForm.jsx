@@ -25,16 +25,6 @@ import {
 
 } from "../services/attendanceService";
 
-// import {
-
-//   createCorrectionRequest
-
-// }
-
-//   from
-
-//   "../../attendance-correction/services/correctionService";
-
 
 function AttendanceForm({
 
@@ -70,33 +60,7 @@ function AttendanceForm({
   //Setting the holidayes
   const [holidays, setHolidays] = useState([]);
 
-  const [
-
-    selectedAttendance,
-
-    setSelectedAttendance
-
-  ]
-
-    =
-
-    useState(null);
-
-
-  const [
-
-    reason,
-
-    setReason
-
-  ]
-
-    =
-
-    useState("");
-
-
-  function handleCheckIn() {
+   function handleCheckIn() {
 
     setCheckInTime(
 
