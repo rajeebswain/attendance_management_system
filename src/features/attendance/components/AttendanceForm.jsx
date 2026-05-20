@@ -44,6 +44,12 @@ function AttendanceForm({
 
   const [checkOut, setCheckOut] = useState("");
 
+  const [checkInTime, setCheckInTime] = useState(null);
+
+  const [checkOutTime, setCheckOutTime] = useState(null);
+
+
+
 
   // Loading state
   const [loading, setLoading] = useState(false);
@@ -120,6 +126,30 @@ function AttendanceForm({
 
   // Handle attendance form submit
   async function handleSubmit(event) {
+
+    {/*Automati cTime and Date Capture Function*/ }
+
+    function handleCheckIn() {
+
+      setCheckInTime(
+
+        new Date()
+
+      );
+
+    }
+
+
+    function handleCheckOut() {
+
+      setCheckOutTime(
+
+        new Date()
+
+      );
+
+    }
+
 
     /*Adding Attendace for unassigned employee */
 
@@ -250,45 +280,91 @@ function AttendanceForm({
 
       /*Create Attendance*/
 
+      // await createAttendance({
+
+      //   employee_id: employeeId,
+
+      //   attendance_date: new Date(),
+
+      //   status:
+
+      //     checkIn >
+
+      //       employees.find(
+
+      //         (emp) =>
+
+      //           emp.id === employeeId
+
+      //       )?.shifts?.start_time
+
+      //       ?
+
+      //       "late"
+
+      //       :
+
+      //       status,
+
+      //   check_in: checkIn,
+
+      //   check_out: checkOut,
+
+      //   worked_hours:
+
+      //     workedHours,
+
+      //   overtime_hours:
+
+      //     overtimeHours
+
+      // });
+
       await createAttendance({
 
         employee_id: employeeId,
-
-        attendance_date: new Date(),
-
+        
+        attendance_date:
+        
+        new Date()
+        
+        .toISOString()
+        
+        .split("T")[0],
+        
         status:
-
-          checkIn >
-
-            employees.find(
-
-              (emp) =>
-
-                emp.id === employeeId
-
-            )?.shifts?.start_time
-
-            ?
-
-            "late"
-
-            :
-
-            status,
-
-        check_in: checkIn,
-
-        check_out: checkOut,
-
+        
+        calculateAttendanceStatus(
+        
+        employees.find(
+        
+        (emp)=>
+        
+        emp.id===employeeId
+        
+        ),
+        
+        checkInTime
+        
+        ),
+        
+        check_in_datetime:
+        
+        checkInTime,
+        
+        check_out_datetime:
+        
+        checkOutTime,
+        
         worked_hours:
-
-          workedHours,
-
+        
+        workedHours,
+        
         overtime_hours:
-
-          overtimeHours
-
-      });
+        
+        overtimeHours
+        
+        });
 
       // Reset form
       setEmployeeId("");
@@ -480,8 +556,8 @@ p-3
         </select>
 
 
-        {/* Check-in time */}
-        <input
+        {/*Check-in time*/}
+        {/* <input
           type="time"
           value={checkIn}
           onChange={(e) =>
@@ -493,11 +569,11 @@ p-3
               rounded
               p-3
             "
-        />
+        />  */}
 
 
-        {/* Check-out time */}
-        <input
+        {/* Check-out time*/}
+        {/* <input
           type="time"
           value={checkOut}
           onChange={(e) =>
@@ -509,7 +585,41 @@ p-3
               rounded
               p-3
             "
-        />
+        />  */}
+
+        {/*Check-in time*/}
+
+        <div className="flex gap-4">
+
+          <Button
+
+            type="button"
+
+            onClick={handleCheckIn}
+
+          >
+
+            Check In
+
+          </Button>
+
+          {/* Check-out time*/}
+
+          <Button
+
+            type="button"
+
+            onClick={handleCheckOut}
+
+          >
+
+            Check Out
+
+          </Button>
+
+        </div>
+
+
 
 
         <Button type="submit">
