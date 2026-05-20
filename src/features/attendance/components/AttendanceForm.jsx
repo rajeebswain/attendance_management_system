@@ -753,15 +753,8 @@ p-3
 
             Check In
 
-          {/* </Button>
+           </Button>
 
-<button
-type="button"
-onClick={handleCheckIn}
-className="px-4 py-2 bg-blue-600 text-white rounded"
->
-Check In
-</button> */}
           <Button
 
             type="button"
@@ -776,14 +769,6 @@ Check In
 
           </Button>
 
-{/* <button
-type="button"
-onClick={handleCheckOut}
-disabled={!checkInTime}
-className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
->
-Check Out
-</button> */}
           <Button
 
             type="button"
