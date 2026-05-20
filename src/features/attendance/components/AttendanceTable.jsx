@@ -1,7 +1,3 @@
-import { useState } from "react";
-
-const [search,setSearch]=useState("");
-
 
 function AttendanceTable({
 
@@ -13,21 +9,6 @@ function AttendanceTable({
 
     <div className="overflow-x-auto">
 
-<input
-type="text"
-placeholder="Search employee..."
-value={search}
-onChange={(e)=>
-setSearch(e.target.value)
-}
-className="
-w-full
-border
-rounded
-p-3
-mb-4
-"
-/>
 
 
 
@@ -88,22 +69,7 @@ mb-4
 
           {
           
-          // records.map(
-            
-          records
-          .filter(record=>
-          
-          record.employees?.full_name
-          ?.toLowerCase()
-          .includes(
-          search.toLowerCase()
-          )
-          
-          )
-          
-              .map(
-            
-            (record) => (
+          records.map((record) => (
 
             <tr
               key={record.id}
