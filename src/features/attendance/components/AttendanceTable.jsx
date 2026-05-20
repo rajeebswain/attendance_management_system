@@ -1,3 +1,8 @@
+import { useState } from "react";
+
+const [search,setSearch]=useState("");
+
+
 function AttendanceTable({
 
   records,
@@ -7,6 +12,23 @@ function AttendanceTable({
   return (
 
     <div className="overflow-x-auto">
+
+
+<input
+type="text"
+placeholder="Search employee..."
+value={search}
+onChange={(e)=>
+setSearch(e.target.value)
+}
+className="
+w-full
+border
+rounded
+p-3
+mb-4
+"
+/>
 
 
       <table
