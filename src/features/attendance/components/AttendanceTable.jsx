@@ -86,7 +86,24 @@ mb-4
         {/* Table body */}
         <tbody>
 
-          {records.map((record) => (
+          {
+          
+          // records.map
+          records
+.filter(record=>
+
+record.employees?.full_name
+?.toLowerCase()
+.includes(
+search.toLowerCase()
+)
+
+)
+
+.map(
+          
+          
+          ((record) => (
 
             <tr
               key={record.id}
