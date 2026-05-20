@@ -8,6 +8,20 @@ function AttendanceTable({
 
     <div className="overflow-x-auto">
 
+<input
+type="text"
+placeholder="Search employee..."
+value={search}
+onChange={(e)=>setSearch(e.target.value)}
+className="
+w-full
+border
+rounded
+p-3
+mb-4
+"
+/>
+
       <table
         className="
             w-full
@@ -54,7 +68,7 @@ function AttendanceTable({
               Overtime
             </th>
 
-           
+
           </tr>
 
         </thead>
@@ -63,7 +77,21 @@ function AttendanceTable({
         {/* Table body */}
         <tbody>
 
-          {records.map((record) => (
+          {/* {records.map((record) => ( */}
+
+          {records
+
+.filter((record)=>
+
+record.employees?.full_name
+?.toLowerCase()
+.includes(
+search.toLowerCase()
+)
+
+)
+
+.map((record)=>(
 
             <tr
               key={record.id}
@@ -88,9 +116,42 @@ function AttendanceTable({
 
               </td>
 
-              <td className="p-4 capitalize">
+              {/* <td className="p-4 capitalize">
 
                 {record.status}
+
+              </td> */}
+
+              <td className="p-4">
+
+                <span className={`
+
+px-2
+py-1
+rounded
+text-white
+capitalize
+
+${record.status === "present"
+
+                    ? "bg-green-500"
+
+                    : record.status === "late"
+
+                      ? "bg-yellow-500"
+
+                      : record.status === "leave"
+
+                        ? "bg-blue-500"
+
+                        : "bg-red-500"
+                  }
+
+`}>
+
+                  {record.status}
+
+                </span>
 
               </td>
 
@@ -132,7 +193,7 @@ function AttendanceTable({
 
               </td>
 
-              <td className="p-4">
+              {/* <td className="p-4">
 
                 {new Date(
                   Number(record.worked_hours || 0)
@@ -141,10 +202,25 @@ function AttendanceTable({
                   .toISOString()
                   .slice(11, 19)}
 
-              </td>
+              </td> */}
 
 
               <td className="p-4">
+
+                {record.worked_hours
+
+                  ? new Date(
+                    Number(record.worked_hours)
+                    * 60 * 60 * 1000
+                  )
+                    .toISOString()
+                    .slice(11, 19)
+
+                  : "00:00:00"}
+
+              </td>
+
+              {/* <td className="p-4">
 
                 {new Date(
                   Number(record.overtime_hours || 0)
@@ -152,6 +228,21 @@ function AttendanceTable({
                 )
                   .toISOString()
                   .slice(11, 19)}
+
+              </td> */}
+
+              <td className="p-4">
+
+                {record.overtime_hours
+
+                  ? new Date(
+                    Number(record.overtime_hours)
+                    * 60 * 60 * 1000
+                  )
+                    .toISOString()
+                    .slice(11, 19)
+
+                  : "00:00:00"}
 
               </td>
 

@@ -6,6 +6,19 @@ import {
 
 } from "react";
 
+// Time & Date format
+function formatDuration(hours){
+
+  const h=Math.floor(hours);
+  
+  const m=Math.floor(
+  (hours-h)*60
+  );
+  
+  return `${h} hr ${m} min`;
+  
+  }
+
 
 // Reusable UI components
 import Button from "../../../components/ui/Button";
@@ -59,6 +72,8 @@ function AttendanceForm({
 
   //Setting the holidayes
   const [holidays, setHolidays] = useState([]);
+
+  const [search, setSearch] = useState("");
 
   function handleCheckIn() {
 
