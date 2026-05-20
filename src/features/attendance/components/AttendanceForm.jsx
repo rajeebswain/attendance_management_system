@@ -820,7 +820,7 @@ p-3
         )}
 
 
-        <button
+        <Button
           type="submit"
           className="px-4 py-2 bg-blue-600 text-white rounded"
         >
@@ -829,7 +829,7 @@ p-3
             ? "Saving..."
             : "Mark Attendance"}
 
-        </button>
+        </Button>
 
 
       </form>
