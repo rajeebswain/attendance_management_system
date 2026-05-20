@@ -397,26 +397,41 @@ Worked: ${hours.toFixed(2)} hrs`
     try {
 
       setLoading(true);
-      const checkInDate =
-        new Date(checkInTime);
+      // const checkInDate =
+      //   new Date(checkInTime);
 
-      const checkOutDate =
-        new Date(checkOutTime);
+      // const checkOutDate =
+      //   new Date(checkOutTime);
+
+      // const workedHours =
+
+      //   (
+
+      //     checkOutDate -
+
+      //     checkInDate
+
+      //   )
+
+      //   /
+
+      //   (1000 * 60 * 60);
 
       const workedHours =
 
-        (
+        checkOutTime
 
-          checkOutDate -
+          ? (
 
-          checkInDate
+            new Date(checkOutTime)
+            -
+            new Date(checkInTime)
 
-        )
+          ) /
 
-        /
+          (1000 * 60 * 60)
 
-        (1000 * 60 * 60);
-
+          : 0;
 
       /* Overtime after shift rule */
 
@@ -557,262 +572,262 @@ Worked: ${hours.toFixed(2)} hrs`
     }
 
   }
-    return (
+  return (
 
-      <Card>
+    <Card>
 
-        <h2 className="text-2xl font-bold mb-4">
+      <h2 className="text-2xl font-bold mb-4">
 
-          Mark Attendance
+        Mark Attendance
 
-        </h2>
+      </h2>
 
 
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-4"
-        >
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4"
+      >
 
-          {/* Employee selection */}
+        {/* Employee selection */}
 
-          <select
-            value={employeeId}
+        <select
+          value={employeeId}
 
-            onChange={(e) => {
+          onChange={(e) => {
 
-              const selectedId =
+            const selectedId =
 
-                e.target.value;
+              e.target.value;
 
-              setEmployeeId(
+            setEmployeeId(
 
-                selectedId
+              selectedId
+
+            );
+
+            const employee =
+
+              employees.find(
+
+                (emp) =>
+
+                  emp.id === selectedId
 
               );
 
-              const employee =
+            if (
 
-                employees.find(
+              employee?.shifts
 
-                  (emp) =>
+            ) {
 
-                    emp.id === selectedId
+              setCheckIn(
 
-                );
+                employee.shifts.start_time.slice(0, 5)
 
-              if (
+              );
 
-                employee?.shifts
+              setCheckOut(
 
-              ) {
+                employee.shifts.end_time.slice(0, 5)
 
-                setCheckIn(
+              );
 
-                  employee.shifts.start_time.slice(0, 5)
+            }
 
-                );
+          }}
 
-                setCheckOut(
-
-                  employee.shifts.end_time.slice(0, 5)
-
-                );
-
-              }
-
-            }}
-
-            className="
+          className="
 w-full
 border
 rounded
 p-3
 "
-          >
+        >
 
-            <option value="">
-              Select Employee
+          <option value="">
+            Select Employee
+          </option>
+
+          {employees.map((employee) => (
+
+            <option
+              key={employee.id}
+              value={employee.id}
+            >
+
+              {employee.full_name}
+
             </option>
 
-            {employees.map((employee) => (
+          ))}
 
-              <option
-                key={employee.id}
-                value={employee.id}
-              >
-
-                {employee.full_name}
-
-              </option>
-
-            ))}
-
-          </select>
+        </select>
 
 
-          {/* Attendance status */}
-          <select
-            value={status}
-            onChange={(e) =>
-              setStatus(e.target.value)
-            }
-            className="
+        {/* Attendance status */}
+        <select
+          value={status}
+          onChange={(e) =>
+            setStatus(e.target.value)
+          }
+          className="
               w-full
               border
               rounded
               p-3
             "
-          >
+        >
 
-            <option value="present">
-              Present
-            </option>
+          <option value="present">
+            Present
+          </option>
 
-            <option value="absent">
-              Absent
-            </option>
+          <option value="absent">
+            Absent
+          </option>
 
-            <option value="late">
-              Late
-            </option>
+          <option value="late">
+            Late
+          </option>
 
-            <option value="leave">
-              Leave
-            </option>
+          <option value="leave">
+            Leave
+          </option>
 
-          </select>
+        </select>
 
 
-          {/* Check In / Check Out */}
+        {/* Check In / Check Out */}
 
-          <div className="flex gap-4">
-
-            <Button
-
-              type="button"
-
-              onClick={handleCheckIn}
-
-              disabled={!!checkInTime}
-
-            >
-
-              Check In
-
-            </Button>
-
-            <Button
-
-              type="button"
-
-              onClick={handleCheckOut}
-
-              disabled={!checkInTime || !!checkOutTime}
-
-            >
-
-              Check Out
-
-            </Button>
-
-          </div>
-
-
-          {/* Show captured times */}
-
-          {checkInTime && (
-
-            <p className="text-sm">
-
-              Checked In:
-
-              {
-
-                new Date(
-
-                  checkInTime
-
-                ).toLocaleTimeString()
-
-              }
-
-            </p>
-
-          )}
-
-
-          {checkOutTime && (
-
-            <p className="text-sm">
-
-              Checked Out:
-
-              {
-
-                new Date(
-
-                  checkOutTime
-
-                ).toLocaleTimeString()
-
-              }
-
-            </p>
-
-          )}
-
-          {workedHours > 0 && (
-
-            <div className="mt-2">
-
-              Worked Hours:
-              {overtimeHours > 0 && (
-
-                <div className="mt-2">
-
-                  Overtime:
-
-                  {
-
-                    overtimeHours
-
-                  }
-
-                  hrs
-
-                </div>
-
-              )}
-
-              {
-
-                workedHours
-
-              }
-
-              hrs
-
-            </div>
-
-          )}
-
+        <div className="flex gap-4">
 
           <Button
-            type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded"
+
+            type="button"
+
+            onClick={handleCheckIn}
+
+            disabled={!!checkInTime}
+
           >
 
-            {loading
-              ? "Saving..."
-              : "Mark Attendance"}
+            Check In
 
           </Button>
 
+          <Button
 
-        </form>
+            type="button"
 
-      </Card>
-    );
-  }
+            onClick={handleCheckOut}
 
-  export default AttendanceForm;
+            disabled={!checkInTime || !!checkOutTime}
+
+          >
+
+            Check Out
+
+          </Button>
+
+        </div>
+
+
+        {/* Show captured times */}
+
+        {checkInTime && (
+
+          <p className="text-sm">
+
+            Checked In:
+
+            {
+
+              new Date(
+
+                checkInTime
+
+              ).toLocaleTimeString()
+
+            }
+
+          </p>
+
+        )}
+
+
+        {checkOutTime && (
+
+          <p className="text-sm">
+
+            Checked Out:
+
+            {
+
+              new Date(
+
+                checkOutTime
+
+              ).toLocaleTimeString()
+
+            }
+
+          </p>
+
+        )}
+
+        {workedHours > 0 && (
+
+          <div className="mt-2">
+
+            Worked Hours:
+            {overtimeHours > 0 && (
+
+              <div className="mt-2">
+
+                Overtime:
+
+                {
+
+                  overtimeHours
+
+                }
+
+                hrs
+
+              </div>
+
+            )}
+
+            {
+
+              workedHours
+
+            }
+
+            hrs
+
+          </div>
+
+        )}
+
+
+        <Button
+          type="submit"
+          className="px-4 py-2 bg-blue-600 text-white rounded"
+        >
+
+          {loading
+            ? "Saving..."
+            : "Mark Attendance"}
+
+        </Button>
+
+
+      </form>
+
+    </Card>
+  );
+}
+
+export default AttendanceForm;
