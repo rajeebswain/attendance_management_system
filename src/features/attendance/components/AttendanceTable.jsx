@@ -89,13 +89,13 @@ function AttendanceTable({
 
               </td>
 
-              {/* <td className="p-4 capitalize">
+              <td className="p-4 capitalize">
 
                 {record.status}
 
-              </td> */}
+              </td>
 
-              <td className="p-4">
+              {/* <td className="p-4">
 
                 <span className={`
 
@@ -126,7 +126,7 @@ ${record.status === "present"
 
                 </span>
 
-              </td>
+              </td> */}
 
               <td>
 
