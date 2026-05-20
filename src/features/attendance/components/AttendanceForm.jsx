@@ -74,7 +74,6 @@ function AttendanceForm({
   const [holidays, setHolidays] = useState([]);
 
 
-
   function handleCheckIn() {
 
     setCheckInTime(
@@ -572,6 +571,8 @@ Worked: ${hours.toFixed(2)} hrs`
     }
 
   }
+
+
   return (
 
     <Card>
