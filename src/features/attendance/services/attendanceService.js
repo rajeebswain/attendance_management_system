@@ -6,37 +6,82 @@ import { supabase } from "../../../lib/supabase/client";
 export async function getAttendanceRecords() {
 
   // Fetch attendance with employee details
-  const { data, error } = await supabase
+//   const { data, error } = await supabase
 
-    .from("attendance")
+//     .from("attendance")
 
-    .select(`
-      *,
-      employees (
-        employee_code,
-        full_name,
-        designation
-      )
-    `)
+//     .select(`
+//       *,
+//       employees (
+//         employee_code,
+//         full_name,
+//         designation
+//       )
+//     `)
 
-    .eq(
-      "is_archived",
-      false
-      )
+//     .eq(
+//       "is_archived",
+//       false
+//       )
 
-    .order("attendance_date", {
+//     .order("attendance_date", {
 
-      ascending: false,
-    });
+//       ascending: false,
+//     });
 
-  // Handle fetch errors
-  if (error) {
+//   // Handle fetch errors
+//   if (error) {
 
-    throw error;
+//     throw error;
+//   }
+
+//   return data;
+// }
+
+export async function getAttendanceRecords(
+
+  archiveFilter=false
+  
+  ){
+  
+  const {data,error}
+  
+  =
+  
+  await supabase
+  
+  .from("attendance")
+  
+  .select(`
+  *,
+  employees(
+  employee_code,
+  full_name,
+  designation
+  )
+  `)
+  
+  .eq(
+  "is_archived",
+  archiveFilter
+  )
+  
+  .order(
+  "attendance_date",
+  {
+  ascending:false
   }
-
+  );
+  
+  if(error){
+  
+  throw error;
+  
+  }
+  
   return data;
-}
+  
+  }
 
 
 // CREATE ATTENDANCE
@@ -229,4 +274,41 @@ export async function getHolidays() {
           
           }
 
-        
+        // Restore Attendance
+        export async function restoreAttendance(
+
+          id
+          
+          ){
+          
+          const {error}
+          
+          =
+          
+          await supabase
+          
+          .from("attendance")
+          
+          .update({
+          
+          is_archived:false
+          
+          })
+          
+          .eq(
+          "id",
+          id
+          );
+          
+          if(error){
+          
+          throw error;
+          
+          }
+          
+          }
+
+
+
+
+          

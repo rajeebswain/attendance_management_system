@@ -9,7 +9,8 @@ import {
 
   updateAttendance,
   getEmployees,
-  archiveAttendance
+  archiveAttendance,
+  restoreAttendance
 
 }
 
@@ -24,6 +25,8 @@ function AttendanceTable({
   const [search, setSearch] = useState("");
 
   const [employees, setEmployees] = useState([]);
+
+  const [archiveView,setArchiveView] = useState(false);
 
   useEffect(() => {
 
@@ -276,7 +279,7 @@ function AttendanceTable({
 
   }
 
-
+// Archieve 
   async function handleArchiveAttendance(
 
     record
@@ -329,13 +332,87 @@ function AttendanceTable({
 
   }
 
+// Handle Restore
+  async function handleRestore(
 
-
+    record
+    
+    ){
+    
+    try{
+    
+    await restoreAttendance(
+    
+    record.id
+    
+    );
+    
+    alert(
+    
+    "Attendance restored"
+    
+    );
+    
+    window.location.reload();
+    
+    }
+    
+    catch(error){
+    
+    console.error(error);
+    
+    alert(
+    
+    "Restore failed"
+    
+    );
+    
+    }
+    
+    }
 
 
   return (
 
     <div className="overflow-x-auto">
+
+
+<div className="mb-4">
+
+<select
+
+value={archiveView}
+
+onChange={(e)=>
+
+setArchiveView(
+
+e.target.value==="true"
+
+)
+
+}
+
+className="border rounded p-2"
+
+>
+
+<option value="false">
+
+Active
+
+</option>
+
+<option value="true">
+
+Archived
+
+</option>
+
+</select>
+
+</div>
+
 
 
       <input
@@ -631,7 +708,7 @@ ${record.status === "present"
 
                     </Button>
 
-
+                    {!record.is_archived ? (
                     <Button
 
                       type="button"
@@ -649,7 +726,27 @@ ${record.status === "present"
                       Archive
 
                     </Button>
+                    )
 
+                    :
+                    
+                    (
+                    
+                    <Button
+                    onClick={()=>
+                    
+                    handleRestore(
+                    record
+                    )
+                    
+                    }
+                    >
+                    
+                    Restore
+                    
+                    </Button>
+                    
+                    )}
 
 
 
