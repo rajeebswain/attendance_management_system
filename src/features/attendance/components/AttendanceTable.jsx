@@ -500,21 +500,46 @@ mb-4
 
           {
 
+            // records
+
+            //   .filter(
+
+            //     (record) =>
+
+            //       record.employees?.full_name
+            //         ?.toLowerCase()
+            //         .includes(
+            //           search.toLowerCase()
+            //         )
+
+            //   )
+
+            //   .map((record) => (
+
             records
 
-              .filter(
+.filter(
 
-                (record) =>
+(record)=>
 
-                  record.employees?.full_name
-                    ?.toLowerCase()
-                    .includes(
-                      search.toLowerCase()
-                    )
+record.is_archived===archiveView
 
-              )
+)
 
-              .map((record) => (
+.filter(
+
+(record)=>
+
+record.employees?.full_name
+?.toLowerCase()
+.includes(
+search.toLowerCase()
+)
+
+)
+
+.map((record)=>(
+
 
                 <tr
                   key={record.id}
