@@ -165,7 +165,7 @@ function AttendanceForm({
     attendance.check_in_datetime
     )
     );
-
+    onAttendanceCreated();
 
     
     }
@@ -330,6 +330,7 @@ function AttendanceForm({
     setOvertimeHours(
     overtimeHours
     );
+    onAttendanceCreated();
     
     }
     catch(error){
