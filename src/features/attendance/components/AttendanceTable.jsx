@@ -107,19 +107,84 @@ function AttendanceTable({
 // Adding  Admin Force Checkout Function Feature 21-05-2026 Case1 
 
 
-    async function handleForceCheckout(
-      attendanceId
-      ){
+    // async function handleForceCheckout(
+    //   attendanceId
+    //   ){
       
+    //   try{
+      
+    //   await updateAttendance(
+      
+    //   attendanceId,
+      
+    //   {
+    //   check_out_datetime:
+    //   new Date().toISOString()
+    //   }
+      
+    //   );
+      
+    //   alert(
+    //   "Force checkout completed"
+    //   );
+      
+    //   window.location.reload();
+      
+    //   }
+      
+    //   catch(error){
+      
+    //   console.error(error);
+      
+    //   alert(
+    //   "Force checkout failed"
+    //   );
+      
+    //   }
+      
+    //   } 
+
+    async function handleForceCheckout(record){
+
       try{
+      
+      const checkoutTime = new Date();
+      
+      const checkInTime = new Date(
+      record.check_in_datetime
+      );
+      
+      const workedHours =
+      
+      (checkoutTime-checkInTime)
+      
+      /
+      
+      (1000*60*60);
+      
+      const overtimeHours =
+      
+      workedHours>8
+      
+      ? workedHours-8
+      
+      :0;
       
       await updateAttendance(
       
-      attendanceId,
+      record.id,
       
       {
+      
       check_out_datetime:
-      new Date().toISOString()
+      checkoutTime.toISOString(),
+      
+      worked_hours:
+      workedHours,
+      
+      overtime_hours:
+      overtimeHours
+      
       }
       
       );
@@ -142,7 +207,10 @@ function AttendanceTable({
       
       }
       
-      } 
+      }
+
+
+
 
   return (
 
@@ -444,9 +512,14 @@ Edit
 type="button"
 onClick={()=>{
 
+// handleForceCheckout(
+// record.id
+// );
+
 handleForceCheckout(
-record.id
-);
+  record
+  );
+
 
 }}
 >
