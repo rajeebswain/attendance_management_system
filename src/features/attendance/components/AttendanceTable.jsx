@@ -79,9 +79,23 @@ function AttendanceTable({
             workedHours,
 
           overtime_hours:
-            overtimeHours
+            overtimeHours,
 
-        }
+            force_edit_count:
+
+record.is_force_checkout
+
+?
+
+(record.force_edit_count || 0)+1
+
+:
+
+(record.force_edit_count || 0)
+
+
+
+            }
 
       );
 
@@ -109,73 +123,7 @@ function AttendanceTable({
 
   // Adding  Admin Force Checkout Function Feature 21-05-2026 Case1 
 
-  // async function handleForceCheckout(record){
-
-  //   try{
-
-  //   const checkoutTime = new Date();
-
-  //   const checkInTime = new Date(
-  //   record.check_in_datetime
-  //   );
-
-  //   const workedHours =
-
-  //   (checkoutTime-checkInTime)
-
-  //   /
-
-  //   (1000*60*60);
-
-  //   const overtimeHours =
-
-  //   workedHours>8
-
-  //   ? workedHours-8
-
-  //   :0;
-
-  //   await updateAttendance(
-
-  //   record.id,
-
-  //   {
-
-  //   check_out_datetime:
-  //   checkoutTime.toISOString(),
-
-  //   worked_hours:
-  //   workedHours,
-
-  //   overtime_hours:
-  //   overtimeHours
-
-  //   }
-
-  //   );
-
-  //   alert(
-  //   "Force checkout completed"
-  //   );
-
-  //   window.location.reload();
-
-  //   }
-
-  //   catch(error){
-
-  //   console.error(error);
-
-  //   alert(
-  //   "Force checkout failed"
-  //   );
-
-  //   }
-
-  //   }
-
-
-  async function handleForceCheckout(record) {
+   async function handleForceCheckout(record) {
 
     try {
 
@@ -232,7 +180,11 @@ function AttendanceTable({
             workedHours,
 
           overtime_hours:
-            overtimeHours
+            overtimeHours,
+
+            is_force_checkout:true,
+
+            force_edit_count:0
 
         }
 
