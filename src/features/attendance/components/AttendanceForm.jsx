@@ -32,6 +32,8 @@ import {
 
   createAttendance,
 
+  createCheckIn,
+
   getEmployees,
 
   getHolidays
@@ -78,86 +80,214 @@ function AttendanceForm({
   //  Added Attendance correction state 21-05-2026
   const [correctionReason,setCorrectionReason] = useState("");
 
-  function handleCheckIn() {
 
+// Added the Attendace work flow correction Case2
+  const [attendanceRecord, setAttendanceRecord] = useState(null);
+
+  // function handleCheckIn() {
+
+  //   setCheckInTime(
+
+  //     new Date()
+
+  //   );
+
+  // }
+
+
+  async function handleCheckIn() {
+
+    try{
+    
+    const currentTime=
+    
+    new Date();
+    
     setCheckInTime(
-
-      new Date()
-
+    currentTime
     );
+    
+    const attendance=
+    
+    await createCheckIn({
+    
+    employee_id:
+    employeeId,
+    
+    attendance_date:
+    
+    new Date()
+    
+    .toISOString()
+    
+    .split("T")[0],
+    
+    status:
+    status,
+    
+    check_in_datetime:
+    currentTime
+    
+    });
+    
+    setAttendanceRecord(
+    attendance
+    );
+    
+    }
+    
+    catch(error){
+    
+    console.error(error);
+    
+    alert(
+    "Check in failed"
+    );
+    
+    }
+    
+    }
 
-  }
+
 
   // Checkout Handle Function
 
-  function handleCheckOut() {
+  // function handleCheckOut() {
 
-    if (!checkInTime) {
+  //   if (!checkInTime) {
 
-      alert(
-        "Please check in first"
-      );
+  //     alert(
+  //       "Please check in first"
+  //     );
 
-      return;
+  //     return;
+  //   }
+
+  //   const now = new Date();
+
+  //   const workedMilliseconds =
+  //     now - new Date(checkInTime);
+
+  //   const hours =
+  //     workedMilliseconds /
+  //     (1000 * 60 * 60);
+
+  //      if(hours < 8){
+
+  //     const reason = prompt(
+  //     "Early checkout reason:"
+  //     );
+      
+  //     if(!reason) return;
+      
+  //     setEarlyReason(reason);
+      
+  //     setCheckOutTime(new Date());
+      
+  //     return;
+  //     }
+      
+  //     setCheckOutTime(new Date());
+  //   setWorkedHours(
+  //     Number(hours.toFixed(2))
+  //   );
+
+  //   const overtime =
+  //     hours > 8
+  //       ? hours - 8
+  //       : 0;
+
+  //   setOvertimeHours(
+  //     Number(
+  //       overtime.toFixed(2)
+  //     )
+  //   );
+
+  //   setCheckOutTime(now);
+
+  // }
+
+
+  async function handleCheckOut(){
+
+    if(!checkInTime){
+    
+    alert(
+    "Please check in first"
+    );
+    
+    return;
+    
+    }
+    
+    try{
+    
+    const currentTime=
+    
+    new Date();
+    
+    setCheckOutTime(
+    currentTime
+    );
+    
+    const workedHours=
+    
+    (currentTime-checkInTime)
+    
+    /
+    
+    (1000*60*60);
+    
+    const overtimeHours=
+    
+    workedHours>8
+    
+    ? workedHours-8
+    
+    :0;
+    
+    
+    // update existing attendance row
+    await updateAttendance(
+    
+    attendanceRecord.id,
+    
+    {
+    
+    check_out_datetime:
+    currentTime,
+    
+    worked_hours:
+    workedHours,
+    
+    overtime_hours:
+    overtimeHours
+    
+    }
+    
+    );
+    
+    setWorkedHours(
+    workedHours
+    );
+    
+    setOvertimeHours(
+    overtimeHours
+    );
+    
+    }
+    catch(error){
+    
+    console.error(error);
+    
+    alert(
+    "Checkout failed"
+    );
+    
+    }
+    
     }
 
-    const now = new Date();
-
-    const workedMilliseconds =
-      now - new Date(checkInTime);
-
-    const hours =
-      workedMilliseconds /
-      (1000 * 60 * 60);
-
-    //    if (hours < 8) {
-
-    //   const reason = prompt(
-    //     "Early checkout reason:"
-    //   );
-
-    //   if (!reason) return;
-
-    //   setStatus("pending");
-
-    //   setEarlyReason(reason);
-
-    // }
-
-    if(hours < 8){
-
-      const reason = prompt(
-      "Early checkout reason:"
-      );
-      
-      if(!reason) return;
-      
-      setEarlyReason(reason);
-      
-      setCheckOutTime(new Date());
-      
-      return;
-      }
-      
-      setCheckOutTime(new Date());
-    setWorkedHours(
-      Number(hours.toFixed(2))
-    );
-
-    const overtime =
-      hours > 8
-        ? hours - 8
-        : 0;
-
-    setOvertimeHours(
-      Number(
-        overtime.toFixed(2)
-      )
-    );
-
-    setCheckOutTime(now);
-
-  }
 
 
   useEffect(() => {

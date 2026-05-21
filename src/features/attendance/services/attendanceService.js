@@ -163,3 +163,37 @@ export async function getHolidays() {
       }
       
       }
+
+// Added the Attendace work flow correction Case2 
+
+      export async function createCheckIn(data){
+
+        const {
+        
+        data:attendance,
+        
+        error
+        
+        }
+        
+        =
+        
+        await supabase
+        
+        .from("attendance")
+        
+        .insert([data])
+        
+        .select()
+        
+        .single();
+        
+        if(error){
+        
+        throw error;
+        
+        }
+        
+        return attendance;
+        
+        }
