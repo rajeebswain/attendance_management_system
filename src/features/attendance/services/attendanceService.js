@@ -3,21 +3,21 @@ import { supabase } from "../../../lib/supabase/client";
 
 
 // FETCH ALL ATTENDANCE RECORDS
-  export async function getAttendanceRecords(
+export async function getAttendanceRecords(
 
-    archiveFilter = false
+  archiveFilter = false
 
-  ) {
+) {
 
-    const { data, error }
+  const { data, error }
 
-      =
+    =
 
-      await supabase
+    await supabase
 
-        .from("attendance")
+      .from("attendance")
 
-        .select(`
+      .select(`
   *,
   employees(
   employee_code,
@@ -26,29 +26,28 @@ import { supabase } from "../../../lib/supabase/client";
   )
   `)
 
-        .eq(
-          "is_archived",
-          archiveFilter
-        )
+      .eq(
+        "is_archived",
+        archiveFilter
+      )
 
-        .order(
-          "attendance_date",
-          {
-            ascending: false
-          }
-        );
+      .order(
+        "attendance_date",
+        {
+          ascending: false
+        }
+      );
 
-    if (error) {
+  if (error) {
 
-      throw error;
-
-    }
-
-    return data;
+    throw error;
 
   }
 
+  return data;
+
 }
+
 // CREATE ATTENDANCE
 export async function createAttendance(
 
