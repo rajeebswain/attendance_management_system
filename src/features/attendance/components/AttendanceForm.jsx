@@ -263,6 +263,16 @@ function AttendanceForm({
     setCheckOutTime(
     currentTime
     );
+
+
+    setAttendanceRecord({
+
+      ...attendanceRecord,
+      
+      check_out_datetime:
+      currentTime
+      
+      });
     
     const workedHours=
     
@@ -896,24 +906,33 @@ p-3
 <Button
 type="button"
 onClick={handleCheckIn}
-disabled={!!attendanceRecord?.check_in_datetime}
+disabled={
+!!checkInTime &&
+!checkOutTime
+}
 >
+
 Check In
+
 </Button>
 
 <Button
 type="button"
 onClick={handleCheckOut}
 disabled={
-!attendanceRecord?.check_in_datetime
+!checkInTime
 ||
-attendanceRecord?.check_out_datetime
+!!checkOutTime
 }
 >
+
 Check Out
+
 </Button>
 
 </div>
+
+
 
         {/* Show captured times */}
 
