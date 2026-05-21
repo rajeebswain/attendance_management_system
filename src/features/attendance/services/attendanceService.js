@@ -6,53 +6,53 @@ import { supabase } from "../../../lib/supabase/client";
 export async function getAttendanceRecords() {
 
   // Fetch attendance with employee details
-//   const { data, error } = await supabase
+  //   const { data, error } = await supabase
 
-//     .from("attendance")
+  //     .from("attendance")
 
-//     .select(`
-//       *,
-//       employees (
-//         employee_code,
-//         full_name,
-//         designation
-//       )
-//     `)
+  //     .select(`
+  //       *,
+  //       employees (
+  //         employee_code,
+  //         full_name,
+  //         designation
+  //       )
+  //     `)
 
-//     .eq(
-//       "is_archived",
-//       false
-//       )
+  //     .eq(
+  //       "is_archived",
+  //       false
+  //       )
 
-//     .order("attendance_date", {
+  //     .order("attendance_date", {
 
-//       ascending: false,
-//     });
+  //       ascending: false,
+  //     });
 
-//   // Handle fetch errors
-//   if (error) {
+  //   // Handle fetch errors
+  //   if (error) {
 
-//     throw error;
-//   }
+  //     throw error;
+  //   }
 
-//   return data;
-// }
+  //   return data;
+  // }
 
-export async function getAttendanceRecords(
+  export async function getAttendanceRecords(
 
-  archiveFilter=false
-  
-  ){
-  
-  const {data,error}
-  
-  =
-  
-  await supabase
-  
-  .from("attendance")
-  
-  .select(`
+    archiveFilter = false
+
+  ) {
+
+    const { data, error }
+
+      =
+
+      await supabase
+
+        .from("attendance")
+
+        .select(`
   *,
   employees(
   employee_code,
@@ -60,30 +60,30 @@ export async function getAttendanceRecords(
   designation
   )
   `)
-  
-  .eq(
-  "is_archived",
-  archiveFilter
-  )
-  
-  .order(
-  "attendance_date",
-  {
-  ascending:false
-  }
-  );
-  
-  if(error){
-  
-  throw error;
-  
-  }
-  
-  return data;
-  
+
+        .eq(
+          "is_archived",
+          archiveFilter
+        )
+
+        .order(
+          "attendance_date",
+          {
+            ascending: false
+          }
+        );
+
+    if (error) {
+
+      throw error;
+
+    }
+
+    return data;
+
   }
 
-
+}
 // CREATE ATTENDANCE
 export async function createAttendance(
 
@@ -153,162 +153,157 @@ export async function getEmployees() {
 export async function getHolidays() {
 
   const { data, error } = await supabase
-  
-  .from("holidays")
-  
-  .select("*");
-  
-  if(error){
-  
-  throw error;
-  
+
+    .from("holidays")
+
+    .select("*");
+
+  if (error) {
+
+    throw error;
+
   }
-  
+
   return data;
-  
-  }
+
+}
 
 // Adding  Admin Update Attendance Feature 21-05-2026 – 12:49 PM 
 
-    export async function updateAttendance(
-      id,
-      data
-      ){
-      
-      const {error}
-      
-      = await supabase
-      
+export async function updateAttendance(
+  id,
+  data
+) {
+
+  const { error }
+
+    = await supabase
+
       .from("attendance")
-      
+
       .update(data)
-      
+
       .eq(
-      "id",
-      id
+        "id",
+        id
       );
-      
-      if(error){
-      
-      throw error;
-      
-      }
-      
-      }
+
+  if (error) {
+
+    throw error;
+
+  }
+
+}
 
 // Added the Attendace work flow correction Case2 
 
-      export async function createCheckIn(data){
+export async function createCheckIn(data) {
 
-        const {
-        
-        data:attendance,
-        
-        error
-        
-        }
-        
-        =
-        
-        await supabase
-        
-        .from("attendance")
-        
-        .insert([data])
-        
-        .select()
-        
-        .single();
-        
-        if(error){
-        
-        throw error;
-        
-        }
-        
-        return attendance;
-        
-        }
+  const {
 
+    data: attendance,
 
+    error
 
-        // archive function
+  }
 
-        export async function archiveAttendance(
+    =
 
-          id
-          
-          ){
-          
-          const {
-          
-          error
-          
-          }
-          
-          =
-          
-          await supabase
-          
-          .from("attendance")
-          
-          .update({
-          
-          is_archived:true
-          
-          })
-          
-          .eq(
-          
-          "id",
-          
-          id
-          
-          );
-          
-          if(error){
-          
-          throw error;
-          
-          }
-          
-          }
+    await supabase
 
-        // Restore Attendance
-        export async function restoreAttendance(
+      .from("attendance")
 
-          id
-          
-          ){
-          
-          const {error}
-          
-          =
-          
-          await supabase
-          
-          .from("attendance")
-          
-          .update({
-          
-          is_archived:false
-          
-          })
-          
-          .eq(
-          "id",
-          id
-          );
-          
-          if(error){
-          
-          throw error;
-          
-          }
-          
-          }
+      .insert([data])
+
+      .select()
+
+      .single();
+
+  if (error) {
+
+    throw error;
+
+  }
+
+  return attendance;
+
+}
 
 
 
+// archive function
 
-          
+export async function archiveAttendance(
+
+  id
+
+) {
+
+  const {
+
+    error
+
+  }
+
+    =
+
+    await supabase
+
+      .from("attendance")
+
+      .update({
+
+        is_archived: true
+
+      })
+
+      .eq(
+
+        "id",
+
+        id
+
+      );
+
+  if (error) {
+
+    throw error;
+
+  }
+
+}
+
+// Restore Attendance
+export async function restoreAttendance(
+
+  id
+
+) {
+
+  const { error }
+
+    =
+
+    await supabase
+
+      .from("attendance")
+
+      .update({
+
+        is_archived: false
+
+      })
+
+      .eq(
+        "id",
+        id
+      );
+
+  if (error) {
+
+    throw error;
+
+  }
+
+}
