@@ -118,24 +118,6 @@ export async function getHolidays() {
   
   }
 
-  //  Added Attendance correction Service 21-05-2026
-
-  export async function createCorrectionRequest(data){
-
-    const { error } = await supabase
-    
-    .from("attendance_corrections")
-    
-    .insert([data]);
-    
-    if(error){
-    
-    throw error;
-    
-    }
-    
-    }
-
 // Adding  Admin Update Attendance Feature 21-05-2026 – 12:49 PM 
 
     export async function updateAttendance(
@@ -197,3 +179,33 @@ export async function getHolidays() {
         return attendance;
         
         }
+
+        
+// Correction Request
+
+
+        export async function createCorrectionRequest(data){
+
+          const {data:result,error}
+          
+          =
+          
+          await supabase
+          
+          .from("correction_requests")
+          
+          .insert([data])
+          
+          .select()
+          
+          .single();
+          
+          if(error){
+          
+          throw error;
+          
+          }
+          
+          return result;
+          
+          }

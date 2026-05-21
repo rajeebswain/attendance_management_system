@@ -916,63 +916,93 @@ function AttendanceForm({
 
   //  Added Attendance correction Function 21-05-2026
 
-  async function handleCorrectionRequest() {
+  // async function handleCorrectionRequest() {
 
-    if (!correctionReason) {
+  //   if (!correctionReason) {
 
-      alert(
-        "Please enter reason"
-      );
+  //     alert(
+  //       "Please enter reason"
+  //     );
 
-      return;
+  //     return;
+  //   }
+
+  //   try {
+
+  //     await createCorrectionRequest({
+
+  //       attendance_id:
+  //         attendanceRecord?.id,
+
+  //       employee_id:
+  //         employeeId,
+
+  //       reason:
+  //         correctionReason
+
+  //     });
+
+  //     alert(
+  //       "Correction request submitted"
+  //     );
+
+  //     setCorrectionReason("");
+
+  //   }
+
+  //   catch (error) {
+
+  //     console.error(error);
+
+  //     alert(
+  //       "Failed to submit request"
+  //     );
+
+  //   }
+
+  // }
+
+
+  async function handleCorrectionRequest(){
+
+    try{
+    
+    await createCorrectionRequest({
+    
+    attendance_id:
+    attendanceRecord.id,
+    
+    employee_id:
+    employeeId,
+    
+    reason:
+    earlyReason
+    
+    });
+    
+    alert(
+    "Correction request submitted"
+    );
+    
     }
-
-    try {
-
-      await createCorrectionRequest({
-
-        attendance_id:
-          attendanceRecord?.id,
-
-        employee_id:
-          employeeId,
-
-        reason:
-          correctionReason
-
-      });
-
-      alert(
-        "Correction request submitted"
-      );
-
-      setCorrectionReason("");
-
+    
+    catch(error){
+    
+    console.error(error);
+    
+    alert(
+    "Request failed"
+    );
+    
     }
-
-    catch (error) {
-
-      console.error(error);
-
-      alert(
-        "Failed to submit request"
-      );
-
+    
     }
-
-  }
 
 
 
   return (
 
     <Card>
-
-      {/* <h2 className="text-2xl font-bold mb-4">
-
-        Mark Attendance
-
-      </h2> */}
 
 
       <form

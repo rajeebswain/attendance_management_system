@@ -81,7 +81,7 @@ function AttendanceTable({
           overtime_hours:
             overtimeHours,
 
-          }
+        }
 
       );
 
@@ -168,7 +168,7 @@ function AttendanceTable({
           overtime_hours:
             overtimeHours,
 
-          }
+        }
 
       );
 
@@ -474,7 +474,21 @@ ${record.status === "present"
 
                     </Button>
 
-                  
+
+
+                    <Button
+
+                      type="button"
+
+                      onClick={handleCorrectionRequest}
+
+                      disabled={!attendanceRecord}
+
+                    >
+
+                      Request Correction
+
+                    </Button>
 
                   </td>
 
