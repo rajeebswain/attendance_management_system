@@ -290,11 +290,6 @@ function AttendanceForm({
     
     :0;
     
-    
-    // update existing attendance row
-    // await updateAttendance(
-    
-    // attendanceRecord.id,
 
     if(!attendanceRecord){
 
@@ -545,6 +540,26 @@ function AttendanceForm({
           :
 
           0;
+          if(workedHours < 8){
+
+            const reason = prompt(
+            
+            `Employee worked only ${workedHours.toFixed(2)} hrs
+            
+            Enter early checkout reason:`
+            
+            );
+            
+            if(!reason){
+            
+            return;
+            }
+            
+            setEarlyReason(reason);
+            
+            }
+
+
       const today =
 
         new Date()
@@ -746,11 +761,11 @@ async function handleCorrectionRequest(){
 
     <Card>
 
-      <h2 className="text-2xl font-bold mb-4">
+      {/* <h2 className="text-2xl font-bold mb-4">
 
         Mark Attendance
 
-      </h2>
+      </h2> */}
 
 
       <form
@@ -1045,7 +1060,7 @@ Request Correction
 </Button>
 
 
-        <Button
+        {/* <Button
           type="submit"
           className="px-4 py-2 bg-blue-600 text-white rounded"
           disabled={
@@ -1059,7 +1074,7 @@ Request Correction
             ? "Saving..."
             : "Mark Attendance"}
 
-        </Button>
+        </Button> */}
 
 
       </form>
