@@ -553,7 +553,7 @@ Edit
 </Button>
 
 
-<Button
+{/* <Button
 type="button"
 onClick={()=>{
 
@@ -565,6 +565,24 @@ handleForceCheckout(
   record
   );
 
+
+}}
+>
+
+Force
+
+</Button> */}
+
+
+
+<Button
+type="button"
+disabled={!!record.check_out_datetime}
+onClick={()=>{
+
+handleForceCheckout(
+record
+);
 
 }}
 >
