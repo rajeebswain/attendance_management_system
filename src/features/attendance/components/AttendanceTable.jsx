@@ -22,7 +22,7 @@ function AttendanceTable({
   const [search, setSearch] = useState("");
 
   // Adding  Admin Override Feature 21-05-2026 – 12:50 PM 
-   async function handleAdminEdit(
+  async function handleAdminEdit(
     attendanceId,
     newCheckout,
     record
@@ -81,21 +81,21 @@ function AttendanceTable({
           overtime_hours:
             overtimeHours,
 
-            force_edit_count:
+          force_edit_count:
 
-record.is_force_checkout
+            record.is_force_checkout
 
-?
+              ?
 
-(record.force_edit_count || 0)+1
+              (record.force_edit_count || 0) + 1
 
-:
+              :
 
-(record.force_edit_count || 0)
+              (record.force_edit_count || 0)
 
 
 
-            }
+        }
 
       );
 
@@ -123,7 +123,7 @@ record.is_force_checkout
 
   // Adding  Admin Force Checkout Function Feature 21-05-2026 Case1 
 
-   async function handleForceCheckout(record) {
+  async function handleForceCheckout(record) {
 
     try {
 
@@ -182,9 +182,9 @@ record.is_force_checkout
           overtime_hours:
             overtimeHours,
 
-            is_force_checkout:true,
+          is_force_checkout: true,
 
-            force_edit_count:0
+          force_edit_count: 0
 
         }
 
@@ -476,7 +476,7 @@ ${record.status === "present"
                     </Button>
 
 
-                    <Button
+                    {/* <Button
                       type="button"
                       disabled={!!record.check_out_datetime}
                       onClick={() => {
@@ -490,6 +490,24 @@ ${record.status === "present"
 
                       Force
 
+                    </Button> */}
+
+                    <Button
+
+                      type="button"
+
+                      disabled={
+
+                        record.is_force_checkout
+
+                        &&
+
+                        (record.force_edit_count || 0) >= 1
+
+                      }
+
+                    >
+                      Edit
                     </Button>
 
                   </td>
