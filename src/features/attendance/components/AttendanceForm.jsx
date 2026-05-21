@@ -1091,39 +1091,6 @@ p-3
 
 
         {/* Check In / Check Out */}
-        {/* 
-        <div className="flex gap-4">
-
-          <Button
-
-            type="button"
-
-            onClick={handleCheckIn}
-
-            disabled={!!checkInTime && !checkOutTime}
-
-          >
-
-            Check In
-
-          </Button>
-
-          <Button
-
-            type="button"
-
-            onClick={handleCheckOut}
-
-            disabled={!checkInTime || !!checkOutTime}
-
-          >
-
-            Check Out
-
-          </Button>
-
-        </div> */}
-
         <div className="flex gap-4">
 
           <Button
@@ -1265,24 +1232,6 @@ mt-4
           Request Correction
 
         </Button>
-
-
-        {/* <Button
-          type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded"
-          disabled={
-            !checkInTime ||
-            !checkOutTime ||
-            loading
-          }
-        >
-
-          {loading
-            ? "Saving..."
-            : "Mark Attendance"}
-
-        </Button> */}
-
 
       </form>
 
