@@ -274,13 +274,38 @@ function AttendanceForm({
       
       });
     
-    const workedHours=
+    // const workedHours=
     
-    (currentTime-checkInTime)
+    // (currentTime-checkInTime)
     
-    /
+    // /
     
-    (1000*60*60);
+    // (1000*60*60);
+
+
+    const checkInDate = new Date(
+      checkInTime
+      );
+      
+      const currentDate = new Date(
+      currentTime
+      );
+      
+      const workedMilliseconds =
+      
+      currentDate.getTime()
+      
+      -
+      
+      checkInDate.getTime();
+      
+      const workedHours =
+      
+      workedMilliseconds
+      
+      /
+      
+      (1000*60*60);
     
     const overtimeHours=
     
@@ -290,6 +315,26 @@ function AttendanceForm({
     
     :0;
     
+    if(workedHours < 8){
+
+      const reason = prompt(
+      
+      `Employee worked only ${workedHours.toFixed(2)} hrs
+      
+      Enter early checkout reason:`
+      
+      );
+      
+      if(!reason){
+      
+      return;
+      }
+      
+      setEarlyReason(
+      reason
+      );
+      
+      }
 
     if(!attendanceRecord){
 
@@ -491,26 +536,7 @@ function AttendanceForm({
     try {
 
       setLoading(true);
-      // const checkInDate =
-      //   new Date(checkInTime);
-
-      // const checkOutDate =
-      //   new Date(checkOutTime);
-
-      // const workedHours =
-
-      //   (
-
-      //     checkOutDate -
-
-      //     checkInDate
-
-      //   )
-
-      //   /
-
-      //   (1000 * 60 * 60);
-
+     
       const workedHours =
 
         checkOutTime
