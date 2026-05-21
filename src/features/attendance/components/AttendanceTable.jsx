@@ -733,46 +733,7 @@ ${record.status === "present"
 
                     </Button>
 
-                    {/* {!record.is_archived ? (
-                    <Button
-
-                      type="button"
-
-                      onClick={() =>
-
-                        handleArchiveAttendance(
-                          record
-                        )
-
-                      }
-
-                    >
-
-                      Archive
-
-                    </Button>
-                    )
-
-                    :
-                    
-                    (
-                    
-                    <Button
-                    onClick={()=>
-                    
-                    handleRestore(
-                    record
-                    )
-                    
-                    }
-                    >
-                    
-                    Restore
-                    
-                    </Button>
-                    
-                    )} */}
-
+{/*               
 {record.is_archived ? (
 
 <Button
@@ -840,8 +801,94 @@ Archive
 
 </>
 
-)}
+)} */}
 
+
+{record.is_archived ? (
+
+<Button
+type="button"
+onClick={()=>
+handleRestore(record)
+}
+>
+
+Restore
+
+</Button>
+
+)
+
+:
+
+(
+
+<>
+
+<Button
+type="button"
+onClick={() => {
+
+const newCheckout=
+
+prompt(
+"Enter checkout time (HH:MM)"
+);
+
+if(newCheckout){
+
+handleAdminEdit(
+record.id,
+newCheckout,
+record
+);
+
+}
+
+}}
+>
+
+Edit
+
+</Button>
+
+<Button
+type="button"
+disabled={!!record.check_out_datetime}
+onClick={()=>
+handleForceCheckout(record)
+}
+>
+
+Force
+
+</Button>
+
+<Button
+type="button"
+onClick={()=>
+handleReassignAttendance(record)
+}
+>
+
+Reassign
+
+</Button>
+
+<Button
+type="button"
+onClick={()=>
+handleArchiveAttendance(record)
+}
+>
+
+Archive
+
+</Button>
+
+</>
+
+)}
 
 
                   </td>
