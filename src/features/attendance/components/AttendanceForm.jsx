@@ -36,7 +36,7 @@ import {
 
   getEmployees,
   updateAttendance,
-createCorrectionRequest,
+  createCorrectionRequest,
 
   getHolidays
 
@@ -80,113 +80,128 @@ function AttendanceForm({
   const [earlyReason, setEarlyReason] = useState("");
 
   //  Added Attendance correction state 21-05-2026
-  const [correctionReason,setCorrectionReason] = useState("");
+  const [correctionReason, setCorrectionReason] = useState("");
 
 
-// Added the Attendace work flow correction Case2
+  // Added the Attendace work flow correction Case2
   const [attendanceRecord, setAttendanceRecord] = useState(null);
 
-  // function handleCheckIn() {
 
-  //   setCheckInTime(
+  // CheckOn Handle Function
+  // async function handleCheckIn() {
 
-  //     new Date()
+  //   try {
 
-  //   );
+  //     const currentTime =
+
+  //       new Date();
+
+  //     setCheckInTime(
+  //       currentTime
+  //     );
+
+
+  //     const attendance =
+
+  //       await createCheckIn({
+
+  //         employee_id:
+  //           employeeId,
+
+  //         attendance_date:
+  //           new Date()
+  //             .toISOString()
+  //             .split("T")[0],
+
+  //         status:
+  //           status,
+
+  //         check_in_datetime:
+  //           currentTime
+
+  //       });
+
+  //     setAttendanceRecord(
+  //       attendance
+  //     );
+
+  //     setCheckInTime(
+  //       new Date(
+  //         attendance.check_in_datetime
+  //       )
+  //     );
+  //     onAttendanceCreated();
+
+
+  //   }
+
+  //   catch (error) {
+
+  //     console.error(error);
+
+  //     alert(
+  //       "Check in failed"
+  //     );
+
+  //   }
 
   // }
 
-
   async function handleCheckIn() {
 
-    try{
-    
-    const currentTime=
-    
-    new Date();
-    
-    setCheckInTime(
-    currentTime
-    );
-    
-    // const attendance=
-    
-    // await createCheckIn({
-    
-    // employee_id:
-    // employeeId,
-    
-    // attendance_date:
-    
-    // new Date()
-    
-    // .toISOString()
-    
-    // .split("T")[0],
-    
-    // status:
-    // status,
-    
-    // check_in_datetime:
-    // currentTime
-    
-    // });
-    
-    // setAttendanceRecord(
-    // attendance
-    // );
+    try {
 
-    const attendance=
+      const currentTime = new Date();
 
-    await createCheckIn({
-    
-    employee_id:
-    employeeId,
-    
-    attendance_date:
-    new Date()
-    .toISOString()
-    .split("T")[0],
-    
-    status:
-    status,
-    
-    check_in_datetime:
-    currentTime
-    
-    });
-    
-    setAttendanceRecord(
-    attendance
-    );
-    
-    setCheckInTime(
-    new Date(
-    attendance.check_in_datetime
-    )
-    );
-    onAttendanceCreated();
+      const attendance =
 
-    
+        await createCheckIn({
+
+          employee_id:
+            employeeId,
+
+          attendance_date:
+            new Date()
+              .toISOString()
+              .split("T")[0],
+
+          status:
+            status,
+
+          check_in_datetime:
+            currentTime.toISOString()
+
+        });
+
+      setAttendanceRecord(
+        attendance
+      );
+
+      setCheckInTime(
+        currentTime
+      );
+
+      onAttendanceCreated();
+
     }
-    
-    catch(error){
-    
-    console.error(error);
-    
-    alert(
-    "Check in failed"
-    );
-    
+
+    catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Check in failed"
+      );
+
     }
-    
-    }
+
+  }
 
 
 
   // Checkout Handle Function
 
-  // function handleCheckOut() {
+  // async function handleCheckOut() {
 
   //   if (!checkInTime) {
 
@@ -195,197 +210,265 @@ function AttendanceForm({
   //     );
 
   //     return;
+
   //   }
 
-  //   const now = new Date();
+  //   try {
 
-  //   const workedMilliseconds =
-  //     now - new Date(checkInTime);
+  //     const currentTime =
 
-  //   const hours =
-  //     workedMilliseconds /
-  //     (1000 * 60 * 60);
+  //       new Date();
 
-  //      if(hours < 8){
-
-  //     const reason = prompt(
-  //     "Early checkout reason:"
+  //     setCheckOutTime(
+  //       currentTime
   //     );
-      
-  //     if(!reason) return;
-      
-  //     setEarlyReason(reason);
-      
-  //     setCheckOutTime(new Date());
-      
-  //     return;
+
+
+  //     setAttendanceRecord({
+
+  //       ...attendanceRecord,
+
+  //       check_out_datetime:
+  //         currentTime
+
+  //     });
+
+  //     const checkInDate = new Date(
+  //       checkInTime
+  //     );
+
+  //     const currentDate = new Date(
+  //       currentTime
+  //     );
+
+  //     const workedMilliseconds =
+
+  //       currentDate.getTime()
+
+  //       -
+
+  //       checkInDate.getTime();
+
+  //     const workedHours =
+
+  //       workedMilliseconds
+
+  //       /
+
+  //       (1000 * 60 * 60);
+
+  //     const overtimeHours =
+
+  //       workedHours > 8
+
+  //         ? workedHours - 8
+
+  //         : 0;
+
+  //     if (workedHours < 8) {
+
+  //       const reason = prompt(
+
+  //         `Employee worked only ${workedHours.toFixed(2)} hrs
+
+  //     Enter early checkout reason:`
+
+  //       );
+
+  //       if (!reason) {
+
+  //         return;
+  //       }
+
+  //       setEarlyReason(
+  //         reason
+  //       );
+
   //     }
-      
-  //     setCheckOutTime(new Date());
-  //   setWorkedHours(
-  //     Number(hours.toFixed(2))
-  //   );
 
-  //   const overtime =
-  //     hours > 8
-  //       ? hours - 8
-  //       : 0;
+  //     if (!attendanceRecord) {
 
-  //   setOvertimeHours(
-  //     Number(
-  //       overtime.toFixed(2)
-  //     )
-  //   );
+  //       alert("No attendance record found");
 
-  //   setCheckOutTime(now);
+  //       return;
+
+  //     }
+
+  //     await updateAttendance(
+
+  //       attendanceRecord.id,
+
+  //       {
+
+  //         check_out_datetime:
+  //           currentTime,
+
+  //         worked_hours:
+  //           workedHours,
+
+  //         overtime_hours:
+  //           overtimeHours
+
+  //       }
+
+  //     );
+
+  //     setWorkedHours(
+  //       workedHours
+  //     );
+
+  //     setOvertimeHours(
+  //       overtimeHours
+  //     );
+  //     onAttendanceCreated();
+
+  //   }
+  //   catch (error) {
+
+  //     console.error(error);
+
+  //     alert(
+  //       "Checkout failed"
+  //     );
+
+  //   }
 
   // }
 
 
-  async function handleCheckOut(){
 
-    if(!checkInTime){
-    
-    alert(
-    "Please check in first"
-    );
-    
-    return;
-    
+  async function handleCheckOut() {
+
+    if (!checkInTime) {
+
+      alert(
+        "Please check in first"
+      );
+
+      return;
+
     }
-    
-    try{
-    
-    const currentTime=
-    
-    new Date();
-    
-    setCheckOutTime(
-    currentTime
-    );
 
+    try {
 
-    setAttendanceRecord({
+      const currentTime =
+        new Date();
 
-      ...attendanceRecord,
-      
-      check_out_datetime:
-      currentTime
-      
-      });
-    
-    // const workedHours=
-    
-    // (currentTime-checkInTime)
-    
-    // /
-    
-    // (1000*60*60);
-
-
-    const checkInDate = new Date(
-      checkInTime
-      );
-      
-      const currentDate = new Date(
-      currentTime
-      );
-      
       const workedMilliseconds =
-      
-      currentDate.getTime()
-      
-      -
-      
-      checkInDate.getTime();
-      
+
+        currentTime.getTime()
+
+        -
+
+        checkInTime.getTime();
+
       const workedHours =
-      
-      workedMilliseconds
-      
-      /
-      
-      (1000*60*60);
-    
-    const overtimeHours=
-    
-    workedHours>8
-    
-    ? workedHours-8
-    
-    :0;
-    
-    if(workedHours < 8){
 
-      const reason = prompt(
-      
-      `Employee worked only ${workedHours.toFixed(2)} hrs
-      
-      Enter early checkout reason:`
-      
-      );
-      
-      if(!reason){
-      
-      return;
-      }
-      
-      setEarlyReason(
-      reason
-      );
-      
+        workedMilliseconds
+
+        /
+
+        (1000 * 60 * 60);
+
+      const overtimeHours =
+
+        workedHours > 8
+
+          ? workedHours - 8
+
+          : 0;
+
+      let reason = "";
+
+      if (workedHours < 8) {
+
+        reason = prompt(
+
+          `Employee worked only ${workedHours.toFixed(2)} hrs
+
+Enter early checkout reason:`
+
+        );
+
+        if (!reason) {
+
+          return;
+        }
+
       }
 
-    if(!attendanceRecord){
+      if (!attendanceRecord) {
 
-      alert("No attendance record found");
-      
-      return;
-      
+        alert(
+          "No attendance record found"
+        );
+
+        return;
+
       }
-      
+
       await updateAttendance(
-      
-      attendanceRecord.id,
-    
-    {
-    
-    check_out_datetime:
-    currentTime,
-    
-    worked_hours:
-    workedHours,
-    
-    overtime_hours:
-    overtimeHours
-    
-    }
-    
-    );
-    
-    setWorkedHours(
-    workedHours
-    );
-    
-    setOvertimeHours(
-    overtimeHours
-    );
-    onAttendanceCreated();
-    
-    }
-    catch(error){
-    
-    console.error(error);
-    
-    alert(
-    "Checkout failed"
-    );
-    
-    }
-    
+
+        attendanceRecord.id,
+
+        {
+
+          check_out_datetime:
+            currentTime.toISOString(),
+
+          worked_hours:
+            workedHours,
+
+          overtime_hours:
+            overtimeHours,
+
+          early_checkout_reason:
+            reason
+
+        }
+
+      );
+
+      setCheckOutTime(
+        currentTime
+      );
+
+      setWorkedHours(
+        workedHours
+      );
+
+      setOvertimeHours(
+        overtimeHours
+      );
+
+      setEarlyReason(
+        reason
+      );
+
+      setAttendanceRecord({
+
+        ...attendanceRecord,
+
+        check_out_datetime:
+          currentTime
+
+      });
+
+      onAttendanceCreated();
+
     }
 
+    catch (error) {
 
+      console.error(error);
+
+      alert(
+        "Checkout failed"
+      );
+
+    }
+
+  }
 
   useEffect(() => {
 
@@ -536,7 +619,7 @@ function AttendanceForm({
     try {
 
       setLoading(true);
-     
+
       const workedHours =
 
         checkOutTime
@@ -566,24 +649,24 @@ function AttendanceForm({
           :
 
           0;
-          if(workedHours < 8){
+      if (workedHours < 8) {
 
-            const reason = prompt(
-            
-            `Employee worked only ${workedHours.toFixed(2)} hrs
+        const reason = prompt(
+
+          `Employee worked only ${workedHours.toFixed(2)} hrs
             
             Enter early checkout reason:`
-            
-            );
-            
-            if(!reason){
-            
-            return;
-            }
-            
-            setEarlyReason(reason);
-            
-            }
+
+        );
+
+        if (!reason) {
+
+          return;
+        }
+
+        setEarlyReason(reason);
+
+      }
 
 
       const today =
@@ -659,8 +742,8 @@ function AttendanceForm({
 
           overtimeHours,
 
-        early_checkout_reason: 
-          
+        early_checkout_reason:
+
           earlyReason
 
       });
@@ -673,7 +756,7 @@ function AttendanceForm({
       setCheckIn("");
 
       setCheckOut("");
-      
+
       setEarlyReason("");
 
       // Refresh attendance list
@@ -733,53 +816,53 @@ function AttendanceForm({
 
   }
 
-//  Added Attendance correction Function 21-05-2026
+  //  Added Attendance correction Function 21-05-2026
 
-async function handleCorrectionRequest(){
+  async function handleCorrectionRequest() {
 
-    if(!correctionReason){
-    
-    alert(
-    "Please enter reason"
-    );
-    
-    return;
+    if (!correctionReason) {
+
+      alert(
+        "Please enter reason"
+      );
+
+      return;
     }
-    
-    try{
-    
-    await createCorrectionRequest({
-    
-    attendance_id:
-    attendanceRecord?.id,
-    
-    employee_id:
-    employeeId,
-    
-    reason:
-    correctionReason
-    
-    });
-    
-    alert(
-    "Correction request submitted"
-    );
-    
-    setCorrectionReason("");
-    
+
+    try {
+
+      await createCorrectionRequest({
+
+        attendance_id:
+          attendanceRecord?.id,
+
+        employee_id:
+          employeeId,
+
+        reason:
+          correctionReason
+
+      });
+
+      alert(
+        "Correction request submitted"
+      );
+
+      setCorrectionReason("");
+
     }
-    
-    catch(error){
-    
-    console.error(error);
-    
-    alert(
-    "Failed to submit request"
-    );
-    
+
+    catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Failed to submit request"
+      );
+
     }
-    
-    }
+
+  }
 
 
 
@@ -910,7 +993,7 @@ p-3
 
 
         {/* Check In / Check Out */}
-{/* 
+        {/* 
         <div className="flex gap-4">
 
           <Button
@@ -943,36 +1026,36 @@ p-3
 
         </div> */}
 
-<div className="flex gap-4">
+        <div className="flex gap-4">
 
-<Button
-type="button"
-onClick={handleCheckIn}
-disabled={
-!!checkInTime &&
-!checkOutTime
-}
->
+          <Button
+            type="button"
+            onClick={handleCheckIn}
+            disabled={
+              !!checkInTime &&
+              !checkOutTime
+            }
+          >
 
-Check In
+            Check In
 
-</Button>
+          </Button>
 
-<Button
-type="button"
-onClick={handleCheckOut}
-disabled={
-!checkInTime
-||
-!!checkOutTime
-}
->
+          <Button
+            type="button"
+            onClick={handleCheckOut}
+            disabled={
+              !checkInTime
+              ||
+              !!checkOutTime
+            }
+          >
 
-Check Out
+            Check Out
 
-</Button>
+          </Button>
 
-</div>
+        </div>
 
 
 
@@ -1054,36 +1137,36 @@ Check Out
 
         )}
 
-{/* Added Attendance correction Button 21-05-2026: 12:30 PM */}
+        {/* Added Attendance correction Button 21-05-2026: 12:30 PM */}
 
-<input
-type="text"
-placeholder="Correction reason"
-value={correctionReason}
-onChange={(e)=>
-setCorrectionReason(
-e.target.value
-)
-}
-className="
+        <input
+          type="text"
+          placeholder="Correction reason"
+          value={correctionReason}
+          onChange={(e) =>
+            setCorrectionReason(
+              e.target.value
+            )
+          }
+          className="
 w-full
 border
 rounded
 p-2
 mt-4
 "
-/>
+        />
 
-<Button
-type="button"
-onClick={
-handleCorrectionRequest
-}
->
+        <Button
+          type="button"
+          onClick={
+            handleCorrectionRequest
+          }
+        >
 
-Request Correction
+          Request Correction
 
-</Button>
+        </Button>
 
 
         {/* <Button
