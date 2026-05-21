@@ -107,19 +107,43 @@ function AttendanceForm({
     currentTime
     );
     
-    const attendance=
+    // const attendance=
     
+    // await createCheckIn({
+    
+    // employee_id:
+    // employeeId,
+    
+    // attendance_date:
+    
+    // new Date()
+    
+    // .toISOString()
+    
+    // .split("T")[0],
+    
+    // status:
+    // status,
+    
+    // check_in_datetime:
+    // currentTime
+    
+    // });
+    
+    // setAttendanceRecord(
+    // attendance
+    // );
+
+    const attendance=
+
     await createCheckIn({
     
     employee_id:
     employeeId,
     
     attendance_date:
-    
     new Date()
-    
     .toISOString()
-    
     .split("T")[0],
     
     status:
@@ -133,6 +157,14 @@ function AttendanceForm({
     setAttendanceRecord(
     attendance
     );
+    
+    setCheckInTime(
+    new Date(
+    attendance.check_in_datetime
+    )
+    );
+
+
     
     }
     
@@ -812,7 +844,7 @@ p-3
 
 
         {/* Check In / Check Out */}
-
+{/* 
         <div className="flex gap-4">
 
           <Button
@@ -841,7 +873,28 @@ p-3
 
             Check Out
 
-          </Button>
+          </Button> */}
+
+
+<Button
+type="button"
+onClick={handleCheckIn}
+disabled={!!attendanceRecord?.check_in_datetime}
+>
+Check In
+</Button>
+
+<Button
+type="button"
+onClick={handleCheckOut}
+disabled={
+!attendanceRecord?.check_in_datetime
+||
+attendanceRecord?.check_out_datetime
+}
+>
+Check Out
+</Button>
 
         </div>
 
