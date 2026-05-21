@@ -5,13 +5,13 @@ import { supabase } from "../../../lib/supabase/client";
 // FETCH ALL ATTENDANCE RECORDS
 export async function getAttendanceRecords(
 
-  archiveFilter = false
+  // archiveFilter = false
 
 ) {
 
   const { data, error }
 
-    =
+    = 
 
     await supabase
 
@@ -26,10 +26,10 @@ export async function getAttendanceRecords(
   )
   `)
 
-      .eq(
-        "is_archived",
-        archiveFilter
-      )
+      // .eq(
+      //   "is_archived",
+      //   archiveFilter
+      // )
 
       .order(
         "attendance_date",
