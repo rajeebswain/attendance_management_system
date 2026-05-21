@@ -102,6 +102,47 @@ function AttendanceTable({
 
 
 
+ 
+
+// Adding  Admin Force Checkout Function Feature 21-05-2026 Case1 
+
+
+    async function handleForceCheckout(
+      attendanceId
+      ){
+      
+      try{
+      
+      await updateAttendance(
+      
+      attendanceId,
+      
+      {
+      check_out_datetime:
+      new Date().toISOString()
+      }
+      
+      );
+      
+      alert(
+      "Force checkout completed"
+      );
+      
+      window.location.reload();
+      
+      }
+      
+      catch(error){
+      
+      console.error(error);
+      
+      alert(
+      "Force checkout failed"
+      );
+      
+      }
+      
+      } 
 
   return (
 
@@ -336,7 +377,7 @@ ${record.status === "present"
 
                   </td>
               
-                  <td className="p-4">
+                  {/* <td className="p-4">
 
 <Button
 type="button"
@@ -361,6 +402,56 @@ newCheckout
 >
 
 Edit
+
+</Button>
+
+</td> */}
+
+
+
+
+
+<td className="p-4 flex gap-2">
+
+<Button
+type="button"
+onClick={()=>{
+
+const newCheckout=
+
+prompt(
+"Enter checkout time (HH:MM)"
+);
+
+if(newCheckout){
+
+handleAdminEdit(
+record.id,
+newCheckout
+);
+
+}
+
+}}
+>
+
+Edit
+
+</Button>
+
+
+<Button
+type="button"
+onClick={()=>{
+
+handleForceCheckout(
+record.id
+);
+
+}}
+>
+
+Force
 
 </Button>
 
