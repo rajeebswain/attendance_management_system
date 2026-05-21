@@ -22,6 +22,42 @@ function AttendanceTable({
   const [search, setSearch] = useState("");
 
 // Adding  Admin Override Feature 21-05-2026 – 12:50 PM 
+  // async function handleAdminEdit(
+  //   attendanceId,
+  //   newCheckout
+  //   ){
+    
+  //   try{
+    
+  //   await updateAttendance(
+    
+  //   attendanceId,
+    
+  //   {
+  //   check_out_datetime:
+  //   new Date().toISOString()
+  //   }
+    
+  //   );
+    
+  //   alert(
+  //   "Attendance updated"
+  //   );
+    
+  //   }
+  //   catch(error){
+    
+  //   console.error(error);
+    
+  //   alert(
+  //   "Update failed"
+  //   );
+    
+  //   }
+    
+  //   }
+
+
   async function handleAdminEdit(
     attendanceId,
     newCheckout
@@ -29,13 +65,17 @@ function AttendanceTable({
     
     try{
     
+    const today = new Date()
+    .toISOString()
+    .split("T")[0];
+    
     await updateAttendance(
     
     attendanceId,
     
     {
     check_out_datetime:
-    new Date().toISOString()
+    `${today}T${newCheckout}:00`
     }
     
     );
@@ -44,7 +84,10 @@ function AttendanceTable({
     "Attendance updated"
     );
     
+    window.location.reload();
+    
     }
+    
     catch(error){
     
     console.error(error);
@@ -56,6 +99,8 @@ function AttendanceTable({
     }
     
     }
+
+
 
 
   return (
