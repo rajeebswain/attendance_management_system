@@ -81,21 +81,7 @@ function AttendanceTable({
           overtime_hours:
             overtimeHours,
 
-          force_edit_count:
-
-            record.is_force_checkout
-
-              ?
-
-              (record.force_edit_count || 0) + 1
-
-              :
-
-              (record.force_edit_count || 0)
-
-
-
-        }
+          }
 
       );
 
@@ -182,11 +168,7 @@ function AttendanceTable({
           overtime_hours:
             overtimeHours,
 
-          is_force_checkout: true,
-
-          force_edit_count: 0
-
-        }
+          }
 
       );
 
