@@ -671,7 +671,7 @@ ${record.status === "present"
 
                   <td className="p-4 flex gap-2">
 
-                    <Button
+                    {/* <Button
                       type="button"
                       onClick={() => {
 
@@ -696,10 +696,10 @@ ${record.status === "present"
 
                       Edit
 
-                    </Button>
+                    </Button> */}
 
 
-                    <Button
+                    {/* <Button
                       type="button"
                       disabled={!!record.check_out_datetime}
                       onClick={() => {
@@ -713,25 +713,25 @@ ${record.status === "present"
 
                       Force
 
-                    </Button>
+                    // </Button> */}
 
-                    <Button
+                    // <Button
 
-                      type="button"
+                    //   type="button"
 
-                      onClick={() =>
+                    //   onClick={() =>
 
-                        handleReassignAttendance(
-                          record
-                        )
+                    //     handleReassignAttendance(
+                    //       record
+                    //     )
 
-                      }
+                    //   }
 
-                    >
+                    // >
 
-                      Reassign
+                    //   Reassign
 
-                    </Button>
+                    // </Button>
 
 {/*               
 {record.is_archived ? (
