@@ -290,10 +290,7 @@ ${record.status === "present"
                     {record.early_checkout_reason || "-"}
 
                   </td>
-                
-
-                  // Adding  Admin Override Button 21-05-2026 – 12:50
-
+              
                   <td className="p-4">
 
 <Button
