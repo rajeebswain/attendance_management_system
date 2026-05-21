@@ -106,20 +106,47 @@ function AttendanceTable({
 
 // Adding  Admin Force Checkout Function Feature 21-05-2026 Case1 
 
+    // async function handleForceCheckout(record){
 
-    // async function handleForceCheckout(
-    //   attendanceId
-    //   ){
-      
     //   try{
+      
+    //   const checkoutTime = new Date();
+      
+    //   const checkInTime = new Date(
+    //   record.check_in_datetime
+    //   );
+      
+    //   const workedHours =
+      
+    //   (checkoutTime-checkInTime)
+      
+    //   /
+      
+    //   (1000*60*60);
+      
+    //   const overtimeHours =
+      
+    //   workedHours>8
+      
+    //   ? workedHours-8
+      
+    //   :0;
       
     //   await updateAttendance(
       
-    //   attendanceId,
+    //   record.id,
       
     //   {
+      
     //   check_out_datetime:
-    //   new Date().toISOString()
+    //   checkoutTime.toISOString(),
+      
+    //   worked_hours:
+    //   workedHours,
+      
+    //   overtime_hours:
+    //   overtimeHours
+      
     //   }
       
     //   );
@@ -142,7 +169,8 @@ function AttendanceTable({
       
     //   }
       
-    //   } 
+    //   }
+
 
     async function handleForceCheckout(record){
 
@@ -170,50 +198,32 @@ function AttendanceTable({
       
       :0;
       
+      
+      // Convert local time properly
+      const localTime = new Date(
+      
+      checkoutTime.getTime()
+      
+      -
+      
+      checkoutTime.getTimezoneOffset()
+      *60000
+      
+      )
+      
+      .toISOString()
+      
+      .slice(0,-1);
+      
+      
       await updateAttendance(
       
       record.id,
       
       {
       
-      // check_out_datetime:
-      // checkoutTime.toISOString(),
-
-
-      const localTime = new Date(
-
-        checkoutTime.getTime()
-        
-        -
-        
-        checkoutTime.getTimezoneOffset()
-        *60000
-        
-        )
-        
-        .toISOString()
-        
-        .slice(0,-1);
-        
-        
-        await updateAttendance(
-        
-        record.id,
-        
-        {
-        
-        check_out_datetime:
-        localTime,
-        
-        worked_hours:
-        workedHours,
-        
-        overtime_hours:
-        overtimeHours
-        
-        }
-        
-        );
+      check_out_datetime:
+      localTime,
       
       worked_hours:
       workedHours,
@@ -244,7 +254,6 @@ function AttendanceTable({
       }
       
       }
-
 
 
 
