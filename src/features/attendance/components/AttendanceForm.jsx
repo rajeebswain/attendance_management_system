@@ -917,56 +917,64 @@ function AttendanceForm({
 
   //  Added Attendance correction Function 21-05-2026
 
-  // async function handleCorrectionRequest() {
+  //  async function handleCorrectionRequest(){
 
-  //   if (!correctionReason) {
-
-  //     alert(
-  //       "Please enter reason"
-  //     );
-
-  //     return;
+  //   try{
+    
+  //   await createCorrectionRequest({
+    
+  //   attendance_id:
+  //   attendanceRecord.id,
+    
+  //   employee_id:
+  //   employeeId,
+    
+  //   reason:
+  //   correctionReason
+    
+  //   });
+    
+  //   alert(
+  //   "Correction request submitted"
+  //   );
+    
   //   }
-
-  //   try {
-
-  //     await createCorrectionRequest({
-
-  //       attendance_id:
-  //         attendanceRecord?.id,
-
-  //       employee_id:
-  //         employeeId,
-
-  //       reason:
-  //         correctionReason
-
-  //     });
-
-  //     alert(
-  //       "Correction request submitted"
-  //     );
-
-  //     setCorrectionReason("");
-
+    
+  //   catch(error){
+    
+  //   console.error(error);
+    
+  //   alert(
+  //   "Request failed"
+  //   );
+    
   //   }
-
-  //   catch (error) {
-
-  //     console.error(error);
-
-  //     alert(
-  //       "Failed to submit request"
-  //     );
-
+    
   //   }
-
-  // }
-
 
   async function handleCorrectionRequest(){
 
     try{
+    
+    if(!attendanceRecord){
+    
+    alert(
+    "No attendance record found"
+    );
+    
+    return;
+    
+    }
+    
+    if(!correctionReason){
+    
+    alert(
+    "Please enter correction reason"
+    );
+    
+    return;
+    
+    }
     
     await createCorrectionRequest({
     
@@ -977,13 +985,15 @@ function AttendanceForm({
     employeeId,
     
     reason:
-    earlyReason
+    correctionReason
     
     });
     
     alert(
     "Correction request submitted"
     );
+    
+    setCorrectionReason("");
     
     }
     
@@ -998,8 +1008,6 @@ function AttendanceForm({
     }
     
     }
-
-
 
   return (
 
