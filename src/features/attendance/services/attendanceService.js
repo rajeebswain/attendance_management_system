@@ -19,6 +19,11 @@ export async function getAttendanceRecords() {
       )
     `)
 
+    .eq(
+      "is_archived",
+      false
+      )
+
     .order("attendance_date", {
 
       ascending: false,
@@ -179,5 +184,49 @@ export async function getHolidays() {
         return attendance;
         
         }
+
+
+
+        // archive function
+
+        export async function archiveAttendance(
+
+          id
+          
+          ){
+          
+          const {
+          
+          error
+          
+          }
+          
+          =
+          
+          await supabase
+          
+          .from("attendance")
+          
+          .update({
+          
+          is_archived:true
+          
+          })
+          
+          .eq(
+          
+          "id",
+          
+          id
+          
+          );
+          
+          if(error){
+          
+          throw error;
+          
+          }
+          
+          }
 
         

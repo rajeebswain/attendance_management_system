@@ -8,7 +8,8 @@ import Button from "../../../components/ui/Button";
 import {
 
   updateAttendance,
-  getEmployees
+  getEmployees,
+  archiveAttendance
 
 }
 
@@ -22,33 +23,33 @@ function AttendanceTable({
 
   const [search, setSearch] = useState("");
 
-  const [employees,setEmployees]=useState([]);
+  const [employees, setEmployees] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    async function loadEmployees(){
-    
-    try{
-    
-    const data=
-    
-    await getEmployees();
-    
-    setEmployees(data);
-    
+    async function loadEmployees() {
+
+      try {
+
+        const data =
+
+          await getEmployees();
+
+        setEmployees(data);
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+      }
+
     }
-    
-    catch(error){
-    
-    console.error(error);
-    
-    }
-    
-    }
-    
+
     loadEmployees();
-    
-    },[]);
+
+  }, []);
 
 
 
@@ -226,54 +227,111 @@ function AttendanceTable({
 
 
 
-  async function handleReassignAttendance(record){
+  async function handleReassignAttendance(record) {
 
-    try{
-    
-    const employeeId=
-    
-    prompt(
-    "Enter employee ID"
-    );
-    
-    if(!employeeId){
-    
-    return;
-    
+    try {
+
+      const employeeId =
+
+        prompt(
+          "Enter employee ID"
+        );
+
+      if (!employeeId) {
+
+        return;
+
+      }
+
+      await updateAttendance(
+
+        record.id,
+
+        {
+
+          employee_id:
+            employeeId
+
+        }
+
+      );
+
+      alert(
+        "Attendance reassigned"
+      );
+
+      window.location.reload();
+
     }
-    
-    await updateAttendance(
-    
-    record.id,
-    
-    {
-    
-    employee_id:
-    employeeId
-    
+
+    catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Reassign failed"
+      );
+
     }
-    
-    );
-    
-    alert(
-    "Attendance reassigned"
-    );
-    
-    window.location.reload();
-    
+
+  }
+
+
+  async function handleArchiveAttendance(
+
+    record
+
+  ) {
+
+    try {
+
+      const confirmArchive =
+
+        window.confirm(
+
+          "Archive attendance?"
+
+        );
+
+      if (!confirmArchive) {
+
+        return;
+
+      }
+
+      await archiveAttendance(
+
+        record.id
+
+      );
+
+      alert(
+
+        "Attendance archived"
+
+      );
+
+      window.location.reload();
+
     }
-    
-    catch(error){
-    
-    console.error(error);
-    
-    alert(
-    "Reassign failed"
-    );
-    
+
+    catch (error) {
+
+      console.error(error);
+
+      alert(
+
+        "Archive failed"
+
+      );
+
     }
-    
-    }
+
+  }
+
+
+
+
 
   return (
 
@@ -557,24 +615,40 @@ ${record.status === "present"
 
                     <Button
 
-type="button"
+                      type="button"
 
-onClick={()=>
+                      onClick={() =>
 
-handleReassignAttendance(
-record
-)
+                        handleReassignAttendance(
+                          record
+                        )
 
-}
+                      }
 
->
+                    >
 
-Reassign
+                      Reassign
 
-</Button>
+                    </Button>
 
 
-                   
+                    <Button
+
+                      type="button"
+
+                      onClick={() =>
+
+                        handleArchiveAttendance(
+                          record
+                        )
+
+                      }
+
+                    >
+
+                      Archive
+
+                    </Button>
 
 
 
