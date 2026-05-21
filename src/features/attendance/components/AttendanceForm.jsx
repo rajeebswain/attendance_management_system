@@ -35,6 +35,8 @@ import {
   createCheckIn,
 
   getEmployees,
+  updateAttendance,
+createCorrectionRequest,
 
   getHolidays
 
@@ -280,9 +282,21 @@ function AttendanceForm({
     
     
     // update existing attendance row
-    await updateAttendance(
+    // await updateAttendance(
     
-    attendanceRecord.id,
+    // attendanceRecord.id,
+
+    if(!attendanceRecord){
+
+      alert("No attendance record found");
+      
+      return;
+      
+      }
+      
+      await updateAttendance(
+      
+      attendanceRecord.id,
     
     {
     
@@ -873,8 +887,11 @@ p-3
 
             Check Out
 
-          </Button> */}
+          </Button>
 
+        </div> */}
+
+<div className="flex gap-4">
 
 <Button
 type="button"
@@ -896,8 +913,7 @@ attendanceRecord?.check_out_datetime
 Check Out
 </Button>
 
-        </div>
-
+</div>
 
         {/* Show captured times */}
 
