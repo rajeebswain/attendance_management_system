@@ -75,6 +75,8 @@ function AttendanceForm({
 
   const [earlyReason, setEarlyReason] = useState("");
 
+  //  Added Attendance correction state 21-05-2026
+  const [correctionReason,setCorrectionReason] = useState("");
 
   function handleCheckIn() {
 
@@ -503,6 +505,55 @@ function AttendanceForm({
 
   }
 
+//  Added Attendance correction Function 21-05-2026
+
+async function handleCorrectionRequest(){
+
+    if(!correctionReason){
+    
+    alert(
+    "Please enter reason"
+    );
+    
+    return;
+    }
+    
+    try{
+    
+    await createCorrectionRequest({
+    
+    attendance_id:
+    attendanceRecord?.id,
+    
+    employee_id:
+    employeeId,
+    
+    reason:
+    correctionReason
+    
+    });
+    
+    alert(
+    "Correction request submitted"
+    );
+    
+    setCorrectionReason("");
+    
+    }
+    
+    catch(error){
+    
+    console.error(error);
+    
+    alert(
+    "Failed to submit request"
+    );
+    
+    }
+    
+    }
+
+
 
   return (
 
@@ -742,6 +793,37 @@ p-3
           </div>
 
         )}
+
+{/* Added Attendance correction Button 21-05-2026: 12:30 PM */}
+
+<input
+type="text"
+placeholder="Correction reason"
+value={correctionReason}
+onChange={(e)=>
+setCorrectionReason(
+e.target.value
+)
+}
+className="
+w-full
+border
+rounded
+p-2
+mt-4
+"
+/>
+
+<Button
+type="button"
+onClick={
+handleCorrectionRequest
+}
+>
+
+Request Correction
+
+</Button>
 
 
         <Button

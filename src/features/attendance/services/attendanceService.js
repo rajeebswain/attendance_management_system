@@ -117,3 +117,21 @@ export async function getHolidays() {
   return data;
   
   }
+
+  //  Added Attendance correction Service 21-05-2026
+
+  export async function createCorrectionRequest(data){
+
+    const { error } = await supabase
+    
+    .from("attendance_corrections")
+    
+    .insert([data]);
+    
+    if(error){
+    
+    throw error;
+    
+    }
+    
+    }
