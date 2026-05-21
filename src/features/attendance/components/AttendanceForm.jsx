@@ -147,11 +147,94 @@ function AttendanceForm({
 
   // }
 
+  // async function handleCheckIn() {
+
+  //   try {
+
+  //     const currentTime = new Date();
+
+  //     const attendance =
+
+  //       await createCheckIn({
+
+  //         employee_id:
+  //           employeeId,
+
+  //         attendance_date:
+  //           new Date()
+  //             .toISOString()
+  //             .split("T")[0],
+
+  //         status:
+  //           status,
+
+  //         // check_in_datetime:
+  //         //   currentTime.toISOString()
+
+  //         const localTime = new Date(
+
+  //           currentTime.getTime()
+
+  //           -
+
+  //           currentTime.getTimezoneOffset()*60000
+
+  //           )
+
+  //           .toISOString()
+
+  //           .slice(0,-1);
+
+
+  //           check_in_datetime:
+  //           localTime
+
+
+  //       });
+
+  //     setAttendanceRecord(
+  //       attendance
+  //     );
+
+  //     setCheckInTime(
+  //       currentTime
+  //     );
+
+  //     onAttendanceCreated();
+
+  //   }
+
+  //   catch (error) {
+
+  //     console.error(error);
+
+  //     alert(
+  //       "Check in failed"
+  //     );
+
+  //   }
+
+  // }
+
   async function handleCheckIn() {
 
     try {
 
       const currentTime = new Date();
+
+      const localTime = new Date(
+
+        currentTime.getTime()
+
+        -
+
+        currentTime.getTimezoneOffset() * 60000
+
+      )
+
+        .toISOString()
+
+        .slice(0, -1);
 
       const attendance =
 
@@ -169,7 +252,7 @@ function AttendanceForm({
             status,
 
           check_in_datetime:
-            currentTime.toISOString()
+            localTime
 
         });
 
@@ -197,145 +280,141 @@ function AttendanceForm({
 
   }
 
-
-
   // Checkout Handle Function
 
-  // async function handleCheckOut() {
 
-  //   if (!checkInTime) {
+  //   async function handleCheckOut() {
 
-  //     alert(
-  //       "Please check in first"
-  //     );
+  //     if (!checkInTime) {
 
-  //     return;
-
-  //   }
-
-  //   try {
-
-  //     const currentTime =
-
-  //       new Date();
-
-  //     setCheckOutTime(
-  //       currentTime
-  //     );
-
-
-  //     setAttendanceRecord({
-
-  //       ...attendanceRecord,
-
-  //       check_out_datetime:
-  //         currentTime
-
-  //     });
-
-  //     const checkInDate = new Date(
-  //       checkInTime
-  //     );
-
-  //     const currentDate = new Date(
-  //       currentTime
-  //     );
-
-  //     const workedMilliseconds =
-
-  //       currentDate.getTime()
-
-  //       -
-
-  //       checkInDate.getTime();
-
-  //     const workedHours =
-
-  //       workedMilliseconds
-
-  //       /
-
-  //       (1000 * 60 * 60);
-
-  //     const overtimeHours =
-
-  //       workedHours > 8
-
-  //         ? workedHours - 8
-
-  //         : 0;
-
-  //     if (workedHours < 8) {
-
-  //       const reason = prompt(
-
-  //         `Employee worked only ${workedHours.toFixed(2)} hrs
-
-  //     Enter early checkout reason:`
-
+  //       alert(
+  //         "Please check in first"
   //       );
-
-  //       if (!reason) {
-
-  //         return;
-  //       }
-
-  //       setEarlyReason(
-  //         reason
-  //       );
-
-  //     }
-
-  //     if (!attendanceRecord) {
-
-  //       alert("No attendance record found");
 
   //       return;
 
   //     }
 
-  //     await updateAttendance(
+  //     try {
 
-  //       attendanceRecord.id,
+  //       const currentTime =
+  //         new Date();
 
-  //       {
+  //       const workedMilliseconds =
 
-  //         check_out_datetime:
-  //           currentTime,
+  //         currentTime.getTime()
 
-  //         worked_hours:
-  //           workedHours,
+  //         -
 
-  //         overtime_hours:
-  //           overtimeHours
+  //         checkInTime.getTime();
+
+  //       const workedHours =
+
+  //         workedMilliseconds
+
+  //         /
+
+  //         (1000 * 60 * 60);
+
+  //       const overtimeHours =
+
+  //         workedHours > 8
+
+  //           ? workedHours - 8
+
+  //           : 0;
+
+  //       let reason = "";
+
+  //       if (workedHours < 8) {
+
+  //         reason = prompt(
+
+  //           `Employee worked only ${workedHours.toFixed(2)} hrs
+
+  // Enter early checkout reason:`
+
+  //         );
+
+  //         if (!reason) {
+
+  //           return;
+  //         }
 
   //       }
 
-  //     );
+  //       if (!attendanceRecord) {
 
-  //     setWorkedHours(
-  //       workedHours
-  //     );
+  //         alert(
+  //           "No attendance record found"
+  //         );
 
-  //     setOvertimeHours(
-  //       overtimeHours
-  //     );
-  //     onAttendanceCreated();
+  //         return;
+
+  //       }
+
+  //       await updateAttendance(
+
+  //         attendanceRecord.id,
+
+  //         {
+
+  //           check_out_datetime:
+  //             currentTime.toISOString(),
+
+  //           worked_hours:
+  //             workedHours,
+
+  //           overtime_hours:
+  //             overtimeHours,
+
+  //           early_checkout_reason:
+  //             reason
+
+  //         }
+
+  //       );
+
+  //       setCheckOutTime(
+  //         currentTime
+  //       );
+
+  //       setWorkedHours(
+  //         workedHours
+  //       );
+
+  //       setOvertimeHours(
+  //         overtimeHours
+  //       );
+
+  //       setEarlyReason(
+  //         reason
+  //       );
+
+  //       setAttendanceRecord({
+
+  //         ...attendanceRecord,
+
+  //         check_out_datetime:
+  //           currentTime
+
+  //       });
+
+  //       onAttendanceCreated();
+
+  //     }
+
+  //     catch (error) {
+
+  //       console.error(error);
+
+  //       alert(
+  //         "Checkout failed"
+  //       );
+
+  //     }
 
   //   }
-  //   catch (error) {
-
-  //     console.error(error);
-
-  //     alert(
-  //       "Checkout failed"
-  //     );
-
-  //   }
-
-  // }
-
-
 
   async function handleCheckOut() {
 
@@ -353,6 +432,20 @@ function AttendanceForm({
 
       const currentTime =
         new Date();
+
+      const localTime = new Date(
+
+        currentTime.getTime()
+
+        -
+
+        currentTime.getTimezoneOffset() * 60000
+
+      )
+
+        .toISOString()
+
+        .slice(0, -1);
 
       const workedMilliseconds =
 
@@ -385,14 +478,15 @@ function AttendanceForm({
         reason = prompt(
 
           `Employee worked only ${workedHours.toFixed(2)} hrs
-
-Enter early checkout reason:`
+  
+  Enter early checkout reason:`
 
         );
 
         if (!reason) {
 
           return;
+
         }
 
       }
@@ -414,7 +508,7 @@ Enter early checkout reason:`
         {
 
           check_out_datetime:
-            currentTime.toISOString(),
+            localTime,
 
           worked_hours:
             workedHours,
@@ -469,6 +563,10 @@ Enter early checkout reason:`
     }
 
   }
+
+
+
+
 
   useEffect(() => {
 
