@@ -476,7 +476,7 @@ ${record.status === "present"
                     </Button>
 
 
-                    {/* <Button
+                    <Button
                       type="button"
                       disabled={!!record.check_out_datetime}
                       onClick={() => {
@@ -490,25 +490,9 @@ ${record.status === "present"
 
                       Force
 
-                    </Button> */}
-
-                    <Button
-
-                      type="button"
-
-                      disabled={
-
-                        record.is_force_checkout
-
-                        &&
-
-                        (record.force_edit_count || 0) >= 1
-
-                      }
-
-                    >
-                      Edit
                     </Button>
+
+                  
 
                   </td>
 
