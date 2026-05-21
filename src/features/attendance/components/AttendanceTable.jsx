@@ -7,7 +7,8 @@ import Button from "../../../components/ui/Button";
 
 import {
 
-  updateAttendance
+  updateAttendance,
+  getEmployees
 
 }
 
@@ -20,6 +21,37 @@ function AttendanceTable({
 }) {
 
   const [search, setSearch] = useState("");
+
+  const [employees,setEmployees]=useState([]);
+
+  useEffect(()=>{
+
+    async function loadEmployees(){
+    
+    try{
+    
+    const data=
+    
+    await getEmployees();
+    
+    setEmployees(data);
+    
+    }
+    
+    catch(error){
+    
+    console.error(error);
+    
+    }
+    
+    }
+    
+    loadEmployees();
+    
+    },[]);
+
+
+
 
   // Adding  Admin Override Feature 21-05-2026 – 12:50 PM 
   async function handleAdminEdit(
@@ -193,6 +225,55 @@ function AttendanceTable({
   }
 
 
+
+  async function handleReassignAttendance(record){
+
+    try{
+    
+    const employeeId=
+    
+    prompt(
+    "Enter employee ID"
+    );
+    
+    if(!employeeId){
+    
+    return;
+    
+    }
+    
+    await updateAttendance(
+    
+    record.id,
+    
+    {
+    
+    employee_id:
+    employeeId
+    
+    }
+    
+    );
+    
+    alert(
+    "Attendance reassigned"
+    );
+    
+    window.location.reload();
+    
+    }
+    
+    catch(error){
+    
+    console.error(error);
+    
+    alert(
+    "Reassign failed"
+    );
+    
+    }
+    
+    }
 
   return (
 
@@ -474,7 +555,23 @@ ${record.status === "present"
 
                     </Button>
 
+                    <Button
 
+type="button"
+
+onClick={()=>
+
+handleReassignAttendance(
+record
+)
+
+}
+
+>
+
+Reassign
+
+</Button>
 
 
                    
