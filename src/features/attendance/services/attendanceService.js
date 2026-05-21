@@ -3,41 +3,6 @@ import { supabase } from "../../../lib/supabase/client";
 
 
 // FETCH ALL ATTENDANCE RECORDS
-export async function getAttendanceRecords() {
-
-  // Fetch attendance with employee details
-  //   const { data, error } = await supabase
-
-  //     .from("attendance")
-
-  //     .select(`
-  //       *,
-  //       employees (
-  //         employee_code,
-  //         full_name,
-  //         designation
-  //       )
-  //     `)
-
-  //     .eq(
-  //       "is_archived",
-  //       false
-  //       )
-
-  //     .order("attendance_date", {
-
-  //       ascending: false,
-  //     });
-
-  //   // Handle fetch errors
-  //   if (error) {
-
-  //     throw error;
-  //   }
-
-  //   return data;
-  // }
-
   export async function getAttendanceRecords(
 
     archiveFilter = false
