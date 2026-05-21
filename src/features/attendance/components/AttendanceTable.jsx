@@ -477,19 +477,7 @@ ${record.status === "present"
 
 
 
-                    <Button
-
-                      type="button"
-
-                      onClick={handleCorrectionRequest}
-
-                      disabled={!attendanceRecord}
-
-                    >
-
-                      Request Correction
-
-                    </Button>
+                   
 
 
 

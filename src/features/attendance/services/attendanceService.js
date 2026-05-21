@@ -181,31 +181,3 @@ export async function getHolidays() {
         }
 
         
-// Correction Request
-
-
-        export async function createCorrectionRequest(data){
-
-          const {data:result,error}
-          
-          =
-          
-          await supabase
-          
-          .from("correction_requests")
-          
-          .insert([data])
-          
-          .select()
-          
-          .single();
-          
-          if(error){
-          
-          throw error;
-          
-          }
-          
-          return result;
-          
-          }

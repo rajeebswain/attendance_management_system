@@ -36,9 +36,7 @@ import {
 
   getEmployees,
   updateAttendance,
-  createCorrectionRequest,
-
-  getHolidays
+   getHolidays
 
 } from "../services/attendanceService";
 
@@ -80,10 +78,7 @@ function AttendanceForm({
 
   const [earlyReason, setEarlyReason] = useState("");
 
-  //  Added Attendance correction state 21-05-2026
-  const [correctionReason, setCorrectionReason] = useState("");
-
-
+ 
   // Added the Attendace work flow correction Case2
   const [attendanceRecord, setAttendanceRecord] = useState(null);
 
@@ -915,99 +910,8 @@ function AttendanceForm({
 
   }
 
-  //  Added Attendance correction Function 21-05-2026
 
-  //  async function handleCorrectionRequest(){
 
-  //   try{
-    
-  //   await createCorrectionRequest({
-    
-  //   attendance_id:
-  //   attendanceRecord.id,
-    
-  //   employee_id:
-  //   employeeId,
-    
-  //   reason:
-  //   correctionReason
-    
-  //   });
-    
-  //   alert(
-  //   "Correction request submitted"
-  //   );
-    
-  //   }
-    
-  //   catch(error){
-    
-  //   console.error(error);
-    
-  //   alert(
-  //   "Request failed"
-  //   );
-    
-  //   }
-    
-  //   }
-
-  async function handleCorrectionRequest(){
-
-    try{
-    
-    if(!attendanceRecord){
-    
-    alert(
-    "No attendance record found"
-    );
-    
-    return;
-    
-    }
-    
-    if(!correctionReason){
-    
-    alert(
-    "Please enter correction reason"
-    );
-    
-    return;
-    
-    }
-    
-    await createCorrectionRequest({
-    
-    attendance_id:
-    attendanceRecord.id,
-    
-    employee_id:
-    employeeId,
-    
-    reason:
-    correctionReason
-    
-    });
-    
-    alert(
-    "Correction request submitted"
-    );
-    
-    setCorrectionReason("");
-    
-    }
-    
-    catch(error){
-    
-    console.error(error);
-    
-    alert(
-    "Request failed"
-    );
-    
-    }
-    
-    }
 
   return (
 
@@ -1261,17 +1165,7 @@ mt-4
 "
         />
 
-        <Button
-          type="button"
-          onClick={
-            handleCorrectionRequest
-          }
-        >
-
-          Request Correction
-
-        </Button>
-
+        
       </form>
 
     </Card>
