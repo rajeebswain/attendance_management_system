@@ -26,7 +26,7 @@ function AttendanceTable({
 
   const [employees, setEmployees] = useState([]);
 
-  const [archiveView,setArchiveView] = useState(false);
+  const [archiveView, setArchiveView] = useState(false);
 
   useEffect(() => {
 
@@ -279,7 +279,7 @@ function AttendanceTable({
 
   }
 
-// Archieve 
+  // Archieve 
   async function handleArchiveAttendance(
 
     record
@@ -332,44 +332,44 @@ function AttendanceTable({
 
   }
 
-// Handle Restore
+  // Handle Restore
   async function handleRestore(
 
     record
-    
-    ){
-    
-    try{
-    
-    await restoreAttendance(
-    
-    record.id
-    
-    );
-    
-    alert(
-    
-    "Attendance restored"
-    
-    );
-    
-    window.location.reload();
-    
+
+  ) {
+
+    try {
+
+      await restoreAttendance(
+
+        record.id
+
+      );
+
+      alert(
+
+        "Attendance restored"
+
+      );
+
+      window.location.reload();
+
     }
-    
-    catch(error){
-    
-    console.error(error);
-    
-    alert(
-    
-    "Restore failed"
-    
-    );
-    
+
+    catch (error) {
+
+      console.error(error);
+
+      alert(
+
+        "Restore failed"
+
+      );
+
     }
-    
-    }
+
+  }
 
 
   return (
@@ -377,41 +377,41 @@ function AttendanceTable({
     <div className="overflow-x-auto">
 
 
-<div className="mb-4">
+      <div className="mb-4">
 
-<select
+        <select
 
-value={archiveView}
+          value={archiveView}
 
-onChange={(e)=>
+          onChange={(e) =>
 
-setArchiveView(
+            setArchiveView(
 
-e.target.value==="true"
+              e.target.value === "true"
 
-)
+            )
 
-}
+          }
 
-className="border rounded p-2"
+          className="border rounded p-2"
 
->
+        >
 
-<option value="false">
+          <option value="false">
 
-Active
+            Active
 
-</option>
+          </option>
 
-<option value="true">
+          <option value="true">
 
-Archived
+            Archived
 
-</option>
+          </option>
 
-</select>
+        </select>
 
-</div>
+      </div>
 
 
 
@@ -518,27 +518,27 @@ mb-4
 
             records
 
-.filter(
+              .filter(
 
-(record)=>
+                (record) =>
 
-record.is_archived===archiveView
+                  record.is_archived === archiveView
 
-)
+              )
 
-.filter(
+              .filter(
 
-(record)=>
+                (record) =>
 
-record.employees?.full_name
-?.toLowerCase()
-.includes(
-search.toLowerCase()
-)
+                  record.employees?.full_name
+                    ?.toLowerCase()
+                    .includes(
+                      search.toLowerCase()
+                    )
 
-)
+              )
 
-.map((record)=>(
+              .map((record) => (
 
 
                 <tr
@@ -715,25 +715,25 @@ ${record.status === "present"
 
                     // </Button> */}
 
-                    // <Button
+                    {/* // <Button
 
-                    //   type="button"
+                      //   type="button"
 
-                    //   onClick={() =>
+                      //   onClick={() =>
 
-                    //     handleReassignAttendance(
-                    //       record
-                    //     )
+                      //     handleReassignAttendance(
+                      //       record
+                      //     )
 
-                    //   }
+                      //   }
 
-                    // >
+                      // >
 
-                    //   Reassign
+                      //   Reassign
 
-                    // </Button>
+                      // </Button> */}
 
-{/*               
+                      {/*               
 {record.is_archived ? (
 
 <Button
@@ -804,91 +804,91 @@ Archive
 )} */}
 
 
-{record.is_archived ? (
+                      {record.is_archived ? (
 
-<Button
-type="button"
-onClick={()=>
-handleRestore(record)
-}
->
+                        <Button
+                          type="button"
+                          onClick={() =>
+                            handleRestore(record)
+                          }
+                        >
 
-Restore
+                          Restore
 
-</Button>
+                        </Button>
 
-)
+                      )
 
-:
+                        :
 
-(
+                        (
 
-<>
+                          <>
 
-<Button
-type="button"
-onClick={() => {
+                            <Button
+                              type="button"
+                              onClick={() => {
 
-const newCheckout=
+                                const newCheckout =
 
-prompt(
-"Enter checkout time (HH:MM)"
-);
+                                  prompt(
+                                    "Enter checkout time (HH:MM)"
+                                  );
 
-if(newCheckout){
+                                if (newCheckout) {
 
-handleAdminEdit(
-record.id,
-newCheckout,
-record
-);
+                                  handleAdminEdit(
+                                    record.id,
+                                    newCheckout,
+                                    record
+                                  );
 
-}
+                                }
 
-}}
->
+                              }}
+                            >
 
-Edit
+                              Edit
 
-</Button>
+                            </Button>
 
-<Button
-type="button"
-disabled={!!record.check_out_datetime}
-onClick={()=>
-handleForceCheckout(record)
-}
->
+                            <Button
+                              type="button"
+                              disabled={!!record.check_out_datetime}
+                              onClick={() =>
+                                handleForceCheckout(record)
+                              }
+                            >
 
-Force
+                              Force
 
-</Button>
+                            </Button>
 
-<Button
-type="button"
-onClick={()=>
-handleReassignAttendance(record)
-}
->
+                            <Button
+                              type="button"
+                              onClick={() =>
+                                handleReassignAttendance(record)
+                              }
+                            >
 
-Reassign
+                              Reassign
 
-</Button>
+                            </Button>
 
-<Button
-type="button"
-onClick={()=>
-handleArchiveAttendance(record)
-}
->
+                            <Button
+                              type="button"
+                              onClick={() =>
+                                handleArchiveAttendance(record)
+                              }
+                            >
 
-Archive
+                              Archive
 
-</Button>
+                            </Button>
 
-</>
+                          </>
 
-)}
+                        )}
 
 
                   </td>
