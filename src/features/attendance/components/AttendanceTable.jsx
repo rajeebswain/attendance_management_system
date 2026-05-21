@@ -176,8 +176,44 @@ function AttendanceTable({
       
       {
       
-      check_out_datetime:
-      checkoutTime.toISOString(),
+      // check_out_datetime:
+      // checkoutTime.toISOString(),
+
+
+      const localTime = new Date(
+
+        checkoutTime.getTime()
+        
+        -
+        
+        checkoutTime.getTimezoneOffset()
+        *60000
+        
+        )
+        
+        .toISOString()
+        
+        .slice(0,-1);
+        
+        
+        await updateAttendance(
+        
+        record.id,
+        
+        {
+        
+        check_out_datetime:
+        localTime,
+        
+        worked_hours:
+        workedHours,
+        
+        overtime_hours:
+        overtimeHours
+        
+        }
+        
+        );
       
       worked_hours:
       workedHours,
