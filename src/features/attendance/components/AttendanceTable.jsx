@@ -733,7 +733,7 @@ ${record.status === "present"
 
                     </Button>
 
-                    {!record.is_archived ? (
+                    {/* {!record.is_archived ? (
                     <Button
 
                       type="button"
@@ -771,7 +771,76 @@ ${record.status === "present"
                     
                     </Button>
                     
-                    )}
+                    )} */}
+
+{record.is_archived ? (
+
+<Button
+onClick={()=>handleRestore(record)}
+>
+
+Restore
+
+</Button>
+
+) : (
+
+<>
+
+<Button
+onClick={()=>{
+
+const newCheckout=
+
+prompt(
+"Enter checkout time (HH:MM)"
+);
+
+if(newCheckout){
+
+handleAdminEdit(
+record.id,
+newCheckout,
+record
+);
+
+}
+
+}}
+>
+
+Edit
+
+</Button>
+
+<Button
+disabled={!!record.check_out_datetime}
+onClick={()=>handleForceCheckout(record)}
+>
+
+Force
+
+</Button>
+
+<Button
+onClick={()=>handleReassignAttendance(record)}
+>
+
+Reassign
+
+</Button>
+
+<Button
+onClick={()=>handleArchiveAttendance(record)}
+>
+
+Archive
+
+</Button>
+
+</>
+
+)}
 
 
 
