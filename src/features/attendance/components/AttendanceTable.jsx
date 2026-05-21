@@ -8,9 +8,9 @@ import Button from "../../../components/ui/Button";
 import {
 
   updateAttendance
-  
-  }
-  
+
+}
+
   from "../services/attendanceService";
 
 function AttendanceTable({
@@ -21,239 +21,284 @@ function AttendanceTable({
 
   const [search, setSearch] = useState("");
 
-// Adding  Admin Override Feature 21-05-2026 – 12:50 PM 
+  // Adding  Admin Override Feature 21-05-2026 – 12:50 PM 
   // async function handleAdminEdit(
   //   attendanceId,
   //   newCheckout
   //   ){
-    
+
   //   try{
-    
+
+  //   const today = new Date()
+  //   .toISOString()
+  //   .split("T")[0];
+
   //   await updateAttendance(
-    
+
   //   attendanceId,
-    
+
   //   {
   //   check_out_datetime:
-  //   new Date().toISOString()
+  //   `${today}T${newCheckout}:00`
   //   }
-    
+
   //   );
-    
+
   //   alert(
   //   "Attendance updated"
   //   );
-    
+
+  //   window.location.reload();
+
   //   }
+
   //   catch(error){
-    
+
   //   console.error(error);
-    
+
   //   alert(
   //   "Update failed"
   //   );
-    
-  //   }
-    
+
   //   }
 
+  //   }
 
   async function handleAdminEdit(
     attendanceId,
-    newCheckout
-    ){
-    
-    try{
-    
-    const today = new Date()
-    .toISOString()
-    .split("T")[0];
-    
-    await updateAttendance(
-    
-    attendanceId,
-    
-    {
-    check_out_datetime:
-    `${today}T${newCheckout}:00`
-    }
-    
-    );
-    
-    alert(
-    "Attendance updated"
-    );
-    
-    window.location.reload();
-    
-    }
-    
-    catch(error){
-    
-    console.error(error);
-    
-    alert(
-    "Update failed"
-    );
-    
-    }
-    
-    }
+    newCheckout,
+    record
+  ) {
 
+    try {
 
+      const today = new Date()
+        .toISOString()
+        .split("T")[0];
 
- 
+      const updatedCheckout =
 
-// Adding  Admin Force Checkout Function Feature 21-05-2026 Case1 
+        `${today}T${newCheckout}:00`;
 
-    // async function handleForceCheckout(record){
-
-    //   try{
-      
-    //   const checkoutTime = new Date();
-      
-    //   const checkInTime = new Date(
-    //   record.check_in_datetime
-    //   );
-      
-    //   const workedHours =
-      
-    //   (checkoutTime-checkInTime)
-      
-    //   /
-      
-    //   (1000*60*60);
-      
-    //   const overtimeHours =
-      
-    //   workedHours>8
-      
-    //   ? workedHours-8
-      
-    //   :0;
-      
-    //   await updateAttendance(
-      
-    //   record.id,
-      
-    //   {
-      
-    //   check_out_datetime:
-    //   checkoutTime.toISOString(),
-      
-    //   worked_hours:
-    //   workedHours,
-      
-    //   overtime_hours:
-    //   overtimeHours
-      
-    //   }
-      
-    //   );
-      
-    //   alert(
-    //   "Force checkout completed"
-    //   );
-      
-    //   window.location.reload();
-      
-    //   }
-      
-    //   catch(error){
-      
-    //   console.error(error);
-      
-    //   alert(
-    //   "Force checkout failed"
-    //   );
-      
-    //   }
-      
-    //   }
-
-
-    async function handleForceCheckout(record){
-
-      try{
-      
-      const checkoutTime = new Date();
-      
-      const checkInTime = new Date(
-      record.check_in_datetime
+      const checkInDate = new Date(
+        record.check_in_datetime
       );
-      
+
+      const checkOutDate = new Date(
+        updatedCheckout
+      );
+
       const workedHours =
-      
-      (checkoutTime-checkInTime)
-      
-      /
-      
-      (1000*60*60);
-      
+
+        (checkOutDate.getTime()
+
+          -
+
+          checkInDate.getTime())
+
+        /
+
+        (1000 * 60 * 60);
+
       const overtimeHours =
-      
-      workedHours>8
-      
-      ? workedHours-8
-      
-      :0;
-      
-      
+
+        workedHours > 8
+
+          ? workedHours - 8
+
+          : 0;
+
+      await updateAttendance(
+
+        attendanceId,
+
+        {
+
+          check_out_datetime:
+            updatedCheckout,
+
+          worked_hours:
+            workedHours,
+
+          overtime_hours:
+            overtimeHours
+
+        }
+
+      );
+
+      alert(
+        "Attendance updated"
+      );
+
+      window.location.reload();
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Update failed"
+      );
+
+    }
+
+  }
+
+
+
+  // Adding  Admin Force Checkout Function Feature 21-05-2026 Case1 
+
+  // async function handleForceCheckout(record){
+
+  //   try{
+
+  //   const checkoutTime = new Date();
+
+  //   const checkInTime = new Date(
+  //   record.check_in_datetime
+  //   );
+
+  //   const workedHours =
+
+  //   (checkoutTime-checkInTime)
+
+  //   /
+
+  //   (1000*60*60);
+
+  //   const overtimeHours =
+
+  //   workedHours>8
+
+  //   ? workedHours-8
+
+  //   :0;
+
+  //   await updateAttendance(
+
+  //   record.id,
+
+  //   {
+
+  //   check_out_datetime:
+  //   checkoutTime.toISOString(),
+
+  //   worked_hours:
+  //   workedHours,
+
+  //   overtime_hours:
+  //   overtimeHours
+
+  //   }
+
+  //   );
+
+  //   alert(
+  //   "Force checkout completed"
+  //   );
+
+  //   window.location.reload();
+
+  //   }
+
+  //   catch(error){
+
+  //   console.error(error);
+
+  //   alert(
+  //   "Force checkout failed"
+  //   );
+
+  //   }
+
+  //   }
+
+
+  async function handleForceCheckout(record) {
+
+    try {
+
+      const checkoutTime = new Date();
+
+      const checkInTime = new Date(
+        record.check_in_datetime
+      );
+
+      const workedHours =
+
+        (checkoutTime - checkInTime)
+
+        /
+
+        (1000 * 60 * 60);
+
+      const overtimeHours =
+
+        workedHours > 8
+
+          ? workedHours - 8
+
+          : 0;
+
+
       // Convert local time properly
       const localTime = new Date(
-      
-      checkoutTime.getTime()
-      
-      -
-      
-      checkoutTime.getTimezoneOffset()
-      *60000
-      
+
+        checkoutTime.getTime()
+
+        -
+
+        checkoutTime.getTimezoneOffset()
+        * 60000
+
       )
-      
-      .toISOString()
-      
-      .slice(0,-1);
-      
-      
+
+        .toISOString()
+
+        .slice(0, -1);
+
+
       await updateAttendance(
-      
-      record.id,
-      
-      {
-      
-      check_out_datetime:
-      localTime,
-      
-      worked_hours:
-      workedHours,
-      
-      overtime_hours:
-      overtimeHours
-      
-      }
-      
+
+        record.id,
+
+        {
+
+          check_out_datetime:
+            localTime,
+
+          worked_hours:
+            workedHours,
+
+          overtime_hours:
+            overtimeHours
+
+        }
+
       );
-      
+
       alert(
-      "Force checkout completed"
+        "Force checkout completed"
       );
-      
+
       window.location.reload();
-      
-      }
-      
-      catch(error){
-      
+
+    }
+
+    catch (error) {
+
       console.error(error);
-      
+
       alert(
-      "Force checkout failed"
+        "Force checkout failed"
       );
-      
-      }
-      
-      }
+
+    }
+
+  }
 
 
 
@@ -386,7 +431,7 @@ mb-4
 
                   </td>
 
-                    <td className="p-4">
+                  <td className="p-4">
 
                     <span className={`
 
@@ -489,109 +534,55 @@ ${record.status === "present"
                     {record.early_checkout_reason || "-"}
 
                   </td>
-              
-                  {/* <td className="p-4">
-
-<Button
-type="button"
-onClick={()=>{
-
-const newCheckout=
-
-prompt(
-"Enter new checkout time (HH:MM)"
-);
-
-if(newCheckout){
-
-handleAdminEdit(
-record.id,
-newCheckout
-);
-
-}
-
-}}
->
-
-Edit
-
-</Button>
-
-</td> */}
 
 
+                  <td className="p-4 flex gap-2">
+
+                    <Button
+                      type="button"
+                      onClick={() => {
+
+                        const newCheckout =
+
+                          prompt(
+                            "Enter checkout time (HH:MM)"
+                          );
+
+                        if (newCheckout) {
+
+                          handleAdminEdit(
+                            record.id,
+                            newCheckout,
+                            record
+                          );
+
+                        }
+
+                      }}
+                    >
+
+                      Edit
+
+                    </Button>
 
 
+                    <Button
+                      type="button"
+                      disabled={!!record.check_out_datetime}
+                      onClick={() => {
 
-<td className="p-4 flex gap-2">
+                        handleForceCheckout(
+                          record
+                        );
 
-<Button
-type="button"
-onClick={()=>{
+                      }}
+                    >
 
-const newCheckout=
+                      Force
 
-prompt(
-"Enter checkout time (HH:MM)"
-);
+                    </Button>
 
-if(newCheckout){
-
-handleAdminEdit(
-record.id,
-newCheckout
-);
-
-}
-
-}}
->
-
-Edit
-
-</Button>
-
-
-{/* <Button
-type="button"
-onClick={()=>{
-
-// handleForceCheckout(
-// record.id
-// );
-
-handleForceCheckout(
-  record
-  );
-
-
-}}
->
-
-Force
-
-</Button> */}
-
-
-
-<Button
-type="button"
-disabled={!!record.check_out_datetime}
-onClick={()=>{
-
-handleForceCheckout(
-record
-);
-
-}}
->
-
-Force
-
-</Button>
-
-</td>
+                  </td>
 
                 </tr>
 
