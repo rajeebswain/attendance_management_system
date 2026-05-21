@@ -1145,27 +1145,7 @@ p-3
 
         )}
 
-        {/* Added Attendance correction Button 21-05-2026: 12:30 PM */}
-
-        <input
-          type="text"
-          placeholder="Correction reason"
-          value={correctionReason}
-          onChange={(e) =>
-            setCorrectionReason(
-              e.target.value
-            )
-          }
-          className="
-w-full
-border
-rounded
-p-2
-mt-4
-"
-        />
-
-        
+          
       </form>
 
     </Card>
