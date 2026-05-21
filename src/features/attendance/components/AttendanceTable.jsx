@@ -1,5 +1,15 @@
 import { useState } from "react";
 
+// Adding  Admin Override Feature 21-05-2026 – 12:50 PM 
+
+import {
+
+  updateAttendance
+  
+  }
+  
+  from "../services/attendanceService";
+
 function AttendanceTable({
 
   records,
@@ -7,6 +17,42 @@ function AttendanceTable({
 }) {
 
   const [search, setSearch] = useState("");
+
+// Adding  Admin Override Feature 21-05-2026 – 12:50 PM 
+  async function handleAdminEdit(
+    attendanceId,
+    newCheckout
+    ){
+    
+    try{
+    
+    await updateAttendance(
+    
+    attendanceId,
+    
+    {
+    check_out_datetime:
+    new Date().toISOString()
+    }
+    
+    );
+    
+    alert(
+    "Attendance updated"
+    );
+    
+    }
+    catch(error){
+    
+    console.error(error);
+    
+    alert(
+    "Update failed"
+    );
+    
+    }
+    
+    }
 
 
   return (
@@ -84,6 +130,12 @@ mb-4
             </th>
 
 
+            {/* Adding  Admin Override Feature 21-05-2026 – 12:49  */}
+            <th className="p-4 text-left">
+              Actions
+            </th>
+
+
           </tr>
 
         </thead>
@@ -93,8 +145,6 @@ mb-4
         <tbody>
 
           {
-
-            // records.map((record) => (
 
             records
 
@@ -135,13 +185,7 @@ mb-4
 
                   </td>
 
-                  {/* <td className="p-4 capitalize">
-
-                {record.status}
-
-              </td> */}
-
-                  <td className="p-4">
+                    <td className="p-4">
 
                     <span className={`
 
@@ -244,6 +288,39 @@ ${record.status === "present"
                     {record.early_checkout_reason || "-"}
 
                   </td>
+                
+
+                  // Adding  Admin Override Button 21-05-2026 – 12:50
+
+                  <td className="p-4">
+
+<Button
+type="button"
+onClick={()=>{
+
+const newCheckout=
+
+prompt(
+"Enter new checkout time (HH:MM)"
+);
+
+if(newCheckout){
+
+handleAdminEdit(
+record.id,
+newCheckout
+);
+
+}
+
+}}
+>
+
+Edit
+
+</Button>
+
+</td>
 
                 </tr>
 

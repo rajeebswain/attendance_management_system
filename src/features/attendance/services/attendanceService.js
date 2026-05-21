@@ -135,3 +135,31 @@ export async function getHolidays() {
     }
     
     }
+
+// Adding  Admin Update Attendance Feature 21-05-2026 – 12:49 PM 
+
+    export async function updateAttendance(
+      id,
+      data
+      ){
+      
+      const {error}
+      
+      = await supabase
+      
+      .from("attendance")
+      
+      .update(data)
+      
+      .eq(
+      "id",
+      id
+      );
+      
+      if(error){
+      
+      throw error;
+      
+      }
+      
+      }
