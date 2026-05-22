@@ -756,7 +756,7 @@ ${record.status === "present"
 
                           <>
 
-                            <Button
+                            {/* <Button
                               type="button"
                               onClick={() => {
 
@@ -781,9 +781,43 @@ ${record.status === "present"
 
                               Edit
 
-                            </Button>
+                            </Button> */}
 
-                            <Button
+
+
+<Button
+type="button"
+
+disabled={
+record.employees?.is_active===false
+}
+
+onClick={() => {
+
+const newCheckout=
+
+prompt(
+"Enter checkout time (HH:MM)"
+);
+
+if(newCheckout){
+
+handleAdminEdit(
+record.id,
+newCheckout,
+record
+);
+
+}
+
+}}
+>
+
+Edit
+
+</Button>
+
+                            {/* <Button
                               type="button"
                               disabled={!!record.check_out_datetime}
                               onClick={() =>
@@ -793,7 +827,29 @@ ${record.status === "present"
 
                               Force
 
-                            </Button>
+                            </Button> */}
+
+<Button
+type="button"
+
+disabled={
+
+!!record.check_out_datetime
+
+||
+
+record.employees?.is_active===false
+
+}
+
+onClick={()=>
+handleForceCheckout(record)
+}
+>
+
+Force
+
+{/* </Button>
 
                             <Button
                               type="button"
@@ -804,7 +860,23 @@ ${record.status === "present"
 
                               Reassign
 
-                            </Button>
+                            </Button> */}
+
+<Button
+type="button"
+
+disabled={
+record.employees?.is_active===false
+}
+
+onClick={()=>
+handleReassignAttendance(record)
+}
+>
+
+Reassign
+
+</Button>
 
                             <Button
                               type="button"
