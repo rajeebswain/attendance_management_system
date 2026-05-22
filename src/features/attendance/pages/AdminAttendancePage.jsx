@@ -395,23 +395,42 @@ export default function AdminAttendancePage() {
       }
     );
   // Total absent
-  // const totalAbsent =
-
-  // absentEmployees.length;
-
-  const totalAbsent =
+    const totalAbsent =
 
     validAbsentEmployees.length;
 
   // Present employees
-  const totalPresent =
+  // const totalPresent =
 
-    attendance.filter((item) =>
+  //   attendance.filter((item) =>
 
-      item.status === "present"
+  //     item.status === "present"
 
-      || item.status === "late"
-    ).length;
+  //     || item.status === "late"
+  //   ).length;
+
+// Present employees
+const totalPresent =
+
+attendance.filter((item) =>
+
+(
+
+item.status === "present"
+
+||
+
+item.status === "late"
+
+)
+
+&&
+
+!item.is_archived
+
+).length;
+
+
 
 
   // Late employees
