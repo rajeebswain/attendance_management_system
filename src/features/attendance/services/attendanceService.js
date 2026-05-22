@@ -22,8 +22,7 @@ export async function getAttendanceRecords(
   employees(
   employee_code,
   full_name,
-  designation,
-  is_active
+  designation
   )
   `)
 
@@ -77,73 +76,43 @@ export async function createAttendance(
 // FETCH EMPLOYEES
 // Used in attendance dropdown
 
-// export async function getEmployees() {
-
-//   const { data, error } = await supabase
-
-//     .from("employees")
-
-//     .select(`
-  
-//   id,
-//   employee_code,
-//   full_name,
-//   email,
-//   designation,
-//   shift_id,
-  
-//   shifts(
-//   id,
-//   shift_name,
-//   start_time,
-//   end_time,
-//   grace_minutes
-//   )
-  
-//   `)
-
-//     .order("full_name");
-
-//   if (error) {
-
-//     throw error;
-
-//   }
-
-//   return data;
-
-// }
-
-
 export async function getEmployees() {
 
   const { data, error } = await supabase
+
+    .from("employees")
+
+    .select(`
   
-  .from("employees")
-  
-  .select(`
   id,
   employee_code,
   full_name,
   email,
   designation,
-  shift_id
+  shift_id,
+  
+  shifts(
+  id,
+  shift_name,
+  start_time,
+  end_time,
+  grace_minutes
+  )
+  
   `)
-  
-  .eq(
-  "is_active",
-  true
-  );
-  
-  if(error){
-  
-  throw error;
-  
+
+    .order("full_name");
+
+  if (error) {
+
+    throw error;
+
   }
-  
+
   return data;
-  
-  }
+
+}
+
 
 export async function getHolidays() {
 
@@ -302,82 +271,3 @@ export async function restoreAttendance(
   }
 
 }
-
-
-
-export async function createAuditLog(data){
-
-  const {error}
-  
-  =
-  
-  await supabase
-  
-  .from("attendance_audit")
-  
-  .insert([data]);
-  
-  if(error){
-  
-  throw error;
-  
-  }
-  
-  }
-
-
-  // Fetch Audit Logs
-
-export async function getAuditLogs(){
-
-  const {
-  
-  data,
-  
-  error
-  
-  }
-  
-  =
-  
-  await supabase
-  
-  .from("attendance_audit")
-  
-  .select(`
-  
-  *,
-  
-  attendance(
-  
-  employees(
-  
-  full_name
-  
-  )
-  
-  )
-  
-  `)
-  
-  .order(
-  
-  "created_at",
-  
-  {
-  
-  ascending:false
-  
-  }
-  
-  );
-  
-  if(error){
-  
-  throw error;
-  
-  }
-  
-  return data;
-  
-  }

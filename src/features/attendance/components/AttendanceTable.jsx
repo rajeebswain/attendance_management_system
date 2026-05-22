@@ -16,14 +16,6 @@ import {
 
   from "../services/attendanceService";
 
-  import {
-
-    createAuditLog
-    
-    }
-    
-    from "../services/attendanceService";
-
 function AttendanceTable({
 
   records,
@@ -109,28 +101,6 @@ function AttendanceTable({
           ? workedHours - 8
 
           : 0;
-
-          await createAuditLog({
-
-            attendance_id:
-            attendanceId,
-            
-            action_type:
-            "Edit Checkout",
-            
-            old_value:
-            record.check_out_datetime || "None",
-            
-            new_value:
-            updatedCheckout,
-            
-            changed_by:
-            "Admin"
-            
-            });
-
-
-
 
       await updateAttendance(
 
@@ -576,45 +546,11 @@ mb-4
                   className="border-b"
                 >
 
-                  {/* <td className="p-4">
+                  <td className="p-4">
 
                     {record.employees?.full_name}
 
-                  </td> */}
-
-
-<td className="p-4">
-
-<div className="flex items-center gap-2">
-
-{record.employees?.full_name}
-
-{
-
-record.employees?.is_active===false
-
-&&
-
-<span
-className="
-px-2
-py-1
-bg-red-100
-text-red-600
-rounded
-text-xs
-"
->
-
-Inactive
-
-</span>
-
-}
-
-</div>
-
-</td>
+                  </td>
 
                   <td className="p-4">
 
@@ -735,6 +671,13 @@ ${record.status === "present"
 
                   <td className="p-4 flex gap-2">
 
+                   
+
+                   
+                   
+                   
+
+
                       {record.is_archived ? (
 
                         <Button
@@ -756,7 +699,7 @@ ${record.status === "present"
 
                           <>
 
-                            {/* <Button
+                            <Button
                               type="button"
                               onClick={() => {
 
@@ -781,43 +724,9 @@ ${record.status === "present"
 
                               Edit
 
-                            </Button> */}
+                            </Button>
 
-
-
-<Button
-type="button"
-
-disabled={
-record.employees?.is_active===false
-}
-
-onClick={() => {
-
-const newCheckout=
-
-prompt(
-"Enter checkout time (HH:MM)"
-);
-
-if(newCheckout){
-
-handleAdminEdit(
-record.id,
-newCheckout,
-record
-);
-
-}
-
-}}
->
-
-Edit
-
-</Button>
-
-                            {/* <Button
+                            <Button
                               type="button"
                               disabled={!!record.check_out_datetime}
                               onClick={() =>
@@ -827,30 +736,7 @@ Edit
 
                               Force
 
-                            </Button> */}
-
-<Button
-type="button"
-
-disabled={
-
-!!record.check_out_datetime
-
-||
-
-record.employees?.is_active===false
-
-}
-
-onClick={()=>
-handleForceCheckout(record)
-}
->
-
-Force
-</Button>
-
-{/* </Button>
+                            </Button>
 
                             <Button
                               type="button"
@@ -861,23 +747,7 @@ Force
 
                               Reassign
 
-                            </Button> */}
-
-<Button
-type="button"
-
-disabled={
-record.employees?.is_active===false
-}
-
-onClick={()=>
-handleReassignAttendance(record)
-}
->
-
-Reassign
-
-</Button>
+                            </Button>
 
                             <Button
                               type="button"
