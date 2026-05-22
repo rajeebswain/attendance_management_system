@@ -58,6 +58,90 @@ function AttendanceTable({
 
 
   // Adding  Admin Override Feature 21-05-2026 – 12:50 PM 
+
+  // async function handleAdminEdit(
+  //   attendanceId,
+  //   newCheckout,
+  //   record
+  // ) {
+
+  //   try {
+
+  //     const today = new Date()
+  //       .toISOString()
+  //       .split("T")[0];
+
+  //     const updatedCheckout =
+
+  //       `${today}T${newCheckout}:00`;
+
+  //     const checkInDate = new Date(
+  //       record.check_in_datetime
+  //     );
+
+  //     const checkOutDate = new Date(
+  //       updatedCheckout
+  //     );
+
+  //     const workedHours =
+
+  //       (checkOutDate.getTime()
+
+  //         -
+
+  //         checkInDate.getTime())
+
+  //       /
+
+  //       (1000 * 60 * 60);
+
+  //     const overtimeHours =
+
+  //       workedHours > 8
+
+  //         ? workedHours - 8
+
+  //         : 0;
+
+  //     await updateAttendance(
+
+  //       attendanceId,
+
+  //       {
+
+  //         check_out_datetime:
+  //           updatedCheckout,
+
+  //         worked_hours:
+  //           workedHours,
+
+  //         overtime_hours:
+  //           overtimeHours,
+
+  //       }
+
+  //     );
+
+  //     alert(
+  //       "Attendance updated"
+  //     );
+
+  //     window.location.reload();
+
+  //   }
+
+  //   catch (error) {
+
+  //     console.error(error);
+
+  //     alert(
+  //       "Update failed"
+  //     );
+
+  //   }
+
+  // }
+
   async function handleAdminEdit(
     attendanceId,
     newCheckout,
@@ -66,29 +150,63 @@ function AttendanceTable({
 
     try {
 
-      const today = new Date()
-        .toISOString()
-        .split("T")[0];
+      // Restrict edit after first edit
+
+      if (
+
+        record.force_edit_count >= 1
+
+      ) {
+
+        alert(
+
+          "Attendance already edited once"
+
+        );
+
+        return;
+
+      }
+
+      const today =
+
+        new Date()
+
+          .toISOString()
+
+          .split("T")[0];
 
       const updatedCheckout =
 
         `${today}T${newCheckout}:00`;
 
-      const checkInDate = new Date(
-        record.check_in_datetime
-      );
+      const checkInDate =
 
-      const checkOutDate = new Date(
-        updatedCheckout
-      );
+        new Date(
+
+          record.check_in_datetime
+
+        );
+
+      const checkOutDate =
+
+        new Date(
+
+          updatedCheckout
+
+        );
 
       const workedHours =
 
-        (checkOutDate.getTime()
+        (
+
+          checkOutDate.getTime()
 
           -
 
-          checkInDate.getTime())
+          checkInDate.getTime()
+
+        )
 
         /
 
@@ -98,9 +216,13 @@ function AttendanceTable({
 
         workedHours > 8
 
-          ? workedHours - 8
+          ?
 
-          : 0;
+          workedHours - 8
+
+          :
+
+          0;
 
       await updateAttendance(
 
@@ -109,39 +231,55 @@ function AttendanceTable({
         {
 
           check_out_datetime:
+
             updatedCheckout,
 
           worked_hours:
+
             workedHours,
 
           overtime_hours:
+
             overtimeHours,
+
+          force_edit_count:
+
+            record.force_edit_count + 1,
+
+          is_force_edited: true
 
         }
 
       );
 
       alert(
+
         "Attendance updated"
+
       );
 
+      // temporary shortcut
       window.location.reload();
 
     }
 
     catch (error) {
 
-      console.error(error);
+      console.error(
+
+        error
+
+      );
 
       alert(
+
         "Update failed"
+
       );
 
     }
 
   }
-
-
 
   // Adding  Admin Force Checkout Function Feature 21-05-2026 Case1 
 
@@ -546,11 +684,69 @@ mb-4
                   className="border-b"
                 >
 
-                  <td className="p-4">
+                  {/* <td className="p-4">
 
                     {record.employees?.full_name}
 
-                  </td>
+                  </td> */}
+
+<td className="p-4">
+
+<div className="flex items-center gap-2">
+
+{record.employees?.full_name}
+
+{
+
+record.employees?.is_active===false
+
+&&
+
+<span
+className="
+px-2
+py-1
+bg-red-100
+text-red-600
+rounded
+text-xs
+"
+>
+
+Inactive
+
+</span>
+
+}
+
+{
+
+record.is_force_edited
+
+&&
+
+<span
+className="
+px-2
+py-1
+bg-yellow-100
+text-yellow-700
+rounded
+text-xs
+"
+>
+
+Edited
+
+</span>
+
+}
+
+</div>
+
+</td>
+
+
 
                   <td className="p-4">
 
@@ -671,98 +867,100 @@ ${record.status === "present"
 
                   <td className="p-4 flex gap-2">
 
-                   
+                    {record.is_archived ? (
 
-                   
-                   
-                   
+                      <Button
+                        type="button"
+                        onClick={() =>
+                          handleRestore(record)
+                        }
+                      >
 
+                        Restore
 
-                      {record.is_archived ? (
+                      </Button>
 
-                        <Button
-                          type="button"
-                          onClick={() =>
-                            handleRestore(record)
-                          }
-                        >
+                    )
 
-                          Restore
+                      :
 
-                        </Button>
+                      (
 
-                      )
+                        <>
 
-                        :
+                          <Button
+                            type="button"
 
-                        (
-
-                          <>
-
-                            <Button
-                              type="button"
-                              onClick={() => {
-
-                                const newCheckout =
-
-                                  prompt(
-                                    "Enter checkout time (HH:MM)"
-                                  );
-
-                                if (newCheckout) {
-
-                                  handleAdminEdit(
-                                    record.id,
-                                    newCheckout,
-                                    record
-                                  );
-
-                                }
-
-                              }}
-                            >
-
-                              Edit
-
-                            </Button>
-
-                            <Button
-                              type="button"
-                              disabled={!!record.check_out_datetime}
-                              onClick={() =>
-                                handleForceCheckout(record)
+                            disabled={
+                              record.employees?.is_active===false
                               }
-                            >
+                            onClick={() => {
 
-                              Force
+                              const newCheckout =
 
-                            </Button>
+                                prompt(
+                                  "Enter checkout time (HH:MM)"
+                                );
 
-                            <Button
-                              type="button"
-                              onClick={() =>
-                                handleReassignAttendance(record)
+                              if (newCheckout) {
+
+                                handleAdminEdit(
+                                  record.id,
+                                  newCheckout,
+                                  record
+                                );
+
                               }
-                            >
 
-                              Reassign
+                            }}
+                          >
 
-                            </Button>
+                            Edit
 
-                            <Button
-                              type="button"
-                              onClick={() =>
-                                handleArchiveAttendance(record)
+                          </Button>
+
+                          <Button
+                            type="button"
+                            // disabled={!!record.check_out_datetime}
+                            disabled={
+                              !!record.check_out_datetime
+                              ||
+                              record.employees?.is_active===false
                               }
-                            >
+                            onClick={() =>
+                              handleForceCheckout(record)
+                            }
+                          >
 
-                              Archive
+                            Force
 
-                            </Button>
+                          </Button>
 
-                          </>
+                          <Button
+                            type="button"
+                            onClick={() =>
+                              handleReassignAttendance(record)
+                            }
+                          >
 
-                        )}
+                            Reassign
+
+                          </Button>
+
+                          <Button
+                            type="button"
+                            onClick={() =>
+                              handleArchiveAttendance(record)
+                            }
+                          >
+
+                            Archive
+
+                          </Button>
+
+                        </>
+
+                      )}
 
 
                   </td>

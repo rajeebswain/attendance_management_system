@@ -22,7 +22,8 @@ export async function getAttendanceRecords(
   employees(
   employee_code,
   full_name,
-  designation
+  designation,
+  is_active
   )
   `)
 
