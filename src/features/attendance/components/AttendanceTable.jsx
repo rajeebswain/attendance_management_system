@@ -576,11 +576,45 @@ mb-4
                   className="border-b"
                 >
 
-                  <td className="p-4">
+                  {/* <td className="p-4">
 
                     {record.employees?.full_name}
 
-                  </td>
+                  </td> */}
+
+
+<td className="p-4">
+
+<div className="flex items-center gap-2">
+
+{record.employees?.full_name}
+
+{
+
+record.employees?.is_active===false
+
+&&
+
+<span
+className="
+px-2
+py-1
+bg-red-100
+text-red-600
+rounded
+text-xs
+"
+>
+
+Inactive
+
+</span>
+
+}
+
+</div>
+
+</td>
 
                   <td className="p-4">
 
