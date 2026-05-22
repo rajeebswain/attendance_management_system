@@ -10,16 +10,30 @@ export async function getEmployees() {
 
     .from("employees")
 
-    .select(`
-      *,
-      departments (
-        department_name
-      )
-    `)
+    // .select(`
+    //   *,
+    //   departments (
+    //     department_name
+    //   )
+    // `)
 
-    .order("created_at", {
-      ascending: false,
-    });
+    // .order("created_at", {
+    //   ascending: false,
+    // });
+
+    .select(`
+  *,
+  departments (
+    department_name
+  )
+`)
+.eq(
+"is_active",
+true
+)
+.order("created_at", {
+  ascending: false,
+});
 
   // Handle fetch errors
   if (error) {
@@ -79,21 +93,61 @@ export async function updateEmployee(
 
 
 // DELETE EMPLOYEE
-export async function deleteEmployee(employeeId) {
+// export async function deleteEmployee(employeeId) {
 
-  const { error } = await supabase
+//   const { error } = await supabase
 
-    .from("employees")
+//     .from("employees")
 
-    .delete()
+//     .delete()
 
-    .eq("id", employeeId);
+//     .eq("id", employeeId);
 
-  // Handle delete errors
-  if (error) {
-    throw error;
+//   // Handle delete errors
+//   if (error) {
+//     throw error;
+//   }
+// }
+
+
+
+// DEACTIVATE EMPLOYEE
+
+export async function deactivateEmployee(
+
+  employeeId
+  
+  ){
+  
+  const { error }
+  
+  =
+  
+  await supabase
+  
+  .from("employees")
+  
+  .update({
+  
+  is_active:false
+  
+  })
+  
+  .eq(
+  
+  "id",
+  
+  employeeId
+  
+  );
+  
+  if(error){
+  
+  throw error;
+  
   }
-}
+  
+  }
 
 {/*Fetch all shifts from Supabase.*/}
 export const getShifts = async () => {
