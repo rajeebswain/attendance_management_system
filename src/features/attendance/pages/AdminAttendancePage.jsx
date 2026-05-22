@@ -410,17 +410,47 @@ export default function AdminAttendancePage() {
   //   ).length;
 
 // Present employees
+// const totalPresent =
+
+// attendance.filter((item) =>
+
+// (
+
+// item.status === "present"
+
+// ||
+
+// item.status === "late"
+
+// )
+
+// &&
+
+// !item.is_archived
+
+// ).length;
+
+
+console.log(attendance);
+
 const totalPresent =
 
-attendance.filter((item) =>
+attendance.filter((item) => {
+
+console.log(
+item.full_name,
+item.status,
+item.is_archived
+);
+
+return (
 
 (
-
-item.status === "present"
+item.status==="present"
 
 ||
 
-item.status === "late"
+item.status==="late"
 
 )
 
@@ -428,8 +458,9 @@ item.status === "late"
 
 !item.is_archived
 
-).length;
+);
 
+}).length;
 
 
 
