@@ -272,3 +272,50 @@ export async function restoreAttendance(
   }
 
 }
+
+
+// Get attendance audit logs
+
+export async function getAuditLogs(){
+
+  const {
+  
+  data,
+  
+  error
+  
+  }
+  
+  =
+  
+  await supabase
+  
+  .from(
+  
+  "attendance_audit"
+  
+  )
+  
+  .select("*")
+  
+  .order(
+  
+  "created_at",
+  
+  {
+  
+  ascending:false
+  
+  }
+  
+  );
+  
+  if(error){
+  
+  throw error;
+  
+  }
+  
+  return data;
+  
+  }
