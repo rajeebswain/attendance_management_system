@@ -22,7 +22,8 @@ import {
 
   getEmployees,
 
-  deleteEmployee,
+  // deleteEmployee,
+  deactivateEmployee,
 
 } from "../services/employeeService";
 
@@ -99,18 +100,64 @@ function EmployeesPage() {
   }
 
   // Delete employee
-  async function handleDelete(employeeId) {
+  // async function handleDelete(employeeId) {
+
+  //   try {
+
+  //     await deleteEmployee(employeeId);
+
+  //     fetchEmployees();
+
+  //   } catch (error) {
+
+  //     alert(error.message);
+  //   }
+  // }
+
+  async function handleDeactivate(
+
+    id
+
+  ) {
 
     try {
 
-      await deleteEmployee(employeeId);
+      // await deactivateEmployee(
+
+      // id
+
+      // );
+
+      // loadEmployees();
+
+      await deactivateEmployee(
+
+        id
+
+      );
 
       fetchEmployees();
 
-    } catch (error) {
+      alert(
 
-      alert(error.message);
+        "Employee deactivated"
+
+      );
+
     }
+
+    catch (error) {
+
+      console.log(error);
+
+      alert(
+
+        "Failed"
+
+      );
+
+    }
+
   }
 
 
@@ -143,9 +190,13 @@ function EmployeesPage() {
 
         ) : (
 
+          // <EmployeesTable
+          //   employees={employees}
+          //   onDelete={handleDelete}
+          // />
           <EmployeesTable
             employees={employees}
-            onDelete={handleDelete}
+            onDelete={handleDeactivate}
           />
         )}
 
