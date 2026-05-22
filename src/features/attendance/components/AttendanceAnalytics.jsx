@@ -8,18 +8,54 @@ function AttendanceAnalytics({
 }) {
 
   // Calculate totals
-  const totalPresent = records.filter(
+  // const totalPresent = records.filter(
 
-    (record) => record.status === "present"
+  //   (record) => record.status === "present"
 
+  // ).length;
+
+
+  // const totalAbsent = records.filter(
+
+  //   (record) => record.status === "absent"
+
+  // ).length;
+
+// Calculate totals
+const totalPresent = records.filter(
+
+  (record)=>
+  
+  (
+  
+  record.status==="present"
+  
+  ||
+  
+  record.status==="late"
+  
+  )
+  
+  &&
+  
+  record.is_archived !== true
+  
   ).length;
-
-
+  
   const totalAbsent = records.filter(
-
-    (record) => record.status === "absent"
-
+  
+  (record)=>
+  
+  record.status==="absent"
+  
+  &&
+  
+  record.is_archived !== true
+  
   ).length;
+
+
+
 
 
   return (
