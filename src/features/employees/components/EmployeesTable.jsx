@@ -128,6 +128,8 @@
 
 
 
+
+
 // Reusable button
 import Button from "../../../components/ui/Button";
 
@@ -301,43 +303,7 @@ className="border-b"
 
 <td className="p-4 flex gap-2">
 
-{/* <Button>
-
-Edit
-
-</Button> */}
-
-<Button
-
-onClick={() => {
-
-const newName=
-
-prompt(
-
-"Edit employee name",
-
-employee.full_name
-
-);
-
-if(newName){
-
-console.log(
-
-"Update:",
-
-employee.id,
-
-newName
-
-);
-
-}
-
-}}
-
->
+<Button>
 
 Edit
 
