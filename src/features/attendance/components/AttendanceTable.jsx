@@ -16,6 +16,14 @@ import {
 
   from "../services/attendanceService";
 
+  import {
+
+    createAuditLog
+    
+    }
+    
+    from "../services/attendanceService";
+
 function AttendanceTable({
 
   records,
@@ -101,6 +109,28 @@ function AttendanceTable({
           ? workedHours - 8
 
           : 0;
+
+          await createAuditLog({
+
+            attendance_id:
+            attendanceId,
+            
+            action_type:
+            "Edit Checkout",
+            
+            old_value:
+            record.check_out_datetime || "None",
+            
+            new_value:
+            updatedCheckout,
+            
+            changed_by:
+            "Admin"
+            
+            });
+
+
+
 
       await updateAttendance(
 
@@ -670,139 +700,6 @@ ${record.status === "present"
 
 
                   <td className="p-4 flex gap-2">
-
-                    {/* <Button
-                      type="button"
-                      onClick={() => {
-
-                        const newCheckout =
-
-                          prompt(
-                            "Enter checkout time (HH:MM)"
-                          );
-
-                        if (newCheckout) {
-
-                          handleAdminEdit(
-                            record.id,
-                            newCheckout,
-                            record
-                          );
-
-                        }
-
-                      }}
-                    >
-
-                      Edit
-
-                    </Button> */}
-
-
-                    {/* <Button
-                      type="button"
-                      disabled={!!record.check_out_datetime}
-                      onClick={() => {
-
-                        handleForceCheckout(
-                          record
-                        );
-
-                      }}
-                    >
-
-                      Force
-
-                    // </Button> */}
-
-                    {/* // <Button
-
-                      //   type="button"
-
-                      //   onClick={() =>
-
-                      //     handleReassignAttendance(
-                      //       record
-                      //     )
-
-                      //   }
-
-                      // >
-
-                      //   Reassign
-
-                      // </Button> */}
-
-                      {/*               
-{record.is_archived ? (
-
-<Button
-onClick={()=>handleRestore(record)}
->
-
-Restore
-
-</Button>
-
-) : (
-
-<>
-
-<Button
-onClick={()=>{
-
-const newCheckout=
-
-prompt(
-"Enter checkout time (HH:MM)"
-);
-
-if(newCheckout){
-
-handleAdminEdit(
-record.id,
-newCheckout,
-record
-);
-
-}
-
-}}
->
-
-Edit
-
-</Button>
-
-<Button
-disabled={!!record.check_out_datetime}
-onClick={()=>handleForceCheckout(record)}
->
-
-Force
-
-</Button>
-
-<Button
-onClick={()=>handleReassignAttendance(record)}
->
-
-Reassign
-
-</Button>
-
-<Button
-onClick={()=>handleArchiveAttendance(record)}
->
-
-Archive
-
-</Button>
-
-</>
-
-)} */}
-
 
                       {record.is_archived ? (
 

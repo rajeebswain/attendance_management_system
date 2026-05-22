@@ -271,3 +271,25 @@ export async function restoreAttendance(
   }
 
 }
+
+
+
+export async function createAuditLog(data){
+
+  const {error}
+  
+  =
+  
+  await supabase
+  
+  .from("attendance_audit")
+  
+  .insert([data]);
+  
+  if(error){
+  
+  throw error;
+  
+  }
+  
+  }
