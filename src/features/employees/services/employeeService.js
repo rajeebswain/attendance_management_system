@@ -9,28 +9,16 @@ export async function getEmployees() {
   const { data, error } = await supabase
 
     .from("employees")
-
-    // .select(`
-    //   *,
-    //   departments (
-    //     department_name
-    //   )
-    // `)
-
-    // .order("created_at", {
-    //   ascending: false,
-    // });
-
-    .select(`
+      .select(`
   *,
   departments (
     department_name
   )
 `)
-.eq(
-"is_active",
-true
-)
+// .eq(
+// "is_active",
+// true
+// )
 .order("created_at", {
   ascending: false,
 });

@@ -301,7 +301,43 @@ className="border-b"
 
 <td className="p-4 flex gap-2">
 
-<Button>
+{/* <Button>
+
+Edit
+
+</Button> */}
+
+<Button
+
+onClick={() => {
+
+const newName=
+
+prompt(
+
+"Edit employee name",
+
+employee.full_name
+
+);
+
+if(newName){
+
+console.log(
+
+"Update:",
+
+employee.id,
+
+newName
+
+);
+
+}
+
+}}
+
+>
 
 Edit
 
