@@ -386,12 +386,27 @@ export default function AdminAttendancePage() {
 
 
         // Exclude holidays/off
+        // return (
+
+        //   !weeklyOff
+
+        //   && !holidayCheck
+        // );
         return (
 
           !weeklyOff
+          
+          &&
+          
+          !holidayCheck
+          
+          &&
+          
+          employee.is_archived !== true
+          
+          );
 
-          && !holidayCheck
-        );
+
       }
     );
   // Total absent
