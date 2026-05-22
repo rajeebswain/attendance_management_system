@@ -293,3 +293,60 @@ export async function createAuditLog(data){
   }
   
   }
+
+
+  // Fetch Audit Logs
+
+export async function getAuditLogs(){
+
+  const {
+  
+  data,
+  
+  error
+  
+  }
+  
+  =
+  
+  await supabase
+  
+  .from("attendance_audit")
+  
+  .select(`
+  
+  *,
+  
+  attendance(
+  
+  employees(
+  
+  full_name
+  
+  )
+  
+  )
+  
+  `)
+  
+  .order(
+  
+  "created_at",
+  
+  {
+  
+  ascending:false
+  
+  }
+  
+  );
+  
+  if(error){
+  
+  throw error;
+  
+  }
+  
+  return data;
+  
+  }
