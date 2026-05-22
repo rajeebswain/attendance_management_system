@@ -9,7 +9,9 @@ employees,
 
 onDelete,
 
-onRestore
+onRestore,
+
+onEdit
 
 }) {
 
@@ -171,11 +173,87 @@ className="border-b"
 
 <td className="p-4 flex gap-2">
 
-<Button>
+{/* <Button>
+
+Edit
+
+</Button> */}
+<Button
+
+onClick={()=>{
+
+const updatedEmployee={
+
+employee_code:
+
+prompt(
+
+"Employee Code",
+
+employee.employee_code
+
+),
+
+full_name:
+
+prompt(
+
+"Full Name",
+
+employee.full_name
+
+),
+
+email:
+
+prompt(
+
+"Email",
+
+employee.email
+
+),
+
+designation:
+
+prompt(
+
+"Designation",
+
+employee.designation
+
+)
+
+};
+
+if(
+
+updatedEmployee.employee_code
+
+&&
+
+updatedEmployee.full_name
+
+){
+
+onEdit(
+
+employee.id,
+
+updatedEmployee
+
+);
+
+}
+
+}}
+
+>
 
 Edit
 
 </Button>
+
 
 {
 

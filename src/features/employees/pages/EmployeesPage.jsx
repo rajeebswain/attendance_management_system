@@ -24,7 +24,9 @@ import {
 
   deactivateEmployee,
 
-  restoreEmployee
+  restoreEmployee,
+
+  updateEmployee
 
 } from "../services/employeeService";
 
@@ -190,6 +192,56 @@ function EmployeesPage() {
     }
 
 
+    async function handleEdit(
+
+      id,
+      
+      employeeData
+      
+      ){
+      
+      try{
+      
+      await updateEmployee(
+      
+      id,
+      
+      employeeData
+      
+      );
+      
+      fetchEmployees();
+      
+      alert(
+      
+      "Employee updated"
+      
+      );
+      
+      }
+      
+      catch(error){
+      
+      console.log(
+      
+      error
+      
+      );
+      
+      alert(
+      
+      "Update failed"
+      
+      );
+      
+      }
+      
+      }
+
+
+
+
+
 
   // Load employees initially
   useEffect(() => {
@@ -224,6 +276,7 @@ function EmployeesPage() {
             employees={employees}
             onDelete={handleDeactivate}
             onRestore={handleRestore}
+            onEdit={handleEdit}
           />
         )}
 
