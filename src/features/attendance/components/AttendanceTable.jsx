@@ -848,6 +848,7 @@ handleForceCheckout(record)
 >
 
 Force
+</Button>
 
 {/* </Button>
 
