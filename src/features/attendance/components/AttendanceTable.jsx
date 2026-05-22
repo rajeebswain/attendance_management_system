@@ -936,7 +936,7 @@ ${record.status === "present"
 
                           </Button>
 
-                          <Button
+                          {/* <Button
                             type="button"
                             onClick={() =>
                               handleReassignAttendance(record)
@@ -945,7 +945,26 @@ ${record.status === "present"
 
                             Reassign
 
-                          </Button>
+                          </Button> */}
+                          <Button
+type="button"
+
+disabled={
+record.employees?.is_active===false
+}
+
+onClick={() =>
+handleReassignAttendance(record)
+}
+>
+
+Reassign
+
+</Button>
+
+
+
+
 
                           <Button
                             type="button"
