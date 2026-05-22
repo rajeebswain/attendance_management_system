@@ -22,8 +22,9 @@ import {
 
   getEmployees,
 
-  // deleteEmployee,
   deactivateEmployee,
+
+  restoreEmployee
 
 } from "../services/employeeService";
 
@@ -99,20 +100,6 @@ function EmployeesPage() {
 
   }
 
-  // Delete employee
-  // async function handleDelete(employeeId) {
-
-  //   try {
-
-  //     await deleteEmployee(employeeId);
-
-  //     fetchEmployees();
-
-  //   } catch (error) {
-
-  //     alert(error.message);
-  //   }
-  // }
 
   async function handleDeactivate(
 
@@ -160,6 +147,49 @@ function EmployeesPage() {
 
   }
 
+  async function handleRestore(
+
+    id
+    
+    ){
+    
+    try{
+    
+    await restoreEmployee(
+    
+    id
+    
+    );
+    
+    fetchEmployees();
+    
+    alert(
+    
+    "Employee restored"
+    
+    );
+    
+    }
+    
+    catch(error){
+    
+    console.log(
+    
+    error
+    
+    );
+    
+    alert(
+    
+    "Failed"
+    
+    );
+    
+    }
+    
+    }
+
+
 
   // Load employees initially
   useEffect(() => {
@@ -190,13 +220,10 @@ function EmployeesPage() {
 
         ) : (
 
-          // <EmployeesTable
-          //   employees={employees}
-          //   onDelete={handleDelete}
-          // />
-          <EmployeesTable
+           <EmployeesTable
             employees={employees}
             onDelete={handleDeactivate}
+            onRestore={handleRestore}
           />
         )}
 

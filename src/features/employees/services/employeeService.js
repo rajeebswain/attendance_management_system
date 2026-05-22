@@ -92,24 +92,6 @@ export async function updateEmployee(
 }
 
 
-// DELETE EMPLOYEE
-// export async function deleteEmployee(employeeId) {
-
-//   const { error } = await supabase
-
-//     .from("employees")
-
-//     .delete()
-
-//     .eq("id", employeeId);
-
-//   // Handle delete errors
-//   if (error) {
-//     throw error;
-//   }
-// }
-
-
 
 // DEACTIVATE EMPLOYEE
 
@@ -163,3 +145,44 @@ export const getShifts = async () => {
   return data;
   
   };
+
+
+  export async function restoreEmployee(
+
+    employeeId
+    
+    ){
+    
+    const {error}
+    
+    =
+    
+    await supabase
+    
+    .from(
+    
+    "employees"
+    
+    )
+    
+    .update({
+    
+    is_active:true
+    
+    })
+    
+    .eq(
+    
+    "id",
+    
+    employeeId
+    
+    );
+    
+    if(error){
+    
+    throw error;
+    
+    }
+    
+    }

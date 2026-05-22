@@ -1,127 +1,378 @@
+// // Reusable button
+// import Button from "../../../components/ui/Button";
+
+
+// function EmployeesTable({
+
+//   employees,
+
+//   onDelete,
+
+// }) {
+
+//   return (
+
+//     <div className="overflow-x-auto">
+
+//       <table
+//         className="
+//           w-full
+//           bg-white
+//           rounded-lg
+//           overflow-hidden
+//         "
+//       >
+
+//         {/* Table header */}
+//         <thead className="bg-gray-200">
+
+//           <tr>
+
+//             <th className="p-4 text-left">
+//               Employee Code
+//             </th>
+
+//             <th className="p-4 text-left">
+//               Full Name
+//             </th>
+
+//             <th className="p-4 text-left">
+//               Email
+//             </th>
+
+//             <th className="p-4 text-left">
+//               Designation
+//             </th>
+
+//             <th className="p-4 text-left">
+//               Actions
+//             </th>
+
+//           </tr>
+
+//         </thead>
+
+
+//         {/* Table body */}
+//         <tbody>
+
+//           {employees.map((employee) => (
+
+//             <tr
+//               key={employee.id}
+//               className="border-b"
+//             >
+
+//               <td className="p-4">
+//                 {employee.employee_code}
+//               </td>
+
+//               <td className="p-4">
+//                 {employee.full_name}
+//               </td>
+
+//               <td className="p-4">
+//                 {employee.email}
+//               </td>
+
+//               <td className="p-4">
+//                 {employee.designation}
+//               </td>
+
+//               <td className="p-4">
+
+//                 {/* <Button
+//                   variant="danger"
+//                   onClick={() =>
+//                     onDelete(employee.id)
+//                   }
+//                 >
+//                   Delete
+//                 </Button> */}
+
+//                 <Button
+//                   onClick={() => {
+
+//                     const confirmDelete = window.confirm(
+//                       "Are you sure you want to delete this employee?"
+//                     );
+
+//                     if (confirmDelete) {
+
+//                       onDelete(employee.id);
+
+//                     }
+
+//                   }}
+//                 >
+
+//                   Delete
+
+//                 </Button>
+
+//               </td>
+
+//             </tr>
+
+//           ))}
+
+//         </tbody>
+
+//       </table>
+
+//     </div>
+//   );
+// }
+
+// export default EmployeesTable;
+
+
+
 // Reusable button
 import Button from "../../../components/ui/Button";
 
+import { useState } from "react";
 
 function EmployeesTable({
 
-  employees,
+employees,
 
-  onDelete,
+onDelete,
+
+onRestore
 
 }) {
 
-  return (
+const [
 
-    <div className="overflow-x-auto">
+statusFilter,
 
-      <table
-        className="
-          w-full
-          bg-white
-          rounded-lg
-          overflow-hidden
-        "
-      >
+setStatusFilter
 
-        {/* Table header */}
-        <thead className="bg-gray-200">
+]
 
-          <tr>
+=
 
-            <th className="p-4 text-left">
-              Employee Code
-            </th>
+useState(
 
-            <th className="p-4 text-left">
-              Full Name
-            </th>
+"active"
 
-            <th className="p-4 text-left">
-              Email
-            </th>
+);
 
-            <th className="p-4 text-left">
-              Designation
-            </th>
+return (
 
-            <th className="p-4 text-left">
-              Actions
-            </th>
+<div className="overflow-x-auto">
 
-          </tr>
+<div className="mb-4">
 
-        </thead>
+<select
 
+value={statusFilter}
 
-        {/* Table body */}
-        <tbody>
+onChange={(e)=>
 
-          {employees.map((employee) => (
+setStatusFilter(
 
-            <tr
-              key={employee.id}
-              className="border-b"
-            >
+e.target.value
 
-              <td className="p-4">
-                {employee.employee_code}
-              </td>
+)
 
-              <td className="p-4">
-                {employee.full_name}
-              </td>
+}
 
-              <td className="p-4">
-                {employee.email}
-              </td>
+className="border rounded p-2"
 
-              <td className="p-4">
-                {employee.designation}
-              </td>
+>
 
-              <td className="p-4">
+<option value="active">
 
-                {/* <Button
-                  variant="danger"
-                  onClick={() =>
-                    onDelete(employee.id)
-                  }
-                >
-                  Delete
-                </Button> */}
+Active Employees
 
-                <Button
-                  onClick={() => {
+</option>
 
-                    const confirmDelete = window.confirm(
-                      "Are you sure you want to delete this employee?"
-                    );
+<option value="inactive">
 
-                    if (confirmDelete) {
+Inactive Employees
 
-                      onDelete(employee.id);
+</option>
 
-                    }
+</select>
 
-                  }}
-                >
+</div>
 
-                  Delete
+<table
+className="
+w-full
+bg-white
+rounded-lg
+overflow-hidden
+"
+>
 
-                </Button>
+<thead className="bg-gray-200">
 
-              </td>
+<tr>
 
-            </tr>
+<th className="p-4 text-left">
 
-          ))}
+Employee Code
 
-        </tbody>
+</th>
 
-      </table>
+<th className="p-4 text-left">
 
-    </div>
-  );
+Full Name
+
+</th>
+
+<th className="p-4 text-left">
+
+Email
+
+</th>
+
+<th className="p-4 text-left">
+
+Designation
+
+</th>
+
+<th className="p-4 text-left">
+
+Actions
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{
+
+employees
+
+.filter(
+
+(employee)=>
+
+statusFilter==="active"
+
+?
+
+employee.is_active===true
+
+:
+
+employee.is_active===false
+
+)
+
+.map((employee)=>(
+
+<tr
+key={employee.id}
+className="border-b"
+>
+
+<td className="p-4">
+
+{employee.employee_code}
+
+</td>
+
+<td className="p-4">
+
+{employee.full_name}
+
+</td>
+
+<td className="p-4">
+
+{employee.email}
+
+</td>
+
+<td className="p-4">
+
+{employee.designation}
+
+</td>
+
+<td className="p-4 flex gap-2">
+
+<Button>
+
+Edit
+
+</Button>
+
+{
+
+employee.is_active
+
+?
+
+(
+
+<Button
+onClick={()=>
+
+onDelete(
+
+employee.id
+
+)
+
+}
+>
+
+Deactivate
+
+</Button>
+
+)
+
+:
+
+(
+
+<Button
+onClick={()=>
+
+onRestore(
+
+employee.id
+
+)
+
+}
+>
+
+Restore
+
+</Button>
+
+)
+
+}
+
+</td>
+
+</tr>
+
+))
+
+}
+
+</tbody>
+
+</table>
+
+</div>
+
+);
+
 }
 
 export default EmployeesTable;
