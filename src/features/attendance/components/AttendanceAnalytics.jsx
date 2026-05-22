@@ -6,22 +6,41 @@ function AttendanceAnalytics({
   records,
 
 }) {
-
-  // Calculate totals
-  // const totalPresent = records.filter(
-
-  //   (record) => record.status === "present"
-
-  // ).length;
-
-
-  // const totalAbsent = records.filter(
-
-  //   (record) => record.status === "absent"
-
-  // ).length;
-
+ 
 // Calculate totals
+// const totalPresent = records.filter(
+
+//   (record)=>
+  
+//   (
+  
+//   record.status==="present"
+  
+//   ||
+  
+//   record.status==="late"
+  
+//   )
+  
+//   &&
+  
+//   record.is_archived !== true
+  
+//   ).length;
+  
+//   const totalAbsent = records.filter(
+  
+//   (record)=>
+  
+//   record.status==="absent"
+  
+//   &&
+  
+//   record.is_archived !== true
+  
+//   ).length;
+
+
 const totalPresent = records.filter(
 
   (record)=>
@@ -38,9 +57,14 @@ const totalPresent = records.filter(
   
   &&
   
-  record.is_archived !== true
+  record.employees?.is_active===true
+  
+  &&
+  
+  record.is_archived!==true
   
   ).length;
+  
   
   const totalAbsent = records.filter(
   
@@ -50,12 +74,13 @@ const totalPresent = records.filter(
   
   &&
   
-  record.is_archived !== true
+  record.employees?.is_active===true
+  
+  &&
+  
+  record.is_archived!==true
   
   ).length;
-
-
-
 
 
   return (
