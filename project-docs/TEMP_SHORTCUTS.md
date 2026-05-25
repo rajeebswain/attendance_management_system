@@ -61,3 +61,16 @@ Fast implementation
 
 Replace:
 Shared date utility
+
+
+Change ID: AMS-M03-EMP-009
+
+Temporary shortcut:
+
+Department and Shift filter values
+are hardcoded.
+
+Future replacement:
+
+Load filter options dynamically
+from database.

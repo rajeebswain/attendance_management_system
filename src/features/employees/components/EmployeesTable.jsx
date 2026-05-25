@@ -5,86 +5,300 @@ import { useState } from "react";
 
 function EmployeesTable({
 
-employees,
+    employees,
 
-onDelete,
+    onDelete,
 
-onRestore,
+    onRestore,
 
-onEdit
+    onEdit
 
 }) {
 
-const [
+    const [
 
-statusFilter,
+        statusFilter,
 
-setStatusFilter
+        setStatusFilter
 
-]
+    ]
 
-=
+        =
 
-useState(
+        useState(
 
-"active"
+            "active"
 
-);
+        );
 
-return (
 
-<div className="overflow-x-auto">
+    const [
+        searchTerm,
+        setSearchTerm
+    ] = useState("");
 
-<div className="mb-4">
+    const [
+        genderFilter,
+        setGenderFilter
+    ] = useState("all");
 
-<select
+    const [
+        departmentFilter,
+        setDepartmentFilter
+    ] = useState("all");
 
-value={statusFilter}
+    const [
+        shiftFilter,
+        setShiftFilter
+    ] = useState("all");
 
-onChange={(e)=>
 
-setStatusFilter(
 
-e.target.value
+    return (
 
-)
+        <div className="overflow-x-auto">
 
-}
+            {/* <div className="mb-4">
 
-className="border rounded p-2"
+                <select
 
->
+                    value={statusFilter}
 
-<option value="active">
+                    onChange={(e) =>
 
-Active Employees
+                        setStatusFilter(
 
-</option>
+                            e.target.value
 
-<option value="inactive">
+                        )
 
-Inactive Employees
+                    }
 
-</option>
+                    className="border rounded p-2"
 
-</select>
+                >
 
-</div>
+                    <option value="active">
 
-<table
-className="
+                        Active Employees
+
+                    </option>
+
+                    <option value="inactive">
+
+                        Inactive Employees
+
+                    </option>
+
+                </select>
+
+            </div> */}
+
+
+
+
+            <div className="mb-4 flex gap-3 flex-wrap">
+
+                <input
+
+                    placeholder="Search employee"
+
+                    value={searchTerm}
+
+                    onChange={(e) =>
+
+                        setSearchTerm(
+                            e.target.value
+                        )
+
+                    }
+
+                    className="border rounded p-2"
+                />
+
+                <select
+
+                    value={statusFilter}
+
+                    onChange={(e) =>
+
+                        setStatusFilter(
+                            e.target.value
+                        )
+
+                    }
+
+                    className="border rounded p-2"
+
+                >
+
+                    <option value="active">
+
+                        Active
+
+                    </option>
+
+                    <option value="inactive">
+
+                        Inactive
+
+                    </option>
+
+                </select>
+
+
+
+                <select
+
+                    value={genderFilter}
+
+                    onChange={(e) =>
+
+                        setGenderFilter(
+                            e.target.value
+                        )
+
+                    }
+
+                    className="border rounded p-2"
+
+                >
+
+                    <option value="all">
+
+                        All Gender
+
+                    </option>
+
+                    <option value="Male">
+
+                        Male
+
+                    </option>
+
+                    <option value="Female">
+
+                        Female
+
+                    </option>
+
+                    <option value="Other">
+
+                        Other
+
+                    </option>
+
+                </select>
+
+
+                <select
+
+                    value={departmentFilter}
+
+                    onChange={(e) =>
+
+                        setDepartmentFilter(
+                            e.target.value
+                        )
+
+                    }
+
+                    className="border rounded p-2"
+
+                >
+
+                    <option value="all">
+
+                        All Department
+
+                    </option>
+
+                    <option value="Operations">
+
+                        Operations
+
+                    </option>
+
+                    <option value="Maintenance">
+
+                        Maintenance
+
+                    </option>
+
+                    <option value="Test">
+
+                        Test
+
+                    </option>
+
+                </select>
+
+
+                <select
+
+                    value={shiftFilter}
+
+                    onChange={(e) =>
+
+                        setShiftFilter(
+                            e.target.value
+                        )
+
+                    }
+
+                    className="border rounded p-2"
+
+                >
+
+                    <option value="all">
+
+                        All Shift
+
+                    </option>
+
+                    <option value="Morning Shift">
+
+                        Morning Shift
+
+                    </option>
+
+                    <option value="Evening Shift">
+
+                        Evening Shift
+
+                    </option>
+
+                    <option value="Night Shift">
+
+                        Night Shift
+
+                    </option>
+
+                    <option value="General Shift">
+
+                        General Shift
+
+                    </option>
+
+                </select>
+
+
+            </div>
+
+            <table
+                className="
 w-full
 bg-white
 rounded-lg
 overflow-hidden
 "
->
+            >
 
-<thead className="bg-gray-200">
+                <thead className="bg-gray-200">
 
-<tr>
+                    <tr>
 
-{/* <th className="p-4 text-left">
+                        {/* <th className="p-4 text-left">
 
 Employee Code
 
@@ -114,144 +328,251 @@ Actions
 
 </th> */}
 
-<th className="p-4 text-left">
+                        <th className="p-4 text-left">
 
-Employee Code
+                            Employee Code
 
-</th>
+                        </th>
 
-<th className="p-4 text-left">
+                        <th className="p-4 text-left">
 
-Full Name
+                            Full Name
 
-</th>
+                        </th>
 
-<th className="p-4 text-left">
+                        <th className="p-4 text-left">
 
-Email
+                            Email
 
-</th>
+                        </th>
 
-<th className="p-4 text-left">
+                        <th className="p-4 text-left">
 
-Designation
+                            Designation
 
-</th>
+                        </th>
 
-<th className="p-4 text-left">
+                        <th className="p-4 text-left">
 
-Department
+                            Department
 
-</th>
+                        </th>
 
-<th className="p-4 text-left">
+                        <th className="p-4 text-left">
 
-Phone
+                            Phone
 
-</th>
+                        </th>
 
-<th className="p-4 text-left">
+                        <th className="p-4 text-left">
 
-Gender
+                            Gender
 
-</th>
+                        </th>
 
-<th className="p-4 text-left">
+                        <th className="p-4 text-left">
 
-Shift
+                            Shift
 
-</th>
+                        </th>
 
-</tr>
+                    </tr>
 
-</thead>
+                </thead>
 
-<tbody>
+                <tbody>
 
-{
+                    {
 
-employees
+                        // employees
 
-.filter(
+                        //     .filter(
 
-(employee)=>
+                        //         (employee) =>
 
-statusFilter==="active"
+                        //             statusFilter === "active"
 
-?
+                        //                 ?
 
-employee.is_active===true
+                        //                 employee.is_active === true
 
-:
+                        //                 :
 
-employee.is_active===false
+                        //                 employee.is_active === false
 
-)
+                        //     )
 
-.map((employee)=>(
 
-<tr
-key={employee.id}
-className="border-b"
->
+                        /*
+                        ------------------------------------------------------
+                        Added: 2026-05-25
+                        Change ID: AMS-M03-EMP-009
+                        
+                        Purpose:
+                        Apply employee search and filters
+                        ------------------------------------------------------
+                        */
 
-<td className="p-4">
+                        employees
 
-{employee.employee_code}
+                            .filter((employee) => {
 
-</td>
+                                const statusMatch =
 
-<td className="p-4">
+                                    statusFilter === "active"
 
-{employee.full_name}
+                                        ?
 
-</td>
+                                        employee.is_active === true
 
-<td className="p-4">
+                                        :
 
-{employee.email}
+                                        employee.is_active === false;
 
-</td>
 
-<td className="p-4">
+                                const searchMatch =
 
-{employee.designation}
+                                    employee.employee_code
+                                        ?.toLowerCase()
+                                        .includes(
+                                            searchTerm.toLowerCase()
+                                        )
 
-</td>
+                                    ||
 
+                                    employee.full_name
+                                        ?.toLowerCase()
+                                        .includes(
+                                            searchTerm.toLowerCase()
+                                        )
 
-<td className="p-4">
+                                    ||
 
-{employee.department || "-"}
+                                    employee.email
+                                        ?.toLowerCase()
+                                        .includes(
+                                            searchTerm.toLowerCase()
+                                        );
 
-</td>
 
-<td className="p-4">
+                                const genderMatch =
 
-{employee.phone || "-"}
+                                    genderFilter === "all"
 
-</td>
+                                    ||
 
-<td className="p-4">
+                                    employee.gender === genderFilter;
 
-{employee.gender || "-"}
 
-</td>
+                                const departmentMatch =
 
-<td className="p-4">
+                                    departmentFilter === "all"
 
-{employee.shifts?.shift_name || "-"}
+                                    ||
 
-</td>
+                                    employee.department === departmentFilter;
 
-<td className="p-4 flex gap-2">
 
-{/* <Button>
+                                const shiftMatch =
+
+                                    shiftFilter === "all"
+
+                                    ||
+
+                                    employee.shifts?.shift_name === shiftFilter;
+
+
+
+
+
+                                return (
+
+                                    statusMatch
+
+                                    &&
+
+                                    searchMatch
+
+                                    &&
+
+                                    genderMatch
+
+                                    &&
+
+                                    departmentMatch
+
+                                    &&
+
+                                    shiftMatch
+
+                                );
+
+                            })
+
+                            .map((employee) => (
+
+                                <tr
+                                    key={employee.id}
+                                    className="border-b"
+                                >
+
+                                    <td className="p-4">
+
+                                        {employee.employee_code}
+
+                                    </td>
+
+                                    <td className="p-4">
+
+                                        {employee.full_name}
+
+                                    </td>
+
+                                    <td className="p-4">
+
+                                        {employee.email}
+
+                                    </td>
+
+                                    <td className="p-4">
+
+                                        {employee.designation}
+
+                                    </td>
+
+
+                                    <td className="p-4">
+
+                                        {employee.department || "-"}
+
+                                    </td>
+
+                                    <td className="p-4">
+
+                                        {employee.phone || "-"}
+
+                                    </td>
+
+                                    <td className="p-4">
+
+                                        {employee.gender || "-"}
+
+                                    </td>
+
+                                    <td className="p-4">
+
+                                        {employee.shifts?.shift_name || "-"}
+
+                                    </td>
+
+                                    <td className="p-4 flex gap-2">
+
+                                        {/* <Button>
 
 Edit
 
 </Button> */}
-{/* <Button
+                                        {/* <Button
 
 onClick={()=>{
 
@@ -327,7 +648,7 @@ Edit
 
 </Button> */}
 
-{/* 
+                                        {/* 
 ------------------------------------------------------
 Added: 2026-05-25
 Change ID: AMS-M03-EDIT-001
@@ -338,162 +659,162 @@ using prompt().
 ------------------------------------------------------
 */}
 
-<Button
+                                        <Button
 
-onClick={()=>{
+                                            onClick={() => {
 
-onEdit(employee);
+                                                onEdit(employee);
 
-}}
+                                            }}
 
->
+                                        >
 
-Edit
+                                            Edit
 
-</Button>
+                                        </Button>
 
 
 
 
 
 
-{
+                                        {
 
-employee.is_active
+                                            employee.is_active
 
-?
+                                                ?
 
-(
+                                                (
 
-/* <Button
-onClick={()=>
+                                                    /* <Button
+                                                    onClick={()=>
+                                                    
+                                                    onDelete(
+                                                    
+                                                    employee.id
+                                                    
+                                                    )
+                                                    
+                                                    }
+                                                    >
+                                                    
+                                                    Deactivate
+                                                    
+                                                    </Button> */
 
-onDelete(
 
-employee.id
+                                                    <Button
 
-)
+                                                        onClick={() => {
 
-}
->
+                                                            const confirmDeactivate =
 
-Deactivate
+                                                                window.confirm(
 
-</Button> */
+                                                                    "Do you want to deactivate this employee?"
 
+                                                                );
 
-<Button
+                                                            if (
 
-onClick={()=>{
+                                                                confirmDeactivate
 
-const confirmDeactivate=
+                                                            ) {
 
-window.confirm(
+                                                                onDelete(
 
-"Do you want to deactivate this employee?"
+                                                                    employee.id
 
-);
+                                                                );
 
-if(
+                                                            }
 
-confirmDeactivate
+                                                        }}
 
-){
+                                                    >
 
-onDelete(
+                                                        Deactivate
 
-employee.id
+                                                    </Button>
 
-);
 
-}
+                                                )
 
-}}
+                                                :
 
->
+                                                (
 
-Deactivate
+                                                    /* <Button
+                                                    onClick={()=>
+                                                    
+                                                    onRestore(
+                                                    
+                                                    employee.id
+                                                    
+                                                    )
+                                                    
+                                                    }
+                                                    >
+                                                    
+                                                    Restore
+                                                    
+                                                    </Button> */
 
-</Button>
 
 
-)
+                                                    <Button
 
-:
+                                                        onClick={() => {
 
-(
+                                                            const confirmRestore =
 
-/* <Button
-onClick={()=>
+                                                                window.confirm(
 
-onRestore(
+                                                                    "Do you want to restore this employee?"
 
-employee.id
+                                                                );
 
-)
+                                                            if (
 
-}
->
+                                                                confirmRestore
 
-Restore
+                                                            ) {
 
-</Button> */
+                                                                onRestore(
 
+                                                                    employee.id
 
+                                                                );
 
-<Button
+                                                            }
 
-onClick={()=>{
+                                                        }}
 
-const confirmRestore=
+                                                    >
 
-window.confirm(
+                                                        Restore
 
-"Do you want to restore this employee?"
+                                                    </Button>
 
-);
+                                                )
 
-if(
+                                        }
 
-confirmRestore
+                                    </td>
 
-){
+                                </tr>
 
-onRestore(
+                            ))
 
-employee.id
+                    }
 
-);
+                </tbody>
 
-}
+            </table>
 
-}}
+        </div>
 
->
-
-Restore
-
-</Button>
-
-)
-
-}
-
-</td>
-
-</tr>
-
-))
-
-}
-
-</tbody>
-
-</table>
-
-</div>
-
-);
+    );
 
 }
 
