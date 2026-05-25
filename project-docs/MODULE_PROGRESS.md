@@ -1,0 +1,46 @@
+# Attendance Management System Progress
+
+M01 Core Foundation
+Status: 75%
+
+Completed:
+
+✓ Supabase setup
+✓ Shared layout
+✓ Routing
+
+
+M02 Identity & Security
+Status: 20%
+
+
+M03 Employee Core
+Status: 65%
+
+Completed:
+
+✓ Employee create
+✓ Employee list
+✓ Active/inactive
+✓ Restore/deactivate
+✓ Shift relation
+
+
+M04 Attendance Engine
+Status: Complete
+
+
+M05 Smart Attendance
+Status: 0%
+
+
+M06 Employee Self Service
+Status: 0%
+
+
+M07 Leave Management
+Status: 20%
+
+
+M08 Workflow Engine
+Status: 0%
