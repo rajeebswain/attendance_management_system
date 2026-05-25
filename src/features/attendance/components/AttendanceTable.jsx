@@ -67,29 +67,63 @@ function AttendanceTable({
 
   //   try {
 
-  //     const today = new Date()
-  //       .toISOString()
-  //       .split("T")[0];
+  //     // Restrict edit after first edit
+
+  //     if (
+
+  //       record.force_edit_count >= 1
+
+  //     ) {
+
+  //       alert(
+
+  //         "Attendance already edited once"
+
+  //       );
+
+  //       return;
+
+  //     }
+
+  //     const today =
+
+  //       new Date()
+
+  //         .toISOString()
+
+  //         .split("T")[0];
 
   //     const updatedCheckout =
 
   //       `${today}T${newCheckout}:00`;
 
-  //     const checkInDate = new Date(
-  //       record.check_in_datetime
-  //     );
+  //     const checkInDate =
 
-  //     const checkOutDate = new Date(
-  //       updatedCheckout
-  //     );
+  //       new Date(
+
+  //         record.check_in_datetime
+
+  //       );
+
+  //     const checkOutDate =
+
+  //       new Date(
+
+  //         updatedCheckout
+
+  //       );
 
   //     const workedHours =
 
-  //       (checkOutDate.getTime()
+  //       (
+
+  //         checkOutDate.getTime()
 
   //         -
 
-  //         checkInDate.getTime())
+  //         checkInDate.getTime()
+
+  //       )
 
   //       /
 
@@ -99,9 +133,13 @@ function AttendanceTable({
 
   //       workedHours > 8
 
-  //         ? workedHours - 8
+  //         ?
 
-  //         : 0;
+  //         workedHours - 8
+
+  //         :
+
+  //         0;
 
   //     await updateAttendance(
 
@@ -110,37 +148,56 @@ function AttendanceTable({
   //       {
 
   //         check_out_datetime:
+
   //           updatedCheckout,
 
   //         worked_hours:
+
   //           workedHours,
 
   //         overtime_hours:
+
   //           overtimeHours,
+
+  //         force_edit_count:
+
+  //           record.force_edit_count + 1,
+
+  //         is_force_edited: true
 
   //       }
 
   //     );
 
   //     alert(
+
   //       "Attendance updated"
+
   //     );
 
+  //     // temporary shortcut
   //     window.location.reload();
 
   //   }
 
   //   catch (error) {
 
-  //     console.error(error);
+  //     console.error(
+
+  //       error
+
+  //     );
 
   //     alert(
+
   //       "Update failed"
+
   //     );
 
   //   }
 
   // }
+
 
   async function handleAdminEdit(
     attendanceId,
@@ -150,21 +207,45 @@ function AttendanceTable({
 
     try {
 
-      // Restrict edit after first edit
+      // Check if locked
+
+      const now = new Date();
 
       if (
 
-        record.force_edit_count >= 1
+        record.edit_locked_until &&
+
+        new Date(
+          record.edit_locked_until
+        ) > now
 
       ) {
 
         alert(
 
-          "Attendance already edited once"
+          `Attendance editing blocked until:
+  
+  ${record.edit_locked_until}`
 
         );
 
         return;
+
+      }
+
+      // Warning after multiple edits
+
+      if (
+
+        (record.edit_count || 0) >= 3
+
+      ) {
+
+        alert(
+
+          "Warning: attendance edited multiple times"
+
+        );
 
       }
 
@@ -231,31 +312,23 @@ function AttendanceTable({
         {
 
           check_out_datetime:
-
             updatedCheckout,
 
           worked_hours:
-
             workedHours,
 
           overtime_hours:
-
             overtimeHours,
 
-          force_edit_count:
-
-            record.force_edit_count + 1,
-
-          is_force_edited: true
+          is_force_edited:
+            true
 
         }
 
       );
 
       alert(
-
         "Attendance updated"
-
       );
 
       // temporary shortcut
@@ -266,20 +339,19 @@ function AttendanceTable({
     catch (error) {
 
       console.error(
-
         error
-
       );
 
       alert(
-
+        error.message ||
         "Update failed"
-
       );
 
     }
 
   }
+
+
 
   // Adding  Admin Force Checkout Function Feature 21-05-2026 Case1 
 
@@ -690,20 +762,20 @@ mb-4
 
                   </td> */}
 
-<td className="p-4">
+                  <td className="p-4">
 
-<div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
 
-{record.employees?.full_name}
+                      {record.employees?.full_name}
 
-{
+                      {
 
-record.employees?.is_active===false
+                        record.employees?.is_active === false
 
-&&
+                        &&
 
-<span
-className="
+                        <span
+                          className="
 px-2
 py-1
 bg-red-100
@@ -711,22 +783,22 @@ text-red-600
 rounded
 text-xs
 "
->
+                        >
 
-Inactive
+                          Inactive
 
-</span>
+                        </span>
 
-}
+                      }
 
-{
+                      {
 
-record.is_force_edited
+                        record.is_force_edited
 
-&&
+                        &&
 
-<span
-className="
+                        <span
+                          className="
 px-2
 py-1
 bg-yellow-100
@@ -734,17 +806,17 @@ text-yellow-700
 rounded
 text-xs
 "
->
+                        >
 
-Edited
+                          Edited
 
-</span>
+                        </span>
 
-}
+                      }
 
-</div>
+                    </div>
 
-</td>
+                  </td>
 
 
 
@@ -892,8 +964,8 @@ ${record.status === "present"
                             type="button"
 
                             disabled={
-                              record.employees?.is_active===false
-                              }
+                              record.employees?.is_active === false
+                            }
                             onClick={() => {
 
                               const newCheckout =
@@ -925,8 +997,8 @@ ${record.status === "present"
                             disabled={
                               !!record.check_out_datetime
                               ||
-                              record.employees?.is_active===false
-                              }
+                              record.employees?.is_active === false
+                            }
                             onClick={() =>
                               handleForceCheckout(record)
                             }
@@ -947,20 +1019,20 @@ ${record.status === "present"
 
                           </Button> */}
                           <Button
-type="button"
+                            type="button"
 
-disabled={
-record.employees?.is_active===false
-}
+                            disabled={
+                              record.employees?.is_active === false
+                            }
 
-onClick={() =>
-handleReassignAttendance(record)
-}
->
+                            onClick={() =>
+                              handleReassignAttendance(record)
+                            }
+                          >
 
-Reassign
+                            Reassign
 
-</Button>
+                          </Button>
 
 
 
