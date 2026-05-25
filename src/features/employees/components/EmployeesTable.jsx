@@ -11,7 +11,9 @@ function EmployeesTable({
 
     onRestore,
 
-    onEdit
+    onEdit,
+
+    onView
 
 }) {
 
@@ -602,88 +604,36 @@ bg-gray-300
 
                                     <td className="p-4 flex gap-2">
 
-                                        {/* <Button>
+ {/*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-012
 
-Edit
+Purpose:
+Open employee details page.
+------------------------------------------------------
+*/}
 
-</Button> */}
-                                        {/* <Button
+<Button
 
 onClick={()=>{
 
-const updatedEmployee={
-
-employee_code:
-
-prompt(
-
-"Employee Code",
-
-employee.employee_code
-
-),
-
-full_name:
-
-prompt(
-
-"Full Name",
-
-employee.full_name
-
-),
-
-email:
-
-prompt(
-
-"Email",
-
-employee.email
-
-),
-
-designation:
-
-prompt(
-
-"Designation",
-
-employee.designation
-
-)
-
-};
-
-if(
-
-updatedEmployee.employee_code
-
-&&
-
-updatedEmployee.full_name
-
-){
-
-onEdit(
-
-employee.id,
-
-updatedEmployee
-
+onView(
+employee
 );
-
-}
 
 }}
 
 >
 
-Edit
+View
 
-</Button> */}
+</Button>
 
-                                        {/* 
+
+
+
+{/* 
 ------------------------------------------------------
 Added: 2026-05-25
 Change ID: AMS-M03-EDIT-001

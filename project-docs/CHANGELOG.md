@@ -132,6 +132,7 @@ STARTING
 Risk:
 MEDIUM
 
+## 2026-05-25
 Project: AMS
 
 Change ID:
@@ -146,7 +147,7 @@ Upload image to Supabase Storage
 Risk:
 MEDIUM
 
-
+## 2026-05-25
 Project: AMS
 
 Change ID:
@@ -157,6 +158,37 @@ M03 Employee Core
 
 Feature:
 Employee Validation Cleanup
+
+Risk:
+LOW
+
+## 2026-05-25
+Project: AMS
+
+Change ID:
+AMS-M03-EMP-012
+
+Module:
+M03 Employee Core
+
+Feature:
+Employee Details Page
+
+Risk:
+LOW
+
+
+## 2026-05-25
+Project: AMS
+
+Change ID:
+AMS-M03-EMP-013
+
+Module:
+M03 Employee Core
+
+Feature:
+Employee image update in edit modal
 
 Risk:
 LOW

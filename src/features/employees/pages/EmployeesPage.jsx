@@ -26,7 +26,9 @@ import {
 
   restoreEmployee,
 
-  updateEmployee
+  updateEmployee,
+
+  uploadEmployeeImage
 
 } from "../services/employeeService";
 
@@ -54,6 +56,21 @@ Import employee edit modal component.
 import EmployeeEditModal
   from "../components/EmployeeEditModal";
 
+
+
+
+/*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-012
+
+Purpose:
+Import employee details modal.
+------------------------------------------------------
+*/
+
+import EmployeeDetailsModal
+  from "../components/EmployeeDetailsModal";
 
 function EmployeesPage() {
 
@@ -95,6 +112,26 @@ and modal visibility.
     showEditModal,
     setShowEditModal
   ] = useState(false);
+
+  /*
+  ------------------------------------------------------
+  Added: 2026-05-25
+  Change ID: AMS-M03-EMP-012
+  
+  Purpose:
+  Store selected employee
+  for view modal.
+  
+  Risk:
+  LOW
+  ------------------------------------------------------
+  */
+
+  const [
+    selectedViewEmployee,
+    setSelectedViewEmployee
+  ] = useState(null);
+
 
   // Fetch employee list
   async function fetchEmployees() {
@@ -228,53 +265,6 @@ and modal visibility.
   }
 
 
-  // async function handleEdit(
-
-  //   id,
-
-  //   employeeData
-
-  //   ){
-
-  //   try{
-
-  //   await updateEmployee(
-
-  //   id,
-
-  //   employeeData
-
-  //   );
-
-  //   fetchEmployees();
-
-  //   alert(
-
-  //   "Employee updated"
-
-  //   );
-
-  //   }
-
-  //   catch(error){
-
-  //   console.log(
-
-  //   error
-
-  //   );
-
-  //   alert(
-
-  //   "Update failed"
-
-  //   );
-
-  //   }
-
-  //   }
-
-
   /*
 ------------------------------------------------------
 Added: 2026-05-25
@@ -295,6 +285,38 @@ Update employee using modal data.
 
     try {
 
+
+      /*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-013
+
+Purpose:
+Upload edited employee image
+before updating employee.
+
+Risk:
+LOW
+------------------------------------------------------
+*/
+
+if(
+
+  employeeData.profile_image
+  
+  instanceof File
+  
+  ){
+  
+  employeeData.profile_image=
+  
+  await uploadEmployeeImage(
+  
+  employeeData.profile_image
+  
+  );
+  
+  }
       await updateEmployee(
 
         id,
@@ -363,36 +385,79 @@ Update employee using modal data.
 
         ) : (
 
+
+
           // <EmployeesTable
           //   employees={employees}
           //   onDelete={handleDeactivate}
           //   onRestore={handleRestore}
-          //   onEdit={handleEdit}
+
+          //   /*
+          //   ------------------------------------------------------
+          //   Added: 2026-05-25
+          //   Change: AMS-M03-EDIT-001
+
+          //   Purpose:
+          //   Open modal instead of updating directly.
+          //   ------------------------------------------------------
+          //   */
+          //   onEdit={(employee) => {
+
+          //     setSelectedEmployee(employee);
+
+          //     setShowEditModal(true);
+
+          //   }}
+
           // />
 
           <EmployeesTable
-employees={employees}
-onDelete={handleDeactivate}
-onRestore={handleRestore}
+            employees={employees}
+            onDelete={handleDeactivate}
+            onRestore={handleRestore}
 
-/*
-------------------------------------------------------
-Added: 2026-05-25
-Change: AMS-M03-EDIT-001
+            /*
+            ------------------------------------------------------
+            Added: 2026-05-25
+            Change: AMS-M03-EDIT-001
+            
+            Purpose:
+            Open edit employee modal.
+            ------------------------------------------------------
+            */
+            onEdit={(employee) => {
 
-Purpose:
-Open modal instead of updating directly.
-------------------------------------------------------
-*/
-onEdit={(employee)=>{
+              setSelectedEmployee(
+                employee
+              );
 
-setSelectedEmployee(employee);
+              setShowEditModal(
+                true
+              );
 
-setShowEditModal(true);
+            }}
 
-}}
 
-/>
+            /*
+            ------------------------------------------------------
+            Added: 2026-05-25
+            Change: AMS-M03-EMP-012
+            
+            Purpose:
+            Open employee details modal.
+            ------------------------------------------------------
+            */
+            onView={(employee) => {
+
+              setSelectedViewEmployee(
+                employee
+              );
+
+            }}
+
+          />
+
+
         )}
 
       </div>
@@ -416,17 +481,6 @@ Render employee edit modal.
 
             shifts={shifts}
 
-            // onSave={(employeeData) => {
-
-            //   handleEdit(
-
-            //     selectedEmployee.id,
-            //     employeeData
-
-            //   );
-
-            // }}
-
             /*
 ------------------------------------------------------
 Added: 2026-05-25
@@ -438,14 +492,14 @@ to save workflow.
 ------------------------------------------------------
 */
 
-onSave={(employeeData)=>{
+            onSave={(employeeData) => {
 
-  handleEdit(
-  selectedEmployee.id,
-  employeeData
-  );
-  
-  }}
+              handleEdit(
+                selectedEmployee.id,
+                employeeData
+              );
+
+            }}
 
             onClose={() => {
 
@@ -459,10 +513,45 @@ onSave={(employeeData)=>{
 
         )
       }
+{/*
+      ------------------------------------------------------
+      Added: 2026-05-25
+      Change ID: AMS-M03-EMP-012
 
+      Purpose:
+      Render employee details modal.
+      ------------------------------------------------------
+      */}
+
+      {
+
+        selectedViewEmployee && (
+
+          <EmployeeDetailsModal
+
+            employee={
+              selectedViewEmployee
+            }
+
+            onClose={() => {
+
+              setSelectedViewEmployee(
+                null
+              );
+
+            }}
+
+          />
+
+        )
+
+      }
 
     </DashboardLayout>
   );
 }
+
+
+
 
 export default EmployeesPage;

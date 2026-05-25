@@ -22,33 +22,36 @@ LOW
 
 import { useEffect, useState } from "react";
 
+
+/*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-013
+
+Purpose:
+Import image upload service
+for employee edit modal.
+
+Risk:
+LOW
+------------------------------------------------------
+*/
+
+import {
+
+  uploadEmployeeImage
+
+}
+
+  from "../services/employeeService";
+
+
 function EmployeeEditModal({
   employee,
   shifts,
   onSave,
   onClose
 }) {
-
-  /*
-  // ------------------------------------------------------
-  // Added: 2026-05-25
-  // Change ID: AMS-M03-EDIT-001
-  
-  // Purpose:
-  // Match existing employee database schema
-  // ------------------------------------------------------
-  // */
-
-  // const [formData, setFormData] = useState({
-
-  //     employee_code:"",
-  //     full_name:"",
-  //     email:"",
-  //     designation:"",
-  //     shift_id:""
-
-  //     });
-
 
   /*
   ------------------------------------------------------
@@ -88,9 +91,9 @@ LOW
 ------------------------------------------------------
 */
 
-const [
-  countryCode,
-  setCountryCode
+  const [
+    countryCode,
+    setCountryCode
   ] = useState("+91");
 
 
@@ -108,122 +111,105 @@ const [
 
 
   /*
-  ------------------------------------------------------
-  Added: 2026-05-25
-  Change: AMS-M03-EDIT-001
-
-  Purpose:
-  Populate form using selected employee data.
-  Runs whenever employee changes.
-  ------------------------------------------------------
-  */
-
-//   useEffect(() => {
-
-//     if (employee) {
-
-//       setFormData({
-
-//         employee_code:
-//           employee.employee_code || "",
-
-//         full_name:
-//           employee.full_name || "",
-
-//         email:
-//           employee.email || "",
-
-//         designation:
-//           employee.designation || "",
-
-//         department:
-//           employee.department || "",
-
-//                  phone:
-// (employee.phone || "")
-// .replace(/^\+\d+/,""),
-
-//         shift_id:
-//           employee.shift_id || ""
-
-//       });
-
-//     }
-
-//   }, [employee]);
-
-
-/*
 ------------------------------------------------------
 Added: 2026-05-25
-Change ID: AMS-M03-EDIT-008
+Change ID: AMS-M03-EMP-013
 
 Purpose:
-Split stored phone value into:
-
-- Country code
-- Phone number
-
-Example:
-
-Stored:
-+919999999999
-
-Modal shows:
-
-Country: +91
-Phone: 9999999999
+Store replacement profile image.
 
 Risk:
 LOW
 ------------------------------------------------------
 */
 
-useEffect(()=>{
+  const [
 
-  const phoneValue =
-  employee.phone || "";
+    profileImage,
+
+    setProfileImage
+
+  ]
+
+    =
+
+    useState(null);
+
+
+
+
+
+  /*
+  ------------------------------------------------------
+  Added: 2026-05-25
+  Change ID: AMS-M03-EDIT-008
   
-  const countryMatch =
-  phoneValue.match(/^\+\d{1,4}/);
+  Purpose:
+  Split stored phone value into:
   
-  if(countryMatch){
+  - Country code
+  - Phone number
   
-  setCountryCode(
-  countryMatch[0]
-  );
+  Example:
   
-  }
+  Stored:
+  +919999999999
   
-  setFormData({
+  Modal shows:
   
-  employee_code:
-  employee.employee_code || "",
+  Country: +91
+  Phone: 9999999999
   
-  full_name:
-  employee.full_name || "",
-  
-  email:
-  employee.email || "",
-  
-  designation:
-  employee.designation || "",
-  
-  department:
-  employee.department || "",
-  
-  phone:
-  phoneValue.slice(-10),
-  
-  gender:
-  employee.gender || "",
-  
-  shift_id:
-  employee.shift_id || ""
-  
-  });
-  
-  },[employee]);
+  Risk:
+  LOW
+  ------------------------------------------------------
+  */
+
+  useEffect(() => {
+
+    const phoneValue =
+      employee.phone || "";
+
+    const countryMatch =
+      phoneValue.match(/^\+\d{1,4}/);
+
+    if (countryMatch) {
+
+      setCountryCode(
+        countryMatch[0]
+      );
+
+    }
+
+    setFormData({
+
+      employee_code:
+        employee.employee_code || "",
+
+      full_name:
+        employee.full_name || "",
+
+      email:
+        employee.email || "",
+
+      designation:
+        employee.designation || "",
+
+      department:
+        employee.department || "",
+
+      phone:
+        phoneValue.slice(-10),
+
+      gender:
+        employee.gender || "",
+
+      shift_id:
+        employee.shift_id || ""
+
+    });
+
+  }, [employee]);
 
 
   /*
@@ -268,59 +254,40 @@ LOW
 ------------------------------------------------------
 */
 
-const validate = () => {
+  const validate = () => {
 
-  let newErrors = {};
-  
-  if (!formData.employee_code?.trim()) {
-  
-  newErrors.employee_code =
-  "Employee code required";
-  
-  }
-  
-  if (!formData.full_name?.trim()) {
-  
-  newErrors.full_name =
-  "Full name required";
-  
-  }
-  
-  if (!formData.email?.trim()) {
-  
-  newErrors.email =
-  "Email required";
-  
-  }
-  
-  setErrors(newErrors);
-  
-  return Object.keys(
-  newErrors
-  ).length===0;
-  
+    let newErrors = {};
+
+    if (!formData.employee_code?.trim()) {
+
+      newErrors.employee_code =
+        "Employee code required";
+
+    }
+
+    if (!formData.full_name?.trim()) {
+
+      newErrors.full_name =
+        "Full name required";
+
+    }
+
+    if (!formData.email?.trim()) {
+
+      newErrors.email =
+        "Email required";
+
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(
+      newErrors
+    ).length === 0;
+
   };
 
-  /*
-  ------------------------------------------------------
-  Added: 2026-05-25
-  Change: AMS-M03-EDIT-001
 
-  Purpose:
-  Submit updated employee data.
-  ------------------------------------------------------
-  */
-
-  // const handleSubmit = () => {
-
-  //   if (!validate()) return;
-
-  //   onSave({
-  //     ...employee,
-  //     ...formData
-  //   });
-
-  // };
 
 
   /*
@@ -363,27 +330,25 @@ const validate = () => {
 
       department: formData.department,
 
-      // phone: formData.phone,
+      profile_image: profileImage || employee.profile_image,
 
-//       phone:
-// `${countryCode}${formData.phone}`,
 
-/*
-------------------------------------------------------
-Added: 2026-05-25
-Change ID: AMS-M03-EDIT-010
+      /*
+      ------------------------------------------------------
+      Added: 2026-05-25
+      Change ID: AMS-M03-EDIT-010
+      
+      Purpose:
+      Enforce 10-digit phone rule
+      before saving.
+      
+      Risk:
+      LOW
+      ------------------------------------------------------
+      */
 
-Purpose:
-Enforce 10-digit phone rule
-before saving.
-
-Risk:
-LOW
-------------------------------------------------------
-*/
-
-phone:
-`${countryCode}${formData.phone.slice(0,10)}`,
+      phone:
+        `${countryCode}${formData.phone.slice(0, 10)}`,
 
       gender: formData.gender,
 
@@ -404,143 +369,6 @@ phone:
           Edit Employee
         </h2>
 
-        {/* <div className="space-y-3">
-
-          <input
-            className="border p-2 rounded w-full"
-            placeholder="Name"
-            // value={formData.name}
-            value={formData.full_name}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                // name: e.target.value
-                full_name: e.target.value
-              })
-            }
-          />
-
-          {errors.name && (
-            <p className="text-red-500 text-sm">
-              {errors.name}
-            </p>
-          )}
-
-          <input
-            className="border p-2 rounded w-full"
-            placeholder="Department"
-            value={formData.department}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                department: e.target.value
-              })
-            }
-          />
-
-          <input
-            className="border p-2 rounded w-full"
-            placeholder="Designation"
-            value={formData.designation}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                designation: e.target.value
-              })
-            }
-          />
-
-
-
-          <input
-            className="border p-2 rounded w-full"
-            placeholder="Department"
-            value={formData.department}
-            onChange={(e) =>
-
-              setFormData({
-
-                ...formData,
-                department: e.target.value
-
-              })
-
-            }
-          />
-
-
-          <input
-            className="border p-2 rounded w-full"
-            placeholder="Phone"
-            value={formData.phone}
-            onChange={(e) =>
-
-              setFormData({
-
-                ...formData,
-                phone: e.target.value
-
-              })
-
-            }
-          />
-
-
-
-
-          <input
-            className="border p-2 rounded w-full"
-            placeholder="Email"
-            value={formData.email}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                email: e.target.value
-              })
-            }
-          />
-
-          <input
-            className="border p-2 rounded w-full"
-            placeholder="Phone"
-            value={formData.phone}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                phone: e.target.value
-              })
-            }
-          />
-
-          <select
-            className="border p-2 rounded w-full"
-            value={formData.shift_id}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                shift_id: e.target.value
-              })
-            }
-          >
-
-            <option value="">
-              Select Shift
-            </option>
-
-            {shifts?.map((shift) => (
-
-              <option
-                key={shift.id}
-                value={shift.id}
-              >
-                {shift.shift_name}
-              </option>
-
-            ))}
-
-          </select>
-
-        </div> */}
 
         <div className="space-y-3">
           {/*
@@ -640,76 +468,76 @@ LOW
             }
           /> */}
 
-<div className="flex gap-2">
+          <div className="flex gap-2">
 
-<select
+            <select
 
-value={countryCode}
+              value={countryCode}
 
-onChange={(e)=>
+              onChange={(e) =>
 
-setCountryCode(
-e.target.value
-)
+                setCountryCode(
+                  e.target.value
+                )
 
-}
+              }
 
-className="border p-2 rounded"
+              className="border p-2 rounded"
 
->
+            >
 
-<option value="+91">
+              <option value="+91">
 
-+91
+                +91
 
-</option>
+              </option>
 
-<option value="+1">
+              <option value="+1">
 
-+1
+                +1
 
-</option>
+              </option>
 
-<option value="+44">
+              <option value="+44">
 
-+44
+                +44
 
-</option>
+              </option>
 
-<option value="+971">
+              <option value="+971">
 
-+971
+                +971
 
-</option>
+              </option>
 
-</select>
+            </select>
 
-<input
+            <input
 
-className="border p-2 rounded w-full"
+              className="border p-2 rounded w-full"
 
-placeholder="Phone"
+              placeholder="Phone"
 
-value={formData.phone}
+              value={formData.phone}
 
-onChange={(e)=>{
+              onChange={(e) => {
 
-const value=e.target.value
-.replace(/\D/g,"")
-.slice(0,10);
+                const value = e.target.value
+                  .replace(/\D/g, "")
+                  .slice(0, 10);
 
-setFormData({
+                setFormData({
 
-...formData,
-phone:value
+                  ...formData,
+                  phone: value
 
-});
+                });
 
-}}
+              }}
 
- />
+            />
 
-</div>
+          </div>
 
           <select
             className="border p-2 rounded w-full"
@@ -740,7 +568,7 @@ phone:value
 
           </select>
 
-          <select
+          {/* <select
             className="border p-2 rounded w-full"
             value={formData.shift_id}
             onChange={(e) =>
@@ -770,11 +598,102 @@ phone:value
               ))
             }
 
-          </select>
+            <input
+
+              type="file"
+
+              accept="image/png,image/jpeg,image/jpg"
+
+              onChange={(e) => {
+
+                setProfileImage(
+
+                  e.target.files[0]
+
+                );
+
+              }}
+
+              className="
+border
+p-2
+rounded
+w-full
+"
+            />
+          </select> */}
+
+<select
+className="border p-2 rounded w-full"
+value={formData.shift_id}
+onChange={(e)=>
+setFormData({
+...formData,
+shift_id:e.target.value
+})
+}
+>
+
+<option value="">
+Select Shift
+</option>
+
+{
+shifts?.map((shift)=>(
+
+<option
+key={shift.id}
+value={shift.id}
+>
+
+{shift.shift_name}
+
+</option>
+
+))
+}
+
+</select>
 
         </div>
 
         <div className="flex justify-end gap-3 mt-6">
+
+          {  /*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-013
+
+Purpose:
+Allow profile image replacement.
+------------------------------------------------------
+*/}
+
+          <input
+
+            type="file"
+
+            accept="image/png,image/jpeg,image/jpg"
+
+            onChange={(e) => {
+
+              setProfileImage(
+
+                e.target.files[0]
+
+              );
+
+            }}
+
+            className="
+border
+p-2
+w-full
+rounded
+"
+
+          />
+
 
           <button
             onClick={onClose}
@@ -800,4 +719,6 @@ phone:value
 
 }
 
+
 export default EmployeeEditModal;
+
