@@ -29,3 +29,17 @@ chore(project): initialize project documentation system
 Risk:
 
 NONE
+
+## 2026-05-25
+Project: AMS
+Change ID: AMS-M03-EDIT-001
+Step: 2
+Feature: Connect modal to EmployeesPage
+Risk: LOW
+
+## 2026-05-25
+Project: AMS
+Change ID: AMS-M03-EDIT-001
+Step: 3
+Feature: Replace old Edit action
+Risk: LOW
