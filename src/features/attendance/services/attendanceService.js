@@ -140,17 +140,118 @@ export async function getHolidays() {
 //   data
 // ) {
 
+//   // Get current attendance record
+
+//   const {
+
+//     data: record,
+
+//     error: fetchError
+
+//   }
+
+//     = await supabase
+
+//       .from("attendance")
+
+//       .select("*")
+
+//       .eq("id", id)
+
+//       .single();
+
+//   if (fetchError) {
+
+//     throw fetchError;
+
+//   }
+
+//   // Check if record locked
+
+//   const now = new Date();
+
+//   if (
+
+//     record.edit_locked_until &&
+
+//     new Date(
+//       record.edit_locked_until
+//     ) > now
+
+//   ) {
+
+//     throw new Error(
+
+//       `Editing blocked until:
+
+// ${record.edit_locked_until}`
+
+//     );
+
+//   }
+
+//   // Increase edit count
+
+//   const editCount =
+
+//     (record.edit_count || 0)
+
+//     + 1;
+
+//   let lockedUntil = null;
+
+//   // Lock after 6 edits
+
+//   if (editCount >= 6) {
+
+//     lockedUntil =
+
+//       new Date(
+
+//         Date.now()
+
+//         +
+
+//         24 * 60 * 60 * 1000
+
+//       );
+
+//   }
+
 //   const { error }
 
 //     = await supabase
 
 //       .from("attendance")
 
-//       .update(data)
+//       .update({
+
+//         ...data,
+
+//         edit_count:
+
+//           editCount >= 6
+
+//             ? 0
+
+//             : editCount,
+
+//         edit_locked_until:
+
+//           lockedUntil,
+
+//         last_edited_at:
+
+//           new Date()
+
+//       })
 
 //       .eq(
+
 //         "id",
+
 //         id
+
 //       );
 
 //   if (error) {
@@ -193,7 +294,8 @@ export async function updateAttendance(
 
   }
 
-  // Check if record locked
+
+  // Check lock status
 
   const now = new Date();
 
@@ -217,6 +319,7 @@ ${record.edit_locked_until}`
 
   }
 
+
   // Increase edit count
 
   const editCount =
@@ -227,9 +330,14 @@ ${record.edit_locked_until}`
 
   let lockedUntil = null;
 
+
   // Lock after 6 edits
 
-  if (editCount >= 6) {
+  if (
+
+    editCount >= 6
+
+  ) {
 
     lockedUntil =
 
@@ -245,7 +353,14 @@ ${record.edit_locked_until}`
 
   }
 
-  const { error }
+
+  // Update attendance
+
+  const {
+
+    error
+
+  }
 
     = await supabase
 
@@ -281,13 +396,76 @@ ${record.edit_locked_until}`
 
       );
 
-  if (error) {
+
+  if (
+
+    error
+
+  ) {
 
     throw error;
 
   }
 
+
+  // Create audit log
+
+  const {
+
+    error: auditError
+
+  }
+
+    = await supabase
+
+      .from(
+
+        "attendance_audit"
+
+      )
+
+      .insert({
+
+        attendance_id:
+
+          id,
+
+        action_type:
+
+          "Edit Checkout",
+
+        old_value:
+
+          record.check_out_datetime,
+
+        new_value:
+
+          data.check_out_datetime,
+
+        changed_by:
+
+          "Admin"
+
+      });
+
+
+  if (
+
+    auditError
+
+  ) {
+
+    console.error(
+
+      auditError
+
+    );
+
+  }
+
 }
+
+
 
 
 
@@ -406,6 +584,51 @@ export async function restoreAttendance(
 
 // Get attendance audit logs
 
+// export async function getAuditLogs() {
+
+//   const {
+
+//     data,
+
+//     error
+
+//   }
+
+//     =
+
+//     await supabase
+
+//       .from(
+
+//         "attendance_audit"
+
+//       )
+
+//       .select("*")
+
+//       .order(
+
+//         "created_at",
+
+//         {
+
+//           ascending: false
+
+//         }
+
+//       );
+
+//   if (error) {
+
+//     throw error;
+
+//   }
+
+//   return data;
+
+// }
+
+
 export async function getAuditLogs() {
 
   const {
@@ -416,9 +639,7 @@ export async function getAuditLogs() {
 
   }
 
-    =
-
-    await supabase
+    = await supabase
 
       .from(
 
@@ -426,7 +647,23 @@ export async function getAuditLogs() {
 
       )
 
-      .select("*")
+      .select(`
+
+      *,
+
+      attendance(
+
+        employee_id,
+
+        employees(
+
+          full_name
+
+        )
+
+      )
+
+    `)
 
       .order(
 
