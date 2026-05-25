@@ -298,35 +298,23 @@ overflow-hidden
 
                     <tr>
 
-                        {/* <th className="p-4 text-left">
+                        { /*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-010
 
-Employee Code
+Purpose:
+Display employee profile image
+in employee table.
+------------------------------------------------------
+*/}
 
-</th>
+                        <th className="p-4 text-left">
 
-<th className="p-4 text-left">
+                            Photo
 
-Full Name
+                        </th>
 
-</th>
-
-<th className="p-4 text-left">
-
-Email
-
-</th>
-
-<th className="p-4 text-left">
-
-Designation
-
-</th>
-
-<th className="p-4 text-left">
-
-Actions
-
-</th> */}
 
                         <th className="p-4 text-left">
 
@@ -515,6 +503,53 @@ Actions
                                     key={employee.id}
                                     className="border-b"
                                 >
+
+
+                                    <td className="p-4">
+
+                                        {
+
+                                            employee.profile_image
+
+                                                ?
+
+                                                (
+
+                                                    <img
+
+                                                        src={employee.profile_image}
+
+                                                        alt="employee"
+
+                                                        className="
+w-12
+h-12
+rounded-full
+object-cover
+"
+
+                                                    />
+
+                                                )
+
+                                                :
+
+                                                (
+
+                                                    <div
+                                                        className="
+w-12
+h-12
+rounded-full
+bg-gray-300
+"
+                                                    />
+
+                                                )
+
+                                        }
+
+                                    </td>
 
                                     <td className="p-4">
 

@@ -207,3 +207,71 @@ export const getShifts = async () => {
     }
     
     }
+
+
+    /*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-010
+
+Purpose:
+Upload employee profile image
+to Supabase storage.
+
+Risk:
+MEDIUM
+------------------------------------------------------
+*/
+
+export async function uploadEmployeeImage(
+
+  file
+  
+  ){
+  
+  const fileName =
+  
+  `${Date.now()}-${file.name}`;
+  
+  const { error } =
+  
+  await supabase.storage
+  
+  .from(
+  "employee-profiles"
+  )
+  
+  .upload(
+  
+  fileName,
+  file
+  
+  );
+  
+  if(error){
+  
+  throw error;
+  
+  }
+  
+  const {
+  
+  data
+  
+  }
+  
+  =
+  
+  supabase.storage
+  
+  .from(
+  "employee-profiles"
+  )
+  
+  .getPublicUrl(
+  fileName
+  );
+  
+  return data.publicUrl;
+  
+  }

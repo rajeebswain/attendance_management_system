@@ -13,6 +13,7 @@ import Card from "../../../components/ui/Card";
 import {
 
   createEmployee,
+  uploadEmployeeImage
 
 } from "../services/employeeService";
 
@@ -52,24 +53,44 @@ Additional employee profile fields
 ------------------------------------------------------
 */
 
-const [department, setDepartment] = useState("");
+  const [department, setDepartment] = useState("");
 
-const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("");
 
-/*
-------------------------------------------------------
-Added: 2026-05-25
-Change ID: AMS-M03-EMP-008
+  /*
+  ------------------------------------------------------
+  Added: 2026-05-25
+  Change ID: AMS-M03-EMP-008
+  
+  Purpose:
+  Store country code
+  for phone number.
+  ------------------------------------------------------
+  */
 
-Purpose:
-Store country code
-for phone number.
-------------------------------------------------------
-*/
+  const [countryCode, setCountryCode] = useState("+91");
 
-const [countryCode,setCountryCode]=useState("+91");
+  const [gender, setGender] = useState("");
 
-const [gender, setGender] = useState("");
+
+  /*
+  ------------------------------------------------------
+  Added: 2026-05-25
+  Change ID: AMS-M03-EMP-010
+  
+  Purpose:
+  Store employee profile image file.
+  
+  Risk:
+  LOW
+  ------------------------------------------------------
+  */
+
+  const [
+    profileImage,
+    setProfileImage
+  ] = useState(null);
+
 
 
   // Handle form submit
@@ -77,48 +98,75 @@ const [gender, setGender] = useState("");
 
     event.preventDefault();
 
+    /*
+Temporary debug
+Remove later
+*/
+
+    console.log(
+      profileImage
+    );
+
+
     try {
 
       setLoading(true);
 
-        // await createEmployee({
+/*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-010
 
-        // employee_code: employeeCode,
-        
-        // full_name: fullName,
-        
-        // email,
-        
-        // designation,
-        
-        // shift_id: shiftId,
+Purpose:
+Upload image before employee
+creation.
+
+Risk:
+MEDIUM
+------------------------------------------------------
+*/
+
+let imageUrl="";
+
+if(profileImage){
+
+imageUrl=
+
+await uploadEmployeeImage(
+profileImage
+);
+
+}
+
+
+      await createEmployee({
+
+        employee_code: employeeCode,
+
+        full_name: fullName,
+
+        email,
+
+        designation,
+
+        department,
+
+        // phone,
+        phone:
+          `${countryCode}${phone}`,
+        gender,
+
+        shift_id: shiftId || null,
 
         // rotation_enabled: rotationEnabled
-        
-        // });
 
-        await createEmployee({
+        rotation_enabled:
+rotationEnabled,
 
-          employee_code: employeeCode,
-          
-          full_name: fullName,
-          
-          email,
-          
-          designation,
-          
-          department,
-          
-          // phone,
-          phone:
-`${countryCode}${phone}`,
-          gender,
-          
-          shift_id: shiftId || null,
-          
-          rotation_enabled: rotationEnabled
-          
-          });
+profile_image:
+imageUrl
+
+      });
 
       // Clear form after success
       setEmployeeCode("");
@@ -131,9 +179,9 @@ const [gender, setGender] = useState("");
 
       setDepartment("");
 
-setPhone("");
+      setPhone("");
 
-setGender("");
+      setGender("");
 
       // setShiftName("");
       setShiftId("");
@@ -203,15 +251,15 @@ setGender("");
           }
         />
 
-<Input
-placeholder="Department"
-value={department}
-onChange={(e)=>
-setDepartment(e.target.value)
-}
-/>
+        <Input
+          placeholder="Department"
+          value={department}
+          onChange={(e) =>
+            setDepartment(e.target.value)
+          }
+        />
 
-{/* <Input
+        {/* <Input
 placeholder="Phone"
 value={phone}
 onChange={(e)=>
@@ -220,109 +268,109 @@ setPhone(e.target.value)
 /> */}
 
 
-<div className="flex gap-2">
+        <div className="flex gap-2">
 
-<select
+          <select
 
-value={countryCode}
+            value={countryCode}
 
-onChange={(e)=>
+            onChange={(e) =>
 
-setCountryCode(
-e.target.value
-)
+              setCountryCode(
+                e.target.value
+              )
 
-}
+            }
 
-className="border p-2 rounded"
+            className="border p-2 rounded"
 
->
+          >
 
-<option value="+91">
+            <option value="+91">
 
-+91
+              +91
 
-</option>
+            </option>
 
-<option value="+1">
+            <option value="+1">
 
-+1
+              +1
 
-</option>
+            </option>
 
-<option value="+44">
+            <option value="+44">
 
-+44
+              +44
 
-</option>
+            </option>
 
-<option value="+971">
+            <option value="+971">
 
-+971
+              +971
 
-</option>
+            </option>
 
-</select>
-
-
-<Input
-
-placeholder="Phone"
-
-value={phone}
-
-onChange={(e)=>{
-
-const value=e.target.value
-.replace(/\D/g,"")
-.slice(0,10);
-
-setPhone(value);
-
-}}
-
- />
-
-</div>
+          </select>
 
 
-<select
+          <Input
 
-value={gender}
+            placeholder="Phone"
 
-onChange={(e)=>
-setGender(e.target.value)
-}
+            value={phone}
 
-className="border p-2 rounded w-full"
+            onChange={(e) => {
 
->
+              const value = e.target.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
 
-<option value="">
+              setPhone(value);
 
-Select Gender
+            }}
 
-</option>
+          />
 
-<option value="Male">
+        </div>
 
-Male
 
-</option>
+        <select
 
-<option value="Female">
+          value={gender}
 
-Female
+          onChange={(e) =>
+            setGender(e.target.value)
+          }
 
-</option>
+          className="border p-2 rounded w-full"
 
-<option value="Other">
+        >
 
-Other
+          <option value="">
 
-</option>
+            Select Gender
 
-</select>
+          </option>
+
+          <option value="Male">
+
+            Male
+
+          </option>
+
+          <option value="Female">
+
+            Female
+
+          </option>
+
+          <option value="Other">
+
+            Other
+
+          </option>
+
+        </select>
         {/* <select
 
           value={shiftName}
@@ -341,7 +389,7 @@ Other
 
         > */}
 
-{/* <select
+        {/* <select
 
 value={shiftId}
 
@@ -413,7 +461,7 @@ Enable Rotation
 
         </select> */}
 
-{/*
+        {/*
 ------------------------------------------------------
 Added: 2026-05-25
 Change ID: AMS-M03-EMP-003
@@ -424,80 +472,118 @@ Checkbox must stay outside select
 ------------------------------------------------------
 */}
 
-<label className="flex gap-2 items-center">
+        <label className="flex gap-2 items-center">
 
-<input
+          <input
 
-type="checkbox"
+            type="checkbox"
 
-checked={rotationEnabled}
+            checked={rotationEnabled}
 
-onChange={(e)=>
+            onChange={(e) =>
 
-setRotationEnabled(
+              setRotationEnabled(
 
-e.target.checked
+                e.target.checked
 
-)
+              )
 
-}
+            }
 
-/>
+          />
 
-Enable Rotation
+          Enable Rotation
 
-</label>
+        </label>
 
 
-<select
+        {/*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-010
 
-value={shiftId}
+Purpose:
+Employee profile image upload.
 
-onChange={(e)=>
+Rules:
 
-setShiftId(
+- jpg
+- jpeg
+- png
 
-e.target.value
+Risk:
+LOW
+------------------------------------------------------
+*/}
 
-)
+        <input
 
-}
+          type="file"
 
-className="border p-2 rounded w-full"
+          accept="image/png,image/jpeg,image/jpg"
 
->
+          onChange={(e) =>
 
-<option value="">
+            setProfileImage(
+              e.target.files[0]
+            )
 
-Select Shift
+          }
 
-</option>
+          className="border p-2 rounded w-full"
 
-{
+        />
 
-shifts?.map(
 
-(shift)=>(
+        <select
 
-<option
+          value={shiftId}
 
-key={shift.id}
+          onChange={(e) =>
 
-value={shift.id}
+            setShiftId(
 
->
+              e.target.value
 
-{shift.shift_name}
+            )
 
-</option>
+          }
 
-)
+          className="border p-2 rounded w-full"
 
-)
+        >
 
-}
+          <option value="">
 
-</select>
+            Select Shift
+
+          </option>
+
+          {
+
+            shifts?.map(
+
+              (shift) => (
+
+                <option
+
+                  key={shift.id}
+
+                  value={shift.id}
+
+                >
+
+                  {shift.shift_name}
+
+                </option>
+
+              )
+
+            )
+
+          }
+
+        </select>
 
 
         {/* <Input

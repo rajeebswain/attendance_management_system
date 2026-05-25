@@ -113,3 +113,35 @@ Completed:
 
 Risk:
 LOW
+
+## 2026-05-25
+Project: AMS
+
+Change ID:
+AMS-M03-EMP-010
+
+Module:
+M03 Employee Core
+
+Feature:
+Employee Profile Image Upload
+
+Status:
+STARTING
+
+Risk:
+MEDIUM
+
+Project: AMS
+
+Change ID:
+AMS-M03-EMP-010
+
+Step:
+3
+
+Feature:
+Upload image to Supabase Storage
+
+Risk:
+MEDIUM
