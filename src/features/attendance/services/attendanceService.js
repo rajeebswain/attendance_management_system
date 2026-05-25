@@ -135,31 +135,161 @@ export async function getHolidays() {
 
 // Adding  Admin Update Attendance Feature 21-05-2026 – 12:49 PM 
 
+// export async function updateAttendance(
+//   id,
+//   data
+// ) {
+
+//   const { error }
+
+//     = await supabase
+
+//       .from("attendance")
+
+//       .update(data)
+
+//       .eq(
+//         "id",
+//         id
+//       );
+
+//   if (error) {
+
+//     throw error;
+
+//   }
+
+// }
+
+
 export async function updateAttendance(
   id,
   data
 ) {
 
-  const { error }
+  // Get current attendance record
 
-    = await supabase
+  const {
 
-      .from("attendance")
+    data: record,
 
-      .update(data)
+    error: fetchError
 
-      .eq(
-        "id",
-        id
+  }
+
+  = await supabase
+
+    .from("attendance")
+
+    .select("*")
+
+    .eq("id", id)
+
+    .single();
+
+  if(fetchError){
+
+    throw fetchError;
+
+  }
+
+  // Check if record locked
+
+  const now = new Date();
+
+  if(
+
+    record.edit_locked_until &&
+
+    new Date(
+      record.edit_locked_until
+    ) > now
+
+  ){
+
+    throw new Error(
+
+      `Editing blocked until:
+
+${record.edit_locked_until}`
+
+    );
+
+  }
+
+  // Increase edit count
+
+  const editCount =
+
+    (record.edit_count || 0)
+
+    + 1;
+
+  let lockedUntil = null;
+
+  // Lock after 6 edits
+
+  if(editCount >= 6){
+
+    lockedUntil =
+
+      new Date(
+
+        Date.now()
+
+        +
+
+        24*60*60*1000
+
       );
 
-  if (error) {
+  }
+
+  const { error }
+
+  = await supabase
+
+    .from("attendance")
+
+    .update({
+
+      ...data,
+
+      edit_count:
+
+      editCount >= 6
+
+      ? 0
+
+      : editCount,
+
+      edit_locked_until:
+
+      lockedUntil,
+
+      last_edited_at:
+
+      new Date()
+
+    })
+
+    .eq(
+
+      "id",
+
+      id
+
+    );
+
+  if(error){
 
     throw error;
 
   }
 
 }
+
+
 
 // Added the Attendace work flow correction Case2 
 
