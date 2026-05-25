@@ -756,13 +756,8 @@ mb-4
                   className="border-b"
                 >
 
+
                   {/* <td className="p-4">
-
-                    {record.employees?.full_name}
-
-                  </td> */}
-
-                  <td className="p-4">
 
                     <div className="flex items-center gap-2">
 
@@ -816,7 +811,135 @@ text-xs
 
                     </div>
 
+                  </td> */}
+
+
+
+                  <td className="p-4">
+
+                    <div className="flex flex-col">
+
+                      <div className="flex items-center gap-2 flex-wrap">
+
+                        {record.employees?.full_name}
+
+                        {
+
+                          record.employees?.is_active === false
+
+                          &&
+
+                          <span
+                            className="
+px-2
+py-1
+bg-red-100
+text-red-600
+rounded
+text-xs
+"
+                          >
+
+                            Inactive
+
+                          </span>
+
+                        }
+
+                        {
+
+                          record.is_force_edited
+
+                          &&
+
+                          <span
+                            className="
+px-2
+py-1
+bg-yellow-100
+text-yellow-700
+rounded
+text-xs
+"
+                          >
+
+                            Edited
+
+                          </span>
+
+                        }
+
+                        {
+
+                          record.edit_locked_until &&
+
+                          new Date(
+                            record.edit_locked_until
+                          ) > new Date()
+
+                          &&
+
+                          <span
+                            className="
+px-2
+py-1
+bg-red-100
+text-red-700
+rounded
+text-xs
+"
+                          >
+
+                            🔒 Locked
+
+                          </span>
+
+                        }
+
+                      </div>
+
+
+                      {
+
+                        record.edit_locked_until &&
+
+                        new Date(
+                          record.edit_locked_until
+                        ) > new Date()
+
+                        &&
+
+                        <div
+                          className="
+text-xs
+text-red-600
+mt-1
+"
+                        >
+
+                          Unlock:
+
+                          {
+
+                            new Date(
+
+                              record.edit_locked_until
+
+                            )
+
+                              .toLocaleString()
+
+                          }
+
+                        </div>
+
+                      }
+
+                    </div>
+
                   </td>
+
+
 
 
 
