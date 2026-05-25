@@ -59,146 +59,6 @@ function AttendanceTable({
 
   // Adding  Admin Override Feature 21-05-2026 – 12:50 PM 
 
-  // async function handleAdminEdit(
-  //   attendanceId,
-  //   newCheckout,
-  //   record
-  // ) {
-
-  //   try {
-
-  //     // Restrict edit after first edit
-
-  //     if (
-
-  //       record.force_edit_count >= 1
-
-  //     ) {
-
-  //       alert(
-
-  //         "Attendance already edited once"
-
-  //       );
-
-  //       return;
-
-  //     }
-
-  //     const today =
-
-  //       new Date()
-
-  //         .toISOString()
-
-  //         .split("T")[0];
-
-  //     const updatedCheckout =
-
-  //       `${today}T${newCheckout}:00`;
-
-  //     const checkInDate =
-
-  //       new Date(
-
-  //         record.check_in_datetime
-
-  //       );
-
-  //     const checkOutDate =
-
-  //       new Date(
-
-  //         updatedCheckout
-
-  //       );
-
-  //     const workedHours =
-
-  //       (
-
-  //         checkOutDate.getTime()
-
-  //         -
-
-  //         checkInDate.getTime()
-
-  //       )
-
-  //       /
-
-  //       (1000 * 60 * 60);
-
-  //     const overtimeHours =
-
-  //       workedHours > 8
-
-  //         ?
-
-  //         workedHours - 8
-
-  //         :
-
-  //         0;
-
-  //     await updateAttendance(
-
-  //       attendanceId,
-
-  //       {
-
-  //         check_out_datetime:
-
-  //           updatedCheckout,
-
-  //         worked_hours:
-
-  //           workedHours,
-
-  //         overtime_hours:
-
-  //           overtimeHours,
-
-  //         force_edit_count:
-
-  //           record.force_edit_count + 1,
-
-  //         is_force_edited: true
-
-  //       }
-
-  //     );
-
-  //     alert(
-
-  //       "Attendance updated"
-
-  //     );
-
-  //     // temporary shortcut
-  //     window.location.reload();
-
-  //   }
-
-  //   catch (error) {
-
-  //     console.error(
-
-  //       error
-
-  //     );
-
-  //     alert(
-
-  //       "Update failed"
-
-  //     );
-
-  //   }
-
-  // }
-
-
   async function handleAdminEdit(
     attendanceId,
     newCheckout,
@@ -582,6 +442,43 @@ function AttendanceTable({
   }
 
 
+  function getRemainingTime(unlockTime) {
+
+    const now = new Date();
+
+    const unlock = new Date(unlockTime);
+
+    const diff = unlock - now;
+
+    if (diff <= 0) {
+
+      return "Unlocked";
+
+    }
+
+    const hours = Math.floor(
+
+      diff / (1000 * 60 * 60)
+
+    );
+
+    const minutes = Math.floor(
+
+      (diff % (1000 * 60 * 60))
+
+      /
+
+      (1000 * 60)
+
+    );
+
+    return `${hours}h ${minutes}m`;
+
+  }
+
+
+
+
   return (
 
     <div className="overflow-x-auto">
@@ -909,6 +806,30 @@ text-xs
 
                         &&
 
+                        //                         <div
+                        //                           className="
+                        // text-xs
+                        // text-red-600
+                        // mt-1
+                        // "
+                        //                         >
+
+                        //                           Unlock:
+
+                        //                           {
+
+                        //                             new Date(
+
+                        //                               record.edit_locked_until
+
+                        //                             )
+
+                        //                               .toLocaleString()
+
+                        //                           }
+
+                        //                         </div>
+
                         <div
                           className="
 text-xs
@@ -917,21 +838,64 @@ mt-1
 "
                         >
 
-                          Unlock:
+                          <div>
 
-                          {
+                            Unlocks in:
 
-                            new Date(
+                            {
 
-                              record.edit_locked_until
+                              getRemainingTime(
 
-                            )
+                                record.edit_locked_until
 
-                              .toLocaleString()
+                              )
 
-                          }
+                            }
+
+                          </div>
+
+                          <div>
+
+                            Unlock at:
+
+                            {
+
+                              new Date(
+
+                                record.edit_locked_until
+
+                              )
+
+                                .toLocaleString(
+
+                                  'en-GB',
+
+                                  {
+
+                                    day: '2-digit',
+
+                                    month: '2-digit',
+
+                                    year: 'numeric',
+
+                                    hour: '2-digit',
+
+                                    minute: '2-digit'
+
+                                  }
+
+                                )
+
+                            }
+
+                          </div>
 
                         </div>
+
+
+
+
+
 
                       }
 
