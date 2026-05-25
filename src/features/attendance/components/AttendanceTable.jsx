@@ -1083,7 +1083,7 @@ ${record.status === "present"
 
                         <>
 
-                          <Button
+                          {/* <Button
                             type="button"
 
                             // disabled={
@@ -1132,7 +1132,51 @@ ${record.status === "present"
 
                             Edit
 
+                          </Button> */}
+
+                          <Button
+                            type="button"
+
+                            title={
+                              record.edit_locked_until &&
+                                new Date(
+                                  record.edit_locked_until
+                                ) > new Date()
+
+                                ?
+
+                                "Attendance locked for 24 hours"
+
+                                :
+
+                                "Edit attendance"
+                            }
+
+                            disabled={
+
+                              record.employees?.is_active === false
+
+                              ||
+
+                              (
+
+                                record.edit_locked_until &&
+
+                                new Date(
+                                  record.edit_locked_until
+                                ) > new Date()
+
+                              )
+
+                            }
+
+                          >
+                            Edit
                           </Button>
+
+
+
+
 
                           <Button
                             type="button"
