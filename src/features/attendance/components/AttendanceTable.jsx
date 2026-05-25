@@ -780,8 +780,10 @@ text-xs
                             className="
 px-2
 py-1
-bg-red-100
-text-red-700
+// bg-red-100
+// text-red-700
+bg-red-500
+text-white
 rounded
 text-xs
 "
@@ -838,7 +840,7 @@ mt-1
 "
                         >
 
-                          <div>
+                          {/* <div>
 
                             Unlocks in:
 
@@ -888,7 +890,65 @@ mt-1
 
                             }
 
+                          </div> */}
+
+
+
+
+                          <div>
+
+                            Unlocks in:{" "}
+
+                            {
+
+                              getRemainingTime(
+
+                                record.edit_locked_until
+
+                              )
+
+                            }
+
                           </div>
+
+                          <div>
+
+                            Unlock at:{" "}
+
+                            {
+
+                              new Date(
+
+                                record.edit_locked_until
+
+                              )
+
+                                .toLocaleString(
+
+                                  'en-GB',
+
+                                  {
+
+                                    day: '2-digit',
+
+                                    month: '2-digit',
+
+                                    year: 'numeric',
+
+                                    hour: '2-digit',
+
+                                    minute: '2-digit'
+
+                                  }
+
+                                )
+
+                            }
+
+                          </div>
+
+
+
 
                         </div>
 
