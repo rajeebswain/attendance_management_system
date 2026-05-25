@@ -7,40 +7,6 @@ function AttendanceAnalytics({
 
 }) {
  
-// Calculate totals
-// const totalPresent = records.filter(
-
-//   (record)=>
-  
-//   (
-  
-//   record.status==="present"
-  
-//   ||
-  
-//   record.status==="late"
-  
-//   )
-  
-//   &&
-  
-//   record.is_archived !== true
-  
-//   ).length;
-  
-//   const totalAbsent = records.filter(
-  
-//   (record)=>
-  
-//   record.status==="absent"
-  
-//   &&
-  
-//   record.is_archived !== true
-  
-//   ).length;
-
-
 const totalPresent = records.filter(
 
   (record)=>
