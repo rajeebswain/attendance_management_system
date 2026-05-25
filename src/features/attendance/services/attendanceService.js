@@ -11,7 +11,7 @@ export async function getAttendanceRecords(
 
   const { data, error }
 
-    = 
+    =
 
     await supabase
 
@@ -177,17 +177,17 @@ export async function updateAttendance(
 
   }
 
-  = await supabase
+    = await supabase
 
-    .from("attendance")
+      .from("attendance")
 
-    .select("*")
+      .select("*")
 
-    .eq("id", id)
+      .eq("id", id)
 
-    .single();
+      .single();
 
-  if(fetchError){
+  if (fetchError) {
 
     throw fetchError;
 
@@ -197,7 +197,7 @@ export async function updateAttendance(
 
   const now = new Date();
 
-  if(
+  if (
 
     record.edit_locked_until &&
 
@@ -205,7 +205,7 @@ export async function updateAttendance(
       record.edit_locked_until
     ) > now
 
-  ){
+  ) {
 
     throw new Error(
 
@@ -229,7 +229,7 @@ ${record.edit_locked_until}`
 
   // Lock after 6 edits
 
-  if(editCount >= 6){
+  if (editCount >= 6) {
 
     lockedUntil =
 
@@ -239,7 +239,7 @@ ${record.edit_locked_until}`
 
         +
 
-        24*60*60*1000
+        24 * 60 * 60 * 1000
 
       );
 
@@ -247,41 +247,41 @@ ${record.edit_locked_until}`
 
   const { error }
 
-  = await supabase
+    = await supabase
 
-    .from("attendance")
+      .from("attendance")
 
-    .update({
+      .update({
 
-      ...data,
+        ...data,
 
-      edit_count:
+        edit_count:
 
-      editCount >= 6
+          editCount >= 6
 
-      ? 0
+            ? 0
 
-      : editCount,
+            : editCount,
 
-      edit_locked_until:
+        edit_locked_until:
 
-      lockedUntil,
+          lockedUntil,
 
-      last_edited_at:
+        last_edited_at:
 
-      new Date()
+          new Date()
 
-    })
+      })
 
-    .eq(
+      .eq(
 
-      "id",
+        "id",
 
-      id
+        id
 
-    );
+      );
 
-  if(error){
+  if (error) {
 
     throw error;
 
@@ -406,46 +406,46 @@ export async function restoreAttendance(
 
 // Get attendance audit logs
 
-export async function getAuditLogs(){
+export async function getAuditLogs() {
 
   const {
-  
-  data,
-  
-  error
-  
+
+    data,
+
+    error
+
   }
-  
-  =
-  
-  await supabase
-  
-  .from(
-  
-  "attendance_audit"
-  
-  )
-  
-  .select("*")
-  
-  .order(
-  
-  "created_at",
-  
-  {
-  
-  ascending:false
-  
+
+    =
+
+    await supabase
+
+      .from(
+
+        "attendance_audit"
+
+      )
+
+      .select("*")
+
+      .order(
+
+        "created_at",
+
+        {
+
+          ascending: false
+
+        }
+
+      );
+
+  if (error) {
+
+    throw error;
+
   }
-  
-  );
-  
-  if(error){
-  
-  throw error;
-  
-  }
-  
+
   return data;
-  
-  }
+
+}
