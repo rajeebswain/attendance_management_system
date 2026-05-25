@@ -94,49 +94,206 @@ Additional employee profile fields
 
 
   // Handle form submit
-  async function handleSubmit(event) {
+  // async function handleSubmit(event) {
 
-    event.preventDefault();
+  //   event.preventDefault();
 
-    /*
-Temporary debug
-Remove later
+  //    try {
+
+  /*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-011
+
+Purpose:
+Validate employee creation form.
+
+Required:
+
+- Employee Code
+- Full Name
+- Email
+- Designation
+- Department
+- Phone
+- Gender
+- Shift
+
+Risk:
+LOW
+------------------------------------------------------
 */
 
-    console.log(
-      profileImage
-    );
+async function handleSubmit(event){
 
-
-    try {
+  event.preventDefault();
+  
+  
+  if(
+  
+  !employeeCode.trim()
+  
+  ){
+  
+  alert(
+  
+  "Employee code required"
+  
+  );
+  
+  return;
+  
+  }
+  
+  
+  if(
+  
+  !fullName.trim()
+  
+  ){
+  
+  alert(
+  
+  "Full name required"
+  
+  );
+  
+  return;
+  
+  }
+  
+  
+  if(
+  
+  !email.trim()
+  
+  ){
+  
+  alert(
+  
+  "Email required"
+  
+  );
+  
+  return;
+  
+  }
+  
+  
+  if(
+  
+  !designation.trim()
+  
+  ){
+  
+  alert(
+  
+  "Designation required"
+  
+  );
+  
+  return;
+  
+  }
+  
+  
+  if(
+  
+  !department.trim()
+  
+  ){
+  
+  alert(
+  
+  "Department required"
+  
+  );
+  
+  return;
+  
+  }
+  
+  
+  if(
+  
+  phone.length!==10
+  
+  ){
+  
+  alert(
+  
+  "Phone must be 10 digits"
+  
+  );
+  
+  return;
+  
+  }
+  
+  
+  if(
+  
+  !gender
+  
+  ){
+  
+  alert(
+  
+  "Gender required"
+  
+  );
+  
+  return;
+  
+  }
+  
+  
+  if(
+  
+  !shiftId
+  
+  ){
+  
+  alert(
+  
+  "Shift required"
+  
+  );
+  
+  return;
+  
+  }
+  
+  
+  try{
 
       setLoading(true);
 
-/*
-------------------------------------------------------
-Added: 2026-05-25
-Change ID: AMS-M03-EMP-010
+      /*
+      ------------------------------------------------------
+      Added: 2026-05-25
+      Change ID: AMS-M03-EMP-010
+      
+      Purpose:
+      Upload image before employee
+      creation.
+      
+      Risk:
+      MEDIUM
+      ------------------------------------------------------
+      */
 
-Purpose:
-Upload image before employee
-creation.
+      let imageUrl = "";
 
-Risk:
-MEDIUM
-------------------------------------------------------
-*/
+      if (profileImage) {
 
-let imageUrl="";
+        imageUrl =
 
-if(profileImage){
+          await uploadEmployeeImage(
+            profileImage
+          );
 
-imageUrl=
-
-await uploadEmployeeImage(
-profileImage
-);
-
-}
+      }
 
 
       await createEmployee({
@@ -161,10 +318,10 @@ profileImage
         // rotation_enabled: rotationEnabled
 
         rotation_enabled:
-rotationEnabled,
+          rotationEnabled,
 
-profile_image:
-imageUrl
+        profile_image:
+          imageUrl
 
       });
 
