@@ -1086,9 +1086,29 @@ ${record.status === "present"
                           <Button
                             type="button"
 
+                            // disabled={
+                            //   record.employees?.is_active === false
+                            // }
+
                             disabled={
+
                               record.employees?.is_active === false
+
+                              ||
+
+                              (
+
+                                record.edit_locked_until &&
+
+                                new Date(
+                                  record.edit_locked_until
+                                ) > new Date()
+
+                              )
+
                             }
+
+
                             onClick={() => {
 
                               const newCheckout =
@@ -1131,22 +1151,32 @@ ${record.status === "present"
 
                           </Button>
 
-                          {/* <Button
-                            type="button"
-                            onClick={() =>
-                              handleReassignAttendance(record)
-                            }
-                          >
 
-                            Reassign
-
-                          </Button> */}
                           <Button
                             type="button"
 
+                            // disabled={
+                            //   record.employees?.is_active === false
+                            // }
+
                             disabled={
+
                               record.employees?.is_active === false
+
+                              ||
+
+                              (
+
+                                record.edit_locked_until &&
+
+                                new Date(
+                                  record.edit_locked_until
+                                ) > new Date()
+
+                              )
+
                             }
+
 
                             onClick={() =>
                               handleReassignAttendance(record)
