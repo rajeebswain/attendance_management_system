@@ -8,13 +8,46 @@ export async function getEmployees() {
   // Fetch employees with department data
   const { data, error } = await supabase
 
-    .from("employees")
-      .select(`
+//     .from("employees")
+//       .select(`
+//   *,
+//   departments (
+//     department_name
+//   )
+// `)
+
+/*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-007
+
+Purpose:
+Load related data for employee table.
+
+Relationships:
+- departments
+- shifts
+
+Reason:
+Shift name was not available in employee
+table even though shift_id was being saved.
+
+Risk:
+LOW
+------------------------------------------------------
+*/
+
+.from("employees")
+.select(`
   *,
   departments (
     department_name
+  ),
+  shifts (
+    shift_name
   )
 `)
+
 // .eq(
 // "is_active",
 // true

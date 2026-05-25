@@ -416,16 +416,36 @@ Render employee edit modal.
 
             shifts={shifts}
 
-            onSave={(employeeData) => {
+            // onSave={(employeeData) => {
 
-              handleEdit(
+            //   handleEdit(
 
-                selectedEmployee.id,
-                employeeData
+            //     selectedEmployee.id,
+            //     employeeData
 
-              );
+            //   );
 
-            }}
+            // }}
+
+            /*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EDIT-005
+
+Purpose:
+Pass employee id with updated data
+to save workflow.
+------------------------------------------------------
+*/
+
+onSave={(employeeData)=>{
+
+  handleEdit(
+  selectedEmployee.id,
+  employeeData
+  );
+  
+  }}
 
             onClose={() => {
 

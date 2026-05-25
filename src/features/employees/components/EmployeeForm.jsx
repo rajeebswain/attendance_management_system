@@ -40,8 +40,38 @@ function EmployeeForm({
   // Loading state
   const [loading, setLoading] = useState(false);
 
-
   const [rotationEnabled, setRotationEnabled] = useState(false);
+
+  /*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-003
+
+Purpose:
+Additional employee profile fields
+------------------------------------------------------
+*/
+
+const [department, setDepartment] = useState("");
+
+const [phone, setPhone] = useState("");
+
+/*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-008
+
+Purpose:
+Store country code
+for phone number.
+------------------------------------------------------
+*/
+
+const [countryCode,setCountryCode]=useState("+91");
+
+const [gender, setGender] = useState("");
+
+
   // Handle form submit
   async function handleSubmit(event) {
 
@@ -51,21 +81,44 @@ function EmployeeForm({
 
       setLoading(true);
 
+        // await createEmployee({
+
+        // employee_code: employeeCode,
+        
+        // full_name: fullName,
+        
+        // email,
+        
+        // designation,
+        
+        // shift_id: shiftId,
+
+        // rotation_enabled: rotationEnabled
+        
+        // });
+
         await createEmployee({
 
-        employee_code: employeeCode,
-        
-        full_name: fullName,
-        
-        email,
-        
-        designation,
-        
-        shift_id: shiftId,
-
-        rotation_enabled: rotationEnabled
-        
-        });
+          employee_code: employeeCode,
+          
+          full_name: fullName,
+          
+          email,
+          
+          designation,
+          
+          department,
+          
+          // phone,
+          phone:
+`${countryCode}${phone}`,
+          gender,
+          
+          shift_id: shiftId || null,
+          
+          rotation_enabled: rotationEnabled
+          
+          });
 
       // Clear form after success
       setEmployeeCode("");
@@ -75,6 +128,12 @@ function EmployeeForm({
       setEmail("");
 
       setDesignation("");
+
+      setDepartment("");
+
+setPhone("");
+
+setGender("");
 
       // setShiftName("");
       setShiftId("");
@@ -143,6 +202,127 @@ function EmployeeForm({
             setDesignation(e.target.value)
           }
         />
+
+<Input
+placeholder="Department"
+value={department}
+onChange={(e)=>
+setDepartment(e.target.value)
+}
+/>
+
+{/* <Input
+placeholder="Phone"
+value={phone}
+onChange={(e)=>
+setPhone(e.target.value)
+}
+/> */}
+
+
+<div className="flex gap-2">
+
+<select
+
+value={countryCode}
+
+onChange={(e)=>
+
+setCountryCode(
+e.target.value
+)
+
+}
+
+className="border p-2 rounded"
+
+>
+
+<option value="+91">
+
++91
+
+</option>
+
+<option value="+1">
+
++1
+
+</option>
+
+<option value="+44">
+
++44
+
+</option>
+
+<option value="+971">
+
++971
+
+</option>
+
+</select>
+
+
+<Input
+
+placeholder="Phone"
+
+value={phone}
+
+onChange={(e)=>{
+
+const value=e.target.value
+.replace(/\D/g,"")
+.slice(0,10);
+
+setPhone(value);
+
+}}
+
+ />
+
+</div>
+
+
+<select
+
+value={gender}
+
+onChange={(e)=>
+setGender(e.target.value)
+}
+
+className="border p-2 rounded w-full"
+
+>
+
+<option value="">
+
+Select Gender
+
+</option>
+
+<option value="Male">
+
+Male
+
+</option>
+
+<option value="Female">
+
+Female
+
+</option>
+
+<option value="Other">
+
+Other
+
+</option>
+
+</select>
         {/* <select
 
           value={shiftName}
@@ -161,7 +341,7 @@ function EmployeeForm({
 
         > */}
 
-<select
+{/* <select
 
 value={shiftId}
 
@@ -231,7 +411,95 @@ Enable Rotation
 
           }
 
-        </select>
+        </select> */}
+
+{/*
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EMP-003
+
+Purpose:
+Rotation checkbox + Shift selector
+Checkbox must stay outside select
+------------------------------------------------------
+*/}
+
+<label className="flex gap-2 items-center">
+
+<input
+
+type="checkbox"
+
+checked={rotationEnabled}
+
+onChange={(e)=>
+
+setRotationEnabled(
+
+e.target.checked
+
+)
+
+}
+
+/>
+
+Enable Rotation
+
+</label>
+
+
+<select
+
+value={shiftId}
+
+onChange={(e)=>
+
+setShiftId(
+
+e.target.value
+
+)
+
+}
+
+className="border p-2 rounded w-full"
+
+>
+
+<option value="">
+
+Select Shift
+
+</option>
+
+{
+
+shifts?.map(
+
+(shift)=>(
+
+<option
+
+key={shift.id}
+
+value={shift.id}
+
+>
+
+{shift.shift_name}
+
+</option>
+
+)
+
+)
+
+}
+
+</select>
+
+
         {/* <Input
           placeholder="Shift Name"<EmployeesTable />
           value={shiftName}

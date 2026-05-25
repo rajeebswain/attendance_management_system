@@ -84,7 +84,7 @@ overflow-hidden
 
 <tr>
 
-<th className="p-4 text-left">
+{/* <th className="p-4 text-left">
 
 Employee Code
 
@@ -111,6 +111,54 @@ Designation
 <th className="p-4 text-left">
 
 Actions
+
+</th> */}
+
+<th className="p-4 text-left">
+
+Employee Code
+
+</th>
+
+<th className="p-4 text-left">
+
+Full Name
+
+</th>
+
+<th className="p-4 text-left">
+
+Email
+
+</th>
+
+<th className="p-4 text-left">
+
+Designation
+
+</th>
+
+<th className="p-4 text-left">
+
+Department
+
+</th>
+
+<th className="p-4 text-left">
+
+Phone
+
+</th>
+
+<th className="p-4 text-left">
+
+Gender
+
+</th>
+
+<th className="p-4 text-left">
+
+Shift
 
 </th>
 
@@ -171,6 +219,31 @@ className="border-b"
 
 </td>
 
+
+<td className="p-4">
+
+{employee.department || "-"}
+
+</td>
+
+<td className="p-4">
+
+{employee.phone || "-"}
+
+</td>
+
+<td className="p-4">
+
+{employee.gender || "-"}
+
+</td>
+
+<td className="p-4">
+
+{employee.shifts?.shift_name || "-"}
+
+</td>
+
 <td className="p-4 flex gap-2">
 
 {/* <Button>
@@ -178,7 +251,7 @@ className="border-b"
 Edit
 
 </Button> */}
-<Button
+{/* <Button
 
 onClick={()=>{
 
@@ -252,7 +325,36 @@ updatedEmployee
 
 Edit
 
+</Button> */}
+
+{/* 
+------------------------------------------------------
+Added: 2026-05-25
+Change ID: AMS-M03-EDIT-001
+
+Purpose:
+Open EmployeeEditModal instead of
+using prompt().
+------------------------------------------------------
+*/}
+
+<Button
+
+onClick={()=>{
+
+onEdit(employee);
+
+}}
+
+>
+
+Edit
+
 </Button>
+
+
+
+
 
 
 {
