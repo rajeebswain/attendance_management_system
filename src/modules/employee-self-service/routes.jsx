@@ -1,15 +1,13 @@
 /*
 ==================================================
-Change ID: M06-005
+Change ID: M06-006
 Date: 2026-05-26
-Status: Updated
-Purpose: Register module routes
+Status: Fix
+Purpose: Correct M06 route rendering
 Risk: Low
-Rollback: Remove routes
+Rollback: Restore previous route config
 ==================================================
 */
-
-import React from "react";
 
 import EmployeeDashboard
 from "./pages/EmployeeDashboard";
@@ -18,9 +16,7 @@ const employeeSelfServiceRoutes = [
 
 {
 path:"/employee/dashboard",
-element: React.createElement(
-EmployeeDashboard
-)
+element:<EmployeeDashboard />
 }
 
 ];

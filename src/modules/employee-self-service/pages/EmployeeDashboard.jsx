@@ -1,36 +1,43 @@
 /*
 ==================================================
-Change ID: M06-003
+Change ID: M06-006
 Date: 2026-05-26
-Status: Initial
-Purpose: Employee dashboard placeholder
+Status: Fix
+Purpose: Employee dashboard shell
 Risk: Low
-Rollback: Remove component
+Rollback: Restore component
 ==================================================
 */
 
+import DashboardLayout
+from "../../../components/layout/DashboardLayout";
+
 function EmployeeDashboard() {
 
-    return (
-    
-    <div className="p-6">
-    
-    <h1 className="text-2xl font-bold">
-    
-    Employee Dashboard
-    
-    </h1>
-    
-    <p className="mt-2">
-    
-    M06 Employee Self Service Module
-    
-    </p>
-    
-    </div>
-    
-    );
-    
-    }
-    
-    export default EmployeeDashboard;
+return (
+
+<DashboardLayout>
+
+<div>
+
+<h1 className="text-3xl font-bold mb-4">
+
+Employee Dashboard
+
+</h1>
+
+<p className="text-gray-600">
+
+M06 Employee Self Service Module
+
+</p>
+
+</div>
+
+</DashboardLayout>
+
+);
+
+}
+
+export default EmployeeDashboard;

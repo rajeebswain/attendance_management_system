@@ -2,28 +2,39 @@
 ==================================================
 Change ID: M06-004
 Date: 2026-05-26
-Status: Initial
-Purpose: Combine navigation
+Status: Fix
+Purpose: Correct module navigation loading
 Risk: Low
-Rollback: Remove registry
+Rollback: Restore previous registry
 ==================================================
 */
 
 import { CORE_SIDEBAR_LINKS }
-
 from "../../constants/navigation";
 
 import moduleRegistry
-
 from "./moduleRegistry";
 
 import employeeSelfServiceNavigation
-
 from "../employee-self-service/navigation";
 
-const moduleLinks = moduleRegistry
-.filter(module=>module.enabled)
-.flatMap(()=>employeeSelfServiceNavigation);
+const moduleLinks = [];
+
+moduleRegistry.forEach((module) => {
+
+if(
+module.id==="M06"
+&&
+module.enabled
+){
+
+moduleLinks.push(
+...employeeSelfServiceNavigation
+);
+
+}
+
+});
 
 const SIDEBAR_LINKS=[
 

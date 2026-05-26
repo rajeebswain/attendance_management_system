@@ -13,7 +13,7 @@ import moduleRegistry
 from "./moduleRegistry";
 
 import employeeSelfServiceRoutes
-from "../employee-self-service/routes";
+from "../employee-self-service/routes.jsx";
 
 const moduleRoutes = moduleRegistry
 
