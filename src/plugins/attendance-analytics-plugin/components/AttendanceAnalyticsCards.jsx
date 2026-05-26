@@ -22,13 +22,18 @@ Attendance records
 
 import Card from "../../../components/ui/Card";
 
+// import {
+//     calculateAttendanceSummary
+//     }
+//     from "../utils/attendanceAnalyticsCalculator";
+
 import {
-    calculateAttendanceSummary
+
+    getAttendanceAnalytics
+    
     }
-    from "../utils/attendanceAnalyticsCalculator";
-
-
-
+    
+    from "../services/attendanceAnalyticsService";
 
 function AttendanceAnalyticsCards({
 
@@ -86,7 +91,8 @@ const {
     
     =
     
-    calculateAttendanceSummary(records);
+    // calculateAttendanceSummary(records);
+    getAttendanceAnalytics(records);
 
 return (
 
