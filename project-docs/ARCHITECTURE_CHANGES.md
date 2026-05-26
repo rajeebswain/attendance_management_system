@@ -199,3 +199,41 @@ Rollback:
 Restore previous ProtectedRoute logic
 ==================================================
 
+
+==================================================
+ARCH-M06-008
+Date: 2026-05-26
+
+Change:
+
+Employee UI separated from Admin UI.
+
+New structure:
+
+AdminLayout
+→ Admin Sidebar
+
+EmployeeLayout
+→ Employee Sidebar
+
+Purpose:
+
+Prevent employee users from accessing
+admin controls and dashboards.
+
+Benefits:
+
+✓ UI separation
+✓ Security preparation
+✓ SaaS scalability
+✓ Future role expansion
+
+Risk:
+
+Low
+
+Rollback:
+
+Return Employee pages to DashboardLayout
+==================================================
+
