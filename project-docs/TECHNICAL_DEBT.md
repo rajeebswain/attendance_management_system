@@ -20,3 +20,9 @@ Priority:
 
 Medium
 ==================================================
+
+TD-M06-003
+
+Temporary employee dashboard data
+hardcoded until authentication and
+employee profile service are connected.
