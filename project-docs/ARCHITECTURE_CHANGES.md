@@ -157,3 +157,45 @@ Enabled:
 Disabled:
 ✓ Route removed
 
+
+==================================================
+ARCH-M06-006
+Date: 2026-05-26
+
+Change:
+
+ProtectedRoute updated to support
+optional role restrictions.
+
+Previous:
+
+allowedRoles=[]
+
+↓
+
+Automatic redirect
+
+New:
+
+allowedRoles.length > 0
+
+↓
+
+Apply role validation
+
+Otherwise allow route access
+
+Purpose:
+
+Prevent unintended redirects for
+unrestricted routes and plugin pages.
+
+Risk:
+
+Low
+
+Rollback:
+
+Restore previous ProtectedRoute logic
+==================================================
+
