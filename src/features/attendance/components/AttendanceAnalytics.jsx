@@ -1,3 +1,31 @@
+/*
+==================================================
+ARCH-009
+Date: 2026-05-26
+Time: 15:10 IST
+Status: DEPRECATED
+
+Purpose:
+Legacy analytics component retained temporarily
+for rollback support.
+
+Replacement:
+
+src/plugins/attendance-analytics-plugin
+
+Removal Target:
+
+After plugin stability verification
+
+Risk:
+
+DO NOT USE FOR NEW DEVELOPMENT
+==================================================
+*/
+
+
+
+
 import Card from "../../../components/ui/Card";
 
 

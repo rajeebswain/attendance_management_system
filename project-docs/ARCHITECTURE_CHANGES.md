@@ -296,3 +296,116 @@ Result:
 ✓ Plugin structure aligned with project architecture
 
 ---
+
+
+# ARCH-007
+
+Status: COMPLETE
+
+Date: 2026-05-26
+
+Purpose:
+
+Add plugin metadata definition for future SaaS and add-on support.
+
+Changes:
+
+Created:
+
+src/plugins/attendance-analytics-plugin/pluginManifest.js
+
+Added:
+
+Plugin metadata:
+
+- id
+- name
+- version
+- status
+- description
+- dependencies
+- features
+
+Architecture Flow:
+
+Plugin Loader
+      ↓
+Plugin Manifest
+      ↓
+Dependency Validation
+      ↓
+Plugin Activation
+
+Risk:
+
+VERY LOW
+
+Rollback:
+
+Delete:
+
+src/plugins/attendance-analytics-plugin/pluginManifest.js
+
+Result:
+
+✓ Plugin metadata centralized
+✓ Future marketplace support prepared
+✓ Dependency tracking prepared
+
+---
+
+# ARCH-008
+
+Status: COMPLETE
+
+Date: 2026-05-26
+
+Purpose:
+
+Create centralized plugin export layer.
+
+Changes:
+
+Created:
+
+src/plugins/attendance-analytics-plugin/index.js
+
+Modified:
+
+src/features/attendance/pages/AttendancePage.jsx
+
+Import Change:
+
+Before:
+
+AttendancePage
+    ↓
+components/AttendanceAnalyticsCards
+
+After:
+
+AttendancePage
+    ↓
+attendance-analytics-plugin/index.js
+    ↓
+components/services/utils
+
+Risk:
+
+VERY LOW
+
+Rollback:
+
+Delete:
+
+src/plugins/attendance-analytics-plugin/index.js
+
+Restore old direct imports.
+
+Result:
+
+✓ Cleaner imports
+✓ Plugin entry point established
+✓ Easier scaling for future plugins
+
+---
