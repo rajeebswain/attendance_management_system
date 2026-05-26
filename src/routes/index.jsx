@@ -31,7 +31,7 @@ import DashboardPage from "../pages/DashboardPage";
 // import EmployeesPage from "../pages/EmployeesPage";
 
 import EmployeesPage
-from "../features/employees/pages/EmployeesPage";
+  from "../features/employees/pages/EmployeesPage";
 
 // Role Guard
 import RoleGuard from "../features/auth/components/RoleGuard";
@@ -54,6 +54,9 @@ import LeaveForm from "../features/leaves/components/LeaveForm";
 import LeaveManagementPage from "../features/leaves/pages/LeaveManagementPage";
 
 import { ROLES } from "../constants/roles";
+
+import moduleRoutes
+  from "../modules/registry/routeRegistry";
 
 function AppRoutes() {
 
@@ -87,47 +90,47 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-<Route
-path="/employees"
-element={
+      <Route
+        path="/employees"
+        element={
 
-<ProtectedRoute
+          <ProtectedRoute
 
-allowedRoles={[
+            allowedRoles={[
 
-"admin",
-"super_admin"
+              "admin",
+              "super_admin"
 
-]}
+            ]}
 
-userRole={loggedInUser.role}
+            userRole={loggedInUser.role}
 
->
+          >
 
-<EmployeesPage />
+            <EmployeesPage />
 
-</ProtectedRoute>
+          </ProtectedRoute>
 
-}
-/>
+        }
+      />
 
 
-<Route
-path="/attendance"
-element={
-   <ProtectedRoute
-      allowedRoles={[
-         "admin",
-         "manager",
-         "employee",
-         "super_admin"
-      ]}
-      userRole={loggedInUser.role}
-   >
-      <AttendancePage />
-   </ProtectedRoute>
-}
-/>
+      <Route
+        path="/attendance"
+        element={
+          <ProtectedRoute
+            allowedRoles={[
+              "admin",
+              "manager",
+              "employee",
+              "super_admin"
+            ]}
+            userRole={loggedInUser.role}
+          >
+            <AttendancePage />
+          </ProtectedRoute>
+        }
+      />
 
       <Route
         path="/self-attendance"
@@ -147,93 +150,99 @@ element={
         }
       />
 
-<Route
+      <Route
 
-path="/reports"
+        path="/reports"
 
-element={
+        element={
 
-  <ProtectedRoute
+          <ProtectedRoute
 
-    allowedRoles={[
+            allowedRoles={[
 
-      ROLES.ADMIN,
+              ROLES.ADMIN,
 
-      ROLES.HR
+              ROLES.HR
 
-    ]}
+            ]}
 
-    userRole={
+            userRole={
 
-      loggedInUser.role
+              loggedInUser.role
 
-    }
+            }
 
-  >
+          >
 
-    <ReportsDashboardPage />
+            <ReportsDashboardPage />
 
-  </ProtectedRoute>
+          </ProtectedRoute>
 
-}
+        }
 
-/>
+      />
 
-{/* <Route
-path="/leave"
-element={
-<ProtectedRoute>
-<LeaveForm />
-</ProtectedRoute>
-}
-/>  */}
+      <Route
+        path="/leave"
+        element={
+          <ProtectedRoute
 
-<Route
-path="/leave"
-element={
-<ProtectedRoute
+            allowedRoles={[
 
-allowedRoles={[
+              "admin",
 
-"admin",
+              "employee",
 
-"employee",
+              "manager",
 
-"manager",
+              "super_admin"
 
-"super_admin"
+            ]}
 
-]}
+            userRole={loggedInUser.role}
 
-userRole={loggedInUser.role}
+          >
 
->
+            <LeaveForm />
 
-<LeaveForm />
+          </ProtectedRoute>
+        }
+      />
 
-</ProtectedRoute>
-}
-/>
+      <Route
+        path="/leave-management"
+        element={
+          <ProtectedRoute
 
-<Route
-path="/leave-management"
-element={
-<ProtectedRoute
+            allowedRoles={[
+              "admin",
+              "super_admin"
+            ]}
 
-allowedRoles={[
-"admin",
-"super_admin"
-]}
+            userRole={loggedInUser.role}
 
-userRole={loggedInUser.role}
+          >
 
->
+            <LeaveManagementPage />
 
-<LeaveManagementPage />
+          </ProtectedRoute>
+        }
+      />
+      {
 
-</ProtectedRoute>
-}
-/>
+        moduleRoutes.map((route) => (
+
+          <Route
+            key={route.path}
+            path={route.path}
+            element={route.element}
+          />
+
+        ))
+
+      }
+
+
     </Routes>
   );
 }

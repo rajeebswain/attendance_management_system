@@ -63,5 +63,81 @@ and database entities.
 No duplicate attendance logic allowed.
 
 
+==================================================
+ARCH-M06-004
+Date: 2026-05-26
+
+Module:
+M06 Employee Self Service
+
+Change:
+
+Sidebar navigation changed from
+static configuration to registry-based
+navigation loading.
+
+Previous:
+
+Sidebar
+↓
+
+SIDEBAR_LINKS (static)
+
+↓
+
+Rendered menu
+
+
+New:
+
+Core Navigation
++
+
+Enabled Module Navigation
+
+↓
+
+Navigation Registry
+
+↓
+
+Rendered menu
+
+
+Purpose:
+
+Allow modules to register and remove
+their own navigation items without
+modifying core application code.
+
+Expected behavior:
+
+Module enabled:
+
+✓ Navigation visible
+
+Module disabled:
+
+✓ Navigation removed automatically
+
+Benefits:
+
+✓ Supports plugin architecture
+
+✓ Prevents hardcoded menu growth
+
+✓ Supports isolated module removal
+
+Risk:
+
+Medium
+
+Rollback:
+
+Revert Sidebar to use static
+SIDEBAR_LINKS configuration
+==================================================
+
+
 
 
