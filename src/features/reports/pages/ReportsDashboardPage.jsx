@@ -67,10 +67,26 @@ import {
 
 import AuditHistory
 
-from
+  from
 
-"../components/AuditHistory";
+  "../components/AuditHistory";
 
+import {
+
+  moduleRegistry
+
+}
+
+  from "../../../config/moduleRegistry";
+
+
+import {
+
+  AuditHistory
+
+}
+
+  from "../../../plugins/audit-management-plugin";
 
 export default function ReportsDashboardPage() {
   const [reports, setReports] = useState([]);
@@ -578,56 +594,56 @@ export default function ReportsDashboardPage() {
 
   ];
 
-    {/*Department Summary*/}
+  {/*Department Summary*/ }
   const departmentData = {};
 
 
 
   filteredReports.forEach(
-  
+
     (item) => {
-  
+
       const department =
-  
+
         item.employees?.department ||
-  
+
         "Unknown";
-  
-  
-  
+
+
+
       if (
-  
+
         !departmentData[department]
-  
+
       ) {
-  
+
         departmentData[department] = 0;
       }
-  
-  
-  
+
+
+
       departmentData[department] += 1;
     }
   );
-  
-  
-  
+
+
+
   const departmentChartData =
-  
+
     Object.keys(
-  
+
       departmentData
-  
+
     ).map(
-  
+
       (department) => ({
-  
+
         department,
-  
+
         total:
-  
+
           departmentData[department]
-  
+
       })
     );
 
@@ -975,7 +991,7 @@ export default function ReportsDashboardPage() {
           </h2>
 
 
-{/*CSV*/}
+          {/*CSV*/}
           <CSVLink
             data={csvData}
             filename="attendance-report.csv"
@@ -993,7 +1009,7 @@ export default function ReportsDashboardPage() {
             Export CSV
 
           </CSVLink>
-{/*PDF*/}
+          {/*PDF*/}
 
           <button
             onClick={exportPDF}
@@ -1011,7 +1027,7 @@ export default function ReportsDashboardPage() {
 
           </button>
 
-{/*EXCEl*/}
+          {/*EXCEl*/}
           <button
             onClick={exportExcel}
             className="
@@ -1131,72 +1147,72 @@ export default function ReportsDashboardPage() {
 
 
 
-{/* Department Analytics */}
+        {/* Department Analytics */}
 
-<div
-  className="
+        <div
+          className="
     bg-white
     p-6
     rounded-lg
     shadow
     mb-6
   "
->
+        >
 
-  <h2
-    className="
+          <h2
+            className="
       text-xl
       font-bold
       mb-4
     "
-  >
+          >
 
-    Department Analytics
+            Department Analytics
 
-  </h2>
+          </h2>
 
-  <div
-    style={{
-      width: "100%",
-      height: "400px"
-    }}
-  >
+          <div
+            style={{
+              width: "100%",
+              height: "400px"
+            }}
+          >
 
-    <ResponsiveContainer
-      width="100%"
-      height={400}
-    >
+            <ResponsiveContainer
+              width="100%"
+              height={400}
+            >
 
-      <BarChart
-        data={departmentChartData}
-      >
+              <BarChart
+                data={departmentChartData}
+              >
 
-        <CartesianGrid
-          strokeDasharray="3 3"
-        />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                />
 
-        <XAxis
-          dataKey="department"
-        />
+                <XAxis
+                  dataKey="department"
+                />
 
-        <YAxis />
+                <YAxis />
 
-        <Tooltip />
+                <Tooltip />
 
-        <Legend />
+                <Legend />
 
-        <Bar
-          dataKey="total"
-          fill="#3b82f6"
-        />
+                <Bar
+                  dataKey="total"
+                  fill="#3b82f6"
+                />
 
-      </BarChart>
+              </BarChart>
 
-    </ResponsiveContainer>
+            </ResponsiveContainer>
 
-  </div>
+          </div>
 
-</div>
+        </div>
 
 
         {/* Monthly Summary */}
@@ -1320,7 +1336,18 @@ export default function ReportsDashboardPage() {
           </table>
 
         </div>
-        <AuditHistory/>
+        {/* <AuditHistory /> */}
+        {
+
+          moduleRegistry
+            .auditManagement
+            .enabled
+
+          &&
+
+          <AuditHistory />
+
+        }
 
       </div>
 

@@ -853,3 +853,25 @@ Result:
 
 ✓ Avoid unnecessary complexity
 ✓ Core routes preserved
+
+# ARCH-023
+
+Status: COMPLETE
+
+Date: 2026-05-26
+
+Purpose:
+
+Render audit plugin through registry.
+
+Changes:
+
+Modified:
+
+src/features/reports/pages/ReportsDashboardPage.jsx
+
+Result:
+
+✓ Plugin OFF hides audit widget
+✓ Reports page still works
+✓ Plugin dependency controlled
