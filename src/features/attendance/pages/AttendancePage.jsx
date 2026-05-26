@@ -52,6 +52,10 @@ from "../../../plugins/attendance-analytics-plugin/components/AttendanceAnalytic
   
   } from "../services/attendanceService";
   
+  import { moduleRegistry }
+  from "../../../config/moduleRegistry";
+
+
   
   function AttendancePage() {
   
@@ -121,10 +125,34 @@ from "../../../plugins/attendance-analytics-plugin/components/AttendanceAnalytic
           {/* <AttendanceAnalytics
             records={records}
           /> */}
-          <AttendanceAnalyticsCards
+          {/* <AttendanceAnalyticsCards
             records={records}
-          />
+          /> */}
+{/*
+==================================================
+ARCH-006
+Date: 2026-05-26
+Time: 14:25 IST
 
+Purpose:
+Enable plugin activation through module registry.
+==================================================
+*/}
+
+
+{
+
+moduleRegistry
+.attendanceAnalytics
+.enabled
+
+&&
+
+<AttendanceAnalyticsCards
+records={records}
+/>
+
+}
   
           {/* Attendance form */}
           <AttendanceForm
