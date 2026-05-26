@@ -139,5 +139,21 @@ SIDEBAR_LINKS configuration
 ==================================================
 
 
+ARCH-M06-005
 
+Static route registration replaced
+with registry-based module route loading.
+
+Purpose:
+
+Allow modules to register and
+remove routes automatically.
+
+Behavior:
+
+Enabled:
+✓ Route available
+
+Disabled:
+✓ Route removed
 
