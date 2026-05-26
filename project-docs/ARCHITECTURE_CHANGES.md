@@ -51,5 +51,17 @@ inside core application.
 ==================================================
 
 
+ARCH-M06-002
+
+Employee Self Service is a UI layer only.
+
+Business logic remains in core modules.
+
+Employee and admin panels share services
+and database entities.
+
+No duplicate attendance logic allowed.
+
+
 
 

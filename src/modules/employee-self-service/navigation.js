@@ -1,25 +1,21 @@
-
 /*
 ==================================================
-Change ID: M06-003
+Change ID: M06-004
 Date: 2026-05-26
 Status: Updated
-Purpose: Register navigation items
+Purpose: Register M06 navigation
 Risk: Low
-Rollback: Remove item
+Rollback: Remove file
 ==================================================
 */
 
-const employeeSelfServiceNavigation=[
+const employeeSelfServiceNavigation = [
 
     {
-    
-    label:"Employee Dashboard",
-    
-    path:"/employee/dashboard"
-    
+        label: "Employee Dashboard",
+        path: "/employee/dashboard"
     }
-    
-    ];
-    
-    export default employeeSelfServiceNavigation;
+
+];
+
+export default employeeSelfServiceNavigation;

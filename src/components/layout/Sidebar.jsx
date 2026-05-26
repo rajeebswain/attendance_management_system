@@ -95,7 +95,10 @@
 import { Link } from "react-router-dom";
 
 // Navigation constants
-import { SIDEBAR_LINKS } from "../../constants/navigation";
+// import { SIDEBAR_LINKS } from "../../constants/navigation";
+
+import SIDEBAR_LINKS
+from "../../modules/registry/navigationRegistry";
 
 function Sidebar() {
 
