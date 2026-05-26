@@ -1,16 +1,24 @@
 export {
 
     logAuditEvent
-    
-    }
-    
+
+}
+
     from "./services/auditService";
-    
-    
-    export {
-    
+
+
+export {
+
     pluginManifest
-    
-    }
-    
+
+}
+
     from "./pluginManifest";
+
+export {
+
+    createAuditEvent
+
+}
+
+    from "./utils/auditEventSchema";

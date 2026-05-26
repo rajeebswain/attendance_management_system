@@ -573,3 +573,94 @@ Result:
 ✓ Holiday rules extracted
 ✓ Weekly-off rules extracted
 ✓ Smart Attendance plugin expanded
+
+# ARCH-014
+
+Status: COMPLETE
+
+Date: 2026-05-26
+
+Purpose:
+
+Route attendance rules through Smart Attendance plugin.
+
+Changes:
+
+Modified:
+
+src/features/attendance/services/adminAttendanceService.js
+
+Import Changes:
+
+Added:
+
+- pluginIsWeeklyOff
+- pluginIsHoliday
+
+Logic Changes:
+
+Before:
+
+isWeeklyOff()
+↓
+isHoliday()
+
+After:
+
+pluginIsWeeklyOff()
+↓
+pluginIsHoliday()
+
+Architecture Flow:
+
+Attendance Service
+      ↓
+Smart Attendance Plugin
+      ↓
+Weekly Off Rules
+      ↓
+Holiday Rules
+
+Risk:
+
+LOW
+
+Rollback:
+
+Restore previous imports and function calls
+
+Result:
+
+✓ Attendance rules now use plugin logic
+✓ Original functions retained as backup
+✓ Plugin actively used in business flow
+
+---
+
+
+# ARCH-015
+
+Status: COMPLETE
+
+Date: 2026-05-26
+
+Purpose:
+
+Create standard audit event schema.
+
+Changes:
+
+Created:
+
+src/plugins/audit-management-plugin/utils/auditEventSchema.js
+
+Modified:
+
+src/plugins/audit-management-plugin/index.js
+
+Result:
+
+✓ Standard audit event format created
+✓ Future audit logs consistent
+
+
