@@ -534,3 +534,42 @@ Result:
 
 ✓ Overtime now uses plugin logic
 ✓ Original function retained as backup
+
+# ARCH-013
+
+Status: COMPLETE
+
+Date: 2026-05-26
+
+Purpose:
+
+Create Smart Attendance holiday rules.
+
+Changes:
+
+Modified:
+
+src/plugins/smart-attendance-plugin/utils/smartAttendanceRules.js
+
+Modified:
+
+src/plugins/smart-attendance-plugin/index.js
+
+Added:
+
+- isWeeklyOff()
+- isHoliday()
+
+Risk:
+
+LOW
+
+Rollback:
+
+Remove copied rules
+
+Result:
+
+✓ Holiday rules extracted
+✓ Weekly-off rules extracted
+✓ Smart Attendance plugin expanded

@@ -1,7 +1,11 @@
 export {
 
-    calculateOvertime
-    
-    }
-    
+    calculateOvertime,
+
+    isWeeklyOff,
+
+    isHoliday
+
+}
+
     from "./utils/smartAttendanceRules";

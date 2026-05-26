@@ -84,3 +84,55 @@ export function calculateOvertime(attendance){
     };
     
     }
+
+
+
+    /*
+==================================================
+ARCH-013
+Date: 2026-05-26
+Time: 16:20 IST
+Status: ACTIVE
+
+Purpose:
+Create holiday and weekly-off rules.
+
+Risk:
+LOW
+==================================================
+*/
+
+export function isWeeklyOff(date){
+
+    const currentDate =
+    
+    new Date(date);
+    
+    const day =
+    
+    currentDate.getDay();
+    
+    return day===0;
+    
+    }
+    
+    
+    export function isHoliday(
+    
+    holidays,
+    
+    date
+    
+    ){
+    
+    return holidays.some(
+    
+    (holiday)=>
+    
+    holiday.holiday_date
+    
+    === date
+    
+    );
+    
+    }
