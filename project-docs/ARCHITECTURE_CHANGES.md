@@ -409,3 +409,90 @@ Result:
 ✓ Easier scaling for future plugins
 
 ---
+
+# ARCH-010
+
+Status: COMPLETE
+
+Date: 2026-05-26
+
+Purpose:
+
+Create Audit plugin foundation.
+
+Changes:
+
+Created:
+
+src/plugins/audit-management-plugin/services/auditService.js
+
+Created:
+
+src/plugins/audit-management-plugin/pluginManifest.js
+
+Created:
+
+src/plugins/audit-management-plugin/index.js
+
+Architecture Flow:
+
+Attendance
+     ↓
+Audit Plugin
+     ↓
+Audit Service
+     ↓
+Audit Event Processing
+
+Risk:
+
+VERY LOW
+
+Rollback:
+
+Delete:
+
+src/plugins/audit-management-plugin
+
+Result:
+
+✓ Audit plugin shell created
+✓ Plugin manifest added
+✓ Future edit tracking prepared
+
+---
+
+# ARCH-011
+
+Status: COMPLETE
+
+Date: 2026-05-26
+
+Purpose:
+
+Create Smart Attendance plugin rule foundation.
+
+Changes:
+
+Created:
+
+src/plugins/smart-attendance-plugin/utils/smartAttendanceRules.js
+
+Created:
+
+src/plugins/smart-attendance-plugin/index.js
+
+Strategy:
+
+COPY ONLY
+
+Attendance service unchanged
+
+Risk:
+
+LOW
+
+Result:
+
+✓ Smart attendance rule copy created
+✓ Attendance logic untouched
