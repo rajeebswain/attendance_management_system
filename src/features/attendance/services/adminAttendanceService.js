@@ -20,9 +20,39 @@ Remove plugin import
 ==================================================
 */}
 
+// import {
+
+//   calculateOvertime as pluginCalculateOvertime
+  
+//   }
+  
+//   from "../../../plugins/smart-attendance-plugin";
+
+/*
+==================================================
+ARCH-014
+Date: 2026-05-26
+Time: 16:40 IST
+Status: ACTIVE
+
+Purpose:
+Use Smart Attendance plugin rules.
+
+Risk:
+LOW
+
+Rollback:
+Restore previous imports
+==================================================
+*/
+
 import {
 
-  calculateOvertime as pluginCalculateOvertime
+  calculateOvertime as pluginCalculateOvertime,
+  
+  isWeeklyOff as pluginIsWeeklyOff,
+  
+  isHoliday as pluginIsHoliday
   
   }
   
@@ -381,23 +411,33 @@ export function calculateAttendancePercentage(
       processedDates.push(date);
 
 
-      // Weekly off
+      // // Weekly off
+      // const weeklyOff =
+
+      //   isWeeklyOff(date);
+
+
+      // // Holiday
+      // const holidayCheck =
+
+      //   isHoliday(
+
+      //     holidays,
+
+      //     date
+      //   );
+
       const weeklyOff =
 
-        isWeeklyOff(date);
-
-
-      // Holiday
+      pluginIsWeeklyOff(date);
+      
+      
       const holidayCheck =
-
-        isHoliday(
-
-          holidays,
-
-          date
-        );
-
-
+      
+      pluginIsHoliday(
+      holidays,
+      date
+      );
       // Count working day
       if (
 
