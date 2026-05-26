@@ -31,3 +31,18 @@ No active features
 ## Status
 
 Initial setup
+
+
+## Plugin Metadata
+
+ID:
+
+attendance-analytics
+
+Version:
+
+1.0.0
+
+Status:
+
+active
