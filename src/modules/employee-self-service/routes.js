@@ -1,14 +1,27 @@
 /*
 ==================================================
-Change ID: M06-001
+Change ID: M06-003
 Date: 2026-05-26
-Status: Initial
-Purpose: Placeholder routes
+Status: Updated
+Purpose: Register module routes
 Risk: Low
-Rollback: Remove file
+Rollback: Remove routes
 ==================================================
 */
 
-const employeeSelfServiceRoutes = [];
+import EmployeeDashboard
+from "./pages/EmployeeDashboard";
+
+const employeeSelfServiceRoutes = [
+
+{
+
+path:"/employee/dashboard",
+
+element:<EmployeeDashboard/>
+
+}
+
+];
 
 export default employeeSelfServiceRoutes;
