@@ -9,34 +9,38 @@ Rollback: Restore component
 ==================================================
 */
 
-import DashboardLayout
-from "../../../components/layout/DashboardLayout";
+// import DashboardLayout
+// from "../../../components/layout/DashboardLayout";
+
+import EmployeeLayout
+    from "../layout/EmployeeLayout";
 
 function EmployeeDashboard() {
 
-return (
+    return (
 
-<DashboardLayout>
+        // <DashboardLayout>
+        <EmployeeLayout>
 
-<div>
+            <div>
 
-<h1 className="text-3xl font-bold mb-4">
+                <h1 className="text-3xl font-bold mb-4">
 
-Employee Dashboard
+                    Employee Dashboard
 
-</h1>
+                </h1>
 
-<p className="text-gray-600">
+                <p className="text-gray-600">
 
-M06 Employee Self Service Module
+                    M06 Employee Self Service Module
 
-</p>
+                </p>
 
-</div>
+            </div>
+        </EmployeeLayout>
+        // </DashboardLayout>
 
-</DashboardLayout>
-
-);
+    );
 
 }
 

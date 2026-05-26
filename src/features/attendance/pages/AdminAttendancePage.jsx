@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import DashboardLayout
 
   from "../../../components/layout/DashboardLayout";
+
+
 import {
 
   getAllAttendance,
@@ -395,22 +397,22 @@ export default function AdminAttendancePage() {
         return (
 
           !weeklyOff
-          
+
           &&
-          
+
           !holidayCheck
-          
+
           &&
-          
+
           employee.is_archived !== true
-          
-          );
+
+        );
 
 
       }
     );
   // Total absent
-    const totalAbsent =
+  const totalAbsent =
 
     validAbsentEmployees.length;
 
@@ -425,25 +427,25 @@ export default function AdminAttendancePage() {
   //   ).length;
 
 
-const totalPresent =
+  const totalPresent =
 
-attendance.filter((item) =>
+    attendance.filter((item) =>
 
-(
+      (
 
-item.status==="present"
+        item.status === "present"
 
-||
+        ||
 
-item.status==="late"
+        item.status === "late"
 
-)
+      )
 
-&&
+      &&
 
-item.is_archived !== true
+      item.is_archived !== true
 
-).length;
+    ).length;
 
 
 
