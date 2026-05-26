@@ -9,8 +9,6 @@ Rollback: Restore component
 ==================================================
 */
 
-// import DashboardLayout
-// from "../../../components/layout/DashboardLayout";
 
 import EmployeeLayout
     from "../layout/EmployeeLayout";
@@ -22,7 +20,7 @@ function EmployeeDashboard() {
         // <DashboardLayout>
         <EmployeeLayout>
 
-            <div>
+            {/* <div>
 
                 <h1 className="text-3xl font-bold mb-4">
 
@@ -35,6 +33,35 @@ function EmployeeDashboard() {
                     M06 Employee Self Service Module
 
                 </p>
+
+            </div> */}
+
+            import WelcomeSection
+            from "../components/WelcomeSection";
+
+            import EmployeeInfoCard
+            from "../components/EmployeeInfoCard";
+
+            import AttendanceStatusCard
+            from "../components/AttendanceStatusCard";
+
+            import QuickActions
+            from "../components/QuickActions";
+
+
+            <div className="space-y-6">
+
+                <WelcomeSection />
+
+                <div className="grid grid-cols-2 gap-6">
+
+                    <EmployeeInfoCard />
+
+                    <AttendanceStatusCard />
+
+                </div>
+
+                <QuickActions />
 
             </div>
         </EmployeeLayout>
