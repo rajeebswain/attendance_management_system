@@ -18,9 +18,33 @@ import {
   
   import AttendanceFilters from "../components/AttendanceFilters";
   
-  import AttendanceAnalytics from "../components/AttendanceAnalytics";
+  // import AttendanceAnalytics from "../components/AttendanceAnalytics";
   
-  
+  {/*
+==================================================
+ARCH-003
+Date: 2026-05-26
+Time: 13:50 IST
+Status: ACTIVE
+
+Purpose:
+Switch Attendance page to analytics plugin
+while keeping old component as backup.
+
+Risk:
+LOW
+
+Rollback:
+Restore old import
+
+==================================================
+*/}
+
+import AttendanceAnalyticsCards
+from "../../../plugins/attendance-analytics-plugin/components/AttendanceAnalyticsCards";
+
+
+
   // Attendance service
   import {
   
@@ -94,10 +118,13 @@ import {
         <div className="space-y-6">
   
           {/* Attendance analytics */}
-          <AttendanceAnalytics
+          {/* <AttendanceAnalytics
+            records={records}
+          /> */}
+          <AttendanceAnalyticsCards
             records={records}
           />
-  
+
   
           {/* Attendance form */}
           <AttendanceForm
