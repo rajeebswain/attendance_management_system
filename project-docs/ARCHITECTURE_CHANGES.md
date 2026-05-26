@@ -769,3 +769,87 @@ Result:
 ✓ Plugin OFF hides UI
 ✓ Plugin ON shows UI
 ✓ Core app unaffected
+
+ARCH-020 Correction
+
+Reason:
+
+Navigation does not exist in DashboardLayout.
+
+Action:
+
+Remove unused moduleRegistry import.
+
+New Target:
+
+src/components/layout/Sidebar.jsx
+
+ARCH-020 Correction
+
+Issue:
+
+Mixed multiple constants files.
+
+Correct file:
+
+src/constants/navigation.js
+
+No changes:
+
+- roles.js
+- theme.js
+
+Result:
+
+✓ Navigation isolated
+✓ Constants preserved
+
+ARCH-020 Correction
+
+Issue:
+
+Reports page treated as plugin.
+
+Decision:
+
+Reports remains core.
+
+Plugins only hide sections inside reports.
+
+Result:
+
+✓ Core navigation preserved
+✓ Plugin widgets controlled separately
+
+# ARCH-021
+
+Status: CANCELLED
+
+Date: 2026-05-26
+
+Reason:
+
+No plugin routes currently exist.
+
+Findings:
+
+Current plugins:
+
+- Smart Attendance
+- Analytics
+- Audit
+
+These plugins inject functionality into existing pages.
+
+Decision:
+
+Do not create route visibility logic.
+
+Future:
+
+Add route control only when standalone plugin pages exist.
+
+Result:
+
+✓ Avoid unnecessary complexity
+✓ Core routes preserved

@@ -22,3 +22,7 @@ export {
 }
 
     from "./utils/auditEventSchema";
+
+export { default as AuditHistory }
+
+    from "./components/AuditHistory";
