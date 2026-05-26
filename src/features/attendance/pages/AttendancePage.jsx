@@ -40,10 +40,16 @@ Restore old import
 ==================================================
 */}
 
-import AttendanceAnalyticsCards
-from "../../../plugins/attendance-analytics-plugin/components/AttendanceAnalyticsCards";
+// import AttendanceAnalyticsCards
+// from "../../../plugins/attendance-analytics-plugin/components/AttendanceAnalyticsCards";
 
+import {
 
+  AttendanceAnalyticsCards
+  
+  }
+  
+  from "../../../plugins/attendance-analytics-plugin";
 
   // Attendance service
   import {
