@@ -747,3 +747,25 @@ Result:
 ✓ Core isolated
 ✓ Plugin architecture corrected
 ✓ Removal-safe structure
+
+# ARCH-019
+
+Status: COMPLETE
+
+Date: 2026-05-26
+
+Purpose:
+
+Hide Smart Attendance UI when plugin disabled.
+
+Changes:
+
+Modified:
+
+src/features/attendance/pages/AdminAttendancePage.jsx
+
+Result:
+
+✓ Plugin OFF hides UI
+✓ Plugin ON shows UI
+✓ Core app unaffected

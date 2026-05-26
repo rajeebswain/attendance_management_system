@@ -3,6 +3,14 @@ import { useEffect, useState } from "react";
 import DashboardLayout
 
   from "../../../components/layout/DashboardLayout";
+
+  import {
+
+    moduleRegistry
+    
+    }
+    
+    from "../../../config/moduleRegistry";
 // import {
 
 //   getAllAttendance,
@@ -536,7 +544,20 @@ item.is_archived !== true
 
         </h1>
         {/* Weekly off status */}
-        {todayWeeklyOff && (
+        {/* {todayWeeklyOff && ( */}
+        {
+
+moduleRegistry
+.smartAttendance
+.enabled
+
+&&
+
+todayWeeklyOff
+
+&&
+
+(
 
           <div
             className="
@@ -987,11 +1008,28 @@ item.is_archived !== true
 
                 </th>
 
-                <th className="p-2">
+                {/* <th className="p-2">
 
                   Overtime
 
-                </th>
+                </th> */}
+                {
+
+moduleRegistry
+.smartAttendance
+.enabled
+
+&&
+
+(
+<th className="p-2">
+
+Overtime
+
+</th>
+)
+
+}
 
                 <th className="p-2">
 
@@ -1168,11 +1206,29 @@ item.is_archived !== true
 
                     </td>
 
-                    <td className="p-2">
+                    {/* <td className="p-2">
 
                       {overtimeData.overtimeHours} hrs
 
-                    </td>
+                    </td> */}
+
+{
+
+moduleRegistry
+.smartAttendance
+.enabled
+
+&&
+
+(
+<td className="p-2">
+
+{overtimeData.overtimeHours} hrs
+
+</td>
+)
+
+}
 
                     <td className="p-2">
 
