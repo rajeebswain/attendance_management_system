@@ -664,3 +664,44 @@ Result:
 ✓ Future audit logs consistent
 
 
+# ARCH-016
+
+Status: COMPLETE
+
+Date: 2026-05-26
+
+Purpose:
+
+Connect audit schema to service layer.
+
+Changes:
+
+Modified:
+
+src/plugins/audit-management-plugin/services/auditService.js
+
+Architecture Flow:
+
+Action
+    ↓
+Audit Event Schema
+    ↓
+Audit Service
+    ↓
+Audit Output
+
+Risk:
+
+VERY LOW
+
+Rollback:
+
+Restore previous service implementation
+
+Result:
+
+✓ Audit service standardized
+✓ Event formatting centralized
+✓ Audit output reusable
+
+---
