@@ -496,3 +496,41 @@ Result:
 
 ✓ Smart attendance rule copy created
 ✓ Attendance logic untouched
+
+
+# ARCH-012
+
+Status: COMPLETE
+
+Date: 2026-05-26
+
+Purpose:
+
+Switch overtime calculation to Smart Attendance plugin.
+
+Changes:
+
+Modified:
+
+src/features/attendance/services/adminAttendanceService.js
+
+Changed:
+
+calculateOvertime()
+
+↓
+
+pluginCalculateOvertime()
+
+Risk:
+
+LOW
+
+Rollback:
+
+Restore previous function call
+
+Result:
+
+✓ Overtime now uses plugin logic
+✓ Original function retained as backup

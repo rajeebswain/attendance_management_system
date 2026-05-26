@@ -2,6 +2,32 @@ import { supabase }
 
 from "../../../lib/supabase/client";
 
+{/*
+==================================================
+ARCH-012
+Date: 2026-05-26
+Time: 16:00 IST
+Status: ACTIVE
+
+Purpose:
+Use Smart Attendance plugin overtime logic.
+
+Risk:
+LOW
+
+Rollback:
+Remove plugin import
+==================================================
+*/}
+
+import {
+
+  calculateOvertime as pluginCalculateOvertime
+  
+  }
+  
+  from "../../../plugins/smart-attendance-plugin";
+
 
 // GET ALL ATTENDANCE
 export async function getAllAttendance() {
@@ -468,9 +494,13 @@ export function generateMonthlySummary(
 
 
       // Overtime
+      // const overtimeData =
+
+      //   calculateOvertime(record);
+
       const overtimeData =
 
-        calculateOvertime(record);
+pluginCalculateOvertime(record);
 
 
       summary[employee].overtime +=
