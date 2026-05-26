@@ -705,3 +705,45 @@ Result:
 ✓ Audit output reusable
 
 ---
+
+# ARCH-017
+
+Status: COMPLETE
+
+Date: 2026-05-26
+
+Purpose:
+
+Use Smart Attendance plugin exports in AdminAttendancePage.
+
+Changes:
+
+Modified:
+
+src/features/attendance/pages/AdminAttendancePage.jsx
+
+Result:
+
+✓ Smart Attendance centralized
+✓ Removed mixed import paths
+✓ Plugin usage standardized
+
+# ARCH-018
+
+Status: COMPLETE
+
+Date: 2026-05-26
+
+Purpose:
+
+Remove plugin dependency from core service.
+
+Reason:
+
+Core modules must not depend on plugins.
+
+Result:
+
+✓ Core isolated
+✓ Plugin architecture corrected
+✓ Removal-safe structure

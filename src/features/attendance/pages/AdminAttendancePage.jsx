@@ -3,27 +3,72 @@ import { useEffect, useState } from "react";
 import DashboardLayout
 
   from "../../../components/layout/DashboardLayout";
+// import {
+
+//   getAllAttendance,
+
+//   getAbsentEmployees,
+
+//   updateAttendance,
+
+//   calculateOvertime,
+
+//   getHolidays,
+
+//   isWeeklyOff,
+
+//   isHoliday,
+
+//   calculateAttendancePercentage,
+
+//   generateMonthlySummary,
+
+// } from "../services/adminAttendanceService";
+
 import {
 
   getAllAttendance,
-
   getAbsentEmployees,
-
   updateAttendance,
-
-  calculateOvertime,
-
   getHolidays,
-
-  isWeeklyOff,
-
-  isHoliday,
-
   calculateAttendancePercentage,
-
   generateMonthlySummary,
-
-} from "../services/adminAttendanceService";
+  
+  }
+  
+  from "../services/adminAttendanceService";
+  
+  
+  /*
+  ==================================================
+  ARCH-017
+  Date: 2026-05-26
+  Time: 18:30 IST
+  Status: ACTIVE
+  
+  Purpose:
+  Use Smart Attendance plugin exports
+  inside AdminAttendancePage
+  
+  Risk:
+  LOW
+  
+  Rollback:
+  Restore previous imports
+  ==================================================
+  */
+  
+  import {
+  
+  calculateOvertime,
+  
+  isWeeklyOff,
+  
+  isHoliday
+  
+  }
+  
+  from "../../../plugins/smart-attendance-plugin";
 
 export default function AdminAttendancePage() {
 

@@ -28,35 +28,35 @@ Remove plugin import
   
 //   from "../../../plugins/smart-attendance-plugin";
 
-/*
-==================================================
-ARCH-014
-Date: 2026-05-26
-Time: 16:40 IST
-Status: ACTIVE
+// /*
+// ==================================================
+// ARCH-014
+// Date: 2026-05-26
+// Time: 16:40 IST
+// Status: ACTIVE
 
-Purpose:
-Use Smart Attendance plugin rules.
+// Purpose:
+// Use Smart Attendance plugin rules.
 
-Risk:
-LOW
+// Risk:
+// LOW
 
-Rollback:
-Restore previous imports
-==================================================
-*/
+// Rollback:
+// Restore previous imports
+// ==================================================
+// */
 
-import {
+// import {
 
-  calculateOvertime as pluginCalculateOvertime,
+//   calculateOvertime as pluginCalculateOvertime,
   
-  isWeeklyOff as pluginIsWeeklyOff,
+//   isWeeklyOff as pluginIsWeeklyOff,
   
-  isHoliday as pluginIsHoliday
+//   isHoliday as pluginIsHoliday
   
-  }
+//   }
   
-  from "../../../plugins/smart-attendance-plugin";
+//   from "../../../plugins/smart-attendance-plugin";
 
 
 // GET ALL ATTENDANCE
@@ -412,32 +412,32 @@ export function calculateAttendancePercentage(
 
 
       // // Weekly off
-      // const weeklyOff =
-
-      //   isWeeklyOff(date);
-
-
-      // // Holiday
-      // const holidayCheck =
-
-      //   isHoliday(
-
-      //     holidays,
-
-      //     date
-      //   );
-
       const weeklyOff =
 
-      pluginIsWeeklyOff(date);
-      
-      
+        isWeeklyOff(date);
+
+
+      // Holiday
       const holidayCheck =
+
+        isHoliday(
+
+          holidays,
+
+          date
+        );
+
+      // const weeklyOff =
+
+      // pluginIsWeeklyOff(date);
       
-      pluginIsHoliday(
-      holidays,
-      date
-      );
+      
+      // const holidayCheck =
+      
+      // pluginIsHoliday(
+      // holidays,
+      // date
+      // );
       // Count working day
       if (
 
@@ -534,13 +534,13 @@ export function generateMonthlySummary(
 
 
       // Overtime
-      // const overtimeData =
-
-      //   calculateOvertime(record);
-
       const overtimeData =
 
-pluginCalculateOvertime(record);
+        calculateOvertime(record);
+
+//       const overtimeData =
+
+// pluginCalculateOvertime(record);
 
 
       summary[employee].overtime +=
