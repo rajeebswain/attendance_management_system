@@ -88,6 +88,10 @@ import {
 
   from "../../../plugins/audit-management-plugin";
 
+  import PluginRenderer
+
+from "../../../plugins/PluginRenderer";
+
 export default function ReportsDashboardPage() {
   const [reports, setReports] = useState([]);
 
@@ -1337,7 +1341,7 @@ export default function ReportsDashboardPage() {
 
         </div>
         {/* <AuditHistory /> */}
-        {
+        {/* {
 
           moduleRegistry
             .auditManagement
@@ -1347,7 +1351,16 @@ export default function ReportsDashboardPage() {
 
           <AuditHistory />
 
-        }
+        } */}
+        <PluginRenderer
+
+plugin="auditManagement"
+
+>
+
+<AuditHistory/>
+
+</PluginRenderer>
 
       </div>
 
