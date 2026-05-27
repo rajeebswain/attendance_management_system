@@ -505,3 +505,65 @@ Low
 
 ==================================================
 
+==================================================
+ARCH-M06-018
+Date: 2026-05-26
+
+Module:
+M06 Employee Self Service
+
+Change:
+
+Employee leave flow moved under
+Employee Self Service module.
+
+Previous:
+
+Employee
+↓
+
+/leave
+
+↓
+
+Standalone page
+
+
+New:
+
+Employee
+↓
+
+/employee/leave
+
+↓
+
+EmployeeLayout
+
+↓
+
+LeaveForm
+
+
+Purpose:
+
+Keep employee pages isolated
+from shared/admin pages.
+
+Benefits:
+
+✓ Employee UI consistency
+
+✓ Plugin isolation
+
+✓ Cleaner module boundaries
+
+Risk:
+
+Low
+
+Rollback:
+
+Navigate directly to /leave
+==================================================
+
