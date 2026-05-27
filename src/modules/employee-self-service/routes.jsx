@@ -20,7 +20,7 @@ const employeeSelfServiceRoutes = [
     {
         path: "/employee/dashboard",
         element: <EmployeeDashboard />
-    }
+    },
 
     {
         path: "/employee/leave",
