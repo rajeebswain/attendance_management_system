@@ -791,3 +791,26 @@ Risk:
 
 Low
 ==================================================
+
+ARCH-M06-025
+
+Change:
+
+Added editable employee profile.
+
+Added:
+
+- Phone editing
+- Address editing
+- Profile save functionality
+- Supabase update service
+
+Purpose:
+
+Allow employees to update
+their own personal details.
+
+Risk:
+
+Low
+==================================================

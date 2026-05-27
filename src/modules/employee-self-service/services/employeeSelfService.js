@@ -209,3 +209,47 @@ export async function getEmployeeProfile(
     return data;
 
 }
+
+export async function updateEmployeeProfile(
+
+    employeeId,
+    profileData
+
+) {
+
+    const {
+
+        data,
+        error
+
+    }
+
+        =
+
+        await supabase
+
+            .from(
+                "employees"
+            )
+
+            .update(
+                profileData
+            )
+
+            .eq(
+                "id",
+                employeeId
+            )
+
+            .select()
+
+            .single();
+
+    if (error) {
+
+        throw error;
+    }
+
+    return data;
+
+}
