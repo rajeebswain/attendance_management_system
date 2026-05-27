@@ -458,3 +458,31 @@ Rollback:
 Remove temporary fallback logic
 after M02 completion
 ==================================================
+
+==================================================
+ARCH-M06-016
+
+Change:
+
+Connected Employee Dashboard
+quick actions to existing modules.
+
+Flow:
+
+Employee Dashboard
+
+↓
+
+Attendance Module
+Leave Module
+
+Purpose:
+
+Reuse existing system logic
+instead of duplicating features.
+
+Risk:
+
+Low
+==================================================
+
