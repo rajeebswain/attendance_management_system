@@ -10,14 +10,22 @@ Rollback: Restore previous route config
 */
 
 import EmployeeDashboard
-from "./pages/EmployeeDashboard";
+    from "./pages/EmployeeDashboard";
+
+import EmployeeLeavePage
+    from "./pages/EmployeeLeavePage";
 
 const employeeSelfServiceRoutes = [
 
+    {
+        path: "/employee/dashboard",
+        element: <EmployeeDashboard />
+    }
+
 {
-path:"/employee/dashboard",
-element:<EmployeeDashboard />
-}
+        path: "/employee/leave",
+        element: <EmployeeLeavePage />
+    }
 
 ];
 
