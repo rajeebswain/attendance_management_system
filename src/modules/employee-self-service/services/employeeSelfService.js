@@ -11,45 +11,71 @@ Rollback: Remove service
 
 import { supabase }
 
-from "../../../lib/supabase/client";
+    from "../../../lib/supabase/client";
 
 import {
 
-getCurrentUser
+    getCurrentUser
 
 }
 
-from "../../../features/auth/services/authService";
+    from "../../../features/auth/services/authService";
 
 /*
 Load current employee profile
 */
 
-export async function getCurrentEmployee(){
+export async function getCurrentEmployee() {
 
-const user = await getCurrentUser();
+    // const user = await getCurrentUser();
 
-if(!user){
+    // if (!user) {
 
-return null;
+    //     return null;
 
-}
+    // }
+    /*
+==================================================
+Change ID: M06-015
+Date: 2026-05-26
+Status: Temporary
+Purpose: Allow dashboard while auth
+is incomplete
+Risk: Medium
+Rollback: Restore getCurrentUser()
+==================================================
+*/
 
-const {
+    const user = await getCurrentUser();
 
-data,
+    /*
+    Temporary bridge until M02 auth
+    is completed
+    */
 
-error
+    const email =
 
-}
+        user?.email
 
-=
+        ||
 
-await supabase
+        "rajeeb@example.com";
 
-.from("employees")
+    const {
 
-.select(`
+        data,
+
+        error
+
+    }
+
+        =
+
+        await supabase
+
+            .from("employees")
+
+            .select(`
 *,
 departments(
 department_name
@@ -59,22 +85,26 @@ shift_name
 )
 `)
 
-.eq(
+            // .eq(
 
-"email",
+            //     "email",
 
-user.email
+            //     user.email
 
-)
+            // )
+            .eq(
+                "email",
+                email
+            )
 
-.single();
+            .single();
 
-if(error){
+    if (error) {
 
-throw error;
+        throw error;
 
-}
+    }
 
-return data;
+    return data;
 
 }
