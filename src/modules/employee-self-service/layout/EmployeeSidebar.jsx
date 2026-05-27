@@ -13,56 +13,56 @@ import { Link } from "react-router-dom";
 
 const EMPLOYEE_LINKS = [
 
-{
-label:"Dashboard",
-path:"/employee/dashboard"
-},
+    {
+        label: "Dashboard",
+        path: "/employee/dashboard"
+    },
 
-{
-label:"Attendance History",
-path:"/self-attendance"
-},
+    {
+        label: "Attendance History",
+        path: "/employee/self-attendance"
+    },
 
-{
-label:"Apply Leave",
-path:"/leave"
-}
+    {
+        label: "Apply Leave",
+        path: "/employee/leave"
+    }
 
 ];
 
-function EmployeeSidebar(){
+function EmployeeSidebar() {
 
-return(
+    return (
 
-<aside
-className="
+        <aside
+            className="
 w-64
 min-h-screen
 bg-gray-900
 text-white
 "
->
+        >
 
-<div className="p-6 border-b border-gray-700">
+            <div className="p-6 border-b border-gray-700">
 
-<h1 className="text-2xl font-bold">
+                <h1 className="text-2xl font-bold">
 
-Employee Panel
+                    Employee Panel
 
-</h1>
+                </h1>
 
-</div>
+            </div>
 
-<nav className="p-4 space-y-2">
+            <nav className="p-4 space-y-2">
 
-{
+                {
 
-EMPLOYEE_LINKS.map((item)=>(
+                    EMPLOYEE_LINKS.map((item) => (
 
-<Link
-key={item.path}
-to={item.path}
-className="
+                        <Link
+                            key={item.path}
+                            to={item.path}
+                            className="
 block
 px-4
 py-3
@@ -70,21 +70,21 @@ rounded
 hover:bg-gray-800
 transition
 "
->
+                        >
 
-{item.label}
+                            {item.label}
 
-</Link>
+                        </Link>
 
-))
+                    ))
 
-}
+                }
 
-</nav>
+            </nav>
 
-</aside>
+        </aside>
 
-);
+    );
 
 }
 
