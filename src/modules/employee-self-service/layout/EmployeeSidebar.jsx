@@ -31,6 +31,11 @@ const EMPLOYEE_LINKS = [
     {
         label: "My Leave History",
         path: "/employee/leave-history"
+    },
+
+    {
+        label: "My Profile",
+        path: "/employee/profile"
     }
 
 ];

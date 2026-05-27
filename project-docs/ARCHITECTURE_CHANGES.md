@@ -769,3 +769,25 @@ Low
 
 ==================================================
 
+ARCH-M06-024
+
+Change:
+
+Added employee profile page.
+
+Added:
+
+- Employee profile route
+- Sidebar navigation
+- Employee profile service
+- Profile details card
+
+Purpose:
+
+Allow employees to view
+their profile information.
+
+Risk:
+
+Low
+==================================================

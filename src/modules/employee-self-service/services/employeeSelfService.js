@@ -170,3 +170,42 @@ export async function getEmployeeLeaves(
     return data;
 
 }
+
+export async function getEmployeeProfile(
+    employeeId
+) {
+
+    const { data, error } =
+
+        await supabase
+
+            .from(
+                "employees"
+            )
+
+            .select(`
+    *,
+    departments(
+    department_name
+    ),
+    shifts(
+    shift_name
+    )
+    `)
+
+            .eq(
+                "id",
+                employeeId
+            )
+
+            .single();
+
+    if (error) {
+
+        throw error;
+
+    }
+
+    return data;
+
+}
