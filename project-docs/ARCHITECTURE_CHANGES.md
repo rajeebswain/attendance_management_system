@@ -720,3 +720,27 @@ Risk:
 Low
 ==================================================
 
+ARCH-M06-022
+
+Change:
+
+Integrated employee attendance
+with real attendance service.
+
+Added:
+
+- Today attendance loading
+- Attendance history loading
+- Check-in handling
+- Check-out handling
+
+Purpose:
+
+Replace temporary attendance UI
+with live attendance records.
+
+Risk:
+
+Low
+==================================================
+
