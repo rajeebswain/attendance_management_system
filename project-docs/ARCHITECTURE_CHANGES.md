@@ -619,3 +619,73 @@ Rollback:
 Restore static route loading
 ==================================================
 
+==================================================
+ARCH-M06-020
+Date: 2026-05-26
+
+Module:
+M06 Employee Self Service
+
+Change:
+
+Leave submission uses
+current employee context.
+
+Previous:
+
+LeaveForm
+↓
+
+Hardcoded employee_id
+
+↓
+
+Leave request
+
+
+New:
+
+EmployeeLeavePage
+
+↓
+
+Current Employee
+
+↓
+
+employee.id
+
+↓
+
+LeaveForm
+
+↓
+
+Leave request
+
+
+Purpose:
+
+Prevent leave requests from
+being submitted under the
+wrong employee.
+
+Benefits:
+
+✓ Removes hardcoded dependency
+
+✓ Supports multiple users
+
+✓ Employee data isolation
+
+✓ SaaS compatibility
+
+Risk:
+
+Medium
+
+Rollback:
+
+Restore hardcoded employee id
+==================================================
+

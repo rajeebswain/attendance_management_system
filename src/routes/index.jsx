@@ -132,14 +132,14 @@ function AppRoutes() {
         }
       />
 
-      <Route
+      {/* <Route
         path="/self-attendance"
         element={
           <ProtectedRoute>
             <EmployeeSelfAttendancePage />
           </ProtectedRoute>
         }
-      />
+      /> */}
       <Route
 
         path="/admin-attendance"

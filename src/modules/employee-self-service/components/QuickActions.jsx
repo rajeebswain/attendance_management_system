@@ -129,9 +129,10 @@ Quick Actions
 
 <button
 onClick={()=>
-navigate(
-"/self-attendance"
-)
+// navigate(
+// "/self-attendance"
+// )
+navigate("/employee/self-attendance")
 }
 className="
 bg-blue-600
