@@ -7,9 +7,12 @@ import {
 } from "react";
 
 
-import DashboardLayout
+// import DashboardLayout
 
-  from "../../../components/layout/DashboardLayout";
+//   from "../../../components/layout/DashboardLayout";
+
+import EmployeeLayout
+from "../../../modules/employee-self-service/layout/EmployeeLayout";
 
 
 import {
@@ -275,7 +278,8 @@ function EmployeeSelfAttendancePage() {
   }
   return (
 
-    <DashboardLayout>
+    <EmployeeLayout>
+      {/* <DashboardLayout> */}
 
       <div className="p-6">
 
@@ -548,7 +552,8 @@ function EmployeeSelfAttendancePage() {
 
       </div>
 
-    </DashboardLayout>
+    {/* </DashboardLayout> */}
+    </EmployeeLayout>
   );
 }
 

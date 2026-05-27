@@ -484,5 +484,23 @@ instead of duplicating features.
 Risk:
 
 Low
+
+
+ARCH-M06-017
+
+Change:
+
+EmployeeSelfAttendance moved
+from DashboardLayout to EmployeeLayout.
+
+Purpose:
+
+Prevent employee pages from
+rendering admin navigation.
+
+Risk:
+
+Low
+
 ==================================================
 
