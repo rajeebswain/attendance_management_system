@@ -744,3 +744,28 @@ Risk:
 Low
 ==================================================
 
+ARCH-M06-023
+
+Change:
+
+Added employee leave history.
+
+Added:
+
+- Employee leave history page
+- Leave data fetch service
+- Sidebar navigation
+- Leave status table
+
+Purpose:
+
+Allow employees to track
+their leave requests and
+approval status.
+
+Risk:
+
+Low
+
+==================================================
+

@@ -18,6 +18,9 @@ from "./pages/EmployeeLeavePage";
 import EmployeeSelfAttendancePage
 from "../../features/attendance/pages/EmployeeSelfAttendancePage";
 
+import EmployeeLeaveHistoryPage
+from "./pages/EmployeeLeaveHistoryPage";
+
 const employeeSelfServiceRoutes = [
 
 {
@@ -33,7 +36,12 @@ element:<EmployeeLeavePage/>
 {
 path:"/employee/self-attendance",
 element:<EmployeeSelfAttendancePage/>
-}
+},
+
+    {
+        path: "/employee/leave-history",
+        element: <EmployeeLeaveHistoryPage />
+    }
 
 ];
 

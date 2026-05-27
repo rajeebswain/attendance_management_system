@@ -26,6 +26,11 @@ const EMPLOYEE_LINKS = [
     {
         label: "Apply Leave",
         path: "/employee/leave"
+    },
+
+    {
+        label: "My Leave History",
+        path: "/employee/leave-history"
     }
 
 ];

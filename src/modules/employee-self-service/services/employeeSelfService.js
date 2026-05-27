@@ -137,3 +137,36 @@ export async function getEmployeeAttendanceHistory(
     return data;
 
 }
+
+export async function getEmployeeLeaves(
+    employeeId
+) {
+
+    const { data, error } =
+
+        await supabase
+
+            .from("leaves")
+
+            .select("*")
+
+            .eq(
+                "employee_id",
+                employeeId
+            )
+
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+    if (error) {
+
+        throw error;
+    }
+
+    return data;
+
+}
