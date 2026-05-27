@@ -565,5 +565,57 @@ Low
 Rollback:
 
 Navigate directly to /leave
+
+==================================================
+ARCH-M06-019
+Date: 2026-05-26
+
+Module:
+M06 Employee Self Service
+
+Change:
+
+Module routes moved into
+module configuration.
+
+Previous:
+
+Route Registry
+↓
+
+Hardcoded route source
+
+
+New:
+
+Module Config
+↓
+
+Own routes
+↓
+
+Route Registry
+
+
+Purpose:
+
+Allow modules to register
+their own routes.
+
+Benefits:
+
+✓ Plugin scalability
+
+✓ Cleaner architecture
+
+✓ Supports future modules
+
+Risk:
+
+Medium
+
+Rollback:
+
+Restore static route loading
 ==================================================
 

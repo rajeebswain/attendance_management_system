@@ -1,28 +1,63 @@
+// /*
+// ==================================================
+// Change ID: M06-005
+// Date: 2026-05-26
+// Status: Initial
+// Purpose: Combine module routes
+// Risk: Medium
+// Rollback: Remove registry
+// ==================================================
+// */
+
+// import moduleRegistry
+// from "./moduleRegistry";
+
+// import employeeSelfServiceRoutes
+// from "../employee-self-service/routes.jsx";
+
+// const moduleRoutes = moduleRegistry
+
+// .filter(
+
+// (module) => module.enabled
+
+// )
+
+// .flatMap(() => employeeSelfServiceRoutes);
+
+// export default moduleRoutes;
+
+
 /*
 ==================================================
-Change ID: M06-005
+Change ID: M06-019
 Date: 2026-05-26
-Status: Initial
-Purpose: Combine module routes
+Status: Updated
+Purpose: Dynamic route loading
 Risk: Medium
-Rollback: Remove registry
+Rollback: Restore previous registry
 ==================================================
 */
 
 import moduleRegistry
 from "./moduleRegistry";
 
-import employeeSelfServiceRoutes
-from "../employee-self-service/routes.jsx";
+const moduleRoutes =
 
-const moduleRoutes = moduleRegistry
+moduleRegistry
 
 .filter(
 
-(module) => module.enabled
+(module)=>module.enabled
 
 )
 
-.flatMap(() => employeeSelfServiceRoutes);
+.flatMap(
+
+(module)=>
+
+module.routes || []
+
+);
 
 export default moduleRoutes;
