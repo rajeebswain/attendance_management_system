@@ -689,3 +689,28 @@ Rollback:
 Restore hardcoded employee id
 ==================================================
 
+ARCH-M06-021
+
+Change:
+
+Employee attendance route moved
+under Employee Self Service module.
+
+Previous:
+
+/self-attendance
+
+New:
+
+/employee/self-attendance
+
+Purpose:
+
+Keep employee routes isolated
+inside plugin boundaries.
+
+Risk:
+
+Low
+==================================================
+
