@@ -46,20 +46,55 @@ Rollback: Restore getCurrentUser()
 ==================================================
 */
 
-    const user = await getCurrentUser();
+    // const user = await getCurrentUser();
+
+    // /*
+    // Temporary bridge until M02 auth
+    // is completed
+    // */
+
+    // const email =
+
+    //     user?.email
+
+    //     ||
+
+    //     "rajeeb@example.com";
 
     /*
-    Temporary bridge until M02 auth
-    is completed
-    */
+==================================================
+Change ID: M06-015
+Date: 2026-05-26
+Status: Temporary Fix
+Purpose: Handle missing auth session
+Risk: Medium
+Rollback: Remove after M02 auth
+==================================================
+*/
 
-    const email =
+    let email = "rajeeb@example.com";
 
-        user?.email
+    try {
 
-        ||
+        const user = await getCurrentUser();
 
-        "rajeeb@example.com";
+        if (user) {
+
+            email = user.email;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.log(
+
+            "Temporary auth fallback active"
+
+        );
+
+    }
 
     const {
 

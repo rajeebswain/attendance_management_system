@@ -337,3 +337,124 @@ Risk:
 
 Low
 ==================================================
+
+==================================================
+ARCH-M06-014
+Date: 2026-05-26
+
+Module:
+M06 Employee Self Service
+
+Change:
+
+Employee Dashboard connected to
+employee-specific profile service.
+
+Previous:
+
+Hardcoded employee data
+
+↓
+
+Employee dashboard
+
+
+New:
+
+Employee Dashboard
+
+↓
+
+EmployeeSelfService
+
+↓
+
+Employee table
+
+
+Purpose:
+
+Load employee information from
+database instead of static values.
+
+Benefits:
+
+✓ Real employee profile data
+
+✓ Removes dashboard hardcoding
+
+✓ Supports employee-specific view
+
+Risk:
+
+Medium
+
+Rollback:
+
+Restore hardcoded profile values
+==================================================
+
+
+==================================================
+ARCH-M06-015
+Date: 2026-05-26
+
+Module:
+M06 Employee Self Service
+
+Change:
+
+Temporary authentication bridge
+added because M02 authentication
+is incomplete.
+
+Current temporary flow:
+
+getCurrentUser()
+
+↓
+
+If session unavailable
+
+↓
+
+Fallback email
+
+↓
+
+Employee lookup
+
+
+Future production flow:
+
+Supabase Session
+
+↓
+
+auth_user_id
+
+↓
+
+Employee lookup
+
+
+Purpose:
+
+Allow M06 development before
+M02 authentication completion.
+
+Benefits:
+
+✓ Dashboard continues development
+
+✓ Does not block M06 progress
+
+Risk:
+
+Medium
+
+Rollback:
+
+Remove temporary fallback logic
+after M02 completion
+==================================================

@@ -54,20 +54,16 @@ Use auth_user_id relation
 instead of email matching
 for stronger identity mapping.
 
+
 TD-M06-006
 
-Temporary fallback email used in
-Employee Self Service because M02
-authentication/session is incomplete.
-
-Current:
+Temporary fallback employee lookup:
 
 auth.email || "rajeeb@example.com"
 
-Replace later:
+Production replacement:
 
 auth.user.id
-
 ↓
 
-employee.auth_user_id
+employees.auth_user_id
