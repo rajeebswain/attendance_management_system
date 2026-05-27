@@ -26,3 +26,18 @@ TD-M06-003
 Temporary employee dashboard data
 hardcoded until authentication and
 employee profile service are connected.
+
+TD-M06-004
+
+Employee dashboard currently uses
+temporary hardcoded values.
+
+Replace with:
+
+getCurrentUser()
+↓
+
+Employee lookup service
+↓
+
+Real employee data

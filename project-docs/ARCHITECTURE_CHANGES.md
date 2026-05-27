@@ -237,3 +237,103 @@ Rollback:
 Return Employee pages to DashboardLayout
 ==================================================
 
+==================================================
+ARCH-M06-012
+Date: 2026-05-26
+
+Module:
+M06 Employee Self Service
+
+Change:
+
+Added current authenticated user
+retrieval flow.
+
+Previous:
+
+Employee dashboard
+
+↓
+
+Hardcoded employee information
+
+
+New:
+
+Supabase Auth User
+
+↓
+
+getCurrentUser()
+
+↓
+
+Employee lookup service
+
+↓
+
+Employee dashboard
+
+
+Purpose:
+
+Allow employee dashboard data
+to be loaded based on the currently
+logged-in employee.
+
+Benefits:
+
+✓ Removes hardcoded employee data
+
+✓ Supports employee-specific access
+
+✓ Supports SaaS / multi-company structure
+
+✓ Prevents exposing all employee records
+
+Risk:
+
+Low
+
+Rollback:
+
+Restore hardcoded employee values
+==================================================
+
+
+==================================================
+ARCH-M06-013
+Date: 2026-05-26
+
+Change:
+
+Added employee-specific service layer.
+
+Flow:
+
+Auth User
+↓
+
+EmployeeSelfService
+
+↓
+
+Employee Table
+
+Purpose:
+
+Prevent dashboard from loading
+all employee records.
+
+Benefits:
+
+✓ Employee isolation
+
+✓ SaaS scalability
+
+✓ Reduced data exposure
+
+Risk:
+
+Low
+==================================================
