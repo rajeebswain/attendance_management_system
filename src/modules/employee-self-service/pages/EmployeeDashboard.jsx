@@ -1,130 +1,101 @@
-// /*
-// ==================================================
-// Change ID: M06-006
-// Date: 2026-05-26
-// Status: Fix
-// Purpose: Employee dashboard shell
-// Risk: Low
-// Rollback: Restore component
-// ==================================================
-// */
-
-
-// import EmployeeLayout
-//     from "../layout/EmployeeLayout";
-
-// function EmployeeDashboard() {
-
-//     return (
-
-//         // <DashboardLayout>
-//         <EmployeeLayout>
-
-//             {/* <div>
-
-//                 <h1 className="text-3xl font-bold mb-4">
-
-//                     Employee Dashboard
-
-//                 </h1>
-
-//                 <p className="text-gray-600">
-
-//                     M06 Employee Self Service Module
-
-//                 </p>
-
-//             </div> */}
-
-//             import WelcomeSection
-//             from "../components/WelcomeSection";
-
-//             import EmployeeInfoCard
-//             from "../components/EmployeeInfoCard";
-
-//             import AttendanceStatusCard
-//             from "../components/AttendanceStatusCard";
-
-//             import QuickActions
-//             from "../components/QuickActions";
-
-
-//             <div className="space-y-6">
-
-//                 <WelcomeSection />
-
-//                 <div className="grid grid-cols-2 gap-6">
-
-//                     <EmployeeInfoCard />
-
-//                     <AttendanceStatusCard />
-
-//                 </div>
-
-//                 <QuickActions />
-
-//             </div>
-//         </EmployeeLayout>
-//         // </DashboardLayout>
-
-//     );
-
-// }
-
-// export default EmployeeDashboard;
-
-
 /*
 ==================================================
-Change ID: M06-011
+Change ID: M06-014
 Date: 2026-05-26
 Status: Updated
-Purpose: Employee dashboard UI foundation
-Risk: Low
+Purpose: Connect employee profile
+Risk: Medium
 Rollback: Restore previous component
 ==================================================
 */
 
+import {
+    useEffect,
+    useState
+} from "react";
+
+import {
+    getCurrentEmployee
+} from "../services/employeeSelfService";
+
 import EmployeeLayout
-from "../layout/EmployeeLayout";
+    from "../layout/EmployeeLayout";
 
 import WelcomeSection
-from "../components/WelcomeSection";
+    from "../components/WelcomeSection";
 
 import EmployeeInfoCard
-from "../components/EmployeeInfoCard";
+    from "../components/EmployeeInfoCard";
 
 import AttendanceStatusCard
-from "../components/AttendanceStatusCard";
+    from "../components/AttendanceStatusCard";
 
 import QuickActions
-from "../components/QuickActions";
+    from "../components/QuickActions";
 
 function EmployeeDashboard() {
 
-return (
+    const [
 
-<EmployeeLayout>
+        employee,
 
-<div className="space-y-6">
+        setEmployee
 
-<WelcomeSection />
+    ] = useState(null);
 
-<div className="grid grid-cols-2 gap-6">
 
-<EmployeeInfoCard />
+    useEffect(() => {
 
-<AttendanceStatusCard />
+        loadEmployee();
 
-</div>
+    }, []);
 
-<QuickActions />
 
-</div>
+    async function loadEmployee() {
 
-</EmployeeLayout>
+        try {
 
-);
+            const data =
+
+                await getCurrentEmployee();
+
+            setEmployee(data);
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+        }
+
+    }
+
+    return (
+
+        <EmployeeLayout>
+
+            <div className="space-y-6">
+
+                <WelcomeSection />
+
+                <div className="grid grid-cols-2 gap-6">
+
+                    <EmployeeInfoCard
+                        employee={employee}
+                    />
+
+                    <AttendanceStatusCard />
+
+                </div>
+
+                <QuickActions />
+
+            </div>
+
+        </EmployeeLayout>
+
+    );
 
 }
 

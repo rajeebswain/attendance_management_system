@@ -41,3 +41,15 @@ Employee lookup service
 ↓
 
 Real employee data
+
+TD-M06-005
+
+Employee lookup currently uses:
+
+employee.email = auth.email
+
+Production review:
+
+Use auth_user_id relation
+instead of email matching
+for stronger identity mapping.
