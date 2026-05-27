@@ -27,50 +27,16 @@ Load current employee profile
 
 export async function getCurrentEmployee() {
 
-    // const user = await getCurrentUser();
-
-    // if (!user) {
-
-    //     return null;
-
-    // }
     /*
-==================================================
-Change ID: M06-015
-Date: 2026-05-26
-Status: Temporary
-Purpose: Allow dashboard while auth
-is incomplete
-Risk: Medium
-Rollback: Restore getCurrentUser()
-==================================================
-*/
-
-    // const user = await getCurrentUser();
-
-    // /*
-    // Temporary bridge until M02 auth
-    // is completed
-    // */
-
-    // const email =
-
-    //     user?.email
-
-    //     ||
-
-    //     "rajeeb@example.com";
-
-    /*
-==================================================
-Change ID: M06-015
-Date: 2026-05-26
-Status: Temporary Fix
-Purpose: Handle missing auth session
-Risk: Medium
-Rollback: Remove after M02 auth
-==================================================
-*/
+    ==================================================
+    Change ID: M06-015
+    Date: 2026-05-26
+    Status: Temporary Fix
+    Purpose: Handle missing auth session
+    Risk: Medium
+    Rollback: Remove after M02 auth
+    ==================================================
+    */
 
     let email = "rajeeb@example.com";
 
@@ -120,19 +86,47 @@ shift_name
 )
 `)
 
-            // .eq(
 
-            //     "email",
-
-            //     user.email
-
-            // )
             .eq(
                 "email",
                 email
             )
 
             .single();
+
+    if (error) {
+
+        throw error;
+
+    }
+
+    return data;
+
+}
+
+export async function getEmployeeAttendanceHistory(
+    employeeId
+) {
+
+    const { data, error } =
+
+        await supabase
+
+            .from("attendance")
+
+            .select("*")
+
+            .eq(
+                "employee_id",
+                employeeId
+            )
+
+            .order(
+                "attendance_date",
+                {
+                    ascending: false
+                }
+            );
 
     if (error) {
 

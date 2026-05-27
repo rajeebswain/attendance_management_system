@@ -693,21 +693,27 @@ ARCH-M06-021
 
 Change:
 
-Employee attendance route moved
-under Employee Self Service module.
+Normalized employee routes under
+Employee Self Service module.
 
-Previous:
+Changes:
 
 /self-attendance
+→ /employee/self-attendance
 
-New:
+/leave
+→ /employee/leave
 
-/employee/self-attendance
+Updated:
+
+- EmployeeSidebar
+- QuickActions
+- M06 route registry
 
 Purpose:
 
-Keep employee routes isolated
-inside plugin boundaries.
+Keep employee functionality fully
+isolated inside plugin boundaries.
 
 Risk:
 

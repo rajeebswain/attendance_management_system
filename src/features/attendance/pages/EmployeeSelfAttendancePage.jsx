@@ -12,7 +12,7 @@ import {
 //   from "../../../components/layout/DashboardLayout";
 
 import EmployeeLayout
-from "../../../modules/employee-self-service/layout/EmployeeLayout";
+  from "../../../modules/employee-self-service/layout/EmployeeLayout";
 
 
 import {
@@ -34,6 +34,8 @@ import {
   getAttendanceHistory,
 
 } from "../services/selfAttendanceService";
+
+
 
 function EmployeeSelfAttendancePage() {
 
@@ -552,7 +554,7 @@ function EmployeeSelfAttendancePage() {
 
       </div>
 
-    {/* </DashboardLayout> */}
+      {/* </DashboardLayout> */}
     </EmployeeLayout>
   );
 }
