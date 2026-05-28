@@ -112,3 +112,13 @@ Production replacement:
 - predefined reasons
 - textarea support
 - audit logging
+
+TD-M06-011
+
+Late duration calculation currently
+inside EmployeeSelfAttendancePage.
+
+Production:
+Move attendance calculations to
+shared attendance utility service.
+==================================================

@@ -884,3 +884,45 @@ Notes:
 Uses temporary hardcoded
 shift end time.
 ==================================================
+
+/*
+==================================================
+Change ID: M06-029
+Date: 2026-05-28
+Status: Completed
+Module: Employee Self Service
+Feature: Employee Late Duration Visibility
+==================================================
+
+Purpose:
+Show employee late duration based on
+assigned shift start time and grace period.
+
+Features Added:
+- Dynamic late duration calculation
+- Shift-based attendance comparison
+- Grace-minute support
+- Employee-side late visibility
+- Auto recalculation after refresh
+- Attendance status integration
+
+Technical Notes:
+- Removed derived lateDuration state
+- Switched to computed render value
+- Fixed stale React state issue
+- Fixed refresh persistence issue
+
+Production Improvements Later:
+- Shared attendance utility
+- Status badges/colors
+- Better time formatting utility
+- Localization support
+
+Risk:
+Low
+
+Rollback:
+Restore previous attendance status UI
+without late duration rendering.
+==================================================
+*/
