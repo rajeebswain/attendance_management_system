@@ -1055,3 +1055,35 @@ Remove:
 - attendance history metrics columns
 
 ==================================================
+
+M06-027
+Attendance Correction Request
+
+- Added plugin-based correction request module
+- Added ESS sidebar integration
+- Added correction request route
+- Added attendance correction form
+- Added Supabase correction service
+- Added attendance_corrections table
+- Added temporary RLS policies
+- Added correction request insert workflow
+
+Temporary Shortcuts:
+- Hardcoded employee UUID
+- Open insert/select policy
+- No auth-session employee mapping
+==================================================
+
+M06-027 Step 2
+Attendance Correction History
+
+- Added correction request history table
+- Added request status tracking
+- Added admin remark column
+- Added request history loading service
+- Connected ESS correction workflow
+
+Temporary Shortcuts:
+- Hardcoded employee UUID
+- Open RLS policy
+- No auth-session mapping

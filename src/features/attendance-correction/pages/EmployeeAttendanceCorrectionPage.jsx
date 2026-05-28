@@ -8,33 +8,44 @@ Rollback: Remove page
 ==================================================
 */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import EmployeeLayout
 
-from "../../../modules/employee-self-service/layout/EmployeeLayout";
+    from "../../../modules/employee-self-service/layout/EmployeeLayout";
 
 import {
 
-    createCorrectionRequest
+    createCorrectionRequest,
+    getCorrectionRequests
 
 }
 
-from "../services/attendanceCorrectionService";
+    from "../services/attendanceCorrectionService";
 
-function EmployeeAttendanceCorrectionPage(){
+function EmployeeAttendanceCorrectionPage() {
 
     const [correctionDate, setCorrectionDate]
 
-    = useState("");
+        = useState("");
 
     const [reason, setReason]
 
-    = useState("");
+        = useState("");
 
-    async function handleSubmit(){
+    const [requests, setRequests]
 
-        try{
+        = useState([]);
+
+    useEffect(() => {
+
+        loadRequests();
+
+    }, []);
+
+    async function handleSubmit() {
+
+        try {
 
             /*
             Temporary employee ID
@@ -45,7 +56,7 @@ function EmployeeAttendanceCorrectionPage(){
 
             const employeeId =
 
-            "90b6e971-264f-477e-8c40-68cf0567fadc";
+                "90b6e971-264f-477e-8c40-68cf0567fadc";
 
             await createCorrectionRequest({
 
@@ -55,6 +66,7 @@ function EmployeeAttendanceCorrectionPage(){
 
                 reason
             });
+            loadRequests();
 
             alert(
 
@@ -65,7 +77,7 @@ function EmployeeAttendanceCorrectionPage(){
 
             setReason("");
 
-        }catch(error){
+        } catch (error) {
 
             console.error(error);
 
@@ -73,7 +85,30 @@ function EmployeeAttendanceCorrectionPage(){
         }
     }
 
-    return(
+    async function loadRequests() {
+
+        try {
+
+            const employeeId =
+
+                "90b6e971-264f-477e-8c40-68cf0567fadc";
+
+            const data =
+
+                await getCorrectionRequests(
+
+                    employeeId
+                );
+
+            setRequests(data);
+
+        } catch (error) {
+
+            console.error(error);
+        }
+    }
+
+    return (
 
         <EmployeeLayout>
 
@@ -108,7 +143,7 @@ space-y-4
 
                             value={correctionDate}
 
-                            onChange={(e)=>
+                            onChange={(e) =>
 
                                 setCorrectionDate(
                                     e.target.value
@@ -138,7 +173,7 @@ rounded
 
                             value={reason}
 
-                            onChange={(e)=>
+                            onChange={(e) =>
 
                                 setReason(
                                     e.target.value
@@ -177,6 +212,132 @@ rounded
                     </button>
 
                 </div>
+                
+
+                <div
+    className="
+bg-white
+p-6
+rounded
+shadow
+"
+>
+
+    <h2
+        className="
+text-xl
+font-semibold
+mb-4
+"
+    >
+
+        Correction Request History
+
+    </h2>
+
+    <table className="w-full">
+
+        <thead>
+
+            <tr
+                className="
+border-b
+text-left
+"
+            >
+
+                <th className="p-2">
+
+                    Date
+
+                </th>
+
+                <th className="p-2">
+
+                    Reason
+
+                </th>
+
+                <th className="p-2">
+
+                    Status
+
+                </th>
+
+                <th className="p-2">
+
+                    Admin Remark
+
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {
+
+                requests.map((item)=>(
+
+                    <tr
+                        // key={item.id}
+
+                        key={`${item.id}-${item.created_at}`}
+                        className="border-b"
+                    >
+
+                        <td className="p-2">
+
+                            {
+                                item.correction_date
+                            }
+
+                        </td>
+
+                        <td className="p-2">
+
+                            {
+                                item.reason
+                            }
+
+                        </td>
+
+                        <td className="p-2">
+
+                            {
+                                item.status
+                            }
+
+                        </td>
+
+                        <td className="p-2">
+
+                            {
+
+                                item.admin_remark
+
+                                ||
+
+                                "-"
+
+                            }
+
+                        </td>
+
+                    </tr>
+
+                ))
+
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
 
             </div>
 

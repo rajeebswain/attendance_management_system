@@ -54,3 +54,53 @@ export async function createCorrectionRequest({
 
     return data;
 }
+
+/*
+==================================================
+Module: M06-027
+Feature: Fetch Correction Requests
+Purpose: Employee request history
+Risk: Low
+Rollback: Remove function
+==================================================
+*/
+
+export async function getCorrectionRequests(
+
+    employeeId
+
+){
+
+    const { data, error }
+
+    = await supabase
+
+        .from("attendance_corrections")
+
+        .select("*")
+
+        .eq(
+
+            "employee_id",
+
+            employeeId
+        )
+
+        .order(
+
+            "created_at",
+
+            {
+
+                ascending: false
+            }
+
+        );
+
+    if(error){
+
+        throw error;
+    }
+
+    return data;
+}
