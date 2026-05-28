@@ -32,6 +32,7 @@ import {
   checkOutEmployee,
 
   getAttendanceHistory,
+  getAttendanceStats,
 
 } from "../services/selfAttendanceService";
 
@@ -58,6 +59,35 @@ function EmployeeSelfAttendancePage() {
 
 
   /*
+  ==================================================
+  Change ID: M06-030
+  Date: 2026-05-28
+  Status: Added
+  Purpose: Store employee attendance statistics
+  Risk: Low
+  Rollback: Remove statistics state
+  ==================================================
+  */
+
+  const [
+
+    stats,
+    setStats
+
+  ]
+
+    =
+
+    useState({
+
+      presentDays: 0,
+      lateDays: 0,
+      totalAttendance: 0,
+      overtimeHours: 0,
+
+    });
+
+  /*
 ==================================================
 Change ID: M06-029
 Date: 2026-05-28
@@ -68,24 +98,24 @@ Rollback: Restore lateDuration state
 ==================================================
 */
 
-const lateDuration =
+  const lateDuration =
 
-todayAttendance?.status === "late"
+    todayAttendance?.status === "late"
 
-  ?
+      ?
 
-  calculateLateDuration(
+      calculateLateDuration(
 
-    employee,
-    todayAttendance
+        employee,
+        todayAttendance
 
-  )
+      )
 
-  :
+      :
 
-  "";
+      "";
 
-  
+
 
   // Check-in loading
   const [checkingIn, setCheckingIn] = useState(false);
@@ -185,11 +215,11 @@ Rollback: Remove late state
 
   //     checkInHour,
   //     checkInMinute
-      
+
   //     ] =
-      
+
   //     attendance.check_in
-      
+
   //     .split(":");
 
   //   const checkInTime = new Date();
@@ -199,7 +229,7 @@ Rollback: Remove late state
   //     Number(checkInHour),
   //     Number(checkInMinute),
   //     0
-      
+
   //     );
 
   //   const diffMs =
@@ -243,35 +273,35 @@ Rollback: Remove late state
 
   //     "SHIFT:",
   //     shift
-      
+
   //     );
-      
+
   //     console.log(
-      
+
   //     "CHECK IN:",
   //     attendance.check_in
-      
+
   //     );
-      
+
   //     console.log(
-      
+
   //     "DIFF MINUTES:",
   //     diffMinutes
-      
+
   //     );
-      
+
   //     console.log(
-      
+
   //     "HOURS:",
   //     hours
-      
+
   //     );
-      
+
   //     console.log(
-      
+
   //     "MINUTES:",
   //     minutes
-      
+
   //     );
 
 
@@ -281,198 +311,198 @@ Rollback: Remove late state
 
   // }
 
-/*
-==================================================
-Change ID: M06-029
-Date: 2026-05-28
-Status: Updated
-Purpose: Calculate employee late duration
-Risk: Low
-Rollback: Restore previous duration logic
-==================================================
-*/
+  /*
+  ==================================================
+  Change ID: M06-029
+  Date: 2026-05-28
+  Status: Updated
+  Purpose: Calculate employee late duration
+  Risk: Low
+  Rollback: Restore previous duration logic
+  ==================================================
+  */
 
-function calculateLateDuration(
+  function calculateLateDuration(
 
-  employee,
-  attendance
+    employee,
+    attendance
 
-){
+  ) {
 
-  // Not late
-  // if(
+    // Not late
+    // if(
 
-  //   attendance?.status !== "late"
+    //   attendance?.status !== "late"
 
-  // ){
+    // ){
 
-  //   return "";
+    //   return "";
 
-  // }
+    // }
 
-  const status =
+    const status =
 
-attendance?.status
+      attendance?.status
 
-?.trim()
+        ?.trim()
 
-?.toLowerCase();
+        ?.toLowerCase();
 
-if(status !== "late"){
+    if (status !== "late") {
 
-  return "";
+      return "";
 
-}
+    }
 
-  // Employee shift
-  const shift = employee?.shifts;
+    // Employee shift
+    const shift = employee?.shifts;
 
-  // No shift
-  if(!shift){
+    // No shift
+    if (!shift) {
 
-    return "";
+      return "";
 
-  }
+    }
 
-  // Shift start
-  // const [
+    // Shift start
+    // const [
 
-  //   shiftHour,
-  //   shiftMinute
+    //   shiftHour,
+    //   shiftMinute
 
-  // ] =
+    // ] =
 
-  //   shift.start_time
+    //   shift.start_time
 
-  //   .split(":")
+    //   .split(":")
 
-  //   .map(Number);
+    //   .map(Number);
 
-  const shiftParts =
+    const shiftParts =
 
-shift.start_time
+      shift.start_time
 
-.split(":");
+        .split(":");
 
-const shiftHour =
+    const shiftHour =
 
-Number(shiftParts[0]);
+      Number(shiftParts[0]);
 
-const shiftMinute =
+    const shiftMinute =
 
-Number(shiftParts[1]);
+      Number(shiftParts[1]);
 
-  // Shift start object
-  const shiftStart = new Date();
+    // Shift start object
+    const shiftStart = new Date();
 
-  shiftStart.setHours(
+    shiftStart.setHours(
 
-    shiftHour,
-    shiftMinute,
-    0
+      shiftHour,
+      shiftMinute,
+      0
 
-  );
+    );
 
-  // Add grace period
-  shiftStart.setMinutes(
+    // Add grace period
+    shiftStart.setMinutes(
 
-    shiftStart.getMinutes()
+      shiftStart.getMinutes()
 
-    +
+      +
 
-    shift.grace_minutes
+      shift.grace_minutes
 
-  );
+    );
 
-  // Check-in time
-  // const [
+    // Check-in time
+    // const [
 
-  //   checkInHour,
-  //   checkInMinute
+    //   checkInHour,
+    //   checkInMinute
 
-  // ] =
+    // ] =
 
-  //   attendance.check_in
+    //   attendance.check_in
 
-  //   .split(":")
-  //   .map(Number);
+    //   .split(":")
+    //   .map(Number);
 
-  const checkInParts =
+    const checkInParts =
 
-attendance.check_in
+      attendance.check_in
 
-.split(":");
+        .split(":");
 
-const checkInHour =
+    const checkInHour =
 
-Number(checkInParts[0]);
+      Number(checkInParts[0]);
 
-const checkInMinute =
+    const checkInMinute =
 
-Number(checkInParts[1]);
+      Number(checkInParts[1]);
 
-  const checkInTime = new Date();
+    const checkInTime = new Date();
 
-  checkInTime.setHours(
+    checkInTime.setHours(
 
-    checkInHour,
-    checkInMinute,
-    0
+      checkInHour,
+      checkInMinute,
+      0
 
-  );
+    );
 
-  // Difference
-  const diffMs =
+    // Difference
+    const diffMs =
 
-    checkInTime - shiftStart;
+      checkInTime - shiftStart;
 
-  // Minutes
-  const diffMinutes =
+    // Minutes
+    const diffMinutes =
 
-    Math.max(
+      Math.max(
 
-      0,
+        0,
+
+        Math.floor(
+
+          diffMs / 60000
+
+        )
+
+      );
+
+    // Hours/minutes
+    const hours =
 
       Math.floor(
 
-        diffMs / 60000
+        diffMinutes / 60
 
-      )
+      );
+
+    const minutes =
+
+      diffMinutes % 60;
+
+    // Only minutes
+    if (hours <= 0) {
+
+      return `${minutes}m`;
+
+    }
+
+    console.log(
+
+      "FINAL LATE STRING:",
+
+      `${hours}h ${minutes}m`
 
     );
 
-  // Hours/minutes
-  const hours =
-
-    Math.floor(
-
-      diffMinutes / 60
-
-    );
-
-  const minutes =
-
-    diffMinutes % 60;
-
-  // Only minutes
-  if(hours <= 0){
-
-    return `${minutes}m`;
+    // Hours + minutes
+    return `${hours}h ${minutes}m`;
 
   }
-
-  console.log(
-
-    "FINAL LATE STRING:",
-    
-    `${hours}h ${minutes}m`
-    
-    );
-
-  // Hours + minutes
-  return `${hours}h ${minutes}m`;
-
-}
 
 
 
@@ -522,34 +552,34 @@ Number(checkInParts[1]);
           attendanceData
         );
 
-// Restore late duration after refresh
-if(
+        // Restore late duration after refresh
+        if (
 
-  attendanceData?.status === "late"
+          attendanceData?.status === "late"
 
-){
+        ) {
 
-   
-  const duration =
 
-  calculateLateDuration(
+          const duration =
 
-    result[0],
-    attendanceData
+            calculateLateDuration(
 
-  );
+              result[0],
+              attendanceData
 
-  console.log(
+            );
 
-    "RESTORED LATE:",
+          console.log(
 
-    duration
+            "RESTORED LATE:",
 
-  );
+            duration
 
-  // setLateDuration(duration);
+          );
 
-}
+          // setLateDuration(duration);
+
+        }
 
 
 
@@ -588,6 +618,36 @@ if(
         );
 
         setHistory(historyData);
+
+        /*
+==================================================
+Change ID: M06-030
+Date: 2026-05-28
+Status: Added
+Purpose: Load employee attendance statistics
+Risk: Low
+Rollback: Remove stats loading
+==================================================
+*/
+
+        // Attendance stats
+        const statsData =
+
+          await getAttendanceStats(
+
+            result[0].id
+
+          );
+
+        console.log(
+
+          "STATS:",
+
+          statsData
+
+        );
+
+        setStats(statsData);
 
       } catch (error) {
 
@@ -1154,6 +1214,121 @@ Rollback: Restore previous checkout flow
 
       </div >
 
+      {/*
+==================================================
+Change ID: M06-030
+Date: 2026-05-28
+Status: Added
+Purpose: Display employee attendance statistics
+Risk: Low
+Rollback: Remove statistics widget
+==================================================
+*/}
+
+      <div
+        className="
+mt-8
+grid
+grid-cols-1
+md:grid-cols-4
+gap-4
+"
+      >
+
+        <div
+          className="
+bg-white
+p-4
+rounded-lg
+shadow
+"
+        >
+
+          <p className="text-gray-500">
+
+            Present Days
+
+          </p>
+
+          <h2 className="text-2xl font-bold">
+
+            {stats.presentDays}
+
+          </h2>
+
+        </div>
+
+        <div
+          className="
+bg-white
+p-4
+rounded-lg
+shadow
+"
+        >
+
+          <p className="text-gray-500">
+
+            Late Count
+
+          </p>
+
+          <h2 className="text-2xl font-bold">
+
+            {stats.lateDays}
+
+          </h2>
+
+        </div>
+
+        <div
+          className="
+bg-white
+p-4
+rounded-lg
+shadow
+"
+        >
+
+          <p className="text-gray-500">
+
+            Total Attendance
+
+          </p>
+
+          <h2 className="text-2xl font-bold">
+
+            {stats.totalAttendance}
+
+          </h2>
+
+        </div>
+
+        <div
+          className="
+bg-white
+p-4
+rounded-lg
+shadow
+"
+        >
+
+          <p className="text-gray-500">
+
+            OT Hours
+
+          </p>
+
+          <h2 className="text-2xl font-bold">
+
+            {stats.overtimeHours}
+
+          </h2>
+
+        </div>
+
+      </div>
+
       <div
         className="
     mt-8
@@ -1162,6 +1337,8 @@ Rollback: Restore previous checkout flow
     rounded-lg
   "
       >
+
+
 
         <h2
           className="
@@ -1215,6 +1392,18 @@ Rollback: Restore previous checkout flow
 
                 <th className="p-2">
 
+                  Worked Hours
+
+                </th>
+
+                <th className="p-2">
+
+                  OverTime
+
+                </th>
+
+                <th className="p-2">
+
                   Reason
 
                 </th>
@@ -1261,6 +1450,42 @@ Rollback: Restore previous checkout flow
                     }
 
                   </td>
+
+                  {/*
+==================================================
+Change ID: M06-030
+Date: 2026-05-28
+Status: Updated
+Purpose: Display worked hours and overtime
+Risk: Low
+Rollback: Remove attendance metric cells
+==================================================
+*/}
+
+                  <td className="p-2">
+
+                    {
+
+                      item.worked_hours
+
+                      || "00:00:00"
+
+                    }
+
+                  </td>
+
+                  <td className="p-2">
+
+                    {
+
+                      item.overtime
+
+                      || "00:00:00"
+
+                    }
+
+                  </td>
+                  
                   <td>
 
                     {

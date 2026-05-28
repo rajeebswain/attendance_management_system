@@ -233,7 +233,7 @@ export async function checkInEmployee(
 
     .insert([{
 
-      employee_id: employee.Id,
+      employee_id: employee.id,
 
       attendance_date: today,
 
@@ -358,4 +358,84 @@ export async function getAttendanceHistory(
   }
 
   return data;
+}
+
+
+/*
+==================================================
+Change ID: M06-030
+Date: 2026-05-28
+Status: Added
+Purpose: Generate employee attendance statistics
+Risk: Low
+Rollback: Remove attendance statistics service
+==================================================
+*/
+
+// EMPLOYEE ATTENDANCE STATS
+export async function getAttendanceStats(
+
+  employeeId
+
+){
+
+  const { data, error } = await supabase
+
+    .from("attendance")
+
+    .select("*")
+
+    .eq("employee_id", employeeId);
+
+  if(error){
+
+    throw error;
+
+  }
+
+  // Present count
+  const presentDays =
+
+    data.filter(
+
+      item =>
+
+        item.status === "present"
+
+    ).length;
+
+  // Late count
+  const lateDays =
+
+    data.filter(
+
+      item =>
+
+        item.status === "late"
+
+    ).length;
+
+  // Total attendance
+  const totalAttendance =
+
+    data.length;
+
+  /*
+  Temporary OT logic.
+
+  Production:
+  Calculate from worked_hours.
+  */
+
+  const overtimeHours = 0;
+
+  return {
+
+    presentDays,
+    lateDays,
+    totalAttendance,
+    overtimeHours,
+
+  };
+
 }

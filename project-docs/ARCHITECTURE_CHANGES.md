@@ -926,3 +926,65 @@ Restore previous attendance status UI
 without late duration rendering.
 ==================================================
 */
+
+/*
+==================================================
+Change ID: M06-030
+Date: 2026-05-28
+Status: Completed
+Module: Employee Self Service
+Feature: Employee Attendance Statistics
+==================================================
+
+Purpose:
+Add attendance analytics and metrics
+for employee self attendance dashboard.
+
+Features Added:
+- Present days statistics
+- Late count statistics
+- Total attendance count
+- OT hours placeholder
+- Worked hours column
+- Overtime column
+- Attendance metric cards
+- Attendance analytics UI
+
+Technical Improvements:
+- Added attendance statistics service
+- Added statistics state management
+- Added dynamic attendance analytics
+- Added attendance metric rendering
+- Extended employee attendance table
+
+UI Improvements:
+- Dashboard-style statistics cards
+- Cleaner attendance visualization
+- Better attendance monitoring
+- Employee-side analytics visibility
+
+Architecture Notes:
+- Employee attendance now supports:
+  worked hours,
+  overtime,
+  late tracking,
+  attendance analytics.
+
+Production Improvements Later:
+- Shared attendance calculation engine
+- Real overtime calculation integration
+- Attendance graphs/charts
+- Monthly analytics filtering
+- Shared analytics utilities
+
+Technical Debt Added:
+TD-M06-012
+
+Risk:
+Low
+
+Rollback:
+Remove attendance statistics cards
+and analytics service integration.
+==================================================
+*/

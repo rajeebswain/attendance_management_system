@@ -122,3 +122,20 @@ Production:
 Move attendance calculations to
 shared attendance utility service.
 ==================================================
+
+TD-M06-012
+
+Overtime hours currently hardcoded.
+
+Production:
+Calculate from worked_hours logic.
+==================================================
+TD-M06-012
+
+Employee attendance statistics currently
+calculate directly from attendance rows.
+
+Production:
+Move analytics calculations into
+shared attendance analytics service.
+==================================================
