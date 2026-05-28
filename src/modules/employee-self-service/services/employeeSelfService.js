@@ -253,3 +253,56 @@ export async function updateEmployeeProfile(
     return data;
 
 }
+
+export async function uploadEmployeeImage(file){
+
+    try{
+    
+    const fileName =
+    
+    `${Date.now()}-${file.name}`;
+    
+    const {
+    
+    error
+    
+    }
+    
+    =
+    
+    await supabase.storage
+    
+    .from("employee-profiles")
+    
+    .upload(fileName,file);
+    
+    if(error){
+    
+    throw error;
+    
+    }
+    
+    const {
+    
+    data
+    
+    }
+    
+    =
+    
+    supabase.storage
+    
+    .from("employee-profiles")
+    
+    .getPublicUrl(fileName);
+    
+    return data.publicUrl;
+    
+    }
+    catch(error){
+    
+    throw error;
+    
+    }
+    
+    }

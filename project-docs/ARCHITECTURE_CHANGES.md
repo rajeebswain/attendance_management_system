@@ -814,3 +814,30 @@ Risk:
 
 Low
 ==================================================
+
+ARCH-M06-026
+
+Change:
+Added employee profile image upload
+
+Added:
+- Profile image upload
+- Supabase storage integration
+- Profile image preview
+- Persistent image rendering
+- Employee self-service image management
+
+Purpose:
+Allow employees to manage
+their own profile photo.
+
+Risk:
+Medium
+
+Notes:
+Temporary public storage
+policy enabled for development.
+Must move to authenticated
+storage policy before production.
+
+==================================================
