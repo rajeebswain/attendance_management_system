@@ -100,7 +100,22 @@ function EmployeeAttendanceCorrectionPage() {
                     employeeId
                 );
 
-            setRequests(data);
+            // setRequests(data);
+            setRequests(
+
+                [...new Map(
+
+                    data.map(item => [
+
+                        item.id,
+
+                        item
+
+                    ])
+
+                ).values()]
+
+            );
 
         } catch (error) {
 
@@ -212,130 +227,131 @@ rounded
                     </button>
 
                 </div>
-                
+
 
                 <div
-    className="
+                    className="
 bg-white
 p-6
 rounded
 shadow
 "
->
+                >
 
-    <h2
-        className="
+                    <h2
+                        className="
 text-xl
 font-semibold
 mb-4
 "
-    >
+                    >
 
-        Correction Request History
+                        Correction Request History
 
-    </h2>
+                    </h2>
 
-    <table className="w-full">
+                    <table className="w-full">
 
-        <thead>
+                        <thead>
 
-            <tr
-                className="
+                            <tr
+                                className="
 border-b
 text-left
 "
-            >
+                            >
 
-                <th className="p-2">
+                                <th className="p-2">
 
-                    Date
+                                    Date
 
-                </th>
+                                </th>
 
-                <th className="p-2">
+                                <th className="p-2">
 
-                    Reason
+                                    Reason
 
-                </th>
+                                </th>
 
-                <th className="p-2">
+                                <th className="p-2">
 
-                    Status
+                                    Status
 
-                </th>
+                                </th>
 
-                <th className="p-2">
+                                <th className="p-2">
 
-                    Admin Remark
+                                    Admin Remark
 
-                </th>
+                                </th>
 
-            </tr>
+                            </tr>
 
-        </thead>
+                        </thead>
 
-        <tbody>
-
-            {
-
-                requests.map((item)=>(
-
-                    <tr
-                        // key={item.id}
-
-                        key={`${item.id}-${item.created_at}`}
-                        className="border-b"
-                    >
-
-                        <td className="p-2">
-
-                            {
-                                item.correction_date
-                            }
-
-                        </td>
-
-                        <td className="p-2">
-
-                            {
-                                item.reason
-                            }
-
-                        </td>
-
-                        <td className="p-2">
-
-                            {
-                                item.status
-                            }
-
-                        </td>
-
-                        <td className="p-2">
+                        <tbody>
 
                             {
 
-                                item.admin_remark
 
-                                ||
+                                requests.map((item, index) => (
 
-                                "-"
+
+                                    <tr
+
+                                        key={`${item.id}-${index}`}
+                                        className="border-b"
+                                    >
+
+                                        <td className="p-2">
+
+                                            {
+                                                item.correction_date
+                                            }
+
+                                        </td>
+
+                                        <td className="p-2">
+
+                                            {
+                                                item.reason
+                                            }
+
+                                        </td>
+
+                                        <td className="p-2">
+
+                                            {
+                                                item.status
+                                            }
+
+                                        </td>
+
+                                        <td className="p-2">
+
+                                            {
+
+                                                item.admin_remark
+
+                                                ||
+
+                                                "-"
+
+                                            }
+
+                                        </td>
+
+                                    </tr>
+
+                                ))
 
                             }
 
-                        </td>
+                        </tbody>
 
-                    </tr>
+                    </table>
 
-                ))
-
-            }
-
-        </tbody>
-
-    </table>
-
-</div>
+                </div>
 
 
 
