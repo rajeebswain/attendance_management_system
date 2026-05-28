@@ -99,3 +99,16 @@ Production replacement:
 - Re-authentication
 - OTP/email confirmation
 - Audit logging
+==================================================
+TD-M06-009
+
+Early checkout workflow uses:
+- prompt()
+- hardcoded shift end time
+
+Production replacement:
+- modal popup
+- dynamic shift timing
+- predefined reasons
+- textarea support
+- audit logging

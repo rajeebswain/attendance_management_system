@@ -861,3 +861,26 @@ Risk:
 Medium
 
 ==================================================
+
+ARCH-M06-028
+
+Change:
+Added employee early checkout
+reason workflow.
+
+Added:
+- Early checkout detection
+- Mandatory reason popup
+- Attendance reason persistence
+
+Purpose:
+Improve attendance audit
+compliance for employee checkout.
+
+Risk:
+Medium
+
+Notes:
+Uses temporary hardcoded
+shift end time.
+==================================================

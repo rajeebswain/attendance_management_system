@@ -618,6 +618,12 @@ async function handleCheckOut() {
 
                 </th>
 
+                <th className="p-2">
+
+                Reason
+
+                </th>
+
               </tr>
 
             </thead>
@@ -660,6 +666,19 @@ async function handleCheckOut() {
                     }
 
                   </td>
+                  <td>
+
+{
+
+item.early_checkout_reason
+
+||
+
+"-"
+
+}
+
+</td>
 
                 </tr>
               ))}
