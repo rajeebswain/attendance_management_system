@@ -26,7 +26,7 @@ TD-M06-003
 Temporary employee dashboard data
 hardcoded until authentication and
 employee profile service are connected.
-
+==================================================
 TD-M06-004
 
 Employee dashboard currently uses
@@ -41,7 +41,7 @@ Employee lookup service
 ↓
 
 Real employee data
-
+==================================================
 TD-M06-005
 
 Employee lookup currently uses:
@@ -54,7 +54,7 @@ Use auth_user_id relation
 instead of email matching
 for stronger identity mapping.
 
-
+==================================================
 TD-M06-006
 
 Temporary fallback employee lookup:
@@ -67,3 +67,35 @@ auth.user.id
 ↓
 
 employees.auth_user_id
+==================================================
+TD-M06-007
+
+Temporary public storage policy enabled
+for employee profile uploads.
+
+Current:
+Public bucket access
+for development simplicity.
+
+Production replacement:
+Authenticated storage policy
+using auth.uid() based access control.
+
+Additional production tasks:
+- Restrict uploads by employee ownership
+- Add image compression
+- Add image resizing
+- Add image delete workflow
+==================================================
+
+TD-M06-008
+
+Current password change flow
+uses simplified auth update.
+
+Production replacement:
+- Current password verification
+- Password strength rules
+- Re-authentication
+- OTP/email confirmation
+- Audit logging

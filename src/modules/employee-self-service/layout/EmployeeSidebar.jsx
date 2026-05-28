@@ -36,7 +36,12 @@ const EMPLOYEE_LINKS = [
     {
         label: "My Profile",
         path: "/employee/profile"
-    }
+    },
+
+    {
+        label:"Change Password",
+        path:"/employee/change-password"
+        }
 
 ];
 

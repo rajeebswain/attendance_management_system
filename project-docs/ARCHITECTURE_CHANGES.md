@@ -841,3 +841,23 @@ Must move to authenticated
 storage policy before production.
 
 ==================================================
+
+ARCH-M06-027
+
+Change:
+Added employee password management.
+
+Added:
+- Change password page
+- Password update workflow
+- Sidebar navigation
+- Employee password route
+
+Purpose:
+Allow employees to securely
+change their own account password.
+
+Risk:
+Medium
+
+==================================================

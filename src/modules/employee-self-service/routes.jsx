@@ -24,6 +24,21 @@ import EmployeeLeaveHistoryPage
 import EmployeeProfilePage
     from "./pages/EmployeeProfilePage";
 
+
+/*
+==================================================
+Change ID: M06-027
+Date: 2026-05-27
+Status: Updated
+Purpose: Add employee password route
+Risk: Low
+Rollback: Remove route
+==================================================
+*/
+
+import EmployeeChangePasswordPage
+from "./pages/EmployeeChangePasswordPage";
+
 const employeeSelfServiceRoutes = [
 
     {
@@ -49,7 +64,12 @@ const employeeSelfServiceRoutes = [
     {
         path: "/employee/profile",
         element: <EmployeeProfilePage />
-    }
+    },
+
+    {
+        path:"/employee/change-password",
+        element:<EmployeeChangePasswordPage/>
+        }
 
 ];
 
