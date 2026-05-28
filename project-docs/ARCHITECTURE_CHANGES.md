@@ -988,3 +988,70 @@ Remove attendance statistics cards
 and analytics service integration.
 ==================================================
 */
+
+
+==================================================
+ARCHITECTURE UPDATE
+==================================================
+
+Module:
+M06 - Employee Self Service Attendance
+
+Change ID:
+M06-030
+
+Date:
+2026-05-28
+
+Status:
+Completed
+
+Purpose:
+Enhance employee self attendance dashboard
+with attendance statistics, late duration,
+worked hours, and overtime display.
+
+Implemented Features:
+- Employee attendance statistics cards
+- Dynamic late duration calculation
+- Attendance persistence after refresh
+- HH:MM:SS worked hours formatting
+- Employee-side overtime calculation helper
+- Attendance history enhancements
+- Early checkout reason display
+
+Technical Notes:
+- Worked hours calculated directly from
+  check_in/check_out timestamps
+- Overtime currently uses temporary
+  fixed 8-hour shift baseline
+- Employee attendance metrics isolated
+  from admin attendance engine to avoid
+  schema mismatch and formatting conflicts
+- Refresh persistence handled using
+  getTodayAttendance()
+
+Temporary Shortcuts:
+- Shift duration hardcoded as 8 hours
+- Early checkout shift end hardcoded
+- Overtime logic simplified
+
+Production Improvements Required:
+- Load shift duration dynamically
+- Centralize overtime engine
+- Replace prompt() with modal popup
+- Add timezone-safe datetime handling
+- Add real attendance policy engine
+
+Risk Level:
+Medium
+
+Rollback:
+Remove:
+- calculateWorkedHours()
+- calculateEmployeeOvertime()
+- statistics cards
+- late duration helper
+- attendance history metrics columns
+
+==================================================

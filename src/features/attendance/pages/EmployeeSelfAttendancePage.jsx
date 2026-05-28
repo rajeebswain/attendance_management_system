@@ -34,7 +34,14 @@ import {
   getAttendanceHistory,
   getAttendanceStats,
 
+
 } from "../services/selfAttendanceService";
+
+import {
+
+  calculateOvertime,
+
+} from "../../attendance/services/adminAttendanceService";
 
 
 
@@ -124,203 +131,15 @@ Rollback: Restore lateDuration state
   const [checkingOut, setCheckingOut] = useState(false);
 
   /*
-==================================================
-Change ID: M06-029
-Date: 2026-05-28
-Status: Updated
-Purpose: Add employee late duration state
-Risk: Low
-Rollback: Remove late state
-==================================================
-*/
-
-  // const [
-
-  //   lateDuration,
-  //   setLateDuration
-
-  // ]
-
-  //   =
-
-  //   useState("");
-
-
-
-  /*
-  ==================================================
-  Change ID: M06-029
-  Date: 2026-05-28
-  Status: Updated
-  Purpose: Calculate employee late duration
-  Risk: Low
-  Rollback: Remove duration logic
-  ==================================================
-  */
-
-  // function calculateLateDuration(
-
-  //   employee,
-  //   attendance
-
-  // ) {
-
-  //   if (
-
-  //     attendance?.status !== "late"
-
-  //   ) {
-
-  //     return "TEST";
-
-  //   }
-
-  //   const shift = employee?.shifts;
-
-  //   if (!shift) {
-
-  //     return "";
-
-  //   }
-
-  //   const [hour, minute] =
-
-  //     shift.start_time
-
-  //       .split(":")
-
-  //       .map(Number);
-
-  //   const shiftStart = new Date();
-
-  //   shiftStart.setHours(
-
-  //     hour,
-  //     minute,
-  //     0
-
-  //   );
-
-  //   shiftStart.setMinutes(
-
-  //     shiftStart.getMinutes()
-
-  //     +
-
-  //     shift.grace_minutes
-
-  //   );
-
-  //   const [
-
-  //     checkInHour,
-  //     checkInMinute
-
-  //     ] =
-
-  //     attendance.check_in
-
-  //     .split(":");
-
-  //   const checkInTime = new Date();
-
-  //   checkInTime.setHours(
-
-  //     Number(checkInHour),
-  //     Number(checkInMinute),
-  //     0
-
-  //     );
-
-  //   const diffMs =
-
-  //     checkInTime - shiftStart;
-
-  //   const diffMinutes =
-
-  //     Math.max(
-
-  //       0,
-
-  //       Math.floor(
-
-  //         diffMs / 60000
-
-  //       )
-
-  //     );
-
-  //   const hours =
-
-  //     Math.floor(
-
-  //       diffMinutes / 60
-
-  //     );
-
-  //   const minutes =
-
-  //     diffMinutes % 60;
-
-  //   // Only minutes
-  //   if (hours <= 0) {
-
-  //     return `${minutes}m`;
-
-  //   }
-
-  //   console.log(
-
-  //     "SHIFT:",
-  //     shift
-
-  //     );
-
-  //     console.log(
-
-  //     "CHECK IN:",
-  //     attendance.check_in
-
-  //     );
-
-  //     console.log(
-
-  //     "DIFF MINUTES:",
-  //     diffMinutes
-
-  //     );
-
-  //     console.log(
-
-  //     "HOURS:",
-  //     hours
-
-  //     );
-
-  //     console.log(
-
-  //     "MINUTES:",
-  //     minutes
-
-  //     );
-
-
-
-  //   // Hours + minutes
-  //   return `${hours}h ${minutes}m`;
-
-  // }
-
-  /*
-  ==================================================
-  Change ID: M06-029
-  Date: 2026-05-28
-  Status: Updated
-  Purpose: Calculate employee late duration
-  Risk: Low
-  Rollback: Restore previous duration logic
-  ==================================================
-  */
+ ==================================================
+ Change ID: M06-029
+ Date: 2026-05-28
+ Status: Updated
+ Purpose: Calculate employee late duration
+ Risk: Low
+ Rollback: Restore previous duration logic
+ ==================================================
+ */
 
   function calculateLateDuration(
 
@@ -328,17 +147,6 @@ Rollback: Remove late state
     attendance
 
   ) {
-
-    // Not late
-    // if(
-
-    //   attendance?.status !== "late"
-
-    // ){
-
-    //   return "";
-
-    // }
 
     const status =
 
@@ -363,20 +171,6 @@ Rollback: Remove late state
       return "";
 
     }
-
-    // Shift start
-    // const [
-
-    //   shiftHour,
-    //   shiftMinute
-
-    // ] =
-
-    //   shift.start_time
-
-    //   .split(":")
-
-    //   .map(Number);
 
     const shiftParts =
 
@@ -505,9 +299,189 @@ Rollback: Remove late state
   }
 
 
+  /*
+==================================================
+Change ID: M06-030
+Date: 2026-05-28
+Status: Fixed
+Purpose: Calculate worked hours for employee history
+Risk: Low
+Rollback: Restore previous overtime helper
+==================================================
+*/
+
+  // FORMAT WORKED HOURS
+  function calculateWorkedHours(
+
+    checkIn,
+
+    checkOut
+
+  ) {
+
+    // Missing values
+    if (
+
+      !checkIn
+
+      ||
+
+      !checkOut
+
+    ) {
+
+      return "00:00:00";
+    }
+
+    // Parse dates
+    const start =
+
+      new Date(
+
+        `1970-01-01T${checkIn}`
+      );
+
+    const end =
+
+      new Date(
+
+        `1970-01-01T${checkOut}`
+      );
+
+    // Difference
+    const diffMs = end - start;
+
+    // Total seconds
+    const totalSeconds =
+
+      Math.floor(diffMs / 1000);
+
+    // Hours
+    const hours =
+
+      String(
+
+        Math.floor(totalSeconds / 3600)
+
+      ).padStart(2, "0");
+
+    // Minutes
+    const minutes =
+
+      String(
+
+        Math.floor(
+
+          (totalSeconds % 3600) / 60
+        )
+
+      ).padStart(2, "0");
+
+    // Seconds
+    const seconds =
+
+      String(
+
+        totalSeconds % 60
+
+      ).padStart(2, "0");
+
+    return `${hours}:${minutes}:${seconds}`;
+
+  }
 
 
+  // FORMAT OVERTIME
+  function calculateEmployeeOvertime(
 
+    workedHours
+
+  ) {
+
+    if (!workedHours) {
+
+      return "00:00:00";
+
+    }
+
+    const [
+
+      h,
+      m,
+      s
+
+    ] = workedHours.split(":").map(Number);
+
+    // Total worked seconds
+    const totalWorkedSeconds =
+
+      (h * 3600)
+
+      +
+
+      (m * 60)
+
+      +
+
+      s;
+
+    // 8 hour shift
+    const shiftSeconds =
+
+      8 * 3600;
+
+    // No overtime
+    if (
+
+      totalWorkedSeconds <= shiftSeconds
+
+    ) {
+
+      return "00:00:00";
+
+    }
+
+    // Overtime seconds
+    const overtimeSeconds =
+
+      totalWorkedSeconds
+
+      -
+
+      shiftSeconds;
+
+    const hours =
+
+      String(
+
+        Math.floor(
+
+          overtimeSeconds / 3600
+        )
+
+      ).padStart(2, "0");
+
+    const minutes =
+
+      String(
+
+        Math.floor(
+
+          (overtimeSeconds % 3600) / 60
+        )
+
+      ).padStart(2, "0");
+
+    const seconds =
+
+      String(
+
+        overtimeSeconds % 60
+      ).padStart(2, "0");
+
+    return `${hours}:${minutes}:${seconds}`;
+
+  }
 
   useEffect(() => {
 
@@ -577,30 +551,7 @@ Rollback: Remove late state
 
           );
 
-          // setLateDuration(duration);
-
         }
-
-
-
-        // if (
-
-        //   attendanceData?.status === "late"
-
-        // ) {
-
-        //   setLateDuration(
-
-        //     calculateLateDuration(
-
-        //       result[0],
-        //       attendanceData
-
-        //     )
-
-        //   );
-
-        // }
 
         // Attendance history
         const historyData =
@@ -739,75 +690,6 @@ Rollback: Remove stats loading
       setCheckingIn(false);
     }
   }
-
-  // Handle check-out
-  // async function handleCheckOut() {
-
-  //   try {
-
-  //     // Prevent duplicate checkout
-  //     if (
-
-  //       todayAttendance?.check_out
-
-  //     ) {
-
-  //       alert(
-
-  //         "Already checked out"
-  //       );
-
-  //       return;
-  //     }
-
-
-  //     setCheckingOut(true);
-
-
-  //     const result =
-
-  //       await checkOutEmployee(
-
-  //         todayAttendance.id
-  //       );
-
-
-  //     console.log(result);
-
-  //     setTodayAttendance(result[0]);
-
-  //     setHistory((prev) =>
-
-  //       prev.map((item) =>
-
-  //         item.id === result[0].id
-
-  //           ? result[0]
-
-  //           : item
-  //       )
-  //     );
-
-
-
-  //     alert(
-
-  //       "Check-out successful"
-  //     );
-
-  //   } catch (error) {
-
-  //     console.error(error);
-
-  //     alert(error.message);
-
-  //   } finally {
-
-  //     setCheckingOut(false);
-  //   }
-  // }
-
-
   /*
 ==================================================
 Change ID: M06-028
@@ -846,12 +728,7 @@ Rollback: Restore previous checkout flow
 
       const shiftEndHour = 18;
 
-      /*
-      Temporary hardcoded shift end.
-  
-      Production:
-      Load from shift table.
-      */
+
 
       // Detect early checkout
       if (currentHour < shiftEndHour) {
@@ -1046,104 +923,7 @@ Rollback: Restore previous checkout flow
           )}
 
         </div>
-        {/* {todayAttendance && (
 
-          <div className="mt-4 space-y-2">
-
-            <div className="space-y-2">
-
-              <div>
-
-                <b>Status:</b>
-
-                {" "}
-
-                {todayAttendance.status}
-
-              </div>
-
-              {
-
-                todayAttendance.status === "late"
-
-                &&
-
-                (
-
-                  <div>
-
-                    <b>Late By:</b>
-
-                    {" "}
-
-                    {lateDuration}
-
-                  </div>
-
-                )
-
-              }
-
-            </div>
-
-            <b>Status:</b>
-
-            {
-
-              todayAttendance.status
-
-            }
-
-          </div>
-
-              {
-
-          todayAttendance.status === "late"
-
-          &&
-
-          (
-
-            <div>
-
-              <b>Late By:</b>
-
-              {lateDuration}
-
-            </div>
-
-          )
-
-        }
-
-      </p>
-
-      <p>
-
-        Check-In:
-        {" "}
-
-        {todayAttendance.check_in}
-
-      </p>
-
-      <p>
-
-        Check-Out:
-        {" "}
-
-        {
-
-          todayAttendance.check_out
-
-          || "Pending"
-        }
-
-      </p>
-
-    </div>
-  )
-} */}
         {todayAttendance && (
 
           <div className="mt-4 space-y-2">
@@ -1415,93 +1195,101 @@ shadow
 
             <tbody>
 
-              {history.map((item) => (
+              {history.map((item) => {
 
-                <tr
-                  key={item.id}
-                  className="border-b"
-                >
+                const overtimeData =
 
-                  <td className="p-2">
+                  calculateOvertime(item);
+                return (
 
-                    {item.attendance_date}
+                  <tr
+                    key={item.id}
+                    className="border-b"
+                  >
 
-                  </td>
+                    <td className="p-2">
 
-                  <td className="p-2">
+                      {item.attendance_date}
 
-                    {item.status}
+                    </td>
 
-                  </td>
+                    <td className="p-2">
 
-                  <td className="p-2">
+                      {item.status}
 
-                    {item.check_in}
+                    </td>
 
-                  </td>
+                    <td className="p-2">
 
-                  <td className="p-2">
+                      {item.check_in}
 
-                    {
+                    </td>
 
-                      item.check_out
+                    <td className="p-2">
 
-                      || "Pending"
-                    }
+                      {
 
-                  </td>
+                        item.check_out
 
-                  {/*
-==================================================
-Change ID: M06-030
-Date: 2026-05-28
-Status: Updated
-Purpose: Display worked hours and overtime
-Risk: Low
-Rollback: Remove attendance metric cells
-==================================================
-*/}
+                        || "Pending"
+                      }
 
-                  <td className="p-2">
+                    </td>
 
-                    {
+                    <td className="p-2">
 
-                      item.worked_hours
+                      {
 
-                      || "00:00:00"
+                        calculateWorkedHours(
 
-                    }
+                          item.check_in,
 
-                  </td>
+                          item.check_out
+                        )
 
-                  <td className="p-2">
+                      }
 
-                    {
+                    </td>
 
-                      item.overtime
+                    <td className="p-2">
 
-                      || "00:00:00"
+                      {
 
-                    }
+                        calculateEmployeeOvertime(
 
-                  </td>
-                  
-                  <td>
+                          calculateWorkedHours(
 
-                    {
+                            item.check_in,
 
-                      item.early_checkout_reason
+                            item.check_out
 
-                      ||
+                          )
 
-                      "-"
+                        )
 
-                    }
+                      }
 
-                  </td>
+                    </td>
 
-                </tr>
-              ))}
+
+                    <td>
+
+                      {
+
+                        item.early_checkout_reason
+
+                        ||
+
+                        "-"
+
+                      }
+
+                    </td>
+
+                  </tr>
+                );
+
+              })}
 
             </tbody>
 
@@ -1511,7 +1299,6 @@ Rollback: Remove attendance metric cells
 
       </div>
 
-      {/* </DashboardLayout> */}
     </EmployeeLayout >
   );
 }

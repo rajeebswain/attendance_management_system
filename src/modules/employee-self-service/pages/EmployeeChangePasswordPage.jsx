@@ -11,164 +11,164 @@ Rollback: Remove password page
 
 import { useState }
 
-from "react";
+    from "react";
 
 import { supabase }
 
     from "../../../lib/supabase/client";
 
 import EmployeeLayout
-from "../layout/EmployeeLayout";
+    from "../layout/EmployeeLayout";
 
-function EmployeeChangePasswordPage(){
+function EmployeeChangePasswordPage() {
 
-const [
+    const [
 
-password,
-setPassword
+        password,
+        setPassword
 
-]
+    ]
 
-=
+        =
 
-useState("");
+        useState("");
 
-const [
+    const [
 
-confirmPassword,
-setConfirmPassword
+        confirmPassword,
+        setConfirmPassword
 
-]
+    ]
 
-=
+        =
 
-useState("");
+        useState("");
 
-async function handleSubmit(e){
+    async function handleSubmit(e) {
 
-e.preventDefault();
+        e.preventDefault();
 
-try{
+        try {
 
-if(password !== confirmPassword){
+            if (password !== confirmPassword) {
 
-alert(
-"Passwords do not match"
-);
+                alert(
+                    "Passwords do not match"
+                );
 
-return;
+                return;
 
-}
+            }
 
-await supabase.auth.updateUser({
+            await supabase.auth.updateUser({
 
-password
+                password
 
-});
+            });
 
-alert(
-"Password updated"
-);
+            alert(
+                "Password updated"
+            );
 
-setPassword("");
-setConfirmPassword("");
+            setPassword("");
+            setConfirmPassword("");
 
-}
-catch(error){
+        }
+        catch (error) {
 
-alert(error.message);
+            alert(error.message);
 
-}
+        }
 
-}
+    }
 
-return(
+    return (
 
-<EmployeeLayout>
+        <EmployeeLayout>
 
-<div className="p-6">
+            <div className="p-6">
 
-<div
-className="
+                <div
+                    className="
 bg-white
 rounded-lg
 shadow
 p-6
 max-w-md
 "
->
+                >
 
-<h1
-className="
+                    <h1
+                        className="
 text-2xl
 font-bold
 mb-6
 "
->
+                    >
 
-Change Password
+                        Change Password
 
-</h1>
+                    </h1>
 
-<form
-onSubmit={handleSubmit}
-className="space-y-4"
->
+                    <form
+                        onSubmit={handleSubmit}
+                        className="space-y-4"
+                    >
 
-<input
-type="password"
-placeholder="New Password"
-value={password}
-onChange={(e)=>
-setPassword(e.target.value)
-}
-className="
+                        <input
+                            type="password"
+                            placeholder="New Password"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(e.target.value)
+                            }
+                            className="
 w-full
 border
 p-3
 rounded
 "
-/>
+                        />
 
-<input
-type="password"
-placeholder="Confirm Password"
-value={confirmPassword}
-onChange={(e)=>
-setConfirmPassword(e.target.value)
-}
-className="
+                        <input
+                            type="password"
+                            placeholder="Confirm Password"
+                            value={confirmPassword}
+                            onChange={(e) =>
+                                setConfirmPassword(e.target.value)
+                            }
+                            className="
 w-full
 border
 p-3
 rounded
 "
-/>
+                        />
 
-<button
-type="submit"
-className="
+                        <button
+                            type="submit"
+                            className="
 bg-blue-600
 text-white
 px-4
 py-2
 rounded
 "
->
+                        >
 
-Update Password
+                            Update Password
 
-</button>
+                        </button>
 
-</form>
+                    </form>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
-</EmployeeLayout>
+        </EmployeeLayout>
 
-);
+    );
 
 }
 

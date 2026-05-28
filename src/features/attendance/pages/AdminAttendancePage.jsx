@@ -27,6 +27,161 @@ import {
 
 } from "../services/adminAttendanceService";
 
+
+
+/*
+==================================================
+Change ID: M06-030
+Date: 2026-05-28
+Status: Updated
+Purpose: Format decimal hours into HH:MM:SS
+Risk: Low
+Rollback: Restore decimal hour display
+==================================================
+*/
+
+// FORMAT HOURS TO HH:MM:SS
+// function formatHoursToTime(
+
+//   decimalHours
+
+// ) {
+
+//   // Safety
+//   if (
+
+//     !decimalHours
+
+//     ||
+
+//     decimalHours <= 0
+
+//   ) {
+
+//     return "00:00:00";
+//   }
+
+//   // Convert hours → seconds
+//   const totalSeconds =
+
+//     Math.floor(
+
+//       decimalHours * 3600
+//     );
+
+//   // Extract hours
+//   const hours =
+
+//     String(
+
+//       Math.floor(
+
+//         totalSeconds / 3600
+//       )
+
+//     ).padStart(2, "0");
+
+//   // Extract minutes
+//   const minutes =
+
+//     String(
+
+//       Math.floor(
+
+//         (totalSeconds % 3600) / 60
+//       )
+
+//     ).padStart(2, "0");
+
+//   // Extract seconds
+//   const seconds =
+
+//     String(
+
+//       totalSeconds % 60
+//     ).padStart(2, "0");
+
+//   return (
+
+//     `${hours}:${minutes}:${seconds}`
+//   );
+// }
+
+/*
+==================================================
+Change ID: M06-030
+Date: 2026-05-28
+Status: Updated
+Purpose: Convert decimal hours into HH:MM:SS format
+Risk: Low
+Rollback: Restore decimal hour formatter
+==================================================
+*/
+
+// FORMAT DECIMAL HOURS
+function formatHoursToTime(
+
+  decimalHours
+
+) {
+
+  // Convert safely to number
+  const hoursValue =
+
+    Number(decimalHours);
+
+  // Invalid value
+  if (
+
+    isNaN(hoursValue)
+
+    ||
+
+    hoursValue <= 0
+
+  ) {
+
+    return "00:00:00";
+  }
+
+  // Convert hours → seconds
+  const totalSeconds =
+
+    Math.floor(
+
+      hoursValue * 3600
+    );
+
+  // Hours
+  const hours =
+
+    Math.floor(
+
+      totalSeconds / 3600
+    );
+
+  // Minutes
+  const minutes =
+
+    Math.floor(
+
+      (totalSeconds % 3600) / 60
+    );
+
+  // Seconds
+  const seconds =
+
+    totalSeconds % 60;
+
+  // Return HH:MM:SS
+  return (
+
+    `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+
+  );
+}
+
+
 export default function AdminAttendancePage() {
 
   // Attendance state
@@ -1121,13 +1276,37 @@ export default function AdminAttendancePage() {
 
                     <td className="p-2">
 
-                      {overtimeData.workedHours} hrs
+                      {/* {overtimeData.workedHours} hrs */}
+
+
+ 
+                      {
+
+Number(
+
+  overtimeData.workedHours
+).toFixed(2)
+
+}
+
+hrs
 
                     </td>
 
                     <td className="p-2">
 
-                      {overtimeData.overtimeHours} hrs
+                      {/* {overtimeData.overtimeHours} hrs */}
+
+                      {
+
+Number(
+
+  overtimeData.overtimeHours
+).toFixed(2)
+
+}
+
+hrs
 
                     </td>
 
