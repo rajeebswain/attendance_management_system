@@ -213,71 +213,189 @@ function EmployeeSelfAttendancePage() {
   }
 
   // Handle check-out
-  async function handleCheckOut() {
+  // async function handleCheckOut() {
 
-    try {
+  //   try {
 
-      // Prevent duplicate checkout
-      if (
+  //     // Prevent duplicate checkout
+  //     if (
 
-        todayAttendance?.check_out
+  //       todayAttendance?.check_out
 
-      ) {
+  //     ) {
+
+  //       alert(
+
+  //         "Already checked out"
+  //       );
+
+  //       return;
+  //     }
+
+
+  //     setCheckingOut(true);
+
+
+  //     const result =
+
+  //       await checkOutEmployee(
+
+  //         todayAttendance.id
+  //       );
+
+
+  //     console.log(result);
+
+  //     setTodayAttendance(result[0]);
+
+  //     setHistory((prev) =>
+
+  //       prev.map((item) =>
+
+  //         item.id === result[0].id
+
+  //           ? result[0]
+
+  //           : item
+  //       )
+  //     );
+
+
+
+  //     alert(
+
+  //       "Check-out successful"
+  //     );
+
+  //   } catch (error) {
+
+  //     console.error(error);
+
+  //     alert(error.message);
+
+  //   } finally {
+
+  //     setCheckingOut(false);
+  //   }
+  // }
+
+
+  /*
+==================================================
+Change ID: M06-028
+Date: 2026-05-28
+Status: Updated
+Purpose: Add employee early checkout validation
+Risk: Medium
+Rollback: Restore previous checkout flow
+==================================================
+*/
+
+// Handle check-out
+async function handleCheckOut() {
+
+  try {
+
+    // Prevent duplicate checkout
+    if (
+
+      todayAttendance?.check_out
+
+    ) {
+
+      alert(
+
+        "Already checked out"
+      );
+
+      return;
+    }
+
+    let earlyCheckoutReason = null;
+
+    const currentHour =
+      new Date().getHours();
+
+    const shiftEndHour = 18;
+
+    /*
+    Temporary hardcoded shift end.
+
+    Production:
+    Load from shift table.
+    */
+
+    // Detect early checkout
+    if(currentHour < shiftEndHour){
+
+      earlyCheckoutReason =
+
+        prompt(
+
+          "Early checkout reason?"
+
+        );
+
+      // Mandatory reason
+      if(!earlyCheckoutReason){
 
         alert(
 
-          "Already checked out"
+          "Reason is required"
+
         );
 
         return;
       }
 
-
-      setCheckingOut(true);
-
-
-      const result =
-
-        await checkOutEmployee(
-
-          todayAttendance.id
-        );
-
-
-      console.log(result);
-
-      setTodayAttendance(result[0]);
-
-      setHistory((prev) =>
-
-        prev.map((item) =>
-
-          item.id === result[0].id
-
-            ? result[0]
-
-            : item
-        )
-      );
-
-
-
-      alert(
-
-        "Check-out successful"
-      );
-
-    } catch (error) {
-
-      console.error(error);
-
-      alert(error.message);
-
-    } finally {
-
-      setCheckingOut(false);
     }
+
+    setCheckingOut(true);
+
+    const result =
+
+      await checkOutEmployee(
+
+        todayAttendance.id,
+
+        earlyCheckoutReason
+
+      );
+
+    console.log(result);
+
+    setTodayAttendance(result[0]);
+
+    setHistory((prev) =>
+
+      prev.map((item) =>
+
+        item.id === result[0].id
+
+          ? result[0]
+
+          : item
+      )
+    );
+
+    alert(
+
+      "Check-out successful"
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(error.message);
+
+  } finally {
+
+    setCheckingOut(false);
   }
+}
+
+
   return (
 
     <EmployeeLayout>

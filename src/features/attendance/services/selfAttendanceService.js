@@ -259,11 +259,30 @@ export async function checkInEmployee(
 
 
 // CHECK OUT EMPLOYEE
+// export async function checkOutEmployee(
+
+//   attendanceId
+
+// ) 
+
+
+/*
+==================================================
+Change ID: M06-028
+Date: 2026-05-28
+Status: Updated
+Purpose: Save employee early checkout reason
+Risk: Medium
+Rollback: Restore previous checkout flow
+==================================================
+*/
+
 export async function checkOutEmployee(
 
-  attendanceId
+  attendanceId,
+  earlyCheckoutReason = null
 
-) {
+){
 
   // Current time
   const currentTime = new Date()
@@ -288,9 +307,17 @@ export async function checkOutEmployee(
 
     .from("attendance")
 
+    // .update({
+
+    //   check_out: currentTime,
+    // })
     .update({
 
       check_out: currentTime,
+    
+      early_checkout_reason:
+        earlyCheckoutReason
+    
     })
 
     .eq("id", attendanceId)
