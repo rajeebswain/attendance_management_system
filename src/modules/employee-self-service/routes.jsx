@@ -39,6 +39,18 @@ Rollback: Remove route
 import EmployeeChangePasswordPage
 from "./pages/EmployeeChangePasswordPage";
 
+/*
+==================================================
+Module: M06-027
+Feature: Attendance Correction Request
+Purpose: Employee correction routing
+==================================================
+*/
+
+import EmployeeAttendanceCorrectionPage
+
+from "../../features/attendance-correction/pages/EmployeeAttendanceCorrectionPage";
+
 const employeeSelfServiceRoutes = [
 
     {
@@ -57,6 +69,11 @@ const employeeSelfServiceRoutes = [
     },
 
     {
+        path: "/employee/attendance-correction",
+        element: <EmployeeAttendanceCorrectionPage />
+    },
+
+    {
         path: "/employee/leave-history",
         element: <EmployeeLeaveHistoryPage />
     },
@@ -69,7 +86,9 @@ const employeeSelfServiceRoutes = [
     {
         path:"/employee/change-password",
         element:<EmployeeChangePasswordPage/>
-        }
+        },
+
+        
 
 ];
 

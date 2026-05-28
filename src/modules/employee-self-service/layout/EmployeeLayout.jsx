@@ -10,44 +10,44 @@ Rollback: Remove component
 */
 
 import Navbar
-from "../../../components/layout/Navbar";
+    from "../../../components/layout/Navbar";
 
 import EmployeeSidebar
-from "./EmployeeSidebar";
+    from "./EmployeeSidebar";
 
 function EmployeeLayout({
 
-children
+    children
 
-}){
+}) {
 
-return(
+    return (
 
-<div className="flex">
+        <div className="flex">
 
-<EmployeeSidebar/>
+            <EmployeeSidebar />
 
-<div
-className="
+            <div
+                className="
 flex-1
 bg-gray-100
 min-h-screen
 "
->
+            >
 
-<Navbar/>
+                <Navbar />
 
-<main className="p-6">
+                <main className="p-6">
 
-{children}
+                    {children}
 
-</main>
+                </main>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-);
+    );
 
 }
 
