@@ -1198,6 +1198,32 @@ keeping the interface simple.
 
 Advanced filtering will be added
 during reporting modules.
+
+==================================================
+ARCH-M06-039
+
+Attendance Correction Audit supports
+employee search filtering.
+
+Admins can search audit records using
+employee code or employee name.
+
+This improves audit investigation and
+employee history review workflows.
+==================================================
+==================================================
+ARCH-M06-041
+
+Attendance correction audit remains
+focused on status change tracking.
+
+Employee investigation workflows are
+handled through attendance
+regularization and employee records.
+
+Audit history is not responsible for
+employee lookup functionality.
+==================================================
 ==================================================
 ==================================================
 

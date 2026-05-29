@@ -207,3 +207,17 @@ from M01.
 Add employee details, status preview,
 and remark summary inside modal.
 ==================================================
+==================================================
+TD-M06-020
+
+Attendance correction audit employee
+lookup deferred.
+
+Current audit page focuses on status
+change history.
+
+Future:
+
+Enable employee search using explicit
+foreign key joins or reporting views.
+==================================================

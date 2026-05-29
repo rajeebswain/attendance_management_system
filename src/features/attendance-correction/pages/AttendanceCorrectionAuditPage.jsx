@@ -96,7 +96,26 @@ Rollback: Remove state
 
         = useState("all");
 
+    {/*
+==================================================
+Change ID: M06-032
+Date: 2026-05-29
+Status: Improved
+Purpose: Add Employee Search State
+Risk: Low
+Rollback: Remove state
+==================================================
+*/}
 
+    const [
+
+        employeeSearch,
+
+        setEmployeeSearch
+
+    ]
+
+        = useState("");
 
     {/*
 ==================================================
@@ -109,22 +128,94 @@ Rollback: Use logs directly
 ==================================================
 */}
 
+    // const filteredLogs =
+
+    //     statusFilter === "all"
+
+    //         ? logs
+
+    //         : logs.filter(
+
+    //             (item) =>
+
+    //                 item.new_status === statusFilter
+
+    //         );
+
+
     const filteredLogs =
 
-        statusFilter === "all"
+        logs.filter(
 
-            ? logs
+            (item) => {
 
-            : logs.filter(
+                const statusMatch =
 
-                (item) =>
+                    statusFilter === "all"
 
-                    item.new_status === statusFilter
+                    ||
 
-            );
+                    item.new_status
 
+                    === statusFilter;
 
+                const employeeName =
 
+                    item
+                        ?.attendance_corrections
+                        ?.employees
+                        ?.full_name
+
+                    || "";
+
+                const employeeCode =
+
+                    item
+                        ?.attendance_corrections
+                        ?.employees
+                        ?.employee_code
+
+                    || "";
+
+                const employeeMatch =
+
+                    employeeName
+
+                        .toLowerCase()
+
+                        .includes(
+
+                            employeeSearch
+                                .toLowerCase()
+
+                        )
+
+                    ||
+
+                    employeeCode
+
+                        .toLowerCase()
+
+                        .includes(
+
+                            employeeSearch
+                                .toLowerCase()
+
+                        );
+
+                return (
+
+                    statusMatch
+
+                    &&
+
+                    employeeMatch
+
+                );
+
+            }
+
+        );
 
 
     useEffect(() => {
@@ -157,6 +248,46 @@ Rollback: Use logs directly
     return (
 
         <DashboardLayout>
+
+
+            {/*
+            
+            ==================================================
+Change ID: M06-032
+Date: 2026-05-29
+Status: Improved
+Purpose: Add Employee Search UI
+Risk: Low
+Rollback: Remove input
+==================================================
+            */}
+
+
+            <input
+
+                type="text"
+
+                placeholder="Search employee"
+
+                value={employeeSearch}
+
+                onChange={(e) =>
+
+                    setEmployeeSearch(
+                        e.target.value
+                    )
+
+                }
+
+                className="
+border
+rounded
+p-2
+mb-4
+ml-2
+"
+
+            />
 
             {/*
 ==================================================
@@ -251,6 +382,11 @@ border-b
 text-left
 "
                             >
+                                <th className="p-2">
+
+                                    Employee
+
+                                </th>
 
                                 <th className="p-2">
 
@@ -301,6 +437,37 @@ border-b
 "
                                         >
 
+
+
+<td className="p-2">
+
+{
+
+    item
+        ?.attendance_corrections
+        ?.employees
+
+        ?
+
+        `${item
+            .attendance_corrections
+            .employees
+            .employee_code
+
+        } - ${item
+            .attendance_corrections
+            .employees
+            .full_name
+
+        }`
+
+        :
+
+        "-"
+
+}
+
+</td>
                                             <td className="p-2">
 
                                                 {
@@ -350,6 +517,8 @@ border-b
                                                 }
 
                                             </td>
+
+                                      
 
                                             {
                                                 filteredLogs.length === 0 && (

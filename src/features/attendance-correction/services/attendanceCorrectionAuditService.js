@@ -154,7 +154,18 @@ export async function getCorrectionAuditLogs(){
 
         )
 
-        .select("*")
+        // .select("*")
+
+        .select(`
+    *,
+    attendance_corrections(
+        employee_id,
+        employees(
+            employee_code,
+            full_name
+        )
+    )
+`)
 
         .order(
 
