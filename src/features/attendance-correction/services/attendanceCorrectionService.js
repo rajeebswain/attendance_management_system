@@ -75,9 +75,23 @@ export async function getCorrectionRequests(
 
     = await supabase
 
-        .from("attendance_corrections")
+        // .from("attendance_corrections")
 
-        .select("*")
+        // .select("*")
+
+        .from("attendance_corrections")
+.select(`
+    *,
+    employees(
+        employee_code,
+        full_name
+    )
+`)
+
+
+
+
+
 
         .eq(
 
@@ -116,6 +130,35 @@ Rollback: Remove function
 ==================================================
 */
 
+// export async function getAllCorrectionRequests(){
+
+//     const { data, error }
+
+//     = await supabase
+
+//         .from("attendance_corrections")
+
+//          .select("*")
+
+//         .order(
+
+//             "created_at",
+
+//             {
+
+//                 ascending: false
+//             }
+
+//         );
+
+//     if(error){
+
+//         throw error;
+//     }
+
+//     return data;
+// }
+
 export async function getAllCorrectionRequests(){
 
     const { data, error }
@@ -124,14 +167,19 @@ export async function getAllCorrectionRequests(){
 
         .from("attendance_corrections")
 
-        .select("*")
+        .select(`
+            *,
+            employees(
+                employee_code,
+                full_name
+            )
+        `)
 
         .order(
 
             "created_at",
 
             {
-
                 ascending: false
             }
 
@@ -144,8 +192,6 @@ export async function getAllCorrectionRequests(){
 
     return data;
 }
-
-
 
 export async function approveCorrectionRequest(
                 id,

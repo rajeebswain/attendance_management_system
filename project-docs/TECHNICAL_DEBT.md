@@ -182,3 +182,14 @@ Production:
 Use authenticated user identity from
 session context.
 ==================================================
+TD-M06-013
+
+Correction status can be changed
+multiple times.
+
+Production:
+
+Add confirmation dialog.
+
+Consider status locking after approval.
+==================================================

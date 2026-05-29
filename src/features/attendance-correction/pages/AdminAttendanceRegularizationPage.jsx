@@ -368,14 +368,25 @@ text-left
                                     className="border-b"
                                 >
 
-                                    <td className="p-2">
+                                    {/* <td className="p-2">
 
                                         {
 
                                             item.employee_id
                                         }
 
-                                    </td>
+                                    </td> */}
+
+<td className="p-2">
+
+{
+    item.employees
+        ? `${item.employees.employee_code} - ${item.employees.full_name}`
+        : item.employee_id
+}
+
+</td>
+
 
                                     <td className="p-2">
 

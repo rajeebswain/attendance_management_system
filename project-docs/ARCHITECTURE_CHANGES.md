@@ -1123,7 +1123,19 @@ Each request owns its own remark state.
 Shared remark state removed to prevent
 cross-request updates.
 ==================================================
+==================================================
+ARCH-M06-034
 
+Attendance regularization now displays
+employee code and employee name instead
+of raw employee UUID.
+
+Employee details are resolved through
+employee relationship mapping.
+
+This improves HR usability and audit
+readability.
+==================================================
 ==================================================
 
 ==================================================
