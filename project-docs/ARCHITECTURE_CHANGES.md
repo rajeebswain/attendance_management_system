@@ -1182,6 +1182,24 @@ All changes continue to be recorded
 through attendance correction audit logs.
 ==================================================
 ==================================================
+ARCH-M06-038
+
+Attendance Correction Audit supports
+status-based filtering.
+
+Audit records can be filtered by:
+
+All
+Approved
+Rejected
+
+This improves audit review while
+keeping the interface simple.
+
+Advanced filtering will be added
+during reporting modules.
+==================================================
+==================================================
 
 ==================================================
 

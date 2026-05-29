@@ -56,11 +56,11 @@ Rollback: Remove page
 
 import { useEffect, useState }
 
-from "react";
+    from "react";
 
 import DashboardLayout
 
-from "../../../components/layout/DashboardLayout";
+    from "../../../components/layout/DashboardLayout";
 
 import {
 
@@ -68,7 +68,7 @@ import {
 
 }
 
-from "../services/attendanceCorrectionAuditService";
+    from "../services/attendanceCorrectionAuditService";
 
 function AttendanceCorrectionAuditPage() {
 
@@ -80,27 +80,72 @@ function AttendanceCorrectionAuditPage() {
 
     ]
 
-    = useState([]);
+        = useState([]);
+    {/*
+==================================================
+Change ID: M06-032
+Date: 2026-05-29
+Status: Improved
+Purpose: Add Audit Status Filter State
+Risk: Low
+Rollback: Remove state
+==================================================
 
-    useEffect(()=>{
+*/}
+    const [statusFilter, setStatusFilter]
+
+        = useState("all");
+
+
+
+    {/*
+==================================================
+Change ID: M06-032
+Date: 2026-05-29
+Status: Improved
+Purpose: Filter Audit Records
+Risk: Low
+Rollback: Use logs directly
+==================================================
+*/}
+
+    const filteredLogs =
+
+        statusFilter === "all"
+
+            ? logs
+
+            : logs.filter(
+
+                (item) =>
+
+                    item.new_status === statusFilter
+
+            );
+
+
+
+
+
+    useEffect(() => {
 
         loadLogs();
 
-    },[]);
+    }, []);
 
-    async function loadLogs(){
+    async function loadLogs() {
 
-        try{
+        try {
 
             const data
 
-            = await getCorrectionAuditLogs();
+                = await getCorrectionAuditLogs();
 
             setLogs(data || []);
 
         }
 
-        catch(error){
+        catch (error) {
 
             console.error(error);
 
@@ -108,9 +153,66 @@ function AttendanceCorrectionAuditPage() {
 
     }
 
+
     return (
 
         <DashboardLayout>
+
+            {/*
+==================================================
+Change ID: M06-032
+Date: 2026-05-29
+Status: Improved
+Purpose: Add Audit Status Filter UI
+Risk: Low
+Rollback: Remove dropdown
+==================================================
+*/}
+            <div className="mb-4">
+
+                <select
+
+                    value={statusFilter}
+
+                    onChange={(e) =>
+
+                        setStatusFilter(
+                            e.target.value
+                        )
+
+                    }
+
+                    className="
+border
+rounded
+p-2
+"
+
+                >
+
+                    <option value="all">
+
+                        All
+
+                    </option>
+
+                    <option value="approved">
+
+                        Approved
+
+                    </option>
+
+                    <option value="rejected">
+
+                        Rejected
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
 
             <div className="p-6">
 
@@ -188,9 +290,9 @@ text-left
 
                             {
 
-                                logs.map(
+                                filteredLogs.map(
 
-                                    (item,index)=>(
+                                    (item, index) => (
 
                                         <tr
                                             key={`${item.id}-${index}`}
@@ -248,6 +350,25 @@ border-b
                                                 }
 
                                             </td>
+
+                                            {
+                                                filteredLogs.length === 0 && (
+
+                                                    <tr>
+
+                                                        <td
+                                                            colSpan="5"
+                                                            className="p-4 text-center"
+                                                        >
+
+                                                            No audit records found
+
+                                                        </td>
+
+                                                    </tr>
+
+                                                )
+                                            }
 
                                         </tr>
 
