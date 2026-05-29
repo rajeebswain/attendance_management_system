@@ -133,6 +133,18 @@ function AdminAttendanceRegularizationPage() {
         adminRemark
     ) {
 
+        const confirmed = window.confirm(
+
+            "Approve this correction request?"
+        
+        );
+        
+        if(!confirmed){
+        
+            return;
+        
+        }
+
         try {
 
             const request =
@@ -193,6 +205,17 @@ function AdminAttendanceRegularizationPage() {
         adminRemark
 
     ) {
+        const confirmed = window.confirm(
+
+            "Reject this correction request?"
+        
+        );
+        
+        if(!confirmed){
+        
+            return;
+        
+        }
 
         try {
 

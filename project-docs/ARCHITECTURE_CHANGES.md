@@ -1156,7 +1156,31 @@ This separates operational work
 from historical records while
 keeping all data accessible.
 ==================================================
+==================================================
+ARCH-M06-035
 
+Attendance regularization actions are
+available only for pending requests.
+
+Approved and rejected requests become
+read-only in the admin workflow.
+
+This prevents accidental repeated status
+changes and improves audit consistency.
+==================================================
+==================================================
+ARCH-M06-037
+
+Attendance regularization actions require
+confirmation before status changes.
+
+This prevents accidental approval or
+rejection while preserving the ability
+to reverse decisions when necessary.
+
+All changes continue to be recorded
+through attendance correction audit logs.
+==================================================
 ==================================================
 
 ==================================================

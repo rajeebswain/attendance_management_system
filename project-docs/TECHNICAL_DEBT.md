@@ -193,3 +193,17 @@ Add confirmation dialog.
 
 Consider status locking after approval.
 ==================================================
+==================================================
+TD-M06-017
+
+Attendance regularization currently
+uses browser confirm() dialogs.
+
+Production replacement:
+
+Replace with shared modal system
+from M01.
+
+Add employee details, status preview,
+and remark summary inside modal.
+==================================================
