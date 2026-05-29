@@ -12,9 +12,9 @@ import { useEffect, useState }
 
     from "react";
 
-    import DashboardLayout
+import DashboardLayout
 
-from "../../../components/layout/DashboardLayout";
+    from "../../../components/layout/DashboardLayout";
 
 import {
 
@@ -73,7 +73,9 @@ function AdminAttendanceRegularizationPage() {
 
         = useState({});
 
+        const [statusFilter, setStatusFilter]
 
+        = useState("pending");
 
     useEffect(() => {
 
@@ -277,98 +279,169 @@ function AdminAttendanceRegularizationPage() {
     //     }
     // }
 
+{/*
+    ==================================================
+    Change ID: M06-032
+    Date: 2026-05-29
+    Status: Initial
+    Purpose: Filter Requests By Status
+    Risk: Low
+    Rollback: Use requests directly
+    ==================================================
+*/}
 
+    const filteredRequests =
 
+    statusFilter === "all"
 
+        ? requests
 
+        : requests.filter(
+
+            (item) =>
+
+                item.status === statusFilter
+
+        );
     return (
         <DashboardLayout>
-        <div className="p-6">
 
-            <h1
-                className="
+
+<div className="mb-4">
+
+<select
+
+    value={statusFilter}
+
+    onChange={(e) =>
+
+        setStatusFilter(
+            e.target.value
+        )
+
+    }
+
+    className="
+border
+rounded
+p-2
+"
+
+>
+
+    <option value="pending">
+
+        Pending
+
+    </option>
+
+    <option value="approved">
+
+        Approved
+
+    </option>
+
+    <option value="rejected">
+
+        Rejected
+
+    </option>
+
+    <option value="all">
+
+        All
+
+    </option>
+
+</select>
+
+</div>
+            <div className="p-6">
+
+                <h1
+                    className="
 text-2xl
 font-bold
 mb-6
 "
-            >
+                >
 
-                Attendance Regularization
+                    Attendance Regularization
 
-            </h1>
+                </h1>
 
-            <div
-                className="
+                <div
+                    className="
 bg-white
 rounded
 shadow
 p-4
 "
-            >
+                >
 
-                <table className="w-full">
+                    <table className="w-full">
 
-                    <thead>
+                        <thead>
 
-                        <tr
-                            className="
+                            <tr
+                                className="
 border-b
 text-left
 "
-                        >
+                            >
 
-                            <th className="p-2">
+                                <th className="p-2">
 
-                                Employee
+                                    Employee
 
-                            </th>
+                                </th>
 
-                            <th className="p-2">
+                                <th className="p-2">
 
-                                Date
+                                    Date
 
-                            </th>
+                                </th>
 
-                            <th className="p-2">
+                                <th className="p-2">
 
-                                Reason
+                                    Reason
 
-                            </th>
+                                </th>
 
-                            <th className="p-2">
+                                <th className="p-2">
 
-                                Status
+                                    Status
 
-                            </th>
+                                </th>
 
-                            <th className="p-2">
+                                <th className="p-2">
 
-                                Admin Remark
+                                    Admin Remark
 
-                            </th>
+                                </th>
 
-                            <th className="p-2">
+                                <th className="p-2">
 
-                                Action
+                                    Action
 
-                            </th>
+                                </th>
 
-                        </tr>
+                            </tr>
 
-                    </thead>
+                        </thead>
 
-                    <tbody>
+                        <tbody>
 
-                        {
+                            {
 
-                            requests.map((item, index) => (
+                                filteredRequests.map((item, index) => (
 
-                                <tr
-                                    key={`${item.id}-${index}`}
-                                    className="border-b"
-                                >
+                                    <tr
+                                        key={`${item.id}-${index}`}
+                                        className="border-b"
+                                    >
 
-                                    {/* <td className="p-2">
+                                        {/* <td className="p-2">
 
                                         {
 
@@ -377,48 +450,48 @@ text-left
 
                                     </td> */}
 
-<td className="p-2">
+                                        <td className="p-2">
 
-{
-    item.employees
-        ? `${item.employees.employee_code} - ${item.employees.full_name}`
-        : item.employee_id
-}
+                                            {
+                                                item.employees
+                                                    ? `${item.employees.employee_code} - ${item.employees.full_name}`
+                                                    : item.employee_id
+                                            }
 
-</td>
-
-
-                                    <td className="p-2">
-
-                                        {
-
-                                            item.correction_date
-                                        }
-
-                                    </td>
-
-                                    <td className="p-2">
-
-                                        {
-
-                                            item.reason
-                                        }
-
-                                    </td>
+                                        </td>
 
 
-                                    <td className="p-2">
+                                        <td className="p-2">
 
-                                        {
+                                            {
 
-                                            item.status
-                                        }
+                                                item.correction_date
+                                            }
 
-                                    </td>
+                                        </td>
 
-                                    <td className="p-2">
+                                        <td className="p-2">
 
-                                        {/* <textarea
+                                            {
+
+                                                item.reason
+                                            }
+
+                                        </td>
+
+
+                                        <td className="p-2">
+
+                                            {
+
+                                                item.status
+                                            }
+
+                                        </td>
+
+                                        <td className="p-2">
+
+                                            {/* <textarea
 
                                             rows="2"
 
@@ -445,66 +518,61 @@ w-full
 
                                         /> */}
 
-<textarea
+                                            <textarea
 
-    rows="2"
+                                                rows="2"
 
-    value={
+                                                value={
 
-        adminRemarks[item.id]
+                                                    adminRemarks[item.id]
 
-        || ""
+                                                    || ""
 
-    }
+                                                }
 
-    onChange={(e)=>
+                                                onChange={(e) =>
 
-        setAdminRemarks({
+                                                    setAdminRemarks({
 
-            ...adminRemarks,
+                                                        ...adminRemarks,
 
-            [item.id]:
+                                                        [item.id]:
 
-                e.target.value
+                                                            e.target.value
 
-        })
+                                                    })
 
-    }
+                                                }
 
-    className="
+                                                className="
 border
 p-1
 rounded
 w-full
 "
 
-/>
+                                            />
 
 
 
-                                    </td>
+                                        </td>
 
-                                    <td className="p-2 space-x-2">
+                                        <td className="p-2 space-x-2">
 
 
 
-                                        <button
+                                            <button
 
                                             onClick={() =>
-
-                                                // handleApprove(
-                                                //     item.id,
-                                                //     adminRemark
-                                                // )
 
                                                 handleApprove(
 
                                                     item.id,
-                                                
+
                                                     adminRemarks[item.id]
-                                                
+
                                                     || ""
-                                                
+
                                                 )
 
                                             }
@@ -521,28 +589,21 @@ rounded
 
                                             Approve
 
-                                        </button>
+                                        </button> 
 
-
-
-
-
-                                        <button
+                                             <button
 
                                             onClick={() =>
 
-                                                // handleReject(
-                                                //     item.id,
-                                                //     adminRemark
-                                                // )
+
                                                 handleReject(
 
                                                     item.id,
-                                                
+
                                                     adminRemarks[item.id]
-                                                
+
                                                     || ""
-                                                
+
                                                 )
 
                                             }
@@ -561,22 +622,23 @@ rounded
 
                                         </button>
 
-                                    </td>
+            
+                                        </td>
 
-                                </tr>
+                                    </tr>
 
-                            ))
+                                ))
 
-                        }
+                            }
 
-                    </tbody>
+                        </tbody>
 
-                </table>
+                    </table>
+
+                </div>
 
             </div>
-
-        </div>
-         </DashboardLayout>
+        </DashboardLayout>
 
     );
 

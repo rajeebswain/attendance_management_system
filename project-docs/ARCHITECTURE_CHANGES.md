@@ -1136,6 +1136,27 @@ employee relationship mapping.
 This improves HR usability and audit
 readability.
 ==================================================
+
+==================================================
+ARCH-M06-036
+
+Attendance Regularization uses
+status-based filtering.
+
+Default view shows Pending requests.
+
+Admins can switch between:
+
+Pending
+Approved
+Rejected
+All
+
+This separates operational work
+from historical records while
+keeping all data accessible.
+==================================================
+
 ==================================================
 
 ==================================================
