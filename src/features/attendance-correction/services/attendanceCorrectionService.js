@@ -104,3 +104,124 @@ export async function getCorrectionRequests(
 
     return data;
 }
+
+
+/*
+==================================================
+Module: M06-032
+Feature: Fetch All Correction Requests
+Purpose: Admin regularization management
+Risk: Low
+Rollback: Remove function
+==================================================
+*/
+
+export async function getAllCorrectionRequests(){
+
+    const { data, error }
+
+    = await supabase
+
+        .from("attendance_corrections")
+
+        .select("*")
+
+        .order(
+
+            "created_at",
+
+            {
+
+                ascending: false
+            }
+
+        );
+
+    if(error){
+
+        throw error;
+    }
+
+    return data;
+}
+
+
+
+export async function approveCorrectionRequest(
+                id,
+
+                adminRemark
+                ){
+
+    console.log("SERVICE ID:", id);
+
+    const {
+
+        data,
+
+        error
+
+    }
+
+    = await supabase
+
+        .from("attendance_corrections")
+
+        .update({
+
+            status: "approved",
+            admin_remark:
+
+        adminRemark
+
+        })
+
+        .eq("id", id)
+
+        .select();
+
+    console.log(
+
+        "UPDATED DATA:",
+
+        data
+    );
+
+    if(error){
+
+        throw error;
+    }
+
+    return data;
+}
+
+export async function rejectCorrectionRequest(
+                id,
+
+                adminRemark
+                
+                ){
+
+    const { error }
+
+    = await supabase
+
+        .from("attendance_corrections")
+
+        .update({
+
+            status: "rejected",
+
+            admin_remark:
+
+            adminRemark
+
+        })
+
+        .eq("id", id);
+
+    if(error){
+
+        throw error;
+    }
+}

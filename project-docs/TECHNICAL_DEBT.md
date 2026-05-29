@@ -139,3 +139,46 @@ Production:
 Move analytics calculations into
 shared attendance analytics service.
 ==================================================
+
+TD-M06-013
+
+Correction status can be changed
+multiple times.
+
+Production:
+
+Add confirmation dialog before status
+change.
+
+Consider status locking after approval.
+==================================================
+TD-M06-014
+
+Audit history currently uses a dedicated
+page.
+
+Production:
+
+Move audit history into attendance
+regularization page using modal or drawer.
+==================================================
+TD-M06-015
+
+Attendance regularization page displays
+employee UUID.
+
+Production:
+
+Display employee code and employee name
+instead of employee_id.
+==================================================
+TD-M06-016
+
+Audit records currently store static
+changed_by value.
+
+Production:
+
+Use authenticated user identity from
+session context.
+==================================================

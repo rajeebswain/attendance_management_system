@@ -1087,3 +1087,51 @@ Temporary Shortcuts:
 - Hardcoded employee UUID
 - Open RLS policy
 - No auth-session mapping
+==================================================
+ARCH-M06-032
+
+Attendance correction workflow is split
+into employee request and admin approval.
+
+Employee creates correction requests.
+
+Admin reviews requests and updates
+status.
+
+Workflow state is stored in
+attendance_corrections table.
+==================================================
+ARCH-M06-032-A
+
+Attendance correction audit history is
+stored separately from correction
+requests.
+
+Operational records and audit records
+use separate tables.
+
+Audit data preserves status changes
+and admin remarks.
+==================================================
+ARCH-M06-032-B
+
+Admin remarks are maintained per
+correction request.
+
+Each request owns its own remark state.
+
+Shared remark state removed to prevent
+cross-request updates.
+==================================================
+
+==================================================
+
+==================================================
+
+==================================================
+
+==================================================
+
+==================================================
+
+==================================================

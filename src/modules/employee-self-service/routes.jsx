@@ -51,6 +51,26 @@ import EmployeeAttendanceCorrectionPage
 
 from "../../features/attendance-correction/pages/EmployeeAttendanceCorrectionPage";
 
+
+import AdminAttendanceRegularizationPage
+
+from "../../features/attendance-correction/pages/AdminAttendanceRegularizationPage";
+
+/*
+==================================================
+Change ID: M06-032
+Date: 2026-05-29
+Status: Initial
+Purpose: Audit History Route
+Risk: Low
+Rollback: Remove import and route
+==================================================
+*/
+
+import AttendanceCorrectionAuditPage
+
+from "../../features/attendance-correction/pages/AttendanceCorrectionAuditPage";
+
 const employeeSelfServiceRoutes = [
 
     {
@@ -87,6 +107,19 @@ const employeeSelfServiceRoutes = [
         path:"/employee/change-password",
         element:<EmployeeChangePasswordPage/>
         },
+
+        {
+            path: "/attendance-regularization",
+            element: <AdminAttendanceRegularizationPage />
+        },
+
+{
+    path:
+    "/attendance-correction-audit",
+
+    element:
+    <AttendanceCorrectionAuditPage />
+},
 
         
 
