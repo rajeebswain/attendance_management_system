@@ -22,3 +22,18 @@ Changes:
   to Pending requests only
 * Improved card layout and readability
 ==============================================================
+
+M07-002C
+
+Added Leave Management Filters.
+
+Features:
+
+- Employee Search
+- Status Filter
+- Leave Type Filter
+- Leave Summary Counters
+
+Improves leave request navigation
+for HR and Admin users.
+================================================

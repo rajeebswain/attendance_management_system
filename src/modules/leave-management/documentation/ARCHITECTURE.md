@@ -44,3 +44,20 @@ Impact:
 Improves leave approval workflow
 and administrative efficiency.
 ===============================================
+
+ARCH-M07-003
+
+Administrative leave review screens
+shall provide client-side filtering
+and summary statistics.
+
+Reason:
+
+Improve review efficiency for
+large employee populations.
+
+Impact:
+
+Reduces manual searching and
+improves approval workflow.
+=================================================

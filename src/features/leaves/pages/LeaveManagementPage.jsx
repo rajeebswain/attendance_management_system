@@ -20,36 +20,6 @@ import {
 
     from "../services/leaveService";
 
-
-
-// function getStatusClass(status) {
-
-//     switch (status) {
-
-//         case "approved":
-
-//             return
-//             "bg-green-100 text-green-700";
-
-//         case "rejected":
-
-//             return
-//             "bg-red-100 text-red-700";
-
-//         case "pending":
-
-//             return
-//             "bg-yellow-100 text-yellow-700";
-
-//         default:
-
-//             return
-//             "bg-gray-100 text-gray-700";
-
-//     }
-
-// }
-
 function getStatusClass(status) {
 
     switch (status) {
@@ -72,17 +42,79 @@ function getStatusClass(status) {
 
 function LeaveManagementPage() {
 
-    const [
+    const [leaves, setLeaves] = useState([]);
 
-        leaves,
+    const [searchTerm, setSearchTerm] = useState("");
 
-        setLeaves
+    const [statusFilter, setStatusFilter] = useState("all");
 
-    ]
+    const [leaveTypeFilter, setLeaveTypeFilter] = useState("all");
 
-        =
+    const pendingCount =
 
-        useState([]);
+        leaves.filter(
+            leave => leave.status === "pending"
+        ).length;
+
+    const approvedCount =
+
+        leaves.filter(
+            leave => leave.status === "approved"
+        ).length;
+
+    const rejectedCount =
+
+        leaves.filter(
+            leave => leave.status === "rejected"
+        ).length;
+
+    const filteredLeaves =
+
+        leaves.filter((leave) => {
+
+            const employeeMatch =
+
+                leave.employees?.full_name
+
+                    .toLowerCase()
+
+                    .includes(
+
+                        searchTerm.toLowerCase()
+
+                    );
+
+            const statusMatch =
+
+                statusFilter === "all"
+
+                ||
+
+                leave.status === statusFilter;
+
+            const leaveTypeMatch =
+
+                leaveTypeFilter === "all"
+
+                ||
+
+                leave.leave_type === leaveTypeFilter;
+
+            return (
+
+                employeeMatch
+
+                &&
+
+                statusMatch
+
+                &&
+
+                leaveTypeMatch
+
+            );
+
+        });
 
     async function loadLeaves() {
 
@@ -110,9 +142,103 @@ function LeaveManagementPage() {
 
             </h1>
 
+            <h1 className="text-2xl font-bold mb-4">
+
+    Leave Requests
+
+</h1>
+
+<div className="border p-4 mb-4 bg-white">
+
+    <strong>Total:</strong> {leaves.length}
+
+    {" | "}
+
+    <strong>Pending:</strong> {pendingCount}
+
+    {" | "}
+
+    <strong>Approved:</strong> {approvedCount}
+
+    {" | "}
+
+    <strong>Rejected:</strong> {rejectedCount}
+
+</div>
+
+<div className="border p-4 mb-4 bg-white">
+
+    <input
+
+        type="text"
+
+        placeholder="Search Employee"
+
+        value={searchTerm}
+
+        onChange={(e)=>
+
+            setSearchTerm(
+
+                e.target.value
+
+            )
+
+        }
+
+        className="border p-2 mr-2"
+
+    />
+
+    <select
+
+        value={statusFilter}
+
+        onChange={(e)=>
+
+            setStatusFilter(
+
+                e.target.value
+
+            )
+
+        }
+
+        className="border p-2 mr-2"
+
+    >
+
+        <option value="all">
+
+            All Status
+
+        </option>
+
+        <option value="pending">
+
+            Pending
+
+        </option>
+
+        <option value="approved">
+
+            Approved
+
+        </option>
+
+        <option value="rejected">
+
+            Rejected
+
+        </option>
+
+    </select>
+
+</div>
+
             {
 
-                leaves.map(
+                filteredLeaves.map(
 
                     (leave) => (
 
@@ -120,50 +246,14 @@ function LeaveManagementPage() {
                             key={leave.id}
                             // className="border p-4 mb-2"
                             className="
-border
-rounded-lg
-shadow-sm
-p-5
-mb-4
-bg-white
-"
+                                        border
+                                        rounded-lg
+                                        shadow-sm
+                                        p-5
+                                        mb-4
+                                        bg-white
+                                        "
                         >
-
-                            {/* <div>
-
-                                Employee:
-
-                                {
-
-                                    leave.employees?.full_name
-
-                                }
-
-                            </div>
-
-                            <div>
-
-                                Type:
-
-                                {
-
-                                    leave.leave_type
-
-                                }
-
-                            </div>
-
-                            <div>
-
-                                Status:
-
-                                {
-
-                                    leave.status
-
-                                }
-
-                            </div> */}
 
                             <div>
                                 <strong>Request ID:</strong>{" "}
@@ -211,25 +301,20 @@ bg-white
                                     {leave.reason}
                                 </div>
 
-                                {/* <div>
-                                    <strong>Status:</strong>{" "}
-                                    {leave.status}
-                                </div> */}
-
                                 <div>
 
                                     <strong>Status:</strong>{" "}
 
                                     <span
                                         className={`
-px-3
-py-1
-rounded-full
-text-sm
-${getStatusClass(
+                                                    px-3
+                                                    py-1
+                                                    rounded-full
+                                                    text-sm
+                                                    ${getStatusClass(
                                             leave.status
                                         )}
-`}
+                                    `}
                                     >
 
                                         {/* {leave.status} */}
@@ -261,75 +346,6 @@ ${getStatusClass(
 
                             </div>
 
-                            {/* <div className="flex gap-3 mt-3">
-
-                                <button
-
-                                    className="
-                                                bg-green-600
-                                                text-white
-                                                px-4
-                                                py-2
-                                                rounded
-                                                hover:bg-green-700
-                                                "
-
-                                    onClick={async () => {
-
-                                        await updateLeaveStatus(
-
-                                            leave.id,
-
-                                            "approved",
-
-                                            leave
-
-                                        );
-
-                                        loadLeaves();
-
-                                    }}
-
-                                >
-
-                                    Approve
-
-                                </button>
-
-                                <button
-
-                                    className="
-                                                bg-red-600
-                                                text-white
-                                                px-4
-                                                py-2
-                                                rounded
-                                                hover:bg-red-700
-                                                "
-                                    onClick={async () => {
-
-                                        await updateLeaveStatus(
-
-                                            leave.id,
-
-                                            "rejected",
-
-                                            leave
-
-                                        );
-
-                                        loadLeaves();
-
-                                    }}
-
-                                >
-
-                                    Reject
-
-                                </button>
-
-                            </div> */}
-
                             {
                                 leave.status === "pending" && (
 
@@ -338,14 +354,13 @@ ${getStatusClass(
                                         <button
 
                                             className="
-bg-green-600
-text-white
-px-4
-py-2
-rounded
-hover:bg-green-700
-"
-
+                                                        bg-green-600
+                                                        text-white
+                                                        px-4
+                                                        py-2
+                                                        rounded
+                                                        hover:bg-green-700
+                                                        "
                                             onClick={async () => {
 
                                                 await updateLeaveStatus(
@@ -371,13 +386,13 @@ hover:bg-green-700
                                         <button
 
                                             className="
-bg-red-600
-text-white
-px-4
-py-2
-rounded
-hover:bg-red-700
-"
+                                                        bg-red-600
+                                                        text-white
+                                                        px-4
+                                                        py-2
+                                                        rounded
+                                                        hover:bg-red-700
+                                                        "
 
                                             onClick={async () => {
 
