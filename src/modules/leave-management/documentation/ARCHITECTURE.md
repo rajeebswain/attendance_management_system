@@ -129,4 +129,20 @@ Impact:
 All decision changes remain
 auditable.
 ===========================================
+ARCH-M07-009
+
+Leave decisions support
+controlled status reversal.
+
+Rules:
+
+Pending -> Approved
+Pending -> Rejected
+
+Approved -> Rejected
+Rejected -> Approved
+
+Same-status transitions
+are blocked.
+===========================================
 

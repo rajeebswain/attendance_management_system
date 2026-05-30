@@ -83,4 +83,14 @@ Added:
 - Save/Cancel flow
 - Decision revision support
 ===========================================
+M07-005B
+
+Enhanced Leave Decision Modal.
+
+Added:
+
+- Context-aware status actions
+- Invalid transition prevention
+- Status color indicators
+============================================
 

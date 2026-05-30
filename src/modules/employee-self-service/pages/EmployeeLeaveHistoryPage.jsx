@@ -82,73 +82,6 @@ function EmployeeLeaveHistoryPage() {
 
                 </h1>
 
-                {/* <table
-                    className="
-    w-full
-    bg-white
-    rounded
-    "
-                >
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Date</th>
-
-                            <th>Type</th>
-
-                            <th>Status</th>
-
-                            <th>Reason</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        {
-
-                            leaves.map((leave) => (
-
-                                <tr
-                                    key={leave.id}
-                                >
-
-                                    <td>
-
-                                        {leave.start_date}
-
-                                    </td>
-
-                                    <td>
-
-                                        {leave.leave_type}
-
-                                    </td>
-
-                                    <td>
-
-                                        {leave.status}
-
-                                    </td>
-
-                                    <td>
-
-                                        {leave.reason}
-
-                                    </td>
-
-                                </tr>
-
-                            ))
-
-                        }
-
-                    </tbody>
-
-                </table> */}
 
                 <table
                     className="
@@ -235,23 +168,23 @@ rounded
 
                                     <td className="p-3">
 
-    {
-        leave.admin_remark || "-"
-    }
+                                        {
+                                            leave.admin_remark || "-"
+                                        }
 
-</td>
+                                    </td>
 
-<td className="p-3">
+                                    <td className="p-3">
 
-    {
-        leave.approved_at
-            ? new Date(
-                leave.approved_at
-              ).toLocaleString()
-            : "-"
-    }
+                                        {
+                                            leave.approved_at
+                                                ? new Date(
+                                                    leave.approved_at
+                                                ).toLocaleString()
+                                                : "-"
+                                        }
 
-</td>
+                                    </td>
 
                                 </tr>
 

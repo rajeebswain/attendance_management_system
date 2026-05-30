@@ -14,9 +14,9 @@ Rollback: Remove import
 import {
 
     createLeaveAuditLog
-    
-    }
-    
+
+}
+
     from "./leaveAuditService";
 
 export async function createLeave(data) {
@@ -94,8 +94,8 @@ Rollback: Remove variable
 ==================================================
 */
 
-const currentStatus =
-leaveData.status;
+    const currentStatus =
+        leaveData.status;
 
 
     const { error } = await supabase
@@ -109,7 +109,7 @@ leaveData.status;
             admin_remark:
                 adminRemark,
 
-            
+
             approved_at:
                 new Date()
 
@@ -141,18 +141,18 @@ Rollback: Remove audit call
 ==================================================
 */
 
-await createLeaveAuditLog({
+    await createLeaveAuditLog({
 
-    leaveId:id,
-    
-    oldStatus:
-    currentStatus,
-    
-    newStatus:
-    status,
-    
-    adminRemark
-    
+        leaveId: id,
+
+        oldStatus:
+            currentStatus,
+
+        newStatus:
+            status,
+
+        adminRemark
+
     });
 
     if (status === "approved") {

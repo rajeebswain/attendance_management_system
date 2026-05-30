@@ -37,17 +37,37 @@ function LeaveDecisionModal({
 
     //     );
 
+    // const [
+
+    //     status,
+
+    //     setStatus
+
+    // ]
+
+    // =
+
+    // useState("");
+
     const [
 
         status,
-    
+
         setStatus
-    
+
     ]
-    
-    =
-    
-    useState("");
+
+        =
+
+        useState(
+
+            leave.status === "approved"
+
+                ? "rejected"
+
+                : "approved"
+
+        );
 
     const [
 
@@ -66,13 +86,13 @@ function LeaveDecisionModal({
         if (!status) {
 
             alert(
-        
+
                 "Select a decision"
-        
+
             );
-        
+
             return;
-        
+
         }
 
         if (
@@ -198,21 +218,21 @@ function LeaveDecisionModal({
                 </select> */}
 
 
-<select
+                {/* <select
 
-value={status}
+                    value={status}
 
-onChange={(e) =>
+                    onChange={(e) =>
 
-    setStatus(
+                        setStatus(
 
-        e.target.value
+                            e.target.value
 
-    )
+                        )
 
-}
+                    }
 
-className="
+                    className="
 w-full
 border
 p-3
@@ -220,27 +240,125 @@ rounded
 mb-4
 "
 
->
+                >
 
-<option value="">
+                    <option value="">
 
-    Select Decision
+                        Select Decision
 
-</option>
+                    </option>
 
-<option value="approved">
+                    <option value="approved">
 
-    Approve
+                        Approve
 
-</option>
+                    </option>
 
-<option value="rejected">
+                    <option value="rejected">
 
-    Reject
+                        Reject
 
-</option>
+                    </option>
 
-</select>
+                </select> */}
+
+
+
+<div className="mb-4">
+
+    <label
+        className="
+        block
+        font-semibold
+        mb-2
+        "
+    >
+
+        Change To
+
+    </label>
+
+    <select
+
+        value={status}
+
+        onChange={(e) =>
+
+            setStatus(
+
+                e.target.value
+
+            )
+
+        }
+
+        className="
+        w-full
+        border
+        rounded
+        p-3
+        "
+
+    >
+
+        {
+
+            leave.status === "pending" && (
+
+                <>
+
+                    <option value="approved">
+
+                        Approve
+
+                    </option>
+
+                    <option value="rejected">
+
+                        Reject
+
+                    </option>
+
+                </>
+
+            )
+
+        }
+
+        {
+
+            leave.status === "approved" && (
+
+                <option value="rejected">
+
+                    Reject
+
+                </option>
+
+            )
+
+        }
+
+        {
+
+            leave.status === "rejected" && (
+
+                <option value="approved">
+
+                    Approve
+
+                </option>
+
+            )
+
+        }
+
+    </select>
+
+</div>
+
+
+
 
                 <textarea
 

@@ -78,7 +78,7 @@ function getStatusClass(status) {
 function LeaveManagementPage() {
 
     const [leaves, setLeaves] = useState([]);
-    const [remarks, setRemarks] = useState({});
+
 
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -428,72 +428,7 @@ Rollback: Remove state
                                     }
                                 </div>
 
-                                {/* <div>
-                                    <strong>Reason:</strong>{" "}
-                                    {
-                                        leave.status === "pending" && (
-
-                                            <div className="mt-4">
-
-                                                <label
-                                                    className="
-                                                        block
-                                                        font-semibold
-                                                        mb-2
-                                                        "
-                                                >
-
-                                                    Admin Remark
-
-                                                </label>
-
-                                                <textarea
-
-                                                    value={
-                                                        remarks[
-                                                        leave.id
-                                                        ] || ""
-                                                    }
-
-                                                    onChange={(e) =>
-
-                                                        setRemarks({
-
-                                                            ...remarks,
-
-                                                            [leave.id]:
-                                                                e.target.value
-
-                                                        })
-
-                                                    }
-
-                                                    placeholder=" "
-
-                                                    className="
-                                                            w-full
-                                                            border
-                                                            rounded
-                                                            p-3
-                                                            "
-
-                                                    rows={3}
-
-                                                />
-
-                                            </div>
-
-                                        )
-                                    }
-                                    {leave.reason}
-                                </div> */}
-
-
-                                {/* <div>
-                                    <strong>Reason:</strong>{" "}
-                                  
-                                    {leave.reason}
-                                </div> */}
+                                                            
 
                                 <div>
 
@@ -511,62 +446,8 @@ Rollback: Remove state
                                     {leave.admin_remark || "-"}
 
                                 </div>
-                                
-                                {/* {
-                                    leave.status === "pending" && (
 
-                                        <div className="mt-4">
-
-                                            <label
-                                                className="
-                                                                block
-                                                                font-semibold
-                                                                mb-2
-                                                                "
-                                            >
-
-                                                Admin Remark
-
-                                            </label>
-
-                                            <textarea
-
-                                                value={
-                                                    remarks[
-                                                    leave.id
-                                                    ] || ""
-                                                }
-
-                                                onChange={(e) =>
-
-                                                    setRemarks({
-
-                                                        ...remarks,
-
-                                                        [leave.id]:
-                                                            e.target.value
-
-                                                    })
-
-                                                }
-
-                                                placeholder=" "
-
-                                                className="
-                                                            w-full
-                                                            border
-                                                            rounded
-                                                            p-3
-                                                            "
-
-                                                rows={3}
-
-                                            />
-
-                                        </div>
-
-                                    )
-                                } */}
+                               
 
                                 <div>
 
@@ -630,21 +511,7 @@ Rollback: Remove state
                                 }
 
 
-                                {/* {
-                                    leave.admin_remark && (
-
-                                        <div>
-
-                                            <strong>
-                                                Admin Remark:
-                                            </strong>{" "}
-
-                                            {leave.admin_remark}
-
-                                        </div>
-
-                                    )
-                                } */}
+                               
                                 <div>
                                     <strong>Duration:</strong>{" "}
                                     {
@@ -759,129 +626,39 @@ text-sm
 
                             </div>
 
-                            {
-                                leave.status === "pending" && (
+                           
+                            <div className="flex gap-3 mt-3">
 
-                                    <div className="flex gap-3 mt-3">
+                               
+                                <button
 
-                                        {/* <button
+                                    className="
+                                                    bg-blue-600
+                                                    text-white
+                                                    px-4
+                                                    py-2
+                                                    rounded
+                                                    "
 
-                                            className="
-                                                        bg-green-600
-                                                        text-white
-                                                        px-4
-                                                        py-2
-                                                        rounded
-                                                        hover:bg-green-700
-                                                        "
+                                    onClick={() =>
 
-                                            onClick={async () => {
+                                        setSelectedLeave(
 
-                                                try {
+                                            leave
 
-                                                    console.log("Approve clicked");
+                                        )
 
-                                                    await updateLeaveStatus(
-                                                        leave.id,
-                                                        "approved",
-                                                        leave,
-                                                        remarks[leave.id] || ""
-                                                    );
+                                    }
 
-                                                    console.log("Update success");
+                                >
 
-                                                    alert("Approved");
+                                    Decision
 
-                                                    loadLeaves();
+                                </button>
 
-                                                } catch (error) {
+                            </div>
 
-                                                    console.error(error);
-
-                                                    alert(error.message);
-
-                                                }
-
-                                            }}
-
-                                        >
-
-                                            Approve
-
-                                        </button>
-
-                                        <button
-
-                                            className="
-                                                        bg-red-600
-                                                        text-white
-                                                        px-4
-                                                        py-2
-                                                        rounded
-                                                        hover:bg-red-700
-                                                        "
-
-                                            onClick={async () => {
-
-
-
-                                                await updateLeaveStatus(
-
-                                                    leave.id,
-
-                                                    "rejected",
-
-                                                    leave,
-
-                                                    remarks[
-                                                    leave.id
-                                                    ] || ""
-
-                                                );
-
-                                                loadLeaves();
-
-                                            }}
-
-                                        >
-
-                                            Reject
-
-                                        </button> */}
-
-
-                                        <button
-
-                                            className="
-bg-blue-600
-text-white
-px-4
-py-2
-rounded
-"
-
-                                            onClick={() =>
-
-                                                setSelectedLeave(
-
-                                                    leave
-
-                                                )
-
-                                            }
-
-                                        >
-
-                                            Decision
-
-                                        </button>
-
-                                    </div>
-
-                                )
-                            }
-
-
+                           
                         </div>
 
                     )
@@ -894,19 +671,20 @@ rounded
             {
                 selectedLeave && (
 
+                  
                     <LeaveDecisionModal
+
+                        key={selectedLeave.id}
 
                         leave={selectedLeave}
 
                         onClose={() =>
 
                             setSelectedLeave(
-
                                 null
-
                             )
-
                         }
+
 
                         onSave={async ({
 
@@ -917,24 +695,15 @@ rounded
                         }) => {
 
                             await updateLeaveStatus(
-
                                 selectedLeave.id,
-
                                 status,
-
                                 selectedLeave,
-
                                 remark
-
                             );
 
-                            setSelectedLeave(
+                            setSelectedLeave(null);
 
-                                null
-
-                            );
-
-                            loadLeaves();
+                            window.location.reload();
 
                         }}
 
