@@ -29,3 +29,17 @@ Status:
 
 Open
 ==============================================
+TD-M07-002
+
+approved_by temporarily disabled.
+
+Reason:
+
+Database column expects UUID
+but authenticated approver
+identity is not yet integrated.
+
+Future:
+
+Store logged-in approver UUID.
+======================================

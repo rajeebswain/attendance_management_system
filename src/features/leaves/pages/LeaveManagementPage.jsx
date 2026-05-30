@@ -43,6 +43,7 @@ function getStatusClass(status) {
 function LeaveManagementPage() {
 
     const [leaves, setLeaves] = useState([]);
+    const [remarks, setRemarks] = useState({});
 
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -142,99 +143,93 @@ function LeaveManagementPage() {
 
             </h1>
 
-            <h1 className="text-2xl font-bold mb-4">
+            <div className="border p-4 mb-4 bg-white">
 
-    Leave Requests
+                <strong>Total:</strong> {leaves.length}
 
-</h1>
+                {" | "}
 
-<div className="border p-4 mb-4 bg-white">
+                <strong>Pending:</strong> {pendingCount}
 
-    <strong>Total:</strong> {leaves.length}
+                {" | "}
 
-    {" | "}
+                <strong>Approved:</strong> {approvedCount}
 
-    <strong>Pending:</strong> {pendingCount}
+                {" | "}
 
-    {" | "}
+                <strong>Rejected:</strong> {rejectedCount}
 
-    <strong>Approved:</strong> {approvedCount}
+            </div>
 
-    {" | "}
+            <div className="border p-4 mb-4 bg-white">
 
-    <strong>Rejected:</strong> {rejectedCount}
+                <input
 
-</div>
+                    type="text"
 
-<div className="border p-4 mb-4 bg-white">
+                    placeholder="Search Employee"
 
-    <input
+                    value={searchTerm}
 
-        type="text"
+                    onChange={(e) =>
 
-        placeholder="Search Employee"
+                        setSearchTerm(
 
-        value={searchTerm}
+                            e.target.value
 
-        onChange={(e)=>
+                        )
 
-            setSearchTerm(
+                    }
 
-                e.target.value
+                    className="border p-2 mr-2"
 
-            )
+                />
 
-        }
+                <select
 
-        className="border p-2 mr-2"
+                    value={statusFilter}
 
-    />
+                    onChange={(e) =>
 
-    <select
+                        setStatusFilter(
 
-        value={statusFilter}
+                            e.target.value
 
-        onChange={(e)=>
+                        )
 
-            setStatusFilter(
+                    }
 
-                e.target.value
+                    className="border p-2 mr-2"
 
-            )
+                >
 
-        }
+                    <option value="all">
 
-        className="border p-2 mr-2"
+                        All Status
 
-    >
+                    </option>
 
-        <option value="all">
+                    <option value="pending">
 
-            All Status
+                        Pending
 
-        </option>
+                    </option>
 
-        <option value="pending">
+                    <option value="approved">
 
-            Pending
+                        Approved
 
-        </option>
+                    </option>
 
-        <option value="approved">
+                    <option value="rejected">
 
-            Approved
+                        Rejected
 
-        </option>
+                    </option>
 
-        <option value="rejected">
+                </select>
 
-            Rejected
-
-        </option>
-
-    </select>
-
-</div>
+            </div>
 
             {
 
@@ -296,10 +291,135 @@ function LeaveManagementPage() {
                                     }
                                 </div>
 
-                                <div>
+                                {/* <div>
                                     <strong>Reason:</strong>{" "}
+                                    {
+                                        leave.status === "pending" && (
+
+                                            <div className="mt-4">
+
+                                                <label
+                                                    className="
+                                                        block
+                                                        font-semibold
+                                                        mb-2
+                                                        "
+                                                >
+
+                                                    Admin Remark
+
+                                                </label>
+
+                                                <textarea
+
+                                                    value={
+                                                        remarks[
+                                                        leave.id
+                                                        ] || ""
+                                                    }
+
+                                                    onChange={(e) =>
+
+                                                        setRemarks({
+
+                                                            ...remarks,
+
+                                                            [leave.id]:
+                                                                e.target.value
+
+                                                        })
+
+                                                    }
+
+                                                    placeholder=" "
+
+                                                    className="
+                                                            w-full
+                                                            border
+                                                            rounded
+                                                            p-3
+                                                            "
+
+                                                    rows={3}
+
+                                                />
+
+                                            </div>
+
+                                        )
+                                    }
                                     {leave.reason}
-                                </div>
+                                </div> */}
+
+
+                                {/* <div>
+                                    <strong>Reason:</strong>{" "}
+                                  
+                                    {leave.reason}
+                                </div> */}
+
+<div>
+
+    <strong>Reason:</strong>{" "}
+
+    {leave.reason || "-"}
+
+</div>
+{
+                                        leave.status === "pending" && (
+
+                                            <div className="mt-4">
+
+                                                <label
+                                                    className="
+                                                                block
+                                                                font-semibold
+                                                                mb-2
+                                                                "
+                                                >
+
+                                                    Admin Remark
+
+                                                </label>
+
+                                                <textarea
+
+                                                    value={
+                                                        remarks[
+                                                        leave.id
+                                                        ] || ""
+                                                    }
+
+                                                    onChange={(e) =>
+
+                                                        setRemarks({
+
+                                                            ...remarks,
+
+                                                            [leave.id]:
+                                                                e.target.value
+
+                                                        })
+
+                                                    }
+
+                                                    placeholder=" "
+
+                                                    className="
+                                                            w-full
+                                                            border
+                                                            rounded
+                                                            p-3
+                                                            "
+
+                                                    rows={3}
+
+                                                />
+
+                                            </div>
+
+                                        )
+                                    }
 
                                 <div>
 
@@ -317,7 +437,6 @@ function LeaveManagementPage() {
                                     `}
                                     >
 
-                                        {/* {leave.status} */}
                                         {
                                             leave.status.charAt(0).toUpperCase()
                                             +
@@ -327,7 +446,58 @@ function LeaveManagementPage() {
                                     </span>
 
                                 </div>
+                                {
+                                    leave.approved_by && (
 
+                                        <div>
+
+                                            <strong>
+                                                Approved By:
+                                            </strong>{" "}
+
+                                            {leave.approved_by}
+
+                                        </div>
+
+                                    )
+                                }
+
+                                {
+                                    leave.approved_at && (
+
+                                        <div>
+
+                                            <strong>
+                                                Approved On:
+                                            </strong>{" "}
+
+                                            {
+                                                new Date(
+                                                    leave.approved_at
+                                                ).toLocaleString()
+                                            }
+
+                                        </div>
+
+                                    )
+                                }
+
+
+                                {
+                                    leave.admin_remark && (
+
+                                        <div>
+
+                                            <strong>
+                                                Admin Remark:
+                                            </strong>{" "}
+
+                                            {leave.admin_remark}
+
+                                        </div>
+
+                                    )
+                                }
                                 <div>
                                     <strong>Duration:</strong>{" "}
                                     {
@@ -361,20 +531,53 @@ function LeaveManagementPage() {
                                                         rounded
                                                         hover:bg-green-700
                                                         "
+                                            // onClick={async () => {
+
+                                            //     await updateLeaveStatus(
+
+                                            //         leave.id,
+
+                                            //         "approved",
+
+                                            //         leave,
+
+                                            //         remarks[
+                                            //         leave.id
+                                            //         ] || ""
+
+                                            //     );
+
+                                            //     loadLeaves();
+
+                                            // }}
+
                                             onClick={async () => {
 
-                                                await updateLeaveStatus(
-
-                                                    leave.id,
-
-                                                    "approved",
-
-                                                    leave
-
-                                                );
-
-                                                loadLeaves();
-
+                                                try {
+                                            
+                                                    console.log("Approve clicked");
+                                            
+                                                    await updateLeaveStatus(
+                                                        leave.id,
+                                                        "approved",
+                                                        leave,
+                                                        remarks[leave.id] || ""
+                                                    );
+                                            
+                                                    console.log("Update success");
+                                            
+                                                    alert("Approved");
+                                            
+                                                    loadLeaves();
+                                            
+                                                } catch (error) {
+                                            
+                                                    console.error(error);
+                                            
+                                                    alert(error.message);
+                                            
+                                                }
+                                            
                                             }}
 
                                         >
@@ -396,13 +599,19 @@ function LeaveManagementPage() {
 
                                             onClick={async () => {
 
+
+
                                                 await updateLeaveStatus(
 
                                                     leave.id,
 
                                                     "rejected",
 
-                                                    leave
+                                                    leave,
+
+                                                    remarks[
+                                                    leave.id
+                                                    ] || ""
 
                                                 );
 

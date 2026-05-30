@@ -37,3 +37,16 @@ Features:
 Improves leave request navigation
 for HR and Admin users.
 ================================================
+M07-003A
+
+Added leave approval metadata.
+
+Features:
+
+- Admin Remark
+- Approval Timestamp
+- Approval Status Tracking
+
+Leave decisions now store
+approval context.
+==================================

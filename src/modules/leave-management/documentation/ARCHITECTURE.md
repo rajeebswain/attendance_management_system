@@ -61,3 +61,24 @@ Impact:
 Reduces manual searching and
 improves approval workflow.
 =================================================
+ARCH-M07-004
+
+Leave approval actions capture
+administrative decision metadata.
+
+Stored Data:
+
+- Approval Status
+- Admin Remark
+- Approval Timestamp
+
+Purpose:
+
+Provide auditability and
+decision traceability.
+
+Impact:
+
+Improves leave approval tracking
+and compliance readiness.
+==============================================

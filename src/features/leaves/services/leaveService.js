@@ -23,19 +23,36 @@ export async function getLeaves() {
 
         .from("leaves")
 
-        .select(`
+    //     .select(`
     
-    *,
+    // *,
     
+    // employees(
+    
+    // full_name,
+    
+    // employee_code
+    
+    // )
+    
+    // `);
+    .select(`
+    id,
+    employee_id,
+    leave_type,
+    start_date,
+    end_date,
+    reason,
+    status,
+    created_at,
+    admin_remark,
+    approved_by,
+    approved_at,
     employees(
-    
-    full_name,
-    
-    employee_code
-    
+        full_name,
+        employee_code
     )
-    
-    `);
+`)
 
     if (error) {
 
@@ -88,7 +105,9 @@ export async function updateLeaveStatus(
 
     status,
 
-    leaveData
+    leaveData,
+
+    adminRemark
 
 ) {
 
@@ -96,9 +115,23 @@ export async function updateLeaveStatus(
 
         .from("leaves")
 
+        // .update({
+
+        //     status
+
+        // })
         .update({
 
-            status
+            status,
+
+            admin_remark:
+                adminRemark,
+
+            // approved_by:
+            //     "Admin",
+
+            approved_at:
+                new Date()
 
         })
 
@@ -161,74 +194,74 @@ export async function updateLeaveStatus(
          }
  
      } */
-     if(status==="approved"){
+    if (status === "approved") {
 
         const {
-        
-        data: existingAttendance,
-        
-        error
-        
-        }
-        
-        =
-        
-        await supabase
-        
-        .from("attendance")
-        
-        .select("id")
-        
-        .eq(
-        
-        "employee_id",
-        
-        leaveData.employee_id
-        
-        )
-        
-        .eq(
-        
-        "attendance_date",
-        
-        leaveData.start_date
-        
-        );
-        
-        
-        /* Create attendance only if none exists */
-        
-        if(
-        
-        !existingAttendance ||
-        
-        existingAttendance.length===0
-        
-        ){
-        
-        await supabase
-        
-        .from("attendance")
-        
-        .insert([{
-        
-        employee_id:
-        
-        leaveData.employee_id,
-        
-        attendance_date:
-        
-        leaveData.start_date,
-        
-        status:"leave"
-        
-        }]);
-        
-        }
-        
+
+            data: existingAttendance,
+
+            error
+
         }
 
-     
+            =
+
+            await supabase
+
+                .from("attendance")
+
+                .select("id")
+
+                .eq(
+
+                    "employee_id",
+
+                    leaveData.employee_id
+
+                )
+
+                .eq(
+
+                    "attendance_date",
+
+                    leaveData.start_date
+
+                );
+
+
+        /* Create attendance only if none exists */
+
+        if (
+
+            !existingAttendance ||
+
+            existingAttendance.length === 0
+
+        ) {
+
+            await supabase
+
+                .from("attendance")
+
+                .insert([{
+
+                    employee_id:
+
+                        leaveData.employee_id,
+
+                    attendance_date:
+
+                        leaveData.start_date,
+
+                    status: "leave"
+
+                }]);
+
+        }
+
+    }
+
+
 }
 
 
