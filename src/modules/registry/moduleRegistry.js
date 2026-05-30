@@ -12,9 +12,14 @@ Rollback: Remove registry
 import employeeSelfServiceModule
 from "../employee-self-service/moduleConfig";
 
+import leaveManagementModule
+from "../leave-management/moduleConfig";
+
 const moduleRegistry = [
 
-employeeSelfServiceModule
+employeeSelfServiceModule,
+
+leaveManagementModule
 
 ];
 
