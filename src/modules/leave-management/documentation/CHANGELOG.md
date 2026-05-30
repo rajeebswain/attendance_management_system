@@ -50,3 +50,13 @@ Features:
 Leave decisions now store
 approval context.
 ==================================
+M07-003B
+
+Employee leave history now shows:
+
+- Admin Remark
+- Approval Timestamp
+
+Employees can view approval
+or rejection comments.
+=========================================

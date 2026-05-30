@@ -82,3 +82,19 @@ Impact:
 Improves leave approval tracking
 and compliance readiness.
 ==============================================
+ARCH-M07-005
+
+Leave decisions are visible to
+employees after processing.
+
+Displayed Information:
+
+- Status
+- Admin Remark
+- Approval Timestamp
+
+Purpose:
+
+Improve transparency and
+reduce leave-related disputes.
+==========================================

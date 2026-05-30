@@ -186,6 +186,14 @@ rounded
 
                             </th>
 
+                            <th className="p-3 text-left">
+                                Admin Remark
+                            </th>
+
+                            <th className="p-3 text-left">
+                                Approved On
+                            </th>
+
                         </tr>
 
                     </thead>
@@ -224,6 +232,26 @@ rounded
                                         {leave.reason}
 
                                     </td>
+
+                                    <td className="p-3">
+
+    {
+        leave.admin_remark || "-"
+    }
+
+</td>
+
+<td className="p-3">
+
+    {
+        leave.approved_at
+            ? new Date(
+                leave.approved_at
+              ).toLocaleString()
+            : "-"
+    }
+
+</td>
 
                                 </tr>
 
