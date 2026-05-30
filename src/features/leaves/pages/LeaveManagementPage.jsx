@@ -20,6 +20,56 @@ import {
 
     from "../services/leaveService";
 
+
+
+// function getStatusClass(status) {
+
+//     switch (status) {
+
+//         case "approved":
+
+//             return
+//             "bg-green-100 text-green-700";
+
+//         case "rejected":
+
+//             return
+//             "bg-red-100 text-red-700";
+
+//         case "pending":
+
+//             return
+//             "bg-yellow-100 text-yellow-700";
+
+//         default:
+
+//             return
+//             "bg-gray-100 text-gray-700";
+
+//     }
+
+// }
+
+function getStatusClass(status) {
+
+    switch (status) {
+
+        case "approved":
+            return "bg-green-100 text-green-700";
+
+        case "rejected":
+            return "bg-red-100 text-red-700";
+
+        case "pending":
+            return "bg-yellow-100 text-yellow-700";
+
+        default:
+            return "bg-gray-100 text-gray-700";
+
+    }
+
+}
+
 function LeaveManagementPage() {
 
     const [
@@ -68,10 +118,18 @@ function LeaveManagementPage() {
 
                         <div
                             key={leave.id}
-                            className="border p-4 mb-2"
+                            // className="border p-4 mb-2"
+                            className="
+border
+rounded-lg
+shadow-sm
+p-5
+mb-4
+bg-white
+"
                         >
 
-                            <div>
+                            {/* <div>
 
                                 Employee:
 
@@ -105,68 +163,116 @@ function LeaveManagementPage() {
 
                                 }
 
+                            </div> */}
+
+                            <div>
+                                <strong>Request ID:</strong>{" "}
+                                {leave.id}
                             </div>
 
-                            {/*<button
+                            <div className="space-y-2">
 
-                                onClick={async () => {
+                                <div>
+                                    <strong>Employee:</strong>{" "}
+                                    {leave.employees?.full_name}
+                                </div>
 
-                                    await updateLeaveStatus(
+                                <div>
+                                    <strong>Employee Code:</strong>{" "}
+                                    {leave.employees?.employee_code}
+                                </div>
 
-                                        leave.id,
+                                <div>
+                                    <strong>Leave Type:</strong>{" "}
+                                    {leave.leave_type}
+                                </div>
 
-                                        "approved",
+                                <div>
+                                    <strong>From Date:</strong>{" "}
+                                    {leave.start_date}
+                                </div>
 
-                                        leave
+                                <div>
+                                    <strong>To Date:</strong>{" "}
+                                    {leave.end_date}
+                                </div>
 
-                                    );
+                                <div>
+                                    <strong>Applied On:</strong>{" "}
+                                    {
+                                        new Date(
+                                            leave.created_at
+                                        ).toLocaleString()
+                                    }
+                                </div>
 
-                                    loadLeaves();
+                                <div>
+                                    <strong>Reason:</strong>{" "}
+                                    {leave.reason}
+                                </div>
 
-                                }}
+                                {/* <div>
+                                    <strong>Status:</strong>{" "}
+                                    {leave.status}
+                                </div> */}
 
-                            >
+                                <div>
 
-                                Approve
+                                    <strong>Status:</strong>{" "}
 
-                            </button>
+                                    <span
+                                        className={`
+px-3
+py-1
+rounded-full
+text-sm
+${getStatusClass(
+                                            leave.status
+                                        )}
+`}
+                                    >
 
-                            <button
+                                        {/* {leave.status} */}
+                                        {
+                                            leave.status.charAt(0).toUpperCase()
+                                            +
+                                            leave.status.slice(1)
+                                        }
 
-                                onClick={async () => {
+                                    </span>
 
-                                    await updateLeaveStatus(
+                                </div>
 
-                                        leave.id,
+                                <div>
+                                    <strong>Duration:</strong>{" "}
+                                    {
+                                        Math.ceil(
+                                            (
+                                                new Date(leave.end_date) -
+                                                new Date(leave.start_date)
+                                            )
+                                            /
+                                            (1000 * 60 * 60 * 24)
+                                        )
+                                        + 1
+                                    }
+                                    Day(s)
+                                </div>
 
-                                        "rejected"
+                            </div>
 
-                                    );
-
-                                    loadLeaves();
-
-                                }}
-
-                            >
-
-                                Reject
-
-                            </button>*/}
-
-
-
-                            <div className="flex gap-3 mt-3">
+                            {/* <div className="flex gap-3 mt-3">
 
                                 <button
 
                                     className="
-bg-green-600
-text-white
-px-4
-py-2
-rounded
-hover:bg-green-700
-"
+                                                bg-green-600
+                                                text-white
+                                                px-4
+                                                py-2
+                                                rounded
+                                                hover:bg-green-700
+                                                "
 
                                     onClick={async () => {
 
@@ -193,14 +299,13 @@ hover:bg-green-700
                                 <button
 
                                     className="
-bg-red-600
-text-white
-px-4
-py-2
-rounded
-hover:bg-red-700
-"
-
+                                                bg-red-600
+                                                text-white
+                                                px-4
+                                                py-2
+                                                rounded
+                                                hover:bg-red-700
+                                                "
                                     onClick={async () => {
 
                                         await updateLeaveStatus(
@@ -223,7 +328,83 @@ hover:bg-red-700
 
                                 </button>
 
-                            </div>
+                            </div> */}
+
+                            {
+                                leave.status === "pending" && (
+
+                                    <div className="flex gap-3 mt-3">
+
+                                        <button
+
+                                            className="
+bg-green-600
+text-white
+px-4
+py-2
+rounded
+hover:bg-green-700
+"
+
+                                            onClick={async () => {
+
+                                                await updateLeaveStatus(
+
+                                                    leave.id,
+
+                                                    "approved",
+
+                                                    leave
+
+                                                );
+
+                                                loadLeaves();
+
+                                            }}
+
+                                        >
+
+                                            Approve
+
+                                        </button>
+
+                                        <button
+
+                                            className="
+bg-red-600
+text-white
+px-4
+py-2
+rounded
+hover:bg-red-700
+"
+
+                                            onClick={async () => {
+
+                                                await updateLeaveStatus(
+
+                                                    leave.id,
+
+                                                    "rejected",
+
+                                                    leave
+
+                                                );
+
+                                                loadLeaves();
+
+                                            }}
+
+                                        >
+
+                                            Reject
+
+                                        </button>
+
+                                    </div>
+
+                                )
+                            }
 
 
                         </div>

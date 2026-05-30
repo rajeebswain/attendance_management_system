@@ -4,3 +4,21 @@ M07-000
 
 Created Leave Management plugin foundation.
 ===============================================
+
+M07-002B
+
+Improved Leave Management UI.
+
+Changes:
+
+* Added Employee Code display
+* Added From Date
+* Added To Date
+* Added Applied On timestamp
+* Added Leave Duration calculation
+* Added Request ID display
+* Added Status Badge styling
+* Restricted Approve/Reject actions
+  to Pending requests only
+* Improved card layout and readability
+==============================================================

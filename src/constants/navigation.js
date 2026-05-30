@@ -46,13 +46,9 @@ export const CORE_SIDEBAR_LINKS = [
   path: "/leave-management"
 },
 
-
-  {
-    label:
-    "Correction Audit",
-
-    path:
-    "/attendance-correction-audit"
+{
+    label: "Correction Audit",
+    path: "/attendance-correction-audit"
 }
 
 
