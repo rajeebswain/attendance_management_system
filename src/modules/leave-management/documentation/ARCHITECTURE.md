@@ -114,4 +114,19 @@ Supports compliance,
 investigation,
 and future workflow auditing.
 ===============================================
+ARCH-M07-008
+
+Leave decisions are managed
+through a dedicated modal.
+
+Purpose:
+
+Prevent accidental status changes
+and support decision revisions.
+
+Impact:
+
+All decision changes remain
+auditable.
+===========================================
 

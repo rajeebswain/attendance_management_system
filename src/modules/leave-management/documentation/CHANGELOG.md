@@ -72,3 +72,15 @@ Added:
 - Remark logging
 - Change timestamp logging
 ==========================================
+M07-005A
+
+Implemented Leave Decision Modal.
+
+Added:
+
+- Status selection
+- Mandatory remarks
+- Save/Cancel flow
+- Decision revision support
+===========================================
+

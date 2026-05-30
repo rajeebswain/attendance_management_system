@@ -40,6 +40,20 @@ import {
 
     from "../services/leaveAuditService";
 
+/*
+==================================================
+Change ID: M07-005A
+Date: 2026-05-30
+Status: Initial
+Purpose: Decision modal integration
+Risk: Low
+Rollback: Remove import
+==================================================
+*/
+
+import LeaveDecisionModal
+
+    from "../components/LeaveDecisionModal";
 
 function getStatusClass(status) {
 
@@ -93,6 +107,30 @@ Rollback: Remove state
         =
 
         useState({});
+
+
+    /*
+==================================================
+Change ID: M07-005A
+Date: 2026-05-30
+Status: Initial
+Purpose: Modal state
+Risk: Low
+Rollback: Remove state
+==================================================
+*/
+
+    const [
+
+        selectedLeave,
+
+        setSelectedLeave
+
+    ]
+
+        =
+
+        useState(null);
 
     const pendingCount =
 
@@ -464,7 +502,17 @@ Rollback: Remove state
                                     {leave.reason || "-"}
 
                                 </div>
-                                {
+
+
+                                <div>
+
+                                    <strong>Admin Remark:</strong>{" "}
+
+                                    {leave.admin_remark || "-"}
+
+                                </div>
+                                
+                                {/* {
                                     leave.status === "pending" && (
 
                                         <div className="mt-4">
@@ -518,7 +566,7 @@ Rollback: Remove state
                                         </div>
 
                                     )
-                                }
+                                } */}
 
                                 <div>
 
@@ -582,7 +630,7 @@ Rollback: Remove state
                                 }
 
 
-                                {
+                                {/* {
                                     leave.admin_remark && (
 
                                         <div>
@@ -596,7 +644,7 @@ Rollback: Remove state
                                         </div>
 
                                     )
-                                }
+                                } */}
                                 <div>
                                     <strong>Duration:</strong>{" "}
                                     {
@@ -613,7 +661,7 @@ Rollback: Remove state
                                     Day(s)
                                 </div>
 
-                               { /*
+                                { /*
 ==================================================
 Change ID: M07-004B
 Date: 2026-05-30
@@ -624,9 +672,9 @@ Rollback: Remove section
 ==================================================
 */}
 
-<button
+                                <button
 
-className="
+                                    className="
 mt-3
 px-3
 py-2
@@ -634,80 +682,80 @@ bg-gray-200
 rounded
 "
 
-onClick={()=>
+                                    onClick={() =>
 
-loadAuditLogs(
+                                        loadAuditLogs(
 
-leave.id
+                                            leave.id
 
-)
+                                        )
 
-}
+                                    }
 
->
+                                >
 
-View Audit History
+                                    View Audit History
 
-</button>
+                                </button>
 
-{
-auditLogs[
-leave.id
-]?.map(
+                                {
+                                    auditLogs[
+                                        leave.id
+                                    ]?.map(
 
-(log)=>(
+                                        (log) => (
 
-<div
+                                            <div
 
-key={log.id}
+                                                key={log.id}
 
-className="
+                                                className="
 mt-2
 border-l-4
 pl-3
 text-sm
 "
 
->
+                                            >
 
-<div>
+                                                <div>
 
-{log.old_status}
+                                                    {log.old_status}
 
-→
+                                                    →
 
-{log.new_status}
+                                                    {log.new_status}
 
-</div>
+                                                </div>
 
-<div>
+                                                <div>
 
-Remark:
+                                                    Remark:
 
-{log.admin_remark}
+                                                    {log.admin_remark}
 
-</div>
+                                                </div>
 
-<div>
+                                                <div>
 
-{
+                                                    {
 
-new Date(
+                                                        new Date(
 
-log.changed_at
+                                                            log.changed_at
 
-).toLocaleString()
+                                                        ).toLocaleString()
 
-}
+                                                    }
 
-</div>
+                                                </div>
 
-</div>
+                                            </div>
 
-)
+                                        )
 
-)
-}
+                                    )
+                                }
 
                             </div>
 
@@ -716,7 +764,7 @@ log.changed_at
 
                                     <div className="flex gap-3 mt-3">
 
-                                        <button
+                                        {/* <button
 
                                             className="
                                                         bg-green-600
@@ -726,25 +774,6 @@ log.changed_at
                                                         rounded
                                                         hover:bg-green-700
                                                         "
-                                            // onClick={async () => {
-
-                                            //     await updateLeaveStatus(
-
-                                            //         leave.id,
-
-                                            //         "approved",
-
-                                            //         leave,
-
-                                            //         remarks[
-                                            //         leave.id
-                                            //         ] || ""
-
-                                            //     );
-
-                                            //     loadLeaves();
-
-                                            // }}
 
                                             onClick={async () => {
 
@@ -818,10 +847,34 @@ log.changed_at
 
                                             Reject
 
+                                        </button> */}
+
+
+                                        <button
+
+                                            className="
+bg-blue-600
+text-white
+px-4
+py-2
+rounded
+"
+
+                                            onClick={() =>
+
+                                                setSelectedLeave(
+
+                                                    leave
+
+                                                )
+
+                                            }
+
+                                        >
+
+                                            Decision
+
                                         </button>
-
-
-
 
                                     </div>
 
@@ -836,6 +889,62 @@ log.changed_at
                 )
 
             }
+
+
+            {
+                selectedLeave && (
+
+                    <LeaveDecisionModal
+
+                        leave={selectedLeave}
+
+                        onClose={() =>
+
+                            setSelectedLeave(
+
+                                null
+
+                            )
+
+                        }
+
+                        onSave={async ({
+
+                            status,
+
+                            remark
+
+                        }) => {
+
+                            await updateLeaveStatus(
+
+                                selectedLeave.id,
+
+                                status,
+
+                                selectedLeave,
+
+                                remark
+
+                            );
+
+                            setSelectedLeave(
+
+                                null
+
+                            );
+
+                            loadLeaves();
+
+                        }}
+
+                    />
+
+                )
+            }
+
+
+
 
         </DashboardLayout>
 
