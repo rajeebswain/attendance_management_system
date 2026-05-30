@@ -43,3 +43,13 @@ Future:
 
 Store logged-in approver UUID.
 ======================================
+TD-M07-004
+
+Audit records currently do not
+capture authenticated approver UUID.
+
+Future:
+
+Store approver UUID after
+authentication integration.
+============================================

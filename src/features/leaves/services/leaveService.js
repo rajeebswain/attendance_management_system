@@ -1,5 +1,24 @@
 import { supabase } from "../../../lib/supabase/client";
 
+/*
+==================================================
+Change ID: M07-004A
+Date: 2026-05-30
+Status: Initial
+Purpose: Audit integration
+Risk: Low
+Rollback: Remove import
+==================================================
+*/
+
+import {
+
+    createLeaveAuditLog
+    
+    }
+    
+    from "./leaveAuditService";
+
 export async function createLeave(data) {
 
     const { error } = await supabase
@@ -23,20 +42,7 @@ export async function getLeaves() {
 
         .from("leaves")
 
-    //     .select(`
-    
-    // *,
-    
-    // employees(
-    
-    // full_name,
-    
-    // employee_code
-    
-    // )
-    
-    // `);
-    .select(`
+        .select(`
     id,
     employee_id,
     leave_type,
@@ -64,40 +70,6 @@ export async function getLeaves() {
 
 }
 
-/*export async function updateLeaveStatus(
-
-    id,
-
-    status
-
-) {
-
-    const { error } = await supabase
-
-        .from("leaves")
-
-        .update({
-
-            status
-
-        })
-
-        .eq(
-
-            "id",
-
-            id
-
-        );
-
-    if (error) {
-
-        throw error;
-
-    }
-
-}*/
-
 
 export async function updateLeaveStatus(
 
@@ -111,15 +83,25 @@ export async function updateLeaveStatus(
 
 ) {
 
+    /*
+==================================================
+Change ID: M07-004A
+Date: 2026-05-30
+Status: Initial
+Purpose: Capture previous status
+Risk: Low
+Rollback: Remove variable
+==================================================
+*/
+
+const currentStatus =
+leaveData.status;
+
+
     const { error } = await supabase
 
         .from("leaves")
 
-        // .update({
-
-        //     status
-
-        // })
         .update({
 
             status,
@@ -127,13 +109,12 @@ export async function updateLeaveStatus(
             admin_remark:
                 adminRemark,
 
-            // approved_by:
-            //     "Admin",
-
+            
             approved_at:
                 new Date()
 
         })
+
 
         .eq(
 
@@ -149,51 +130,31 @@ export async function updateLeaveStatus(
 
     }
 
+    /*
+==================================================
+Change ID: M07-004A
+Date: 2026-05-30
+Status: Initial
+Purpose: Create leave audit record
+Risk: Low
+Rollback: Remove audit call
+==================================================
+*/
 
-    /* Create attendance if approved */
+await createLeaveAuditLog({
 
-    /* if (
- 
-         status === "approved"
- 
-     ) {
- 
-         const { error: attendanceError }
- 
-             =
- 
-             await supabase
- 
-                 .from("attendance")
- 
-                 .insert([{
- 
-                     employee_id:
- 
-                         leaveData.employee_id,
- 
-                     attendance_date:
- 
-                         leaveData.start_date,
- 
-                     status:
- 
-                         "leave"
- 
-                 }]);
- 
- 
-         if (attendanceError) {
- 
-             console.log(
- 
-                 attendanceError
- 
-             );
- 
-         }
- 
-     } */
+    leaveId:id,
+    
+    oldStatus:
+    currentStatus,
+    
+    newStatus:
+    status,
+    
+    adminRemark
+    
+    });
+
     if (status === "approved") {
 
         const {
@@ -328,3 +289,4 @@ export async function deductLeaveBalance(
         );
 
 }
+

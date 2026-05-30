@@ -20,6 +20,27 @@ import {
 
     from "../services/leaveService";
 
+
+/*
+==================================================
+Change ID: M07-004B
+Date: 2026-05-30
+Status: Initial
+Purpose: Audit history integration
+Risk: Low
+Rollback: Remove import
+==================================================
+*/
+
+import {
+
+    getLeaveAuditLogs
+
+}
+
+    from "../services/leaveAuditService";
+
+
 function getStatusClass(status) {
 
     switch (status) {
@@ -50,6 +71,28 @@ function LeaveManagementPage() {
     const [statusFilter, setStatusFilter] = useState("all");
 
     const [leaveTypeFilter, setLeaveTypeFilter] = useState("all");
+    /*
+==================================================
+Change ID: M07-004B
+Date: 2026-05-30
+Status: Initial
+Purpose: Store audit history
+Risk: Low
+Rollback: Remove state
+==================================================
+*/
+
+    const [
+
+        auditLogs,
+
+        setAuditLogs
+
+    ]
+
+        =
+
+        useState({});
 
     const pendingCount =
 
@@ -132,6 +175,62 @@ function LeaveManagementPage() {
         loadLeaves();
 
     }, []);
+
+
+    /*
+    ==================================================
+    Change ID: M07-004B
+    Date: 2026-05-30
+    Status: Initial
+    Purpose: Load audit history
+    Risk: Low
+    Rollback: Remove function
+    ==================================================
+    */
+
+    async function loadAuditLogs(
+
+        leaveId
+
+    ) {
+
+        try {
+
+            const data =
+
+                await getLeaveAuditLogs(
+
+                    leaveId
+
+                );
+
+            setAuditLogs(
+
+                prev => ({
+
+                    ...prev,
+
+                    [leaveId]:
+
+                        data
+
+                })
+
+            );
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+        }
+
+    }
+
+
+
+
 
     return (
 
@@ -358,68 +457,68 @@ function LeaveManagementPage() {
                                     {leave.reason}
                                 </div> */}
 
-<div>
+                                <div>
 
-    <strong>Reason:</strong>{" "}
+                                    <strong>Reason:</strong>{" "}
 
-    {leave.reason || "-"}
+                                    {leave.reason || "-"}
 
-</div>
-{
-                                        leave.status === "pending" && (
+                                </div>
+                                {
+                                    leave.status === "pending" && (
 
-                                            <div className="mt-4">
+                                        <div className="mt-4">
 
-                                                <label
-                                                    className="
+                                            <label
+                                                className="
                                                                 block
                                                                 font-semibold
                                                                 mb-2
                                                                 "
-                                                >
+                                            >
 
-                                                    Admin Remark
+                                                Admin Remark
 
-                                                </label>
+                                            </label>
 
-                                                <textarea
+                                            <textarea
 
-                                                    value={
-                                                        remarks[
-                                                        leave.id
-                                                        ] || ""
-                                                    }
+                                                value={
+                                                    remarks[
+                                                    leave.id
+                                                    ] || ""
+                                                }
 
-                                                    onChange={(e) =>
+                                                onChange={(e) =>
 
-                                                        setRemarks({
+                                                    setRemarks({
 
-                                                            ...remarks,
+                                                        ...remarks,
 
-                                                            [leave.id]:
-                                                                e.target.value
+                                                        [leave.id]:
+                                                            e.target.value
 
-                                                        })
+                                                    })
 
-                                                    }
+                                                }
 
-                                                    placeholder=" "
+                                                placeholder=" "
 
-                                                    className="
+                                                className="
                                                             w-full
                                                             border
                                                             rounded
                                                             p-3
                                                             "
 
-                                                    rows={3}
+                                                rows={3}
 
-                                                />
+                                            />
 
-                                            </div>
+                                        </div>
 
-                                        )
-                                    }
+                                    )
+                                }
 
                                 <div>
 
@@ -514,6 +613,102 @@ function LeaveManagementPage() {
                                     Day(s)
                                 </div>
 
+                               { /*
+==================================================
+Change ID: M07-004B
+Date: 2026-05-30
+Status: Initial
+Purpose: Display audit history
+Risk: Low
+Rollback: Remove section
+==================================================
+*/}
+
+<button
+
+className="
+mt-3
+px-3
+py-2
+bg-gray-200
+rounded
+"
+
+onClick={()=>
+
+loadAuditLogs(
+
+leave.id
+
+)
+
+}
+
+>
+
+View Audit History
+
+</button>
+
+{
+auditLogs[
+leave.id
+]?.map(
+
+(log)=>(
+
+<div
+
+key={log.id}
+
+className="
+mt-2
+border-l-4
+pl-3
+text-sm
+"
+
+>
+
+<div>
+
+{log.old_status}
+
+→
+
+{log.new_status}
+
+</div>
+
+<div>
+
+Remark:
+
+{log.admin_remark}
+
+</div>
+
+<div>
+
+{
+
+new Date(
+
+log.changed_at
+
+).toLocaleString()
+
+}
+
+</div>
+
+</div>
+
+)
+
+)
+}
+
                             </div>
 
                             {
@@ -554,30 +749,30 @@ function LeaveManagementPage() {
                                             onClick={async () => {
 
                                                 try {
-                                            
+
                                                     console.log("Approve clicked");
-                                            
+
                                                     await updateLeaveStatus(
                                                         leave.id,
                                                         "approved",
                                                         leave,
                                                         remarks[leave.id] || ""
                                                     );
-                                            
+
                                                     console.log("Update success");
-                                            
+
                                                     alert("Approved");
-                                            
+
                                                     loadLeaves();
-                                            
+
                                                 } catch (error) {
-                                            
+
                                                     console.error(error);
-                                            
+
                                                     alert(error.message);
-                                            
+
                                                 }
-                                            
+
                                             }}
 
                                         >
@@ -624,6 +819,9 @@ function LeaveManagementPage() {
                                             Reject
 
                                         </button>
+
+
+
 
                                     </div>
 

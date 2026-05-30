@@ -98,3 +98,20 @@ Purpose:
 Improve transparency and
 reduce leave-related disputes.
 ==========================================
+ARCH-M07-006
+
+Leave audit logging implemented
+as an isolated Leave Module service.
+
+Reason:
+
+Track approval lifecycle without
+modifying leave records.
+
+Impact:
+
+Supports compliance,
+investigation,
+and future workflow auditing.
+===============================================
+

@@ -60,3 +60,15 @@ Employee leave history now shows:
 Employees can view approval
 or rejection comments.
 =========================================
+M07-004A
+
+Created Leave Audit Trail Foundation.
+
+Added:
+
+- leave_audit_logs table
+- leaveAuditService
+- Status transition logging
+- Remark logging
+- Change timestamp logging
+==========================================
