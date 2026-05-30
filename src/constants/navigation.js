@@ -41,6 +41,11 @@ export const CORE_SIDEBAR_LINKS = [
     path: "/attendance-regularization"
 },
 
+{
+  label: "Leave Management",
+  path: "/leave-management"
+},
+
 
   {
     label:
@@ -49,5 +54,7 @@ export const CORE_SIDEBAR_LINKS = [
     path:
     "/attendance-correction-audit"
 }
+
+
   ];
  
