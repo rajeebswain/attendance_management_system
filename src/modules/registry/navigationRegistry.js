@@ -18,30 +18,50 @@ from "./moduleRegistry";
 import employeeSelfServiceNavigation
 from "../employee-self-service/navigation";
 
-const moduleLinks = [];
+// const moduleLinks = [];
 
-moduleRegistry.forEach((module) => {
+// moduleRegistry.forEach((module) => {
 
-if(
-module.id==="M06"
-&&
-module.enabled
-){
+// if(
+// module.id==="M06"
+// &&
+// module.enabled
+// ){
 
-moduleLinks.push(
-...employeeSelfServiceNavigation
+// moduleLinks.push(
+// ...employeeSelfServiceNavigation
+// );
+
+// }
+
+// });
+
+
+
+const moduleLinks =
+
+moduleRegistry
+
+.filter(
+
+(module)=>module.enabled
+
+)
+
+.flatMap(
+
+(module)=>
+
+module.navigation || []
+
 );
-
-}
-
-});
 
 const SIDEBAR_LINKS=[
 
-...CORE_SIDEBAR_LINKS,
-
-...moduleLinks
-
-];
-
-export default SIDEBAR_LINKS;
+    ...CORE_SIDEBAR_LINKS,
+    
+    ...moduleLinks
+    
+    ];
+    
+    export default SIDEBAR_LINKS;
