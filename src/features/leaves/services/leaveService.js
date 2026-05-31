@@ -71,6 +71,275 @@ export async function getLeaves() {
 }
 
 
+/*
+==================================================
+Change ID: M07-006
+Date: 2026-05-30
+Status: Initial
+Purpose: Calculate leave duration
+Risk: Low
+Rollback: Remove function
+==================================================
+*/
+
+function calculateLeaveDuration(
+
+    startDate,
+
+    endDate
+
+) {
+
+    const start =
+
+        new Date(startDate);
+
+    const end =
+
+        new Date(endDate);
+
+    const diff =
+
+        end - start;
+
+    return (
+
+        Math.floor(
+
+            diff /
+
+            (1000 * 60 * 60 * 24)
+
+        ) + 1
+
+    );
+
+}
+
+
+/*
+==================================================
+Change ID: M07-006
+Date: 2026-05-30
+Status: Initial
+Purpose: Validate leave balance
+Risk: Medium
+Rollback: Remove validation
+==================================================
+*/
+
+async function validateLeaveBalance(
+
+    employeeId,
+
+    leaveType,
+
+    duration
+
+) {
+
+    const columnMap = {
+
+        casual:
+            "casual_leave",
+
+        sick:
+            "sick_leave",
+
+        earned:
+            "earned_leave"
+
+    };
+
+    const column =
+
+        columnMap[leaveType];
+
+    const {
+
+        data,
+
+        error
+
+    }
+
+        =
+
+        await supabase
+
+            .from("employees")
+
+            .select(column)
+
+            .eq(
+                "id",
+                employeeId
+            )
+
+            .single();
+
+    if (error) {
+
+        throw error;
+
+    }
+
+    if (
+
+        data[column]
+
+        <
+
+        duration
+
+    ) {
+
+        throw new Error(
+
+            "Insufficient Leave Balance"
+
+        );
+
+    }
+
+}
+
+/*
+==================================================
+Change ID: M07-006
+Date: 2026-05-31
+Status: Initial
+Purpose: Calculate leave duration
+Risk: Low
+Rollback: Remove function
+==================================================
+*/
+
+function calculateLeaveDuration(
+
+    startDate,
+
+    endDate
+
+) {
+
+    const start =
+
+        new Date(startDate);
+
+    const end =
+
+        new Date(endDate);
+
+    const diff =
+
+        end - start;
+
+    return (
+
+        Math.floor(
+
+            diff /
+
+            (1000 * 60 * 60 * 24)
+
+        ) + 1
+
+    );
+
+}
+
+/*
+==================================================
+Change ID: M07-006
+Date: 2026-05-31
+Status: Initial
+Purpose: Validate leave balance
+Risk: Medium
+Rollback: Remove validation
+==================================================
+*/
+
+async function validateLeaveBalance(
+
+    employeeId,
+
+    leaveType,
+
+    duration
+
+) {
+
+    const columnMap = {
+
+        casual:
+            "casual_leave",
+
+        sick:
+            "sick_leave",
+
+        earned:
+            "earned_leave"
+
+    };
+
+    const column =
+
+        columnMap[leaveType];
+
+    const {
+
+        data,
+
+        error
+
+    }
+
+        =
+
+        await supabase
+
+            .from("employees")
+
+            .select(column)
+
+            .eq(
+                "id",
+                employeeId
+            )
+
+            .single();
+
+    if (error) {
+
+        throw error;
+
+    }
+
+    if (
+
+        data[column]
+
+        <
+
+        duration
+
+    ) {
+
+        throw new Error(
+
+            "Insufficient Leave Balance"
+
+        );
+
+    }
+
+}
+
+
+
+
+
 export async function updateLeaveStatus(
 
     id,
@@ -155,8 +424,51 @@ Rollback: Remove audit call
 
     });
 
-    if (status === "approved") {
+    // if (
+    //     status === "approved"
+    // ) 
 
+    /*
+    ==================================================
+    Change ID: M07-006
+    Date: 2026-05-30
+    Status: Initial
+    Purpose: Validate leave balance before approval
+    Risk: Medium
+    Rollback: Remove validation call
+    ==================================================
+    */
+
+    if (
+
+        status === "approved"
+
+    ) {
+
+        const duration =
+
+            calculateLeaveDuration(
+
+                leaveData.start_date,
+
+                leaveData.end_date
+
+            );
+
+        await validateLeaveBalance(
+
+            leaveData.employee_id,
+
+            leaveData.leave_type,
+
+            duration
+
+        );
+
+    }
+
+
+    {
         const {
 
             data: existingAttendance,

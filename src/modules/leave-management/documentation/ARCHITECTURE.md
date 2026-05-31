@@ -169,4 +169,12 @@ Scope:
 - Earned Leave Allocation
 - Bulk Employee Update
 =========================================
+ARCH-M07-011
 
+Leave approval requires
+sufficient leave balance.
+
+Requested leave duration
+must be less than or equal
+to available leave balance.
+====================================

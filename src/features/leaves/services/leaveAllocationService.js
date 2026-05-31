@@ -39,10 +39,10 @@ export async function allocateLeaveBalance({
 
         })
 
-        .neq(
-            "id",
-            ""
-        );
+        // .neq(
+        //     "id",
+        //     ""
+        // );
 
     if (error) {
 
