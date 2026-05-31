@@ -178,3 +178,19 @@ Requested leave duration
 must be less than or equal
 to available leave balance.
 ====================================
+ARCH-M07-012
+Leave requests must have
+valid dates.
+
+Rules:
+
+- Start date cannot be
+  in the past.
+
+- End date cannot be
+  earlier than start date.
+
+Validation occurs before
+leave request creation.
+=======================================
+

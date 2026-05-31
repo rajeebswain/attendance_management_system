@@ -686,25 +686,52 @@ text-sm
                         }
 
 
-                        onSave={async ({
+                        // onSave={async ({
 
-                            status,
+                        //     status,
 
-                            remark
+                        //     remark
 
-                        }) => {
+                        // }) => {
 
-                            await updateLeaveStatus(
-                                selectedLeave.id,
-                                status,
-                                selectedLeave,
-                                remark
-                            );
+                        //     await updateLeaveStatus(
+                        //         selectedLeave.id,
+                        //         status,
+                        //         selectedLeave,
+                        //         remark
+                        //     );
 
-                            setSelectedLeave(null);
+                        //     setSelectedLeave(null);
 
-                            window.location.reload();
+                        //     window.location.reload();
 
+                        // }}
+
+                        onSave={async ({ status, remark }) => {
+
+                            try {
+                        
+                                await updateLeaveStatus(
+                                    selectedLeave.id,
+                                    status,
+                                    selectedLeave,
+                                    remark
+                                );
+                        
+                                await loadLeaves();
+                        
+                                setSelectedLeave(null);
+                        
+                            }
+                        
+                            catch (error) {
+                        
+                                alert(
+                                    error.message
+                                );
+                        
+                            }
+                        
                         }}
 
                     />

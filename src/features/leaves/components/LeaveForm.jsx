@@ -32,6 +32,98 @@ function LeaveForm({
         e.preventDefault();
         
         try{
+
+
+
+/*
+==================================================
+Change ID: M07-008
+Date: 2026-05-31
+Status: Initial
+Purpose: Prevent past leave requests
+Risk: Low
+Rollback: Remove validation
+==================================================
+*/
+
+const today = new Date();
+
+today.setHours(
+    0,
+    0,
+    0,
+    0
+);
+
+const leaveStartDate =
+
+    new Date(startDate);
+
+leaveStartDate.setHours(
+    0,
+    0,
+    0,
+    0
+);
+
+if (
+
+    leaveStartDate < today
+
+) {
+
+    alert(
+
+        "Cannot apply leave for past dates"
+
+    );
+
+    return;
+
+}
+
+
+
+/*
+==================================================
+Change ID: M07-008A
+Date: 2026-05-31
+Status: Initial
+Purpose: Prevent invalid date range
+Risk: Low
+Rollback: Remove validation
+==================================================
+*/
+
+const leaveEndDate =
+
+    new Date(endDate);
+
+leaveEndDate.setHours(
+    0,
+    0,
+    0,
+    0
+);
+
+if (
+
+    leaveEndDate < leaveStartDate
+
+) {
+/home/rajeebswain/attendance_management_system/src/features/leaves/pages
+    alert(
+
+        "End date cannot be before start date"
+
+    );
+
+    return;
+
+}
+
+
+
         
         await createLeave({
         
