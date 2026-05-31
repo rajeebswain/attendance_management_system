@@ -221,3 +221,143 @@ Future:
 Enable employee search using explicit
 foreign key joins or reporting views.
 ==================================================
+==================================================
+TD-M06-021
+
+Employee early checkout validation
+currently uses hardcoded shift end time.
+
+Current:
+
+currentHour < 18
+
+Limitations:
+
+- Does not consider actual worked hours
+- Does not support different shift timings
+- Does not support night shifts
+- Does not support flexible shifts
+- May not request reason for some
+  early checkout scenarios
+
+Production Replacement:
+
+Use shift-based duration calculation.
+
+employee.shift.start_time
+↓
+
+employee.shift.end_time
+↓
+
+required_shift_duration
+↓
+
+actual_worked_duration
+
+If:
+
+actual_worked_duration
+<
+required_shift_duration
+
+then:
+
+Require early checkout reason.
+
+Dependencies:
+
+M09 Shift Management
+
+Priority:
+
+Medium
+==================================================
+==================================================
+TD-M06-022
+
+Employee self-attendance and admin
+attendance use different early checkout
+validation logic.
+
+Current:
+
+Admin Attendance:
+workedHours validation
+
+Employee Attendance:
+shiftEndHour validation
+
+Production:
+
+Move early checkout validation into
+shared attendance workflow service.
+
+Single source of truth.
+
+Dependencies:
+
+M04 Attendance Refactoring
+
+Priority:
+
+Medium
+==================================================
+==================================================
+TD-M06-023
+
+Early checkout reason currently uses
+browser prompt().
+
+Current:
+
+prompt(
+    "Early checkout reason"
+)
+
+Production:
+
+Shared Modal System.
+
+Requirements:
+
+- Reason textarea
+- Validation
+- Cancel button
+- Save button
+- Mobile friendly UI
+
+Dependencies:
+
+M01 Shared Modal System
+
+Priority:
+
+Low
+==================================================
+==================================================
+TD-M06-024
+
+Early checkout reasons currently
+stored without audit tracking.
+
+Production:
+
+Track:
+
+- Previous state
+- New state
+- Reason
+- Employee
+- Timestamp
+
+inside attendance audit workflow.
+
+Dependencies:
+
+Attendance Audit Expansion
+
+Priority:
+
+Low
+==================================================

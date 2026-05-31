@@ -1225,6 +1225,23 @@ Audit history is not responsible for
 employee lookup functionality.
 ==================================================
 ==================================================
+ARCH-M06-043
+
+Early checkout validation remains
+unchanged during M06 closure.
+
+Reason:
+
+Current implementation is functional.
+
+A complete solution requires shift-based
+duration calculations which depend on
+future shift management enhancements.
+
+Validation redesign deferred to
+M09 Shift Management.
+==================================================
+==================================================
 ==================================================
 
 ==================================================
