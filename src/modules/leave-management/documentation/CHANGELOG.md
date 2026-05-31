@@ -93,4 +93,19 @@ Added:
 - Invalid transition prevention
 - Status color indicators
 ============================================
+M07-005C
+
+Added Leave Allocation.
+
+Features:
+
+- Casual Leave Allocation
+- Sick Leave Allocation
+- Earned Leave Allocation
+- Bulk Employee Balance Update
+
+Status:
+
+Completed
+==============================
 

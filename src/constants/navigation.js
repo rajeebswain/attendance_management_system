@@ -12,45 +12,49 @@ Rollback: Restore SIDEBAR_LINKS
 export const CORE_SIDEBAR_LINKS = [
 
   {
-  label:"Dashboard",
-  path:"/dashboard"
+    label: "Dashboard",
+    path: "/dashboard"
   },
-  
+
   {
-  label:"Employees",
-  path:"/employees"
+    label: "Employees",
+    path: "/employees"
   },
-  
+
   {
-  label:"Attendance",
-  path:"/attendance"
+    label: "Attendance",
+    path: "/attendance"
   },
-  
+
   {
-  label:"Reports & Analytics",
-  path:"/reports"
+    label: "Reports & Analytics",
+    path: "/reports"
   },
-  
+
   {
-  label:"Settings",
-  path:"/settings"
+    label: "Settings",
+    path: "/settings"
   },
 
   {
     label: "Attendance Regularization",
     path: "/attendance-regularization"
-},
+  },
 
-{
-  label: "Leave Management",
-  path: "/leave-management"
-},
+  {
+    label: "Leave Management",
+    path: "/leave-management"
+  },
 
-{
+  {
+    label: "Leave Allocation",
+    path: "/leave-allocation"
+  },
+
+  {
     label: "Correction Audit",
     path: "/attendance-correction-audit"
-}
+  }
 
 
-  ];
- 
+];

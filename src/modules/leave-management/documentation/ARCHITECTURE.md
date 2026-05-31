@@ -145,4 +145,28 @@ Rejected -> Approved
 Same-status transitions
 are blocked.
 ===========================================
+ARCH-M07-010
+
+Leave Allocation provides
+bulk leave entitlement setup.
+
+Purpose:
+
+Allow HR/Admin to allocate
+yearly leave balances to all
+employees from a single screen.
+
+Impact:
+
+Leave approval validation and
+leave deduction depend on the
+allocated balances.
+
+Scope:
+
+- Casual Leave Allocation
+- Sick Leave Allocation
+- Earned Leave Allocation
+- Bulk Employee Update
+=========================================
 

@@ -53,3 +53,24 @@ Future:
 Store approver UUID after
 authentication integration.
 ============================================
+TD-M07-005
+
+Leave Allocation currently
+overwrites leave balances for
+all employees.
+
+Future Enhancement:
+
+Support allocation by:
+
+- Department
+- Employee Type
+- Leave Policy
+
+Priority:
+
+Medium
+
+Target:
+
+Future Leave Policy Module
