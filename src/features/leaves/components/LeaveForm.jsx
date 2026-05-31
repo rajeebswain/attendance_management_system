@@ -111,7 +111,7 @@ if (
     leaveEndDate < leaveStartDate
 
 ) {
-/home/rajeebswain/attendance_management_system/src/features/leaves/pages
+
     alert(
 
         "End date cannot be before start date"
