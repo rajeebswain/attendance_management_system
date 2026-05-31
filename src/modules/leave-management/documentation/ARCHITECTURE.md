@@ -245,5 +245,10 @@ against existing non-rejected
 leave requests to prevent
 date range overlaps.
 ===================================
+ARCH-M07-019
 
-
+Leave requests are validated
+against attendance records
+to prevent conflicting leave
+and attendance entries.
+=================================== 

@@ -32,7 +32,15 @@ export async function createLeave(data) {
     
     );
 
+    await validateAttendanceConflict(
 
+        data.employee_id,
+    
+        data.start_date,
+    
+        data.end_date
+    
+    );
 
 
     const { error } = await supabase
@@ -852,6 +860,92 @@ export async function validateLeaveOverlap(
         throw new Error(
 
             "Leave request overlaps with existing leave"
+
+        );
+
+    }
+
+}
+
+
+
+/*
+==================================================
+Change ID: M07-013
+Date: 2026-05-31
+Status: Initial
+Purpose: Prevent leave on existing attendance
+Risk: Medium
+Rollback: Remove validation
+==================================================
+*/
+
+export async function validateAttendanceConflict(
+
+    employeeId,
+
+    startDate,
+
+    endDate
+
+) {
+
+    const {
+
+        data,
+
+        error
+
+    }
+
+        =
+
+        await supabase
+
+            .from("attendance")
+
+            .select("id")
+
+            .eq(
+
+                "employee_id",
+
+                employeeId
+
+            )
+
+            .gte(
+
+                "attendance_date",
+
+                startDate
+
+            )
+
+            .lte(
+
+                "attendance_date",
+
+                endDate
+
+            );
+
+    if (error) {
+
+        throw error;
+
+    }
+
+    if (
+
+        data &&
+        data.length > 0
+
+    ) {
+
+        throw new Error(
+
+            "Attendance already exists for selected dates"
 
         );
 
