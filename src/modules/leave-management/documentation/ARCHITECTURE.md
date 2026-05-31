@@ -204,5 +204,17 @@ before approval.
 
 Deduction is based on leave
 duration and leave type.
+=================================
+ARCH-M07-015
 
+Employee dashboard displays
+current leave balances through
+a reusable LeaveBalanceCard
+component.
+
+Future Refactor:
+
+Ownership will move to the
+Leave Plugin during module
+segregation.
 

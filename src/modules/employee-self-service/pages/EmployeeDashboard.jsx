@@ -33,6 +33,9 @@ import AttendanceStatusCard
 import QuickActions
     from "../components/QuickActions";
 
+    import LeaveBalanceCard
+    from "../components/LeaveBalanceCard";
+
 function EmployeeDashboard() {
 
     const [
@@ -86,6 +89,10 @@ function EmployeeDashboard() {
                     />
 
                     <AttendanceStatusCard />
+
+                    <LeaveBalanceCard
+                        employee={employee}
+                    />
 
                 </div>
 
