@@ -217,4 +217,15 @@ Future Refactor:
 Ownership will move to the
 Leave Plugin during module
 segregation.
+====================================
+ARCH-M07-016
+
+Leave balances are restored
+when approved leave requests
+are reverted to pending or
+rejected status.
+
+Balance deductions occur only
+when entering approved status.
+
 

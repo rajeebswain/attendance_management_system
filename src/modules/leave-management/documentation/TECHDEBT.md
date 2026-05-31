@@ -85,3 +85,13 @@ Approved.
 Future enhancement:
 Implement balance reversal or
 first-approval tracking.
+=====================================
+TD-M07-005
+
+approved_at timestamp is
+updated on every status
+change.
+
+Future enhancement:
+Update approved_at only
+when status becomes approved.

@@ -671,6 +671,16 @@ export async function updateLeaveStatus(
     const currentStatus =
         leaveData.status;
 
+        const duration =
+
+        calculateLeaveDuration(
+    
+            leaveData.start_date,
+    
+            leaveData.end_date
+    
+        );
+
     /*
     ==================================================
     Change ID: M07-006
@@ -682,54 +692,115 @@ export async function updateLeaveStatus(
     ==================================================
     */
 
-    if (
+    // if (
 
-        status === "approved"
+    //     status === "approved"
 
-    ) {
+    // ) {
 
-        const duration =
+    //     const duration =
 
-            calculateLeaveDuration(
+    //         calculateLeaveDuration(
 
-                leaveData.start_date,
+    //             leaveData.start_date,
 
-                leaveData.end_date
+    //             leaveData.end_date
 
-            );
+    //         );
 
-        await validateLeaveBalance(
+    //     await validateLeaveBalance(
 
-            leaveData.employee_id,
+    //         leaveData.employee_id,
 
-            leaveData.leave_type,
+    //         leaveData.leave_type,
 
-            duration
+    //         duration
 
-        );
+    //     );
 
-        /*
-        ==================================================
-        Change ID: M07-007
-        Date: 2026-05-31
-        Status: Initial
-        Purpose: Deduct leave balance after approval
-        Risk: Medium
-        Rollback: Remove deduction call
-        ==================================================
-        */
+    //     /*
+    //     ==================================================
+    //     Change ID: M07-007
+    //     Date: 2026-05-31
+    //     Status: Initial
+    //     Purpose: Deduct leave balance after approval
+    //     Risk: Medium
+    //     Rollback: Remove deduction call
+    //     ==================================================
+    //     */
 
-        await deductLeaveBalance(
+    //     await deductLeaveBalance(
 
-            leaveData.employee_id,
+    //         leaveData.employee_id,
 
-            leaveData.leave_type,
+    //         leaveData.leave_type,
 
-            duration
+    //         duration
 
-        );
+    //     );
 
-    }
+    // }
+
+    /*
+==================================================
+Change ID: M07-010
+Date: 2026-05-31
+Status: Initial
+Purpose: Handle balance deduction/restoration
+Risk: Medium
+Rollback: Restore previous logic
+==================================================
+*/
+
+if (
+
+    currentStatus !== "approved" &&
+
+    status === "approved"
+
+) {
+
+    await validateLeaveBalance(
+
+        leaveData.employee_id,
+
+        leaveData.leave_type,
+
+        duration
+
+    );
+
+    await deductLeaveBalance(
+
+        leaveData.employee_id,
+
+        leaveData.leave_type,
+
+        duration
+
+    );
+
+}
+
+if (
+
+    currentStatus === "approved" &&
+
+    status !== "approved"
+
+) {
+
+    await restoreLeaveBalance(
+
+        leaveData.employee_id,
+
+        leaveData.leave_type,
+
+        duration
+
+    );
+
+}
 
     const { error } = await supabase
 
@@ -1007,6 +1078,120 @@ export async function deductLeaveBalance(
     const newBalance =
 
         currentBalance - duration;
+
+    const {
+
+        error: updateError
+
+    }
+
+        =
+
+        await supabase
+
+            .from("employees")
+
+            .update({
+
+                [column]:
+                    newBalance
+
+            })
+
+            .eq(
+
+                "id",
+
+                employeeId
+
+            );
+
+    if (updateError) {
+
+        throw updateError;
+
+    }
+
+}
+
+
+/*
+==================================================
+Change ID: M07-010
+Date: 2026-05-31
+Status: Initial
+Purpose: Restore leave balance
+Risk: Medium
+Rollback: Remove function
+==================================================
+*/
+
+export async function restoreLeaveBalance(
+
+    employeeId,
+
+    leaveType,
+
+    duration
+
+) {
+
+    const columnMap = {
+
+        casual:
+            "casual_leave",
+
+        sick:
+            "sick_leave",
+
+        earned:
+            "earned_leave"
+
+    };
+
+    const column =
+
+        columnMap[leaveType];
+
+    const {
+
+        data,
+
+        error
+
+    }
+
+        =
+
+        await supabase
+
+            .from("employees")
+
+            .select(column)
+
+            .eq(
+
+                "id",
+
+                employeeId
+
+            )
+
+            .single();
+
+    if (error) {
+
+        throw error;
+
+    }
+
+    const currentBalance =
+
+        data[column];
+
+    const newBalance =
+
+        currentBalance + duration;
 
     const {
 
