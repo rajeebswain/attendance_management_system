@@ -21,6 +21,20 @@ import {
 
 export async function createLeave(data) {
 
+
+    await validateLeaveOverlap(
+
+        data.employee_id,
+    
+        data.start_date,
+    
+        data.end_date
+    
+    );
+
+
+
+
     const { error } = await supabase
 
         .from("leaves")
@@ -205,446 +219,6 @@ function calculateLeaveDuration(
 }
 
 
-// export async function updateLeaveStatus(
-
-//     id,
-
-//     status,
-
-//     leaveData,
-
-//     adminRemark
-
-// ) {
-
-//     /*
-// ==================================================
-// Change ID: M07-004A
-// Date: 2026-05-30
-// Status: Initial
-// Purpose: Capture previous status
-// Risk: Low
-// Rollback: Remove variable
-// ==================================================
-// */
-
-//     const currentStatus =
-//         leaveData.status;
-
-
-//     const { error } = await supabase
-
-//         .from("leaves")
-
-//         .update({
-
-//             status,
-
-//             admin_remark:
-//                 adminRemark,
-
-
-//             approved_at:
-//                 new Date()
-
-//         })
-
-
-//         .eq(
-
-//             "id",
-
-//             id
-
-//         );
-
-//     if (error) {
-
-//         throw error;
-
-//     }
-
-//     /*
-// ==================================================
-// Change ID: M07-004A
-// Date: 2026-05-30
-// Status: Initial
-// Purpose: Create leave audit record
-// Risk: Low
-// Rollback: Remove audit call
-// ==================================================
-// */
-
-//     await createLeaveAuditLog({
-
-//         leaveId: id,
-
-//         oldStatus:
-//             currentStatus,
-
-//         newStatus:
-//             status,
-
-//         adminRemark
-
-//     });
-
-//     // if (
-//     //     status === "approved"
-//     // ) 
-
-//     /*
-//     ==================================================
-//     Change ID: M07-006
-//     Date: 2026-05-30
-//     Status: Initial
-//     Purpose: Validate leave balance before approval
-//     Risk: Medium
-//     Rollback: Remove validation call
-//     ==================================================
-//     */
-
-//     if (
-
-//         status === "approved"
-
-//     ) {
-
-//         const duration =
-
-//             calculateLeaveDuration(
-
-//                 leaveData.start_date,
-
-//                 leaveData.end_date
-
-//             );
-
-//         await validateLeaveBalance(
-
-//             leaveData.employee_id,
-
-//             leaveData.leave_type,
-
-//             duration
-
-//         );
-
-//     }
-
-
-//     {
-//         const {
-
-//             data: existingAttendance,
-
-//             error
-
-//         }
-
-//             =
-
-//             await supabase
-
-//                 .from("attendance")
-
-//                 .select("id")
-
-//                 .eq(
-
-//                     "employee_id",
-
-//                     leaveData.employee_id
-
-//                 )
-
-//                 .eq(
-
-//                     "attendance_date",
-
-//                     leaveData.start_date
-
-//                 );
-
-
-//         /* Create attendance only if none exists */
-
-//         if (
-
-//             !existingAttendance ||
-
-//             existingAttendance.length === 0
-
-//         ) {
-
-//             await supabase
-
-//                 .from("attendance")
-
-//                 .insert([{
-
-//                     employee_id:
-
-//                         leaveData.employee_id,
-
-//                     attendance_date:
-
-//                         leaveData.start_date,
-
-//                     status: "leave"
-
-//                 }]);
-
-//         }
-//         console.log(
-//             "VALIDATION RUNNING"
-//         );
-
-//     }
-
-
-// }
-
-
-
-// export async function updateLeaveStatus(
-
-//     id,
-
-//     status,
-
-//     leaveData,
-
-//     adminRemark
-
-// ) {
-
-//     /*
-//     ==================================================
-//     Change ID: M07-004A
-//     Date: 2026-05-30
-//     Status: Initial
-//     Purpose: Capture previous status
-//     Risk: Low
-//     Rollback: Remove variable
-//     ==================================================
-//     */
-
-//     const currentStatus =
-//         leaveData.status;
-
-//     /*
-//     ==================================================
-//     Change ID: M07-006
-//     Date: 2026-05-31
-//     Status: Initial
-//     Purpose: Validate leave balance before approval
-//     Risk: Medium
-//     Rollback: Remove validation
-//     ==================================================
-//     */
-
-//     if (
-
-//         status === "approved"
-
-//     ) {
-
-//         const duration =
-
-//             calculateLeaveDuration(
-
-//                 leaveData.start_date,
-
-//                 leaveData.end_date
-
-//             );
-
-//         await validateLeaveBalance(
-
-//             leaveData.employee_id,
-
-//             leaveData.leave_type,
-
-//             duration
-
-//         );
-
-//     }
-
-
-//     /*
-// ==================================================
-// Change ID: M07-007
-// Date: 2026-05-31
-// Status: Initial
-// Purpose: Deduct leave balance after approval
-// Risk: Medium
-// Rollback: Remove deduction call
-// ==================================================
-// */
-
-// const duration =
-
-// calculateLeaveDuration(
-
-//     leaveData.start_date,
-
-//     leaveData.end_date
-
-// );
-
-// await deductLeaveBalance(
-
-// leaveData.employee_id,
-
-// leaveData.leave_type,
-
-// duration
-
-// );
-
-// console.log(
-//     "DEDUCTION RUNNING",
-//     employeeId,
-//     leaveType,
-//     duration
-// );
-
-//     const { error } = await supabase
-
-//         .from("leaves")
-
-//         .update({
-
-//             status,
-
-//             admin_remark:
-//                 adminRemark,
-
-//             approved_at:
-//                 new Date()
-
-//         })
-
-//         .eq(
-
-//             "id",
-
-//             id
-
-//         );
-
-//     if (error) {
-
-//         throw error;
-
-//     }
-
-//     /*
-//     ==================================================
-//     Change ID: M07-004A
-//     Date: 2026-05-30
-//     Status: Initial
-//     Purpose: Create leave audit record
-//     Risk: Low
-//     Rollback: Remove audit call
-//     ==================================================
-//     */
-
-//     await createLeaveAuditLog({
-
-//         leaveId: id,
-
-//         oldStatus:
-//             currentStatus,
-
-//         newStatus:
-//             status,
-
-//         adminRemark
-
-//     });
-
-//     /*
-//     ==================================================
-//     Change ID: M07-003
-//     Date: 2026-05-30
-//     Status: Initial
-//     Purpose: Create attendance for approved leave
-//     Risk: Medium
-//     Rollback: Remove attendance creation
-//     ==================================================
-//     */
-
-//     if (
-
-//         status === "approved"
-
-//     ) {
-
-//         const {
-
-//             data: existingAttendance
-
-//         }
-
-//             =
-
-//             await supabase
-
-//                 .from("attendance")
-
-//                 .select("id")
-
-//                 .eq(
-
-//                     "employee_id",
-
-//                     leaveData.employee_id
-
-//                 )
-
-//                 .eq(
-
-//                     "attendance_date",
-
-//                     leaveData.start_date
-
-//                 );
-
-//         if (
-
-//             !existingAttendance ||
-
-//             existingAttendance.length === 0
-
-//         ) {
-
-//             await supabase
-
-//                 .from("attendance")
-
-//                 .insert([{
-
-//                     employee_id:
-
-//                         leaveData.employee_id,
-
-//                     attendance_date:
-
-//                         leaveData.start_date,
-
-//                     status: "leave"
-
-//                 }]);
-
-//         }
-
-//     }
-
-// }
-
 /*
 ==================================================
 Change ID: M07-011
@@ -727,76 +301,15 @@ export async function updateLeaveStatus(
     const currentStatus =
         leaveData.status;
 
-        const duration =
+    const duration =
 
         calculateLeaveDuration(
-    
+
             leaveData.start_date,
-    
+
             leaveData.end_date
-    
+
         );
-
-    /*
-    ==================================================
-    Change ID: M07-006
-    Date: 2026-05-31
-    Status: Initial
-    Purpose: Validate leave balance before approval
-    Risk: Medium
-    Rollback: Remove validation
-    ==================================================
-    */
-
-    // if (
-
-    //     status === "approved"
-
-    // ) {
-
-    //     const duration =
-
-    //         calculateLeaveDuration(
-
-    //             leaveData.start_date,
-
-    //             leaveData.end_date
-
-    //         );
-
-    //     await validateLeaveBalance(
-
-    //         leaveData.employee_id,
-
-    //         leaveData.leave_type,
-
-    //         duration
-
-    //     );
-
-    //     /*
-    //     ==================================================
-    //     Change ID: M07-007
-    //     Date: 2026-05-31
-    //     Status: Initial
-    //     Purpose: Deduct leave balance after approval
-    //     Risk: Medium
-    //     Rollback: Remove deduction call
-    //     ==================================================
-    //     */
-
-    //     await deductLeaveBalance(
-
-    //         leaveData.employee_id,
-
-    //         leaveData.leave_type,
-
-    //         duration
-
-    //     );
-
-    // }
-
     /*
 ==================================================
 Change ID: M07-010
@@ -808,55 +321,55 @@ Rollback: Restore previous logic
 ==================================================
 */
 
-if (
+    if (
 
-    currentStatus !== "approved" &&
+        currentStatus !== "approved" &&
 
-    status === "approved"
+        status === "approved"
 
-) {
+    ) {
 
-    await validateLeaveBalance(
+        await validateLeaveBalance(
 
-        leaveData.employee_id,
+            leaveData.employee_id,
 
-        leaveData.leave_type,
+            leaveData.leave_type,
 
-        duration
+            duration
 
-    );
+        );
 
-    await deductLeaveBalance(
+        await deductLeaveBalance(
 
-        leaveData.employee_id,
+            leaveData.employee_id,
 
-        leaveData.leave_type,
+            leaveData.leave_type,
 
-        duration
+            duration
 
-    );
+        );
 
-}
+    }
 
-if (
+    if (
 
-    currentStatus === "approved" &&
+        currentStatus === "approved" &&
 
-    status !== "approved"
+        status !== "approved"
 
-) {
+    ) {
 
-    await restoreLeaveBalance(
+        await restoreLeaveBalance(
 
-        leaveData.employee_id,
+            leaveData.employee_id,
 
-        leaveData.leave_type,
+            leaveData.leave_type,
 
-        duration
+            duration
 
-    );
+        );
 
-}
+    }
 
     const { error } = await supabase
 
@@ -929,226 +442,102 @@ if (
         status === "approved"
 
     ) {
+        /*
+        ==================================================
+        Change ID: M07-011
+        Date: 2026-05-31
+        Status: Initial
+        Purpose: Create attendance for all leave dates
+        Risk: Medium
+        Rollback: Restore single-day logic
+        ==================================================
+        */
 
-        // const {
+        const leaveDates =
 
-        //     data: existingAttendance
+            getLeaveDates(
 
-        // }
+                leaveData.start_date,
 
-        //     =
-
-        //     await supabase
-
-        //         .from("attendance")
-
-        //         .select("id")
-
-        //         .eq(
-
-        //             "employee_id",
-
-        //             leaveData.employee_id
-
-        //         )
-
-        //         .eq(
-
-        //             "attendance_date",
-
-        //             leaveData.start_date
-
-        //         );
-
-        // if (
-
-        //     !existingAttendance ||
-
-        //     existingAttendance.length === 0
-
-        // ) {
-
-        //     await supabase
-
-        //         .from("attendance")
-
-        //         .insert([{
-
-        //             employee_id:
-
-        //                 leaveData.employee_id,
-
-        //             attendance_date:
-
-        //                 leaveData.start_date,
-
-        //             status: "leave"
-
-        //         }]);
-
-        // }
-
-
-/*
-==================================================
-Change ID: M07-011
-Date: 2026-05-31
-Status: Initial
-Purpose: Create attendance for all leave dates
-Risk: Medium
-Rollback: Restore single-day logic
-==================================================
-*/
-
-const leaveDates =
-
-    getLeaveDates(
-
-        leaveData.start_date,
-
-        leaveData.end_date
-
-    );
-
-for (
-
-    const leaveDate
-
-    of
-
-    leaveDates
-
-) {
-
-    const {
-
-        data: existingAttendance
-
-    }
-
-        =
-
-        await supabase
-
-            .from("attendance")
-
-            .select("id")
-
-            .eq(
-
-                "employee_id",
-
-                leaveData.employee_id
-
-            )
-
-            .eq(
-
-                "attendance_date",
-
-                leaveDate
+                leaveData.end_date
 
             );
 
-    if (
+        for (
 
-        !existingAttendance ||
+            const leaveDate
 
-        existingAttendance.length === 0
+            of
 
-    ) {
+            leaveDates
 
-        await supabase
+        ) {
 
-            .from("attendance")
+            const {
 
-            .insert([{
+                data: existingAttendance
 
-                employee_id:
+            }
 
-                    leaveData.employee_id,
+                =
 
-                attendance_date:
+                await supabase
 
-                    leaveDate,
+                    .from("attendance")
 
-                status: "leave"
+                    .select("id")
 
-            }]);
+                    .eq(
+
+                        "employee_id",
+
+                        leaveData.employee_id
+
+                    )
+
+                    .eq(
+
+                        "attendance_date",
+
+                        leaveDate
+
+                    );
+
+            if (
+
+                !existingAttendance ||
+
+                existingAttendance.length === 0
+
+            ) {
+
+                await supabase
+
+                    .from("attendance")
+
+                    .insert([{
+
+                        employee_id:
+
+                            leaveData.employee_id,
+
+                        attendance_date:
+
+                            leaveDate,
+
+                        status: "leave"
+
+                    }]);
+
+            }
+
+        }
+
 
     }
 
 }
 
-
-    }
-
-}
-
-
-// export async function deductLeaveBalance(
-
-//     employeeId,
-
-//     leaveType
-
-// ) {
-
-//     const columnMap = {
-
-//         casual: "casual_leave",
-
-//         sick: "sick_leave",
-
-//         earned: "earned_leave"
-
-//     };
-
-//     const column =
-
-//         columnMap[leaveType];
-
-//     const { data } = await supabase
-
-//         .from("employees")
-
-//         .select(column)
-
-//         .eq("id", employeeId)
-
-//         .single();
-
-//     const currentBalance =
-
-//         data[column];
-
-//     if (currentBalance <= 0) {
-
-//         throw new Error(
-
-//             "No leave balance remaining"
-
-//         );
-
-//     }
-
-//     await supabase
-
-//         .rpc(
-
-//             "decrement_leave",
-
-//             {
-
-//                 employee_id_input: employeeId,
-
-//                 column_name_input: column
-
-//             }
-
-//         );
-
-// }
 
 /*
 ==================================================
@@ -1372,6 +761,99 @@ export async function restoreLeaveBalance(
     if (updateError) {
 
         throw updateError;
+
+    }
+
+}
+
+
+/*
+==================================================
+Change ID: M07-012
+Date: 2026-05-31
+Status: Initial
+Purpose: Prevent overlapping leave requests
+Risk: Medium
+Rollback: Remove validation
+==================================================
+*/
+
+export async function validateLeaveOverlap(
+
+    employeeId,
+
+    startDate,
+
+    endDate
+
+) {
+
+    const {
+
+        data,
+
+        error
+
+    }
+
+        =
+
+        await supabase
+
+            .from("leaves")
+
+            .select("id")
+
+            .eq(
+
+                "employee_id",
+
+                employeeId
+
+            )
+
+            .neq(
+
+                "status",
+
+                "rejected"
+
+            )
+
+            .lte(
+
+                "start_date",
+
+                endDate
+
+            )
+
+            .gte(
+
+                "end_date",
+
+                startDate
+
+            );
+
+    if (error) {
+
+        throw error;
+
+    }
+
+    if (
+
+        data &&
+        data.length > 0
+
+    ) {
+
+        throw new Error(
+
+            "Leave request overlaps with existing leave"
+
+        );
 
     }
 

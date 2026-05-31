@@ -237,6 +237,13 @@ the approved period.
 
 Attendance creation avoids
 duplicate records.
-================
+==============================
+ARCH-M07-018
+
+Leave requests are validated
+against existing non-rejected
+leave requests to prevent
+date range overlaps.
+===================================
 
 
