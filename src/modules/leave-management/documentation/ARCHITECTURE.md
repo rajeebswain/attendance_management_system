@@ -193,4 +193,16 @@ Rules:
 Validation occurs before
 leave request creation.
 =======================================
+ARCH-M07-014
+
+Approved leave requests
+automatically deduct leave
+balance.
+
+Balance validation occurs
+before approval.
+
+Deduction is based on leave
+duration and leave type.
+
 

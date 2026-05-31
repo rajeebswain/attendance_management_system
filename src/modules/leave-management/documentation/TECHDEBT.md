@@ -74,3 +74,14 @@ Medium
 Target:
 
 Future Leave Policy Module
+=============================
+TD-M07-004
+
+Leave balance may be deducted
+multiple times if leave status
+changes Approved → Rejected →
+Approved.
+
+Future enhancement:
+Implement balance reversal or
+first-approval tracking.
