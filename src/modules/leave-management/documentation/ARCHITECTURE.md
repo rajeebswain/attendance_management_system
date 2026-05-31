@@ -227,5 +227,16 @@ rejected status.
 
 Balance deductions occur only
 when entering approved status.
+======================================
+ARCH-M07-017
+
+Approved leave requests
+generate attendance records
+for every leave date within
+the approved period.
+
+Attendance creation avoids
+duplicate records.
+================
 
 

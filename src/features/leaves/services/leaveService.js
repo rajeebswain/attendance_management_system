@@ -645,6 +645,62 @@ function calculateLeaveDuration(
 
 // }
 
+/*
+==================================================
+Change ID: M07-011
+Date: 2026-05-31
+Status: Initial
+Purpose: Generate leave attendance dates
+Risk: Medium
+Rollback: Remove helper
+==================================================
+*/
+
+function getLeaveDates(
+
+    startDate,
+
+    endDate
+
+) {
+
+    const dates = [];
+
+    const current =
+
+        new Date(startDate);
+
+    const end =
+
+        new Date(endDate);
+
+    while (
+
+        current <= end
+
+    ) {
+
+        dates.push(
+
+            current
+                .toISOString()
+                .split("T")[0]
+
+        );
+
+        current.setDate(
+
+            current.getDate() + 1
+
+        );
+
+    }
+
+    return dates;
+
+}
+
+
 export async function updateLeaveStatus(
 
     id,
@@ -874,63 +930,156 @@ if (
 
     ) {
 
-        const {
+        // const {
 
-            data: existingAttendance
+        //     data: existingAttendance
 
-        }
+        // }
 
-            =
+        //     =
 
-            await supabase
+        //     await supabase
 
-                .from("attendance")
+        //         .from("attendance")
 
-                .select("id")
+        //         .select("id")
 
-                .eq(
+        //         .eq(
 
-                    "employee_id",
+        //             "employee_id",
 
-                    leaveData.employee_id
+        //             leaveData.employee_id
 
-                )
+        //         )
 
-                .eq(
+        //         .eq(
 
-                    "attendance_date",
+        //             "attendance_date",
 
-                    leaveData.start_date
+        //             leaveData.start_date
 
-                );
+        //         );
 
-        if (
+        // if (
 
-            !existingAttendance ||
+        //     !existingAttendance ||
 
-            existingAttendance.length === 0
+        //     existingAttendance.length === 0
 
-        ) {
+        // ) {
 
-            await supabase
+        //     await supabase
 
-                .from("attendance")
+        //         .from("attendance")
 
-                .insert([{
+        //         .insert([{
 
-                    employee_id:
+        //             employee_id:
 
-                        leaveData.employee_id,
+        //                 leaveData.employee_id,
 
-                    attendance_date:
+        //             attendance_date:
 
-                        leaveData.start_date,
+        //                 leaveData.start_date,
 
-                    status: "leave"
+        //             status: "leave"
 
-                }]);
+        //         }]);
 
-        }
+        // }
+
+
+/*
+==================================================
+Change ID: M07-011
+Date: 2026-05-31
+Status: Initial
+Purpose: Create attendance for all leave dates
+Risk: Medium
+Rollback: Restore single-day logic
+==================================================
+*/
+
+const leaveDates =
+
+    getLeaveDates(
+
+        leaveData.start_date,
+
+        leaveData.end_date
+
+    );
+
+for (
+
+    const leaveDate
+
+    of
+
+    leaveDates
+
+) {
+
+    const {
+
+        data: existingAttendance
+
+    }
+
+        =
+
+        await supabase
+
+            .from("attendance")
+
+            .select("id")
+
+            .eq(
+
+                "employee_id",
+
+                leaveData.employee_id
+
+            )
+
+            .eq(
+
+                "attendance_date",
+
+                leaveDate
+
+            );
+
+    if (
+
+        !existingAttendance ||
+
+        existingAttendance.length === 0
+
+    ) {
+
+        await supabase
+
+            .from("attendance")
+
+            .insert([{
+
+                employee_id:
+
+                    leaveData.employee_id,
+
+                attendance_date:
+
+                    leaveDate,
+
+                status: "leave"
+
+            }]);
+
+    }
+
+}
+
 
     }
 
