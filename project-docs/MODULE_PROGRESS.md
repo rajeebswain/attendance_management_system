@@ -114,3 +114,19 @@ Pending
 
 □ Module Registration
 ====================================================
+M02-005 Permission Utilities
+
+Completed
+
+✓ Permission Validation Helpers
+
+✓ Security Exports
+
+Pending
+
+□ Permission Guard
+
+□ Route Migration
+
+□ Module Registration
+=====================================================
