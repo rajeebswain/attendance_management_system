@@ -42,12 +42,15 @@ Delete file
 ==================================================
 */
 //Import Permission Catalog
-import { PERMISSIONS }
-from "./permissions";
+import { PERMISSIONS } from "./permissions";
 
 
 //Role Permission Mapping
 export const ROLE_PERMISSIONS = {
+
+  // ==================================================
+  // Employee
+  // ==================================================
 
     employee: [
   
@@ -59,6 +62,9 @@ export const ROLE_PERMISSIONS = {
   
     ],
   
+     // ==================================================
+  // Supervisor
+  // ==================================================
     supervisor: [
   
       PERMISSIONS.ATTENDANCE_VIEW,
@@ -68,6 +74,9 @@ export const ROLE_PERMISSIONS = {
       PERMISSIONS.REPORT_VIEW,
   
     ],
+      // ==================================================
+  // HR
+  // ==================================================
   
     hr: [
   
@@ -84,7 +93,9 @@ export const ROLE_PERMISSIONS = {
       PERMISSIONS.REPORT_VIEW,
   
     ],
-  
+    // ==================================================
+  // Admin
+  // ==================================================
     admin: [
   
       ...Object.values(
@@ -92,7 +103,9 @@ export const ROLE_PERMISSIONS = {
       ),
   
     ],
-  
+    // ==================================================
+  // Super Admin
+  // ==================================================
     super_admin: [
   
       ...Object.values(
