@@ -37,6 +37,50 @@ import EmployeesPage
 import RoleGuard from "../features/auth/components/RoleGuard";
 
 
+/*
+==================================================
+Module:
+M02 Identity & Security
+
+Submodule:
+M02-007 Route Migration
+
+Purpose:
+
+Introduce PermissionGuard
+into routing layer.
+
+Change ID:
+
+M02-007-001
+
+==================================================
+*/
+
+import PermissionGuard from "../features/auth/components/PermissionGuard";
+
+/*
+==================================================
+Module:
+M02 Identity & Security
+
+Submodule:
+M02-007 Route Migration
+
+Purpose:
+
+Permission constants
+for route protection.
+
+Change ID:
+
+M02-007-001
+
+==================================================
+*/
+
+import { PERMISSIONS } from "../core/security";
+
 // Attendance Page
 import AttendancePage from "../features/attendance/pages/AttendancePage";
 
@@ -154,7 +198,7 @@ function AppRoutes() {
         }
       />
 
-      <Route
+      {/* <Route
 
         path="/reports"
 
@@ -184,7 +228,68 @@ function AppRoutes() {
 
         }
 
-      />
+      /> */}
+
+/*
+==================================================
+Module:
+M02 Identity & Security
+
+Submodule:
+M02-007 Route Migration
+
+Feature:
+
+Reports Route Permission Migration
+
+Change ID:
+
+M02-007-001
+
+Purpose:
+
+Use permission-based access
+instead of role-based access.
+
+Current:
+
+Role
+ ↓
+Route
+
+Future:
+
+Role
+ ↓
+Permission
+ ↓
+Route
+
+==================================================
+*/
+
+<Route
+  path="/reports"
+  element={
+
+    <ProtectedRoute>
+
+      <PermissionGuard
+
+        permission={
+          PERMISSIONS.REPORT_VIEW
+        }
+
+      >
+
+        <ReportsDashboardPage />
+
+      </PermissionGuard>
+
+    </ProtectedRoute>
+
+  }
+/>
 
       <Route
         path="/leave"

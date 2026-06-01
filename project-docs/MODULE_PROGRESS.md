@@ -172,3 +172,31 @@ Pending
 
 □ RLS Integration
 ===============================
+
+==================================================
+
+M02-007 Route Migration
+
+Status
+
+In Progress
+
+Completed
+
+✓ Reports Route Migration
+
+Pending
+
+□ Employees Route
+
+□ Attendance Route
+
+□ Leave Route
+
+□ Navigation Security
+
+Branch
+
+feature/m02-permission-engine
+
+==================================================

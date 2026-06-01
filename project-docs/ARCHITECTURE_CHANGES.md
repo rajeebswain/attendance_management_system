@@ -61,3 +61,40 @@ Applies To
 M02 Identity & Security
 
 ==================================================
+==================================================
+
+ARCH-M02-002
+
+Title
+
+Authentication First Security Strategy
+
+Date
+
+2026-06-01
+
+Status
+
+Approved
+
+Decision
+
+Permission system development
+is paused until authentication
+foundation is complete.
+
+Reason
+
+Permission checks depend on
+authenticated users and valid
+profile records.
+
+Authentication layer must be
+fully operational before route
+and permission migration.
+
+Applies To
+
+M02 Identity & Security
+
+==================================================

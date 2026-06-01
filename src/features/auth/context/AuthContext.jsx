@@ -121,7 +121,12 @@ export function AuthProvider({ children }) {
     }
 
     // Save profile globally
-    setProfile(data);
+    // setProfile(data);
+
+    console.log(
+      "PROFILE LOADED",
+      data
+    );
   }
 
 
