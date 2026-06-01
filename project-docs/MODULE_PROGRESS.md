@@ -44,3 +44,37 @@ Status: 20%
 
 M08 Workflow Engine
 Status: 0%
+==========================================
+==================================================
+
+M02-004 Permission Registry
+
+Status
+
+In Progress
+
+Started
+
+2026-06-01
+
+Completed
+
+✓ Permission Catalog
+
+Pending
+
+□ Role Permission Mapping
+
+□ Permission Utilities
+
+□ Permission Guard
+
+□ Route Migration
+
+□ Module Registration
+
+Branch
+
+feature/m02-permission-engine
+
+==================================================
