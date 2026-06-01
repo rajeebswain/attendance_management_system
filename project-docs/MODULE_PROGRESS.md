@@ -130,3 +130,45 @@ Pending
 
 □ Module Registration
 =====================================================
+M02-005 Permission Utilities
+
+Status
+
+Completed
+
+Completed
+
+✓ Permission Validation Helpers
+
+✓ Security Exports
+
+Pending
+
+□ Permission Guard
+
+□ Route Migration
+
+□ Navigation Security
+
+□ Module Registration
+==============================================
+M02-006 Permission Guard
+
+Status
+
+Completed
+
+Completed
+
+✓ Permission Guard
+
+Pending
+
+□ Route Migration
+
+□ Navigation Security
+
+□ Module Registration
+
+□ RLS Integration
+===============================
