@@ -20,7 +20,7 @@ export const isAdmin = (
   
   
   
-  export const isManager = (
+  export const isSupervisor = (
   
     userRole
   
