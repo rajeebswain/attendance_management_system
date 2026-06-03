@@ -1,5 +1,6 @@
 /*
 ==================================================
+
 Module:
 M02 Identity & Security
 
@@ -10,20 +11,21 @@ Feature:
 Permission Based Access Control
 
 Change ID:
-M02-006-001
+M02-006-002
 
 Status:
-Active
+Foundation
 
 Purpose:
 
 Protect UI components
-using permissions instead
-of direct role checks.
+using permissions.
 
 Architecture:
 
 User
+ ↓
+Profile
  ↓
 Role
  ↓
@@ -33,7 +35,7 @@ Permission Guard
 
 Current Strategy:
 
-Static role permission mapping.
+Static permission mapping.
 
 Future Strategy:
 
@@ -45,73 +47,92 @@ Low
 
 Rollback:
 
-Delete file
+Restore previous version
 
 ==================================================
 */
 
-import { Navigate }
-from "react-router-dom";
+import {
 
-import { useAuth }
-from "../context/AuthContext";
+  ROLE_PERMISSIONS,
+
+  hasPermission
+
+} from "../../../core/security";
 
 import {
-  ROLE_PERMISSIONS,
-  hasPermission
-}
-from "../../../core/security";
+
+  useProfile
+
+} from "../hooks/useProfile";
 
 function PermissionGuard({
 
-    children,
-  
-    permission,
-  
-    redirectTo = "/dashboard",
-  
-  }) {
-  
-    const {
-  
-      profile,
-  
-      loading,
-  
-    } = useAuth();
-  
-    if (loading) {
-  
-      return null;
-    }
-  
-    const roleName =
-      profile?.roles?.role_name;
-  
-    const userPermissions =
-      ROLE_PERMISSIONS[
-        roleName
-      ] || [];
-  
-    const hasAccess =
-      hasPermission(
-  
-        userPermissions,
-  
-        permission
-  
-      );
-  
-    if (!hasAccess) {
-  
-      return (
-        <Navigate
-          to={redirectTo}
-        />
-      );
-    }
-  
-    return children;
+  children,
+
+  permission
+
+}) {
+
+  const {
+
+    profile,
+
+    loading
+
+  } = useProfile();
+
+  if (loading) {
+
+    return null;
+
   }
-  
-  export default PermissionGuard;
+
+  /*
+  ==================================
+  Temporary Role Resolution
+  ==================================
+
+  Current MVP uses role_name
+  directly from profile.
+
+  Future:
+  profiles.role_id
+        ↓
+  roles table
+        ↓
+  role_name
+
+  ==================================
+  */
+
+  const roleName =
+    profile?.role_name;
+
+  const userPermissions =
+
+    ROLE_PERMISSIONS[
+      roleName
+    ] || [];
+
+  const allowed =
+
+    hasPermission(
+
+      userPermissions,
+
+      permission
+
+    );
+
+  if (!allowed) {
+
+    return null;
+
+  }
+
+  return children;
+
+}
+
+export default PermissionGuard;

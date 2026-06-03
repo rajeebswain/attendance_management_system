@@ -128,3 +128,28 @@ Application
 * Profile loading is isolated.
 * Easier future role and permission integration.
 * Supports plugin-based SaaS architecture.
+
+===================================================
+## M02-003 Role & Permission Layer
+
+Added RoleGuard and PermissionGuard.
+
+### Architecture
+
+Authenticated User
+↓
+Profile
+↓
+Role
+↓
+Permission Registry
+↓
+Route / Feature Access
+
+### Benefits
+
+* Route-level protection
+* Component-level protection
+* Plugin-ready security model
+* Supports future multi-tenant RBAC
+
