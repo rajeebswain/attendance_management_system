@@ -98,3 +98,33 @@ Applies To
 M02 Identity & Security
 
 ==================================================
+## M02-002 Identity Layer
+
+Introduced a dedicated identity layer separating authentication from profile management.
+
+### Added
+
+* profileService.js
+* useAuthUser.js
+* useProfile.js
+
+### Architecture
+
+Supabase Auth
+↓
+AuthContext
+↓
+Authenticated User
+↓
+Profile Service
+↓
+Profile Hook
+↓
+Application
+
+### Benefits
+
+* Authentication remains lightweight.
+* Profile loading is isolated.
+* Easier future role and permission integration.
+* Supports plugin-based SaaS architecture.

@@ -200,3 +200,19 @@ Branch
 feature/m02-permission-engine
 
 ==================================================
+M02-002 Identity Layer
+
+Status: In Progress
+
+Completed:
+
+✓ Profile Service
+✓ Auth User Hook
+✓ Profile Hook
+
+Pending:
+
+□ RoleGuard
+□ PermissionGuard
+□ Role Resolution
+□ Permission Resolution
