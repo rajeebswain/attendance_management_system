@@ -16,33 +16,33 @@ Remove module registration
 */
 
 import leaveManagementNavigation
-from "./navigation";
+    from "./navigation";
 
 import leaveManagementRoutes
-from "./routes";
+    from "./routes";
 
 import leaveManagementPermissions
-from "./permissions";
+    from "./permissions";
 
 import leaveManagementWidgets
-from "./widgets";
+    from "./widgets";
 
 const leaveManagementModule = {
 
-id: "M07",
+    id: "M07",
 
-name: "Leave Management",
+    name: "Leave Management",
 
-enabled: true,
-// enabled: false,
+    enabled: true,
+    // enabled: false,
 
-routes: leaveManagementRoutes,
+    routes: leaveManagementRoutes,
 
-navigation: leaveManagementNavigation,
+    navigation: leaveManagementNavigation,
 
-permissions: leaveManagementPermissions,
+    permissions: leaveManagementPermissions,
 
-widgets: leaveManagementWidgets
+    widgets: leaveManagementWidgets
 
 };
 

@@ -686,27 +686,7 @@ text-sm
                         }
 
 
-                        // onSave={async ({
-
-                        //     status,
-
-                        //     remark
-
-                        // }) => {
-
-                        //     await updateLeaveStatus(
-                        //         selectedLeave.id,
-                        //         status,
-                        //         selectedLeave,
-                        //         remark
-                        //     );
-
-                        //     setSelectedLeave(null);
-
-                        //     window.location.reload();
-
-                        // }}
-
+                       
                         onSave={async ({ status, remark }) => {
 
                             try {

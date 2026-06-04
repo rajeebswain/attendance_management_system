@@ -33,7 +33,7 @@ import AttendanceStatusCard
 import QuickActions
     from "../components/QuickActions";
 
-    import LeaveBalanceCard
+import LeaveBalanceCard
     from "../components/LeaveBalanceCard";
 
 function EmployeeDashboard() {

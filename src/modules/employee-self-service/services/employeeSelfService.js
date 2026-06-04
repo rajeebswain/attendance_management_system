@@ -254,55 +254,55 @@ export async function updateEmployeeProfile(
 
 }
 
-export async function uploadEmployeeImage(file){
+export async function uploadEmployeeImage(file) {
 
-    try{
-    
-    const fileName =
-    
-    `${Date.now()}-${file.name}`;
-    
-    const {
-    
-    error
-    
+    try {
+
+        const fileName =
+
+            `${Date.now()}-${file.name}`;
+
+        const {
+
+            error
+
+        }
+
+            =
+
+            await supabase.storage
+
+                .from("employee-profiles")
+
+                .upload(fileName, file);
+
+        if (error) {
+
+            throw error;
+
+        }
+
+        const {
+
+            data
+
+        }
+
+            =
+
+            supabase.storage
+
+                .from("employee-profiles")
+
+                .getPublicUrl(fileName);
+
+        return data.publicUrl;
+
     }
-    
-    =
-    
-    await supabase.storage
-    
-    .from("employee-profiles")
-    
-    .upload(fileName,file);
-    
-    if(error){
-    
-    throw error;
-    
+    catch (error) {
+
+        throw error;
+
     }
-    
-    const {
-    
-    data
-    
-    }
-    
-    =
-    
-    supabase.storage
-    
-    .from("employee-profiles")
-    
-    .getPublicUrl(fileName);
-    
-    return data.publicUrl;
-    
-    }
-    catch(error){
-    
-    throw error;
-    
-    }
-    
-    }
+
+}

@@ -37,7 +37,7 @@ Rollback: Remove route
 */
 
 import EmployeeChangePasswordPage
-from "./pages/EmployeeChangePasswordPage";
+    from "./pages/EmployeeChangePasswordPage";
 
 /*
 ==================================================
@@ -49,12 +49,12 @@ Purpose: Employee correction routing
 
 import EmployeeAttendanceCorrectionPage
 
-from "../../features/attendance-correction/pages/EmployeeAttendanceCorrectionPage";
+    from "../../features/attendance-correction/pages/EmployeeAttendanceCorrectionPage";
 
 
 import AdminAttendanceRegularizationPage
 
-from "../../features/attendance-correction/pages/AdminAttendanceRegularizationPage";
+    from "../../features/attendance-correction/pages/AdminAttendanceRegularizationPage";
 
 /*
 ==================================================
@@ -69,7 +69,7 @@ Rollback: Remove import and route
 
 import AttendanceCorrectionAuditPage
 
-from "../../features/attendance-correction/pages/AttendanceCorrectionAuditPage";
+    from "../../features/attendance-correction/pages/AttendanceCorrectionAuditPage";
 
 const employeeSelfServiceRoutes = [
 
@@ -104,24 +104,24 @@ const employeeSelfServiceRoutes = [
     },
 
     {
-        path:"/employee/change-password",
-        element:<EmployeeChangePasswordPage/>
-        },
+        path: "/employee/change-password",
+        element: <EmployeeChangePasswordPage />
+    },
 
-        {
-            path: "/attendance-regularization",
-            element: <AdminAttendanceRegularizationPage />
-        },
+    {
+        path: "/attendance-regularization",
+        element: <AdminAttendanceRegularizationPage />
+    },
 
-{
-    path:
-    "/attendance-correction-audit",
+    {
+        path:
+            "/attendance-correction-audit",
 
-    element:
-    <AttendanceCorrectionAuditPage />
-},
+        element:
+            <AttendanceCorrectionAuditPage />
+    },
 
-        
+
 
 ];
 

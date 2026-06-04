@@ -9,43 +9,43 @@ Rollback: Remove component
 ==================================================
 */
 
-function AttendanceStatusCard(){
+function AttendanceStatusCard() {
 
-    return(
-    
-    <div
-    className="
+    return (
+
+        <div
+            className="
     bg-white
     rounded-lg
     shadow
     p-6
     "
-    >
-    
-    <h3 className="font-bold">
-    
-    Today's Status
-    
-    </h3>
-    
-    <p className="text-green-600">
-    
-    Present
-    
-    </p>
-    
-    <p>
-    
-    Worked Hours:
-    
-    7h 20m
-    
-    </p>
-    
-    </div>
-    
+        >
+
+            <h3 className="font-bold">
+
+                Today's Status
+
+            </h3>
+
+            <p className="text-green-600">
+
+                Present
+
+            </p>
+
+            <p>
+
+                Worked Hours:
+
+                7h 20m
+
+            </p>
+
+        </div>
+
     );
-    
-    }
-    
-    export default AttendanceStatusCard;
+
+}
+
+export default AttendanceStatusCard;

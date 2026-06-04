@@ -1,97 +1,97 @@
 
-    /*
-    ==================================================
-    Change ID: M06-020
-    Date: 2026-05-26
-    Status: Updated
-    Purpose: Employee leave wrapper
-    Risk: Low
-    Rollback: Restore previous file
-    ==================================================
-    */
+/*
+==================================================
+Change ID: M06-020
+Date: 2026-05-26
+Status: Updated
+Purpose: Employee leave wrapper
+Risk: Low
+Rollback: Restore previous file
+==================================================
+*/
 
-    import {
+import {
 
-        useEffect,
+    useEffect,
 
-        useState
+    useState
 
-    }
+}
 
-        from "react";
+    from "react";
 
-    import EmployeeLayout
-        from "../layout/EmployeeLayout";
+import EmployeeLayout
+    from "../layout/EmployeeLayout";
 
-    import LeaveForm
-        from "../../../features/leaves/components/LeaveForm";
+import LeaveForm
+    from "../../../features/leaves/components/LeaveForm";
 
-    import {
+import {
 
-        getCurrentEmployee
+    getCurrentEmployee
 
-    }
+}
 
-        from "../services/employeeSelfService";
+    from "../services/employeeSelfService";
 
-    function EmployeeLeavePage() {
+function EmployeeLeavePage() {
 
-        const [
+    const [
 
-            employee,
+        employee,
 
-            setEmployee
+        setEmployee
 
-        ]
+    ]
 
-            =
+        =
 
-            useState(null);
+        useState(null);
 
-        useEffect(() => {
+    useEffect(() => {
 
-            loadEmployee();
+        loadEmployee();
 
-        }, []);
+    }, []);
 
-        async function loadEmployee() {
+    async function loadEmployee() {
 
-            try {
+        try {
 
-                const data =
+            const data =
 
-                    await getCurrentEmployee();
+                await getCurrentEmployee();
 
-                setEmployee(data);
-
-            }
-
-            catch (error) {
-
-                console.log(error);
-
-            }
+            setEmployee(data);
 
         }
 
-        return (
+        catch (error) {
 
-            <EmployeeLayout>
+            console.log(error);
 
-                <div className="p-6">
-
-                    <LeaveForm
-
-                        employeeId={employee?.id}
-
-                    />
-
-                </div>
-
-            </EmployeeLayout>
-
-        );
+        }
 
     }
 
-    export default EmployeeLeavePage;
+    return (
+
+        <EmployeeLayout>
+
+            <div className="p-6">
+
+                <LeaveForm
+
+                    employeeId={employee?.id}
+
+                />
+
+            </div>
+
+        </EmployeeLayout>
+
+    );
+
+}
+
+export default EmployeeLeavePage;

@@ -9,35 +9,35 @@ Rollback: Remove component
 ==================================================
 */
 
-function WelcomeSection(){
+function WelcomeSection() {
 
-    return(
-    
-    <div
-    className="
+    return (
+
+        <div
+            className="
     bg-white
     rounded-lg
     shadow
     p-6
     "
-    >
-    
-    <h2 className="text-2xl font-bold">
-    
-    Good Morning 👋
-    
-    </h2>
-    
-    <p className="text-gray-500">
-    
-    Welcome back
-    
-    </p>
-    
-    </div>
-    
+        >
+
+            <h2 className="text-2xl font-bold">
+
+                Good Morning 👋
+
+            </h2>
+
+            <p className="text-gray-500">
+
+                Welcome back
+
+            </p>
+
+        </div>
+
     );
-    
-    }
-    
-    export default WelcomeSection;
+
+}
+
+export default WelcomeSection;

@@ -12,8 +12,10 @@ Rollback: Restore empty array
 ==================================================
 */
 
-import LeaveForm
-from "../../features/leaves/components/LeaveForm";
+// import LeaveForm
+// from "../../features/leaves/components/LeaveForm";
+import LeavePage
+from "../../features/leaves/pages/LeavePage";
 
 import LeaveManagementPage
 from "../../features/leaves/pages/LeaveManagementPage";
@@ -39,7 +41,8 @@ const leaveManagementRoutes = [
         ]}
         userRole="admin"
       >
-        <LeaveForm />
+        {/* <LeaveForm /> */}
+        <LeavePage />
       </ProtectedRoute>
     )
   },
