@@ -1,33 +1,3 @@
-// /*
-// ==================================================
-// Change ID: M06-002
-// Date: 2026-05-26
-// Status: Updated
-// Purpose: Add module capabilities
-// Risk: Low
-// Rollback: Revert config
-// ==================================================
-// */
-
-// const employeeSelfServiceModule = {
-
-//     id:"M06",
-    
-//     name:"Employee Self Service",
-    
-//     enabled:true,
-    
-//     routes:true,
-    
-//     navigation:true,
-    
-//     widgets:true,
-    
-//     permissions:true
-    
-//     };
-    
-//     export default employeeSelfServiceModule;
 
 
 /*
@@ -41,24 +11,52 @@ Rollback: Remove routes field
 ==================================================
 */
 
-import employeeSelfServiceRoutes
-from "./routes";
+// import employeeSelfServiceRoutes
+// from "./routes";
+
+// import employeeSelfServiceNavigation
+// from "./navigation";
+
+// const employeeSelfServiceModule = {
+
+// id:"M06",
+
+// name:"Employee Self Service",
+
+// enabled:true,
+
+// routes:employeeSelfServiceRoutes,
+
+// navigation: employeeSelfServiceNavigation,
+
+// widgets:true,
+
+// permissions:true
+
+// };
+
+// export default employeeSelfServiceModule;
+
+import employeeSelfServiceNavigation from "./navigation";
+import employeeSelfServiceRoutes from "./routes";
+import employeeSelfServicePermissions from "./permissions";
+import employeeSelfServiceWidgets from "./widgets";
 
 const employeeSelfServiceModule = {
 
-id:"M06",
+  id: "M06",
 
-name:"Employee Self Service",
+  name: "Employee Self Service",
 
-enabled:true,
+  enabled: true,
 
-routes:employeeSelfServiceRoutes,
+  routes: employeeSelfServiceRoutes,
 
-navigation:true,
+  navigation: employeeSelfServiceNavigation,
 
-widgets:true,
+  permissions: employeeSelfServicePermissions,
 
-permissions:true
+  widgets: employeeSelfServiceWidgets
 
 };
 
