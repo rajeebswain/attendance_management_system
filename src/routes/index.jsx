@@ -93,12 +93,12 @@ import ReportsDashboardPage from "../features/reports/pages/ReportsDashboardPage
 
 // import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 
-import LeaveForm from "../features/leaves/components/LeaveForm";
+// import LeaveForm from "../features/leaves/components/LeaveForm";
 
-import LeaveManagementPage from "../features/leaves/pages/LeaveManagementPage";
+// import LeaveManagementPage from "../features/leaves/pages/LeaveManagementPage";
 
 
-import LeaveAllocationPage from "../features/leaves/pages/LeaveAllocationPage";
+// import LeaveAllocationPage from "../features/leaves/pages/LeaveAllocationPage";
 
 
 import { ROLES } from "../constants/roles";
@@ -180,15 +180,7 @@ function AppRoutes() {
         }
       />
 
-      {/* <Route
-        path="/self-attendance"
-        element={
-          <ProtectedRoute>
-            <EmployeeSelfAttendancePage />
-          </ProtectedRoute>
-        }
-      /> */}
-      <Route
+         <Route
 
         path="/admin-attendance"
 
@@ -197,38 +189,6 @@ function AppRoutes() {
           <AdminAttendancePage />
         }
       />
-
-      {/* <Route
-
-        path="/reports"
-
-        element={
-
-          <ProtectedRoute
-
-            allowedRoles={[
-
-              ROLES.ADMIN,
-
-              ROLES.HR
-
-            ]}
-
-            userRole={
-
-              loggedInUser.role
-
-            }
-
-          >
-
-            <ReportsDashboardPage />
-
-          </ProtectedRoute>
-
-        }
-
-      /> */}
 
 /*
 ==================================================
@@ -291,7 +251,7 @@ Route
   }
 />
 
-      <Route
+      {/* <Route
         path="/leave"
         element={
           <ProtectedRoute
@@ -316,9 +276,9 @@ Route
 
           </ProtectedRoute>
         }
-      />
+      /> */}
 
-      <Route
+      {/* <Route
         path="/leave-management"
         element={
           <ProtectedRoute
@@ -336,8 +296,8 @@ Route
 
           </ProtectedRoute>
         }
-      />
-      <Route
+      /> */}
+      {/* <Route
         path="/leave-allocation"
         element={
           <ProtectedRoute
@@ -350,7 +310,7 @@ Route
             <LeaveAllocationPage />
           </ProtectedRoute>
         }
-      />
+      /> */}
 
 
 
