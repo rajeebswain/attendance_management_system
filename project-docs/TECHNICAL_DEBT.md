@@ -19,3 +19,10 @@ Target Module:
 
 M02 Identity Layer
 ============================================
+TD-M06-006
+
+Temporary fallback employee lookup
+
+Status:
+RESOLVED
+================================================

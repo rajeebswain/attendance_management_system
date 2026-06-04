@@ -22,11 +22,7 @@ const EMPLOYEE_LINKS = [
         label: "Attendance History",
         path: "/employee/self-attendance"
     },
-    {
-        label: "Attendance Correction",
-        path: "/employee/attendance-correction"
-    },
-
+   
     {
         label: "Apply Leave",
         path: "/employee/leave"

@@ -38,29 +38,41 @@ export async function getCurrentEmployee() {
     ==================================================
     */
 
-    let email = "rajeeb@example.com";
+    // let email = "rajeeb@example.com";
 
-    try {
+    // try {
 
-        const user = await getCurrentUser();
+    //     const user = await getCurrentUser();
 
-        if (user) {
+    //     if (user) {
 
-            email = user.email;
+    //         email = user.email;
 
-        }
+    //     }
 
-    }
+    // }
 
-    catch (error) {
+    // catch (error) {
 
-        console.log(
+    //     console.log(
 
-            "Temporary auth fallback active"
+    //         "Temporary auth fallback active"
 
-        );
+    //     );
 
-    }
+    // }
+
+    const user = await getCurrentUser();
+
+if (!user) {
+
+    throw new Error(
+        "User session not found"
+    );
+
+}
+
+const email = user.email;
 
     const {
 
@@ -92,7 +104,12 @@ shift_name
                 email
             )
 
-            .single();
+            // .single();
+            .eq(
+                "email",
+                email
+            )
+            .maybeSingle();
 
     if (error) {
 
