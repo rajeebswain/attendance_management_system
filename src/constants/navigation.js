@@ -41,15 +41,15 @@ export const CORE_SIDEBAR_LINKS = [
     path: "/attendance-regularization"
   },
 
-  {
-    label: "Leave Management",
-    path: "/leave-management"
-  },
+  // {
+  //   label: "Leave Management",
+  //   path: "/leave-management"
+  // },
 
-  {
-    label: "Leave Allocation",
-    path: "/leave-allocation"
-  },
+  // {
+  //   label: "Leave Allocation",
+  //   path: "/leave-allocation"
+  // },
 
   {
     label: "Correction Audit",

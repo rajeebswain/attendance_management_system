@@ -74,3 +74,27 @@ Future replacement:
 
 Load filter options dynamically
 from database.
+=================================================
+TS-M02-001
+
+Hardcoded loggedInUser object.
+
+Current:
+
+const loggedInUser = {
+ role: "admin"
+};
+
+Purpose:
+
+Temporary route testing.
+
+Production:
+
+Role comes from
+AuthContext profile.
+
+Module:
+
+M02 Identity & Security
+=======================================================

@@ -1,20 +1,51 @@
+// /*
+// ==================================================
+// Change ID: M07-000
+// Date: 2026-05-30
+// Status: Initial
+
+// Purpose:
+// Leave Management permissions placeholder
+
+// Risk:
+// Low
+
+// Rollback:
+// Delete file
+// ==================================================
+// */
+
+// const leaveManagementPermissions = [];
+
+// export default leaveManagementPermissions;
+
 /*
 ==================================================
-Change ID: M07-000
-Date: 2026-05-30
-Status: Initial
+Change ID: M07-002
+Date: 2026-06-04
+Status: Active
 
 Purpose:
-Leave Management permissions placeholder
+Leave Management permission registry
 
 Risk:
 Low
 
 Rollback:
-Delete file
+Restore empty array
 ==================================================
 */
 
-const leaveManagementPermissions = [];
+const leaveManagementPermissions = [
 
-export default leaveManagementPermissions;
+    "leave.view",
+  
+    "leave.apply",
+  
+    "leave.approve",
+  
+    "leave.allocate"
+  
+  ];
+  
+  export default leaveManagementPermissions;

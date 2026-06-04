@@ -22,8 +22,7 @@ import SignupPage from "../features/auth/pages/SignupPage";
 
 
 // Protected Route
-// import ProtectedRoute from "../features/auth/components/ProtectedRoute";
-
+import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 
 // Pages
 import DashboardPage from "../pages/DashboardPage";
@@ -37,6 +36,50 @@ import EmployeesPage
 import RoleGuard from "../features/auth/components/RoleGuard";
 
 
+/*
+==================================================
+Module:
+M02 Identity & Security
+
+Submodule:
+M02-007 Route Migration
+
+Purpose:
+
+Introduce PermissionGuard
+into routing layer.
+
+Change ID:
+
+M02-007-001
+
+==================================================
+*/
+
+import PermissionGuard from "../features/auth/components/PermissionGuard";
+
+/*
+==================================================
+Module:
+M02 Identity & Security
+
+Submodule:
+M02-007 Route Migration
+
+Purpose:
+
+Permission constants
+for route protection.
+
+Change ID:
+
+M02-007-001
+
+==================================================
+*/
+
+import { PERMISSIONS } from "../core/security";
+
 // Attendance Page
 import AttendancePage from "../features/attendance/pages/AttendancePage";
 
@@ -47,14 +90,15 @@ import AdminAttendancePage from "../features/attendance/pages/AdminAttendancePag
 
 import ReportsDashboardPage from "../features/reports/pages/ReportsDashboardPage";
 
-import ProtectedRoute from "../components/auth/ProtectedRoute";
 
-import LeaveForm from "../features/leaves/components/LeaveForm";
+// import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 
-import LeaveManagementPage from "../features/leaves/pages/LeaveManagementPage";
+// import LeaveForm from "../features/leaves/components/LeaveForm";
+
+// import LeaveManagementPage from "../features/leaves/pages/LeaveManagementPage";
 
 
-import LeaveAllocationPage from "../features/leaves/pages/LeaveAllocationPage";
+// import LeaveAllocationPage from "../features/leaves/pages/LeaveAllocationPage";
 
 
 import { ROLES } from "../constants/roles";
@@ -136,15 +180,7 @@ function AppRoutes() {
         }
       />
 
-      {/* <Route
-        path="/self-attendance"
-        element={
-          <ProtectedRoute>
-            <EmployeeSelfAttendancePage />
-          </ProtectedRoute>
-        }
-      /> */}
-      <Route
+         <Route
 
         path="/admin-attendance"
 
@@ -154,39 +190,68 @@ function AppRoutes() {
         }
       />
 
-      <Route
+/*
+==================================================
+Module:
+M02 Identity & Security
 
-        path="/reports"
+Submodule:
+M02-007 Route Migration
 
-        element={
+Feature:
 
-          <ProtectedRoute
+Reports Route Permission Migration
 
-            allowedRoles={[
+Change ID:
 
-              ROLES.ADMIN,
+M02-007-001
 
-              ROLES.HR
+Purpose:
 
-            ]}
+Use permission-based access
+instead of role-based access.
 
-            userRole={
+Current:
 
-              loggedInUser.role
+Role
+ ↓
+Route
 
-            }
+Future:
 
-          >
+Role
+ ↓
+Permission
+ ↓
+Route
 
-            <ReportsDashboardPage />
+==================================================
+*/
 
-          </ProtectedRoute>
+<Route
+  path="/reports"
+  element={
 
+    <ProtectedRoute>
+
+      <PermissionGuard
+
+        permission={
+          PERMISSIONS.REPORT_VIEW
         }
 
-      />
+      >
 
-      <Route
+        <ReportsDashboardPage />
+
+      </PermissionGuard>
+
+    </ProtectedRoute>
+
+  }
+/>
+
+      {/* <Route
         path="/leave"
         element={
           <ProtectedRoute
@@ -211,9 +276,9 @@ function AppRoutes() {
 
           </ProtectedRoute>
         }
-      />
+      /> */}
 
-      <Route
+      {/* <Route
         path="/leave-management"
         element={
           <ProtectedRoute
@@ -231,8 +296,8 @@ function AppRoutes() {
 
           </ProtectedRoute>
         }
-      />
-      <Route
+      /> */}
+      {/* <Route
         path="/leave-allocation"
         element={
           <ProtectedRoute
@@ -245,7 +310,7 @@ function AppRoutes() {
             <LeaveAllocationPage />
           </ProtectedRoute>
         }
-      />
+      /> */}
 
 
 

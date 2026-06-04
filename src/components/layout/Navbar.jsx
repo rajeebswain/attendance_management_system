@@ -8,13 +8,39 @@ function Navbar() {
   // Used for redirecting users
   const navigate = useNavigate();
 
-  // Handle logout button click
-  async function handleLogout() {
-    // Logout from Supabase
-    await logoutUser();
+  // // Handle logout button click
+  // async function handleLogout() {
+  //   // Logout from Supabase
+  //   await logoutUser();
 
-    // Redirect user to login page
-    navigate('/login');
+  //   // Redirect user to login page
+  //   navigate('/login');
+  // }
+  async function handleLogout() {
+
+    try {
+  
+      console.log(
+        "Logout started"
+      );
+  
+      await logoutUser();
+  
+      console.log(
+        "Logout success"
+      );
+  
+      navigate("/login");
+  
+    } catch (error) {
+  
+      console.error(
+        "Logout failed",
+        error
+      );
+  
+    }
+  
   }
 
   return (

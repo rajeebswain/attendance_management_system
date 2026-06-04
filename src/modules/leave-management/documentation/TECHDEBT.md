@@ -95,3 +95,21 @@ change.
 Future enhancement:
 Update approved_at only
 when status becomes approved.
+==========================================
+Module:
+M07 Leave Management
+
+Issue:
+Permission registry not integrated.
+
+Current:
+Leave permissions are placeholders.
+
+Future:
+Create plugin permission aggregation.
+
+Priority:
+Low
+
+Required Before:
+Commercial Module Marketplace
