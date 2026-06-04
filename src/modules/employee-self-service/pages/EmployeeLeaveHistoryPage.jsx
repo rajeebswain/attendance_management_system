@@ -82,73 +82,6 @@ function EmployeeLeaveHistoryPage() {
 
                 </h1>
 
-                {/* <table
-                    className="
-    w-full
-    bg-white
-    rounded
-    "
-                >
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Date</th>
-
-                            <th>Type</th>
-
-                            <th>Status</th>
-
-                            <th>Reason</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        {
-
-                            leaves.map((leave) => (
-
-                                <tr
-                                    key={leave.id}
-                                >
-
-                                    <td>
-
-                                        {leave.start_date}
-
-                                    </td>
-
-                                    <td>
-
-                                        {leave.leave_type}
-
-                                    </td>
-
-                                    <td>
-
-                                        {leave.status}
-
-                                    </td>
-
-                                    <td>
-
-                                        {leave.reason}
-
-                                    </td>
-
-                                </tr>
-
-                            ))
-
-                        }
-
-                    </tbody>
-
-                </table> */}
 
                 <table
                     className="
@@ -184,6 +117,14 @@ rounded
 
                                 Reason
 
+                            </th>
+
+                            <th className="p-3 text-left">
+                                Admin Remark
+                            </th>
+
+                            <th className="p-3 text-left">
+                                Approved On
                             </th>
 
                         </tr>
@@ -222,6 +163,26 @@ rounded
                                     <td className="p-3">
 
                                         {leave.reason}
+
+                                    </td>
+
+                                    <td className="p-3">
+
+                                        {
+                                            leave.admin_remark || "-"
+                                        }
+
+                                    </td>
+
+                                    <td className="p-3">
+
+                                        {
+                                            leave.approved_at
+                                                ? new Date(
+                                                    leave.approved_at
+                                                ).toLocaleString()
+                                                : "-"
+                                        }
 
                                     </td>
 

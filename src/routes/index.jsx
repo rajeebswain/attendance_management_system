@@ -53,6 +53,10 @@ import LeaveForm from "../features/leaves/components/LeaveForm";
 
 import LeaveManagementPage from "../features/leaves/pages/LeaveManagementPage";
 
+
+import LeaveAllocationPage from "../features/leaves/pages/LeaveAllocationPage";
+
+
 import { ROLES } from "../constants/roles";
 
 import moduleRoutes
@@ -228,6 +232,24 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/leave-allocation"
+        element={
+          <ProtectedRoute
+            allowedRoles={[
+              "admin",
+              "super_admin"
+            ]}
+            userRole={loggedInUser.role}
+          >
+            <LeaveAllocationPage />
+          </ProtectedRoute>
+        }
+      />
+
+
+
+
       {
 
         moduleRoutes.map((route) => (
