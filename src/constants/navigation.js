@@ -1,32 +1,53 @@
-// Sidebar navigation configuration
+/*
+==================================================
+Change ID: M06-004
+Date: 2026-05-26
+Status: Updated
+Purpose: Separate core navigation
+Risk: Medium
+Rollback: Restore SIDEBAR_LINKS
+==================================================
+*/
 
-export const SIDEBAR_LINKS = [
+export const CORE_SIDEBAR_LINKS = [
 
   {
-    label: "Dashboard",
-    path: "/dashboard",
+  label:"Dashboard",
+  path:"/dashboard"
+  },
+  
+  {
+  label:"Employees",
+  path:"/employees"
+  },
+  
+  {
+  label:"Attendance",
+  path:"/attendance"
+  },
+  
+  {
+  label:"Reports & Analytics",
+  path:"/reports"
+  },
+  
+  {
+  label:"Settings",
+  path:"/settings"
   },
 
   {
-    label: "Employees",
-    path: "/employees",
-  },
-
-  {
-    label: "Attendance",
-    path: "/attendance",
-  },
-
-  {
-
-    label: "Reports & Analytics",
-    path: "/reports",
-  },
+    label: "Attendance Regularization",
+    path: "/attendance-regularization"
+},
 
 
   {
-    label: "Settings",
-    path: "/settings",
-  },
+    label:
+    "Correction Audit",
 
-];
+    path:
+    "/attendance-correction-audit"
+}
+  ];
+ 

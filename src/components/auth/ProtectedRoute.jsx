@@ -1,41 +1,46 @@
 
 import { Navigate }
-
 from "react-router-dom";
 
 const ProtectedRoute = ({
 
-  children,
+children,
 
-  allowedRoles = [],
+allowedRoles = [],
 
-  userRole
+userRole
 
 }) => {
 
-  if (
+/*
+If no roles specified,
+allow access
+*/
 
-    !allowedRoles.includes(
+if (
 
-      userRole
+allowedRoles.length > 0
 
-    )
+&&
 
-  ) {
+!allowedRoles.includes(
+userRole
+)
 
-    return (
+) {
 
-      <Navigate
+return (
 
-        to="/attendance"
+<Navigate
+to="/attendance"
+/>
 
-      />
+);
 
-    );
+}
 
-  }
+return children;
 
-  return children;
 };
 
 export default ProtectedRoute;

@@ -3,6 +3,14 @@ import { supabase }
   from "../../../lib/supabase/client";
 
 
+
+
+
+
+
+  
+
+
 // TEST EMPLOYEE QUERY
 export async function testEmployeeQuery() {
 
@@ -222,6 +230,8 @@ export async function checkInEmployee(
 
         minute: "2-digit",
 
+        second: "2-digit",
+
         hour12: false,
       }
     );
@@ -233,7 +243,7 @@ export async function checkInEmployee(
 
     .insert([{
 
-      employee_id: employee.Id,
+      employee_id: employee.id,
 
       attendance_date: today,
 
@@ -259,10 +269,281 @@ export async function checkInEmployee(
 
 
 // CHECK OUT EMPLOYEE
+// export async function checkOutEmployee(
+
+//   attendanceId
+
+// ) 
+
+
+/*
+==================================================
+Change ID: M06-028
+Date: 2026-05-28
+Status: Updated
+Purpose: Save employee early checkout reason
+Risk: Medium
+Rollback: Restore previous checkout flow
+==================================================
+*/
+
+// export async function checkOutEmployee(
+
+//   attendanceId,
+//   earlyCheckoutReason = null
+
+// ){
+
+//   // Current time
+//   const currentTime = new Date()
+
+//     .toLocaleTimeString(
+
+//       "en-GB",
+
+//       {
+
+//         hour: "2-digit",
+
+//         minute: "2-digit",
+
+//         hour12: false,
+//       }
+//     );
+
+
+//   // Update attendance
+//   const { data, error } = await supabase
+
+//     .from("attendance")
+
+//     // .update({
+
+//     //   check_out: currentTime,
+//     // })
+//     .update({
+
+//       check_out: currentTime,
+    
+//       early_checkout_reason:
+//         earlyCheckoutReason
+    
+//     })
+
+//     .eq("id", attendanceId)
+
+//     .select();
+
+//   if (error) {
+
+//     throw error;
+//   }
+
+//   return data;
+// }
+
+
+/*
+==================================================
+Change ID: M04-021
+Date: 2026-05-28
+Status: Updated
+Purpose: Calculate worked hours during checkout
+Risk: Medium
+Rollback: Restore previous checkout update logic
+==================================================
+*/
+
+// // CHECK OUT EMPLOYEE
+// export async function checkOutEmployee(
+
+//   attendanceId
+
+// ) {
+
+//   // Current time
+//   const currentTime = new Date()
+
+//     .toLocaleTimeString(
+
+//       "en-GB",
+
+//       {
+
+//         hour: "2-digit",
+
+//         minute: "2-digit",
+
+//         second: "2-digit",
+
+//         hour12: false,
+//       }
+//     );
+
+//   // Load attendance record
+//   const {
+
+//     data: attendance,
+
+//     error: attendanceError,
+
+//   }
+
+//   = await supabase
+
+//     .from("attendance")
+
+//     .select("*")
+
+//     .eq("id", attendanceId)
+
+//     .single();
+
+//   if(attendanceError){
+
+//     throw attendanceError;
+
+//   }
+
+//   /*
+//   ==================================================
+//   WORKED HOURS CALCULATION
+//   ==================================================
+//   */
+
+//   const checkIn =
+
+//     new Date(
+
+//       `1970-01-01T${attendance.check_in}`
+
+//     );
+
+//   const checkOut =
+
+//     new Date(
+
+//       `1970-01-01T${currentTime}`
+
+//     );
+
+//   // Difference in milliseconds
+//   const diffMs =
+
+//     checkOut - checkIn;
+
+//   // Convert to seconds
+//   const totalSeconds =
+
+//     Math.floor(diffMs / 1000);
+
+//   const hours =
+
+//     String(
+
+//       Math.floor(totalSeconds / 3600)
+
+//     ).padStart(2, "0");
+
+//   const minutes =
+
+//     String(
+
+//       Math.floor(
+
+//         (totalSeconds % 3600) / 60
+
+//       )
+
+//     ).padStart(2, "0");
+
+//   const seconds =
+
+//     String(
+
+//       totalSeconds % 60
+
+//     ).padStart(2, "0");
+
+//   const workedHours =
+
+//     `${hours}:${minutes}:${seconds}`;
+
+//   console.log(
+
+//     "WORKED HOURS:",
+
+//     workedHours
+
+//   );
+
+//   /*
+//   Temporary OT logic.
+
+//   Production:
+//   Calculate using shift duration.
+//   */
+
+//   // const overtime = "00:00:00";
+//   const overtimeHours = 0;
+
+//   // Update attendance
+//   const { data, error } = await supabase
+
+//     .from("attendance")
+
+//     // .update({
+
+//     //   check_out: currentTime,
+
+//     //   worked_hours: workedHours,
+
+//     //   overtime,
+
+//     // })
+//     .update({
+
+//       check_out: currentTime,
+    
+//       worked_hours:
+    
+//         totalSeconds / 3600,
+    
+//       overtime_hours:
+    
+//         overtimeHours,
+    
+//     })
+
+//     .eq("id", attendanceId)
+
+//     .select();
+
+//   if (error) {
+
+//     throw error;
+//   }
+
+//   return data;
+// }
+
+/*
+==================================================
+Change ID: M06-028
+Date: 2026-05-28
+Status: Updated
+Purpose: Save early checkout reason and calculate worked hours
+Risk: Medium
+Rollback: Restore previous checkout function
+==================================================
+*/
+
+// CHECK OUT EMPLOYEE
 export async function checkOutEmployee(
 
-  attendanceId
+  attendanceId,
 
+  earlyReason
 ) {
 
   // Current time
@@ -278,12 +559,107 @@ export async function checkOutEmployee(
 
         minute: "2-digit",
 
+        second: "2-digit",
+
         hour12: false,
       }
     );
 
+  // Load attendance record
+  const {
 
-  // Update attendance
+    data: attendance,
+
+    error: attendanceError,
+
+  }
+
+  = await supabase
+
+    .from("attendance")
+
+    .select("*")
+
+    .eq("id", attendanceId)
+
+    .single();
+
+  // Attendance fetch error
+  if (
+
+    attendanceError
+
+  ) {
+
+    throw attendanceError;
+  }
+
+  /*
+  ==================================================
+  WORKED HOURS CALCULATION
+  ==================================================
+  */
+
+  // Check-in datetime
+  const checkIn =
+
+    new Date(
+
+      `1970-01-01T${attendance.check_in}`
+
+    );
+
+  // Check-out datetime
+  const checkOut =
+
+    new Date(
+
+      `1970-01-01T${currentTime}`
+
+    );
+
+  // Difference in milliseconds
+  const diffMs =
+
+    checkOut - checkIn;
+
+  // Convert to total seconds
+  const totalSeconds =
+
+    Math.floor(
+
+      diffMs / 1000
+    );
+
+  // Convert to decimal hours
+  const workedHours =
+
+    totalSeconds / 3600;
+
+  console.log(
+
+    "WORKED HOURS:",
+
+    workedHours
+  );
+
+  /*
+  ==================================================
+  TEMPORARY OVERTIME LOGIC
+  ==================================================
+
+  Production:
+  Calculate overtime using shift duration.
+  */
+
+  const overtimeHours = 0;
+
+  /*
+  ==================================================
+  UPDATE ATTENDANCE
+  ==================================================
+  */
+
   const { data, error } = await supabase
 
     .from("attendance")
@@ -291,19 +667,39 @@ export async function checkOutEmployee(
     .update({
 
       check_out: currentTime,
+
+      worked_hours:
+
+        workedHours,
+
+      overtime_hours:
+
+        overtimeHours,
+
+      early_checkout_reason:
+
+        earlyReason,
+
     })
 
     .eq("id", attendanceId)
 
     .select();
 
-  if (error) {
+  // Update error
+  if (
+
+    error
+
+  ) {
 
     throw error;
   }
 
   return data;
 }
+
+
 
 // ATTENDANCE HISTORY
 export async function getAttendanceHistory(
@@ -331,4 +727,84 @@ export async function getAttendanceHistory(
   }
 
   return data;
+}
+
+
+/*
+==================================================
+Change ID: M06-030
+Date: 2026-05-28
+Status: Added
+Purpose: Generate employee attendance statistics
+Risk: Low
+Rollback: Remove attendance statistics service
+==================================================
+*/
+
+// EMPLOYEE ATTENDANCE STATS
+export async function getAttendanceStats(
+
+  employeeId
+
+){
+
+  const { data, error } = await supabase
+
+    .from("attendance")
+
+    .select("*")
+
+    .eq("employee_id", employeeId);
+
+  if(error){
+
+    throw error;
+
+  }
+
+  // Present count
+  const presentDays =
+
+    data.filter(
+
+      item =>
+
+        item.status === "present"
+
+    ).length;
+
+  // Late count
+  const lateDays =
+
+    data.filter(
+
+      item =>
+
+        item.status === "late"
+
+    ).length;
+
+  // Total attendance
+  const totalAttendance =
+
+    data.length;
+
+  /*
+  Temporary OT logic.
+
+  Production:
+  Calculate from worked_hours.
+  */
+
+  const overtimeHours = 0;
+
+  return {
+
+    presentDays,
+    lateDays,
+    totalAttendance,
+    overtimeHours,
+
+  };
+
 }

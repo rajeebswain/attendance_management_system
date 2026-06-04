@@ -1,54 +1,3 @@
-// import { supabase } from '../../../lib/supabase/client';
-// export async function loginUser(email, password) {
-
-//   const { data, error } =
-//     await supabase.auth.signInWithPassword({
-//       email,
-//       password,
-//     });
-
-//   if (error) {
-//     throw error;
-//   }
-
-//   return data;
-// }
-
-// export async function logoutUser() {
-
-//   const { error: signOutError } =
-//     await supabase.auth.signOut();
-
-//   if (signOutError) {
-//     throw signOutError;
-//   }
-// }
-// export async function signupUser({
-//   fullName,
-//   email,
-//   password,
-// }) {
-
-//   const { data, error } = await supabase.auth.signUp({
-
-//     email,
-
-//     password,
-
-//     options: {
-//       data: {
-//         full_name: fullName,
-//       },
-//     },
-//   });
-
-//   if (error) {
-//     throw error;
-//   }
-
-//   return data;
-// }
-
 
 // Import centralized Supabase client
 import { supabase } from "../../../lib/supabase/client";
@@ -131,3 +80,39 @@ export async function logoutUser() {
     throw error;
   }
 }
+
+
+/*
+==================================================
+Change ID: M06-012
+Date: 2026-05-26
+Status: Initial
+Purpose: Get logged-in user
+Risk: Low
+Rollback: Remove function
+==================================================
+*/
+
+export async function getCurrentUser(){
+
+  const {
+  
+  data,
+  
+  error
+  
+  }
+  
+  =
+  
+  await supabase.auth.getUser();
+  
+  if(error){
+  
+  throw error;
+  
+  }
+  
+  return data.user;
+  
+  }

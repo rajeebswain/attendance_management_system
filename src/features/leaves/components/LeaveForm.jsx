@@ -11,7 +11,13 @@ import {
 
     from "../services/leaveService";
 
-function LeaveForm() {
+// function LeaveForm() {
+
+function LeaveForm({
+
+    employeeId
+    
+    }) {
 
     const [leaveType, setLeaveType] = useState("");
 
@@ -21,24 +27,6 @@ function LeaveForm() {
 
     const [reason, setReason] = useState("");
 
-   /* function handleSubmit(e) {
-
-        e.preventDefault();
-
-        console.log({
-
-            leaveType,
-            startDate,
-            endDate,
-            reason
-
-        });
-
-        alert("Leave request submitted");
-
-    } */
-
-
     async function handleSubmit(e){
 
         e.preventDefault();
@@ -47,7 +35,8 @@ function LeaveForm() {
         
         await createLeave({
         
-        employee_id:"d1d21e78-b843-46bc-9041-5cc5c9ab4bcd",
+        // employee_id:"d1d21e78-b843-46bc-9041-5cc5c9ab4bcd",
+        employee_id:employeeId,
         
         leave_type:leaveType,
         
