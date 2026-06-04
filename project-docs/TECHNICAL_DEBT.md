@@ -26,3 +26,16 @@ Temporary fallback employee lookup
 Status:
 RESOLVED
 ================================================
+TD-M02-005
+
+Public signup page currently available.
+
+Production:
+
+Disable public registration.
+
+User accounts must be created by
+authorized administrators.
+
+Employee records and auth accounts
+must be linked using auth_user_id.

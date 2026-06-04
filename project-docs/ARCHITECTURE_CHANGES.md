@@ -205,3 +205,21 @@ Rollback:
 Restore routes inside AppRoutes.
 ========================================================
 
+ARCH-M02-008
+
+User accounts are provisioned by
+authorized administrators.
+
+Public self-registration is not part
+of the attendance platform.
+
+Employee identity originates from
+employee master data.
+
+Authentication accounts are linked
+to employee records.
+
+This prevents unauthorized account
+creation and preserves employee
+identity integrity.
+=============================================
