@@ -34,6 +34,7 @@ id: "M07",
 name: "Leave Management",
 
 enabled: true,
+// enabled: false,
 
 routes: leaveManagementRoutes,
 

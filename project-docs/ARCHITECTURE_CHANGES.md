@@ -152,4 +152,56 @@ Route / Feature Access
 * Component-level protection
 * Plugin-ready security model
 * Supports future multi-tenant RBAC
+=================================================
+Change ID: M07-PEX-001
+
+Module:
+M07 Leave Management
+
+Type:
+Plugin Route Ownership
+
+Status:
+Completed
+
+Description:
+Transferred Leave route ownership from AppRoutes
+to Leave Management plugin through module registry.
+
+Database Changes:
+None
+
+Business Logic Changes:
+None
+
+Risk:
+Low
+
+Rollback:
+Restore leave routes in AppRoutes.
+==============================================
+Change ID: M07-PEX-001
+
+Date: 2026-06-04
+
+Module:
+M07 Leave Management
+
+Type:
+Plugin Extraction
+
+Description:
+Leave routes moved from AppRoutes
+to module route registry.
+
+Result:
+Leave module can now be enabled
+or disabled through module config.
+
+Risk:
+Low
+
+Rollback:
+Restore routes inside AppRoutes.
+========================================================
 
