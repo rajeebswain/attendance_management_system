@@ -38,14 +38,49 @@
 
 // export default NotificationCenterPage;
 
+// function NotificationCenterPage() {
+
+//     return (
+//       <div>
+//         <h1>Notifications</h1>
+//       </div>
+//     );
+  
+//   }
+  
+//   export default NotificationCenterPage;
+
+  import NotificationItem
+from "../components/NotificationItem";
+
 function NotificationCenterPage() {
 
-    return (
-      <div>
-        <h1>Notifications</h1>
-      </div>
-    );
-  
-  }
-  
-  export default NotificationCenterPage;
+  return (
+
+    <div>
+
+      <h1>
+        Notifications
+      </h1>
+
+      <NotificationItem
+
+        title="Leave Approved"
+
+        message="Your leave request has been approved."
+
+        category="leave"
+
+        status="unread"
+
+        createdAt="2026-06-05"
+
+      />
+
+    </div>
+
+  );
+
+}
+
+export default NotificationCenterPage;
