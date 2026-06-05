@@ -693,3 +693,93 @@ Contains only pure template functions.
 
 Restore previous template definitions.
 =======================================================
+# M12 Notifications
+
+## File: services/notificationRepository.js
+
+### Purpose
+
+Provides storage abstraction for notification persistence.
+
+Acts as the data-access layer for the Notifications module.
+
+---
+
+### Responsibilities
+
+* Retrieve notifications
+* Create notifications
+* Mark notifications as read
+* Mark all notifications as read
+* Return unread counts
+* Abstract storage implementation
+
+---
+
+### Public Methods
+
+* getNotifications()
+* createNotification()
+* markRead()
+* markAllRead()
+* getUnreadCount()
+* setAdapter()
+
+---
+
+### Architecture Pattern
+
+Repository Pattern
+
+Adapter Pattern
+
+---
+
+### Dependencies
+
+Consumed By:
+
+* notificationService.js
+
+Future Adapters:
+
+* Supabase Adapter
+* REST API Adapter
+* PostgreSQL Adapter
+
+---
+
+### Architecture Notes
+
+Repository must not contain:
+
+* UI logic
+* Notification templates
+* Business rules
+* Authorization logic
+
+Repository is storage-only.
+
+---
+
+### Production Requirement
+
+LocalStorage must not be used in production.
+
+A database-backed adapter must be configured before release.
+
+---
+
+### Risk
+
+High if LocalStorage is used.
+
+Low when backed by approved persistence layer.
+
+---
+
+### Rollback
+
+Restore previous repository implementation.
+
+===================================================
