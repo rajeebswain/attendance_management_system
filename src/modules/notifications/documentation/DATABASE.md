@@ -1,4 +1,8 @@
-Notifications Table
+Module:
+M12 Notifications
+
+Table:
+notifications
 
 Purpose:
 Store all in-app notifications
@@ -7,10 +11,13 @@ Owner:
 M12 Notifications
 
 Multi Tenant:
-Yes
-
-Soft Delete:
-No (MVP)
+Supported
 
 Read Tracking:
-Yes
+Supported
+
+Future Channels:
+Email
+SMS
+WhatsApp
+Push
