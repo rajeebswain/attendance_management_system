@@ -1,0 +1,382 @@
+# M12 Notifications - Final Locked Architecture
+
+## Module Information
+
+Module ID: M12
+
+Module Name: Notifications
+
+Status: Architecture Approved
+
+Scope: In-App Notifications Only
+
+---
+
+## MVP Features
+
+### Included
+
+* Notification Storage Contract
+* Notification Service
+* Notification Factory
+* Notification Templates
+* Event Registry
+* Notification Center
+* Unread Count
+* Mark Read
+* Mark All Read
+* Notification Filters
+* Leave Event Notifications
+* Attendance Event Notifications
+
+### Excluded
+
+* Email
+* SMS
+* WhatsApp
+* Push Notifications
+* Webhooks
+* System Announcements
+* Notification Preferences
+* Real-Time Notifications
+
+---
+
+## Final Folder Structure
+
+src/modules/notifications/
+
+components/
+├── NotificationBell.jsx
+├── NotificationItem.jsx
+├── NotificationFilter.jsx
+└── NotificationEmptyState.jsx
+
+documentation/
+├── M12-Architecture.md
+
+pages/
+├── NotificationCenterPage.jsx
+
+registry/
+├── eventRegistry.js
+
+services/
+├── notificationTemplates.js
+├── notificationFactory.js
+├── notificationRepository.js
+├── notificationService.js
+
+moduleConfig.js
+navigation.js
+permissions.js
+routes.jsx
+README.md
+
+---
+
+## Notification Categories
+
+### Attendance
+
+* Attendance Correction Submitted
+* Attendance Correction Approved
+* Attendance Correction Rejected
+
+### Leave
+
+* Leave Applied
+* Leave Approved
+* Leave Rejected
+
+---
+
+## Notification Object
+
+{
+id,
+userId,
+title,
+message,
+category,
+status,
+priority,
+createdAt,
+readAt
+}
+
+---
+
+## Event Flow
+
+M04 Attendance
+↓
+M12 Notification Service
+↓
+M12 Notification Factory
+↓
+M12 Notification Templates
+↓
+M12 Notification Repository
+↓
+Storage Adapter
+
+M07 Leave
+↓
+M12 Notification Service
+↓
+M12 Notification Factory
+↓
+M12 Notification Templates
+↓
+M12 Notification Repository
+↓
+Storage Adapter
+
+---
+
+## Service Ownership
+
+notificationTemplates.js
+
+Responsibilities:
+
+* Notification titles
+* Notification messages
+* Categories
+* Priorities
+
+No database access.
+
+No business logic.
+
+---
+
+notificationFactory.js
+
+Responsibilities:
+
+* Create notification objects
+* Apply defaults
+* Validate inputs
+
+No persistence.
+
+---
+
+notificationRepository.js
+
+Responsibilities:
+
+* Storage abstraction
+* Adapter management
+
+No business logic.
+
+No UI logic.
+
+Default adapter:
+
+Not Configured
+
+Future adapters:
+
+* Supabase
+* REST API
+* PostgreSQL
+
+---
+
+notificationService.js
+
+Responsibilities:
+
+* Dispatch notifications
+* Get notifications
+* Mark read
+* Mark all read
+* Get unread count
+
+This is the ONLY approved public entry point.
+
+External modules must never call:
+
+* notificationFactory.js
+* notificationRepository.js
+
+directly.
+
+---
+
+## Permissions
+
+notifications.view
+
+notifications.read
+
+notifications.mark-read
+
+notifications.mark-all-read
+
+---
+
+## Navigation
+
+{
+label: "Notifications",
+path: "/notifications"
+}
+
+---
+
+## Route
+
+/notifications
+
+ProtectedRoute required.
+
+Allowed Roles:
+
+* admin
+* employee
+* manager
+* super_admin
+
+---
+
+## Component Responsibilities
+
+NotificationCenterPage.jsx
+
+Responsibilities:
+
+* Data loading
+* Service integration
+* State management
+
+Must remain lightweight.
+
+---
+
+NotificationItem.jsx
+
+Responsibilities:
+
+* Render single notification
+* Mark read action
+
+---
+
+NotificationFilter.jsx
+
+Responsibilities:
+
+* Category filtering
+* Status filtering
+
+---
+
+NotificationEmptyState.jsx
+
+Responsibilities:
+
+* Empty state rendering
+
+---
+
+NotificationBell.jsx
+
+Responsibilities:
+
+* Display unread count
+* Navigate to Notification Center
+
+Implementation deferred until:
+
+* Repository finalized
+* Notification flow tested
+* M04 integration complete
+* M07 integration complete
+
+---
+
+## Integration Points
+
+### M07 Leave Management
+
+LEAVE_APPLIED
+
+LEAVE_APPROVED
+
+LEAVE_REJECTED
+
+---
+
+### M04 Attendance Engine
+
+ATTENDANCE_CORRECTION_SUBMITTED
+
+ATTENDANCE_CORRECTION_APPROVED
+
+ATTENDANCE_CORRECTION_REJECTED
+
+---
+
+## Architecture Rules
+
+* Plugin First
+* Module Owned Routes
+* Module Owned Navigation
+* Module Owned Permissions
+* Module Owned Services
+* Module Owned Events
+* Enable / Disable Support
+* No Direct Cross Module Access
+* No Temporary Hacks
+* No Database Changes Without Approval
+* Reversible Changes Only
+
+---
+
+## Build Order
+
+Phase 1
+Architecture
+✓ Complete
+
+Phase 2
+Core Module Files
+✓ Complete
+
+Phase 3
+Service Layer
+✓ Complete
+
+Phase 4
+Repository Contract
+✓ Complete
+
+Phase 5
+NotificationCenterPage Skeleton
+
+Phase 6
+Notification Components
+
+* NotificationItem
+* NotificationFilter
+* NotificationEmptyState
+
+Phase 7
+M07 Integration
+
+Phase 8
+M04 Integration
+
+Phase 9
+End-to-End Testing
+
+Phase 10
+NotificationBell
+
+Phase 11
+Production Release
