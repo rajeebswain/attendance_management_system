@@ -893,3 +893,43 @@ Contains orchestration logic only.
 
 Restore previous notification service implementation.
 =======================================
+# M12 Notifications
+
+## File: NotificationCenterPage.jsx
+
+### Purpose
+
+Container page for the Notifications module.
+
+### Responsibilities
+
+* Host notification UI components
+* Coordinate notification data loading
+* Integrate with notification service
+* Integrate with authentication system
+
+### Current Scope
+
+Phase 1 implementation only.
+
+The page should remain lightweight until:
+
+* Repository adapter is finalized
+* Authentication integration is finalized
+* Notification UI components are approved
+
+### Future Components
+
+* NotificationFilter
+* NotificationItem
+* NotificationEmptyState
+* NotificationBell
+
+### Risk
+
+Low
+
+### Rollback
+
+Delete page container.
+================================================
