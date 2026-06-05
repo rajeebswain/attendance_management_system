@@ -448,4 +448,126 @@ Contains only static event definitions.
 Restore previous event definitions or remove unused events.
 
 =============================================================
+# M12 Notifications
 
+## File: services/notificationTemplates.js
+
+### Purpose
+
+Provides all notification templates used by the Notifications module.
+
+This file converts notification events into user-facing notification content.
+
+---
+
+### Responsibilities
+
+* Define notification titles
+* Define notification messages
+* Define notification categories
+* Define notification priorities
+* Resolve templates by event type
+
+---
+
+### Supported Events
+
+#### Attendance
+
+* ATTENDANCE_CORRECTION_SUBMITTED
+* ATTENDANCE_CORRECTION_APPROVED
+* ATTENDANCE_CORRECTION_REJECTED
+
+#### Leave
+
+* LEAVE_APPLIED
+* LEAVE_APPROVED
+* LEAVE_REJECTED
+
+---
+
+### Exported Constants
+
+#### CATEGORY
+
+```text
+attendance
+leave
+```
+
+#### PRIORITY
+
+```text
+low
+normal
+high
+```
+
+#### STATUS
+
+```text
+unread
+read
+```
+
+---
+
+### Exported Functions
+
+#### resolveTemplate(eventType, payload)
+
+Returns:
+
+```js
+{
+  title,
+  message,
+  category,
+  priority
+}
+```
+
+Throws an error when the event type is not registered.
+
+---
+
+### Dependencies
+
+Depends On:
+
+* registry/eventRegistry.js
+
+Consumed By:
+
+* notificationFactory.js
+* notificationService.js
+
+---
+
+### Architecture Notes
+
+This file must remain template-only.
+
+Do NOT add:
+
+* Database access
+* Repository calls
+* Service calls
+* UI logic
+* API requests
+
+---
+
+### Risk
+
+Low
+
+Contains only pure template functions.
+
+---
+
+### Rollback
+
+Restore previous template definitions.
+
+================================================
