@@ -381,3 +381,71 @@ Improper route protection can expose pages outside the authorization model.
 
 Remove route registration and restore previous routing configuration.
 ===========================================================================
+# M12 Notifications
+
+## File: registry/eventRegistry.js
+
+### Purpose
+
+Provides a centralized registry of all notification event identifiers used by the Notifications module.
+
+---
+
+### Responsibilities
+
+* Define notification event constants
+* Prevent hardcoded event strings
+* Provide a single source of truth for notification events
+* Support integration between M04 Attendance and M07 Leave Management
+
+---
+
+### Event Categories
+
+#### Attendance Events
+
+* ATTENDANCE_CORRECTION_SUBMITTED
+* ATTENDANCE_CORRECTION_APPROVED
+* ATTENDANCE_CORRECTION_REJECTED
+
+#### Leave Events
+
+* LEAVE_APPLIED
+* LEAVE_APPROVED
+* LEAVE_REJECTED
+
+---
+
+### Dependencies
+
+Consumed By:
+
+* notificationService.js
+* notificationFactory.js
+* M04 Attendance Engine
+* M07 Leave Management
+
+---
+
+### Architecture Notes
+
+This file must remain constants-only.
+
+Business logic, validation logic, and notification generation logic must not be added here.
+
+---
+
+### Risk
+
+Low
+
+Contains only static event definitions.
+
+---
+
+### Rollback
+
+Restore previous event definitions or remove unused events.
+
+=============================================================
+
