@@ -783,3 +783,113 @@ Low when backed by approved persistence layer.
 Restore previous repository implementation.
 
 ===================================================
+# M12 Notifications
+
+## File: services/notificationService.js
+
+### Purpose
+
+Acts as the primary orchestration layer for the Notifications module.
+
+All external modules must interact with Notifications through this service.
+
+---
+
+### Responsibilities
+
+* Dispatch notifications
+* Retrieve notifications
+* Mark notifications as read
+* Mark all notifications as read
+* Return unread notification counts
+
+---
+
+### Public API
+
+#### dispatch()
+
+Creates and persists a notification.
+
+Flow:
+
+```text
+Event
+  ↓
+Factory
+  ↓
+Notification Object
+  ↓
+Repository
+  ↓
+Storage
+```
+
+---
+
+#### getNotifications()
+
+Returns notifications for a user.
+
+---
+
+#### markRead()
+
+Marks a single notification as read.
+
+---
+
+#### markAllRead()
+
+Marks all notifications as read.
+
+---
+
+#### getUnreadCount()
+
+Returns unread notification count.
+
+---
+
+### Dependencies
+
+Depends On:
+
+* notificationFactory.js
+* notificationRepository.js
+
+Consumed By:
+
+* M04 Attendance Engine
+* M07 Leave Management
+* Future Modules
+
+---
+
+### Architecture Notes
+
+This service is the only approved integration point for notification creation.
+
+External modules must not call:
+
+* notificationFactory.js
+* notificationRepository.js
+
+directly.
+
+All notification creation must flow through notificationService.
+
+---
+
+### Risk
+
+Low
+
+Contains orchestration logic only.
+
+---
+
+### Rollback
+
+Restore previous notification service implementation.
+=======================================
