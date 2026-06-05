@@ -298,3 +298,86 @@ Low
 Rollback:
 Restore previous permission configuration.
 ========================================================
+# M12 Notifications
+
+## File: routes.jsx
+
+### Purpose
+
+Registers routes owned by the Notifications module.
+
+This file connects Notification Center pages to the application's routing system.
+
+---
+
+### Responsibilities
+
+* Register Notifications routes
+* Protect routes using authentication middleware
+* Route users to Notification Center
+* Follow plugin route architecture
+
+---
+
+### Routes
+
+| Route          | Component              |
+| -------------- | ---------------------- |
+| /notifications | NotificationCenterPage |
+
+---
+
+### Access Control
+
+Allowed Roles:
+
+* admin
+* employee
+* manager
+* super_admin
+
+Authentication is enforced through ProtectedRoute.
+
+---
+
+### Dependencies
+
+Depends On:
+
+* NotificationCenterPage.jsx
+* ProtectedRoute
+
+Referenced By:
+
+* moduleConfig.js
+* Route Registry
+
+---
+
+### Architecture Notes
+
+Follows the same route registration pattern used by M07 Leave Management.
+
+All routes must be wrapped with ProtectedRoute.
+
+Route metadata such as:
+
+* module
+* permission
+
+is not currently used by the route registry and should not be added unless adopted platform-wide.
+
+---
+
+### Risk
+
+Medium
+
+Improper route protection can expose pages outside the authorization model.
+
+---
+
+### Rollback
+
+Remove route registration and restore previous routing configuration.
+===========================================================================
