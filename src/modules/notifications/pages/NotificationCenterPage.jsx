@@ -33,6 +33,27 @@ function NotificationCenterPage() {
 
   ] = useState("all");
 
+  // const notifications = [
+
+  //   {
+  //     id: 1,
+  //     title: "Leave Approved",
+  //     message: "Your leave request has been approved.",
+  //     category: "leave",
+  //     status: "unread",
+  //     createdAt: "2026-06-05"
+  //   },
+
+  //   {
+  //     id: 2,
+  //     title: "Attendance Correction Approved",
+  //     message: "Your attendance correction has been approved.",
+  //     category: "attendance",
+  //     status: "read",
+  //     createdAt: "2026-06-04"
+  //   },
+
+  // ];
   const notifications = [
 
     {
@@ -41,18 +62,20 @@ function NotificationCenterPage() {
       message: "Your leave request has been approved.",
       category: "leave",
       status: "unread",
+      priority: "high",
       createdAt: "2026-06-05"
     },
-
+  
     {
       id: 2,
       title: "Attendance Correction Approved",
       message: "Your attendance correction has been approved.",
       category: "attendance",
       status: "read",
+      priority: "normal",
       createdAt: "2026-06-04"
     }
-
+  
   ];
 
   const filteredNotifications =
@@ -126,6 +149,10 @@ function NotificationCenterPage() {
 
                     status={
                       notification.status
+                    }
+
+                    priority={
+                      notification.priority
                     }
 
                     createdAt={
